@@ -279,7 +279,6 @@ const AdminDashboard = () => {
               <TableRow>
                 <TableHead>Name</TableHead>
                 <TableHead>Email</TableHead>
-                <TableHead>Access Code</TableHead>
                 <TableHead>Academy Code</TableHead>
                 <TableHead>Onboarding</TableHead>
                 <TableHead>Status</TableHead>
@@ -289,7 +288,7 @@ const AdminDashboard = () => {
             <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={7} className="text-center text-muted-foreground py-10">
+                  <TableCell colSpan={6} className="text-center text-muted-foreground py-10">
                     {users.length === 0 ? "No employees yet. Add your first employee!" : "No results found."}
                   </TableCell>
                 </TableRow>
@@ -298,21 +297,6 @@ const AdminDashboard = () => {
                   <TableRow key={user.id}>
                     <TableCell className="font-medium">{user.name}</TableCell>
                     <TableCell className="text-muted-foreground">{user.email || "—"}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-1">
-                        <code className="text-xs bg-muted px-1.5 py-0.5 rounded font-mono">
-                          {user.accessCode}
-                        </code>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-6 w-6"
-                          onClick={() => copyCode(user.accessCode)}
-                        >
-                          <Copy className="w-3 h-3" />
-                        </Button>
-                      </div>
-                    </TableCell>
                     <TableCell>
                       {user.academyCode ? (
                         <div className="flex items-center gap-1">
