@@ -57,7 +57,7 @@ const Dashboard = () => {
                 </p>
               </div>
               <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/30 mt-2">
-                Video coming soon
+                Video Coming Soon
               </p>
             </div>
           </div>

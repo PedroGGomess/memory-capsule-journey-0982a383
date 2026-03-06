@@ -298,7 +298,7 @@ export function AIAssistantBubble() {
               </form>
               {!apiKey && (
                 <p className="text-[10px] text-muted-foreground/40 mt-1 text-center">
-                  Click <strong className="text-muted-foreground/60">⚙</strong> to set your OpenAI key
+                  Click <strong className="text-muted-foreground/60">Settings</strong> to set your OpenAI key
                 </p>
               )}
             </div>
