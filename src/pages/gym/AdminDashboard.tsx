@@ -445,6 +445,46 @@ const AdminDashboard = () => {
               Create a new employee and generate their onboarding access code.
             </DialogDescription>
           </DialogHeader>
+          <div className="rounded-md border px-4 py-3 space-y-2">
+            <p className="text-sm font-medium flex items-center gap-2">
+              <GraduationCap className="w-4 h-4" />
+              Academy Access Code
+            </p>
+            {academyCode ? (
+              <div className="flex items-center gap-2">
+                <code className="flex-1 font-mono text-sm tracking-[0.2em] bg-muted px-3 py-1.5 rounded text-center">
+                  {academyCode}
+                </code>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={copyAcademyCode}
+                  title="Copy academy code"
+                >
+                  <Copy className="w-4 h-4" />
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <span className="flex-1 text-xs text-muted-foreground italic">
+                  No academy code — click Generate to create one.
+                </span>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleGenerateAcademyCode}
+                >
+                  <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
+                  Generate
+                </Button>
+              </div>
+            )}
+            <p className="text-xs text-muted-foreground">
+              Share this code with the employee so they can access the academy.
+            </p>
+          </div>
           <UserForm
             initial={{ accessCode: generateAccessCode() }}
             onSubmit={handleAdd}
