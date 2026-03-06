@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/sidebar";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
-  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check
+  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot
 } from "lucide-react";
 
 const modules = [
@@ -21,6 +21,7 @@ const modules = [
   { title: "Customer Experience", url: "/academy/module/customer-experience", icon: Users, id: "customer-experience" },
   { title: "Ask the Team", url: "/academy/module/ask-team", icon: Sparkles, id: "ask-team" },
   { title: "Resources", url: "/academy/module/resources", icon: FolderOpen, id: "resources" },
+  { title: "AI Assistant", url: "/academy/module/ai-assistant", icon: Bot, id: "ai-assistant" },
   { title: "Certification", url: "/academy/module/certification", icon: Award, id: "certification" },
 ];
 
