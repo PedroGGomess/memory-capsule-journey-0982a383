@@ -5,6 +5,7 @@ export interface GymUser {
   name: string;
   email: string;
   accessCode: string;
+  academyCode?: string;
   active: boolean;
   createdAt: string;
   notes?: string;
@@ -40,6 +41,7 @@ interface GymAccessContextType {
   toggleUserActive: (id: string) => void;
   verifyAccessCode: (code: string) => { allowed: boolean; user?: GymUser };
   generateAccessCode: () => string;
+  generateUserAcademyCode: () => string;
   clearLogs: () => void;
   submitQuestion: (data: Omit<EmployeeQuestion, "id" | "createdAt" | "resolved">) => void;
   replyToQuestion: (id: string, reply: string) => void;
@@ -93,6 +95,18 @@ export function GymAccessProvider({ children }: { children: ReactNode }) {
     do {
       code = generateCode();
     } while (existingCodes.includes(code));
+    return code;
+  };
+
+  const generateUserAcademyCode = (): string => {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const existingCodes = new Set(users.map((u) => u.academyCode).filter(Boolean) as string[]);
+    let code: string;
+    const randomValues = new Uint32Array(8);
+    do {
+      crypto.getRandomValues(randomValues);
+      code = Array.from(randomValues, (v) => chars[v % chars.length]).join("");
+    } while (existingCodes.has(code));
     return code;
   };
 
@@ -179,7 +193,7 @@ export function GymAccessProvider({ children }: { children: ReactNode }) {
 
   return (
     <GymAccessContext.Provider
-      value={{ users, logs, questions, addUser, updateUser, deleteUser, toggleUserActive, verifyAccessCode, generateAccessCode, clearLogs, submitQuestion, replyToQuestion, resolveQuestion }}
+      value={{ users, logs, questions, addUser, updateUser, deleteUser, toggleUserActive, verifyAccessCode, generateAccessCode, generateUserAcademyCode, clearLogs, submitQuestion, replyToQuestion, resolveQuestion }}
     >
       {children}
     </GymAccessContext.Provider>
