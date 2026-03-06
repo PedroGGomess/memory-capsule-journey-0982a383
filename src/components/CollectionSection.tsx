@@ -65,6 +65,9 @@ const CollectionSection = () => {
             <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground">
               Time reveals true value.
             </p>
+            <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground/50 mt-3">
+              7 unique gift experiences available
+            </p>
           </div>
         </ScrollReveal>
       </div>

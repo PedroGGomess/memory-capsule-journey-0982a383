@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useGymAccess, GymUser } from "@/contexts/GymAccessContext";
+import { useAcademyAuth } from "@/contexts/AcademyAuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -33,7 +34,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Users, UserCheck, UserX, Copy, Pencil, Trash2, Plus, RefreshCw, Search } from "lucide-react";
+import { Users, UserCheck, UserX, Copy, Pencil, Trash2, Plus, RefreshCw, Search, GraduationCap } from "lucide-react";
 import { toast } from "sonner";
 
 // ── Form ─────────────────────────────────────────────────────────────────────
@@ -171,11 +172,36 @@ const StatsCard = ({
 const AdminDashboard = () => {
   const { users, logs, addUser, updateUser, deleteUser, toggleUserActive, generateAccessCode } =
     useGymAccess();
+  const {
+    getAccessCode,
+    generateAccessCode: generateAcademyCode,
+    deleteAccessCode,
+  } = useAcademyAuth();
 
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
   const [editUser, setEditUser] = useState<GymUser | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<GymUser | null>(null);
+  const [confirmDeleteAcademy, setConfirmDeleteAcademy] = useState(false);
+  const [academyCode, setAcademyCode] = useState<string | null>(() => getAccessCode());
+
+  const handleGenerateAcademyCode = () => {
+    const code = generateAcademyCode();
+    setAcademyCode(code);
+    toast.success("Academy access code generated");
+  };
+
+  const handleDeleteAcademyCode = () => {
+    deleteAccessCode();
+    setAcademyCode(null);
+    setConfirmDeleteAcademy(false);
+    toast.success("Academy access code deleted");
+  };
+
+  const copyAcademyCode = () => {
+    if (!academyCode) return;
+    navigator.clipboard.writeText(academyCode).then(() => toast.success("Code copied!"));
+  };
 
   const todayStr = new Date().toDateString();
   const todayAccesses = logs.filter(
@@ -249,6 +275,53 @@ const AdminDashboard = () => {
         <StatsCard icon={UserX} label="Inactive" value={inactiveCount} color="bg-red-100 text-red-600" />
         <StatsCard icon={UserCheck} label="Today's Entries" value={todayAccesses} color="bg-purple-100 text-purple-600" />
       </div>
+
+      {/* Academy Access Code */}
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <GraduationCap className="w-4 h-4" />
+            Academy Access Code
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center gap-3">
+            {academyCode ? (
+              <code className="flex-1 font-mono text-lg tracking-[0.3em] bg-muted px-4 py-2 rounded text-center">
+                {academyCode}
+              </code>
+            ) : (
+              <span className="flex-1 text-sm text-muted-foreground italic px-4 py-2">
+                No code generated
+              </span>
+            )}
+            {academyCode && (
+              <Button variant="outline" size="icon" onClick={copyAcademyCode} title="Copy code">
+                <Copy className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Share this code with employees so they can access the academy.
+          </p>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={handleGenerateAcademyCode}>
+              <RefreshCw className="w-3.5 h-3.5 mr-2" />
+              {academyCode ? "Regenerate Code" : "Generate Code"}
+            </Button>
+            {academyCode && (
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={() => setConfirmDeleteAcademy(true)}
+              >
+                <Trash2 className="w-3.5 h-3.5 mr-2" />
+                Delete Code
+              </Button>
+            )}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Search + table */}
       <Card>
@@ -400,6 +473,28 @@ const AdminDashboard = () => {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction onClick={handleDelete} className="bg-destructive hover:bg-destructive/90">
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      {/* Delete Academy Code Confirmation */}
+      <AlertDialog open={confirmDeleteAcademy} onOpenChange={setConfirmDeleteAcademy}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Academy Access Code</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete the academy access code? All employees currently
+              logged in will be logged out and won't be able to access the academy until a new code
+              is generated.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteAcademyCode}
+              className="bg-destructive hover:bg-destructive/90"
+            >
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>

@@ -5,7 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import ScrollReveal from "@/components/ScrollReveal";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
-  Users, Sparkles, FolderOpen, Award, ArrowRight, Check
+  Users, Sparkles, FolderOpen, Award, ArrowRight, Check, Bot
 } from "lucide-react";
 
 const modules = [
@@ -18,7 +18,8 @@ const modules = [
   { id: "customer-experience", num: 7, title: "Customer Experience", desc: "Storytelling and visitor interaction", icon: Users, path: "/academy/module/customer-experience" },
   { id: "ask-team", num: 8, title: "Ask the Team", desc: "Questions and internal support", icon: Sparkles, path: "/academy/module/ask-team" },
   { id: "resources", num: 9, title: "Resources", desc: "Brand book, photos and materials", icon: FolderOpen, path: "/academy/module/resources" },
-  { id: "certification", num: 10, title: "Final Certification", desc: "Complete your onboarding", icon: Award, path: "/academy/module/certification" },
+  { id: "ai-assistant", num: 10, title: "AI Assistant", desc: "Ask questions, get instant answers", icon: Bot, path: "/academy/module/ai-assistant" },
+  { id: "certification", num: 11, title: "Final Certification", desc: "Complete your onboarding", icon: Award, path: "/academy/module/certification" },
 ];
 
 const Dashboard = () => {
