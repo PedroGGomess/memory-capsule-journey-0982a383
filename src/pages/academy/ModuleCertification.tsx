@@ -16,7 +16,7 @@ const ModuleCertification = () => {
     <div className="min-h-screen flex items-center justify-center section-padding py-32">
       <div className="max-w-2xl mx-auto text-center w-full">
         <ScrollReveal>
-          <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-4">Module 10 of 10</p>
+          <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-4">Module 11 of 11</p>
           <h1 className="text-4xl md:text-6xl font-light text-gold-gradient mb-8">Final Certification</h1>
         </ScrollReveal>
 

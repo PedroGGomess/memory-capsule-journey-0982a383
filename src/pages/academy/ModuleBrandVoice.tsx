@@ -5,18 +5,24 @@ const ModuleBrandVoice = () => (
   <ModuleLayout
     moduleId="brand-voice"
     moduleNumber={6}
-    title="How to Talk About the Brand"
+    title="Brand Voice"
     subtitle="The tone, the words, the feeling."
     heroImage={hedonismImg}
   >
-    <ContentBlock title="Tone of Voice">
-      <p>The way we speak about The 100's is as important as the product itself. Our words should feel like the brand — minimal, poetic, calm, and deeply premium.</p>
+    <ContentBlock title="Four Communication Principles">
+      <p>The communication of The 100's follows four core principles. Every message, every conversation, every interaction should reflect these values.</p>
     </ContentBlock>
 
-    <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-      {["Poetic", "Minimal", "Inspiring", "Calm", "Premium"].map(tone => (
-        <div key={tone} className="border border-border/30 p-4 text-center">
-          <p className="text-sm text-primary font-light">{tone}</p>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {[
+        { tone: "Sophisticated", desc: "The tone reflects heritage, craftsmanship and cultural value. We speak with authority and elegance." },
+        { tone: "Minimal", desc: "Luxury communication is concise and elegant. We never over-explain. We trust the product to speak." },
+        { tone: "Emotional", desc: "Every message should evoke memory and discovery. We speak to the heart, not just the mind." },
+        { tone: "Timeless", desc: "The brand speaks about permanence and legacy rather than trends. Our story has no expiry date." },
+      ].map(item => (
+        <div key={item.tone} className="border border-border/30 p-6">
+          <p className="text-lg font-light text-primary mb-2">{item.tone}</p>
+          <p className="text-sm text-foreground/60 font-light leading-relaxed">{item.desc}</p>
         </div>
       ))}
     </div>
@@ -31,7 +37,8 @@ const ModuleBrandVoice = () => (
         "This is not just wine. It is a moment in time.",
         "100ml of history, sealed for the future.",
         "Time reveals true value.",
-        "Take home a capsule of time."
+        "Take home a capsule of time.",
+        "Help visitors bottle a memory."
       ].map(phrase => (
         <div key={phrase} className="border-l-2 border-primary/30 pl-6 py-2">
           <p className="text-foreground/80 font-light italic text-lg">"{phrase}"</p>
@@ -47,17 +54,19 @@ const ModuleBrandVoice = () => (
 
     <ExpandableSection title="Adapting to the visitor">
       <p>Every visitor is unique. Observe and adapt. Some visitors want details and history. Others want a quiet, contemplative experience. Read the moment, and respond accordingly.</p>
+      <p>Your role is not simply to sell a product. Your role is to help visitors bottle a memory.</p>
     </ExpandableSection>
 
     <KeyTakeaway items={[
-      "Our tone is poetic, minimal, inspiring, calm and premium",
-      "Never use transactional language",
-      "Speak about memories, not products",
-      "Adapt your communication to each visitor"
+      "Sophisticated — heritage, craftsmanship, cultural value",
+      "Minimal — concise, elegant, never over-explain",
+      "Emotional — evoke memory and discovery",
+      "Timeless — permanence and legacy over trends",
+      "Never use transactional language; speak about memories, not products"
     ]} />
 
     <ReflectionBlock questions={[
-      "Practice: How would you introduce The 100's to a visitor in three sentences?",
+      "Practice: How would you introduce The 100's to a visitor using all four principles in three sentences?",
       "What words would you avoid? What words would you embrace?"
     ]} />
   </ModuleLayout>

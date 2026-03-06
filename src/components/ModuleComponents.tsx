@@ -15,7 +15,7 @@ interface ModuleLayoutProps {
 }
 
 export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImage, children }: ModuleLayoutProps) {
-  const { completeModule, isModuleCompleted } = useProgress();
+  const { completeModule, isModuleCompleted, totalModules } = useProgress();
   const completed = isModuleCompleted(moduleId);
 
   return (
@@ -27,7 +27,7 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
         <div className="relative z-10 section-padding pb-12 w-full max-w-5xl mx-auto">
           <ScrollReveal>
             <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-3">
-              Module {moduleNumber} of 10
+              Module {moduleNumber} of {totalModules}
             </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gold-gradient mb-3">{title}</h1>
             <p className="text-lg text-muted-foreground font-light">{subtitle}</p>

@@ -30,7 +30,7 @@ const ModuleAskTeam = () => {
   return (
     <ModuleLayout
       moduleId="ask-team"
-      moduleNumber={8}
+      moduleNumber={9}
       title="Ask the Team"
       subtitle="Questions, support and internal communication."
       heroImage={heroDropImg}

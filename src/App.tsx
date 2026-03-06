@@ -22,6 +22,7 @@ const ModuleGift = lazy(() => import("./pages/academy/ModuleGift"));
 const ModuleStore = lazy(() => import("./pages/academy/ModuleStore"));
 const ModuleBrandVoice = lazy(() => import("./pages/academy/ModuleBrandVoice"));
 const ModuleCustomerExperience = lazy(() => import("./pages/academy/ModuleCustomerExperience"));
+const ModuleBusinessModel = lazy(() => import("./pages/academy/ModuleBusinessModel"));
 const ModuleAskTeam = lazy(() => import("./pages/academy/ModuleAskTeam"));
 const ModuleResources = lazy(() => import("./pages/academy/ModuleResources"));
 const ModuleCertification = lazy(() => import("./pages/academy/ModuleCertification"));
@@ -77,6 +78,7 @@ const App = () => (
                     <Route path="module/store" element={<ModuleStore />} />
                     <Route path="module/brand-voice" element={<ModuleBrandVoice />} />
                     <Route path="module/customer-experience" element={<ModuleCustomerExperience />} />
+                    <Route path="module/business-model" element={<ModuleBusinessModel />} />
                     <Route path="module/ask-team" element={<ModuleAskTeam />} />
                     <Route path="module/resources" element={<ModuleResources />} />
                     <Route path="module/certification" element={<ModuleCertification />} />

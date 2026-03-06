@@ -169,7 +169,7 @@ const ModuleAIAssistant = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-2">Module 10</p>
+          <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-2">Module 11</p>
           <h1 className="text-3xl md:text-4xl font-light text-gold-gradient">AI Assistant</h1>
           <p className="text-sm text-muted-foreground font-light mt-1">
             Ask questions about The 100's brand, products, and store operations
