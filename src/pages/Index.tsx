@@ -159,6 +159,13 @@ const Index = () => {
               <p className="mt-8 text-xs text-muted-foreground/50">
                 © {new Date().getFullYear()} The 100's. All rights reserved.
               </p>
+              <Link
+                to="/gym-admin/login"
+                className="mt-6 inline-block text-[10px] text-muted-foreground/20 hover:text-muted-foreground/50 transition-colors tracking-widest"
+                aria-label="Admin"
+              >
+                ·
+              </Link>
             </footer>
           </motion.div>
         )}
