@@ -15,7 +15,7 @@ const resources = [
 const ModuleResources = () => (
   <ModuleLayout
     moduleId="resources"
-    moduleNumber={9}
+    moduleNumber={10}
     title="Resources"
     subtitle="Your brand library — everything you need in one place."
     heroImage={douroImg}

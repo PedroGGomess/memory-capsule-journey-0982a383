@@ -5,7 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import ScrollReveal from "@/components/ScrollReveal";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
-  Users, Sparkles, FolderOpen, Award, ArrowRight, Check, Bot, Play
+  Users, Sparkles, FolderOpen, Award, ArrowRight, Check, Bot, Play, BarChart3
 } from "lucide-react";
 
 const modules = [
@@ -16,10 +16,11 @@ const modules = [
   { id: "store", num: 5, title: "The Store Experience", desc: "Emotional journey and atmosphere", icon: Store, path: "/academy/module/store" },
   { id: "brand-voice", num: 6, title: "Brand Voice", desc: "How to communicate the brand", icon: MessageCircle, path: "/academy/module/brand-voice" },
   { id: "customer-experience", num: 7, title: "Customer Experience", desc: "Storytelling and visitor interaction", icon: Users, path: "/academy/module/customer-experience" },
-  { id: "ask-team", num: 8, title: "Ask the Team", desc: "Questions and internal support", icon: Sparkles, path: "/academy/module/ask-team" },
-  { id: "resources", num: 9, title: "Resources", desc: "Brand book, photos and materials", icon: FolderOpen, path: "/academy/module/resources" },
-  { id: "ai-assistant", num: 10, title: "AI Assistant", desc: "Ask questions, get instant answers", icon: Bot, path: "/academy/module/ai-assistant" },
-  { id: "certification", num: 11, title: "Final Certification", desc: "Complete your onboarding", icon: Award, path: "/academy/module/certification" },
+  { id: "business-model", num: 8, title: "Business Model & Digital Strategy", desc: "How The 100's operates and grows", icon: BarChart3, path: "/academy/module/business-model" },
+  { id: "ask-team", num: 9, title: "Ask the Team", desc: "Questions and internal support", icon: Sparkles, path: "/academy/module/ask-team" },
+  { id: "resources", num: 10, title: "Resources", desc: "Brand book, photos and materials", icon: FolderOpen, path: "/academy/module/resources" },
+  { id: "ai-assistant", num: 11, title: "AI Assistant", desc: "Ask questions, get instant answers", icon: Bot, path: "/academy/module/ai-assistant" },
+  { id: "certification", num: 12, title: "Final Certification", desc: "Complete your onboarding", icon: Award, path: "/academy/module/certification" },
 ];
 
 const Dashboard = () => {
