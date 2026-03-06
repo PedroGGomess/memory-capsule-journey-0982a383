@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useGymAccess, GymUser } from "@/contexts/GymAccessContext";
-import { useAcademyAuth } from "@/contexts/AcademyAuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -176,39 +175,15 @@ interface NewEmployeeCredentials {
 }
 
 const AdminDashboard = () => {
-  const { users, logs, addUser, updateUser, deleteUser, toggleUserActive, generateAccessCode } =
+  const { users, logs, addUser, updateUser, deleteUser, toggleUserActive, generateAccessCode, generateUserAcademyCode } =
     useGymAccess();
-  const {
-    getAccessCode,
-    generateAccessCode: generateAcademyCode,
-    deleteAccessCode,
-  } = useAcademyAuth();
 
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
   const [editUser, setEditUser] = useState<GymUser | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<GymUser | null>(null);
-  const [confirmDeleteAcademy, setConfirmDeleteAcademy] = useState(false);
-  const [academyCode, setAcademyCode] = useState<string | null>(() => getAccessCode());
+  const [newEmployeeAcademyCode, setNewEmployeeAcademyCode] = useState<string>("");
   const [newEmployeeCredentials, setNewEmployeeCredentials] = useState<NewEmployeeCredentials | null>(null);
-
-  const handleGenerateAcademyCode = () => {
-    const code = generateAcademyCode();
-    setAcademyCode(code);
-    toast.success("Academy access code generated");
-  };
-
-  const handleDeleteAcademyCode = () => {
-    deleteAccessCode();
-    setAcademyCode(null);
-    setConfirmDeleteAcademy(false);
-    toast.success("Academy access code deleted");
-  };
-
-  const copyAcademyCode = () => {
-    if (!academyCode) return;
-    navigator.clipboard.writeText(academyCode).then(() => toast.success("Code copied!"));
-  };
 
   const todayStr = new Date().toDateString();
   const todayAccesses = logs.filter(
@@ -230,19 +205,14 @@ const AdminDashboard = () => {
       name: data.name,
       email: data.email,
       accessCode: data.accessCode,
+      academyCode: newEmployeeAcademyCode,
       notes: data.notes,
       onboardingComplete: data.onboardingComplete,
       active: true,
     });
-    // Auto-generate academy code if none exists
-    let currentAcademyCode = academyCode;
-    if (!currentAcademyCode) {
-      currentAcademyCode = generateAcademyCode();
-      setAcademyCode(currentAcademyCode);
-    }
     setShowAdd(false);
     toast.success("User created successfully");
-    setNewEmployeeCredentials({ name: data.name, gymCode: data.accessCode, academyCode: currentAcademyCode });
+    setNewEmployeeCredentials({ name: data.name, gymCode: data.accessCode, academyCode: newEmployeeAcademyCode });
   };
 
   const handleEdit = (data: { name: string; email: string; accessCode: string; notes: string; onboardingComplete: boolean }) => {
@@ -276,7 +246,7 @@ const AdminDashboard = () => {
           <h2 className="text-2xl font-bold">Dashboard</h2>
           <p className="text-muted-foreground text-sm">Manage employees and onboarding access codes</p>
         </div>
-        <Button onClick={() => setShowAdd(true)}>
+        <Button onClick={() => { setNewEmployeeAcademyCode(generateUserAcademyCode()); setShowAdd(true); }}>
           <Plus className="w-4 h-4 mr-2" />
           Add Employee
         </Button>
@@ -289,53 +259,6 @@ const AdminDashboard = () => {
         <StatsCard icon={UserX} label="Inactive" value={inactiveCount} color="bg-red-100 text-red-600" />
         <StatsCard icon={UserCheck} label="Today's Entries" value={todayAccesses} color="bg-purple-100 text-purple-600" />
       </div>
-
-      {/* Academy Access Code */}
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center gap-2 text-base">
-            <GraduationCap className="w-4 h-4" />
-            Academy Access Code
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center gap-3">
-            {academyCode ? (
-              <code className="flex-1 font-mono text-lg tracking-[0.3em] bg-muted px-4 py-2 rounded text-center">
-                {academyCode}
-              </code>
-            ) : (
-              <span className="flex-1 text-sm text-muted-foreground italic px-4 py-2">
-                No code generated
-              </span>
-            )}
-            {academyCode && (
-              <Button variant="outline" size="icon" onClick={copyAcademyCode} title="Copy code">
-                <Copy className="w-4 h-4" />
-              </Button>
-            )}
-          </div>
-          <p className="text-xs text-muted-foreground">
-            Share this code with employees so they can access the academy.
-          </p>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={handleGenerateAcademyCode}>
-              <RefreshCw className="w-3.5 h-3.5 mr-2" />
-              {academyCode ? "Regenerate Code" : "Generate Code"}
-            </Button>
-            {academyCode && (
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={() => setConfirmDeleteAcademy(true)}
-              >
-                <Trash2 className="w-3.5 h-3.5 mr-2" />
-                Delete Code
-              </Button>
-            )}
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Search + table */}
       <Card>
@@ -357,6 +280,7 @@ const AdminDashboard = () => {
                 <TableHead>Name</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Access Code</TableHead>
+                <TableHead>Academy Code</TableHead>
                 <TableHead>Onboarding</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
@@ -365,7 +289,7 @@ const AdminDashboard = () => {
             <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center text-muted-foreground py-10">
+                  <TableCell colSpan={7} className="text-center text-muted-foreground py-10">
                     {users.length === 0 ? "No employees yet. Add your first employee!" : "No results found."}
                   </TableCell>
                 </TableRow>
@@ -388,6 +312,25 @@ const AdminDashboard = () => {
                           <Copy className="w-3 h-3" />
                         </Button>
                       </div>
+                    </TableCell>
+                    <TableCell>
+                      {user.academyCode ? (
+                        <div className="flex items-center gap-1">
+                          <code className="text-xs bg-muted px-1.5 py-0.5 rounded font-mono">
+                            {user.academyCode}
+                          </code>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6"
+                            onClick={() => copyCode(user.academyCode!)}
+                          >
+                            <Copy className="w-3 h-3" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">—</span>
+                      )}
                     </TableCell>
                     <TableCell>
                       {user.onboardingComplete ? (
@@ -450,39 +393,31 @@ const AdminDashboard = () => {
               <GraduationCap className="w-4 h-4" />
               Academy Access Code
             </p>
-            {academyCode ? (
-              <div className="flex items-center gap-2">
-                <code className="flex-1 font-mono text-sm tracking-[0.2em] bg-muted px-3 py-1.5 rounded text-center">
-                  {academyCode}
-                </code>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="icon"
-                  onClick={copyAcademyCode}
-                  title="Copy academy code"
-                >
-                  <Copy className="w-4 h-4" />
-                </Button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <span className="flex-1 text-xs text-muted-foreground italic">
-                  No academy code — click Generate to create one.
-                </span>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={handleGenerateAcademyCode}
-                >
-                  <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
-                  Generate
-                </Button>
-              </div>
-            )}
+            <div className="flex items-center gap-2">
+              <code className="flex-1 font-mono text-sm tracking-[0.2em] bg-muted px-3 py-1.5 rounded text-center">
+                {newEmployeeAcademyCode}
+              </code>
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={() => navigator.clipboard.writeText(newEmployeeAcademyCode).then(() => toast.success("Code copied!"))}
+                title="Copy academy code"
+              >
+                <Copy className="w-4 h-4" />
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={() => setNewEmployeeAcademyCode(generateUserAcademyCode())}
+                title="Regenerate academy code"
+              >
+                <RefreshCw className="w-4 h-4" />
+              </Button>
+            </div>
             <p className="text-xs text-muted-foreground">
-              Share this code with the employee so they can access the academy.
+              This code is unique to this employee. Share it so they can access the academy.
             </p>
           </div>
           <UserForm
@@ -532,29 +467,6 @@ const AdminDashboard = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      {/* Delete Academy Code Confirmation */}
-      <AlertDialog open={confirmDeleteAcademy} onOpenChange={setConfirmDeleteAcademy}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete Academy Access Code</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to delete the academy access code? All employees currently
-              logged in will be logged out and won't be able to access the academy until a new code
-              is generated.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleDeleteAcademyCode}
-              className="bg-destructive hover:bg-destructive/90"
-            >
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-
       {/* New Employee Credentials Dialog */}
       <Dialog open={!!newEmployeeCredentials} onOpenChange={(open) => !open && setNewEmployeeCredentials(null)}>
         <DialogContent>
