@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dumbbell, Lock } from "lucide-react";
+import { Lock, ShieldCheck } from "lucide-react";
 
 const AdminLogin = () => {
   const { login, isAuthenticated } = useAuth();
@@ -42,10 +42,10 @@ const AdminLogin = () => {
       <Card className="w-full max-w-sm shadow-lg">
         <CardHeader className="text-center space-y-2">
           <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-            <Dumbbell className="w-6 h-6 text-primary" />
+            <ShieldCheck className="w-6 h-6 text-primary" />
           </div>
           <CardTitle className="text-xl">Admin Login</CardTitle>
-          <CardDescription>Access the gym management dashboard</CardDescription>
+          <CardDescription>Access The Hundreds admin dashboard</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">

@@ -20,9 +20,20 @@ export interface AccessLog {
   result: "allowed" | "denied";
 }
 
+export interface EmployeeQuestion {
+  id: string;
+  employeeName: string;
+  question: string;
+  module?: string;
+  createdAt: string;
+  resolved: boolean;
+  reply?: string;
+}
+
 interface GymAccessContextType {
   users: GymUser[];
   logs: AccessLog[];
+  questions: EmployeeQuestion[];
   addUser: (data: Omit<GymUser, "id" | "createdAt">) => GymUser;
   updateUser: (id: string, data: Partial<Omit<GymUser, "id" | "createdAt">>) => boolean;
   deleteUser: (id: string) => boolean;
@@ -30,12 +41,16 @@ interface GymAccessContextType {
   verifyAccessCode: (code: string) => { allowed: boolean; user?: GymUser };
   generateAccessCode: () => string;
   clearLogs: () => void;
+  submitQuestion: (data: Omit<EmployeeQuestion, "id" | "createdAt" | "resolved">) => void;
+  replyToQuestion: (id: string, reply: string) => void;
+  resolveQuestion: (id: string) => void;
 }
 
 const GymAccessContext = createContext<GymAccessContextType | null>(null);
 
 const USERS_KEY = "gym-users";
 const LOGS_KEY = "gym-access-logs";
+const QUESTIONS_KEY = "the100s-questions";
 
 function generateCode(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -55,6 +70,11 @@ export function GymAccessProvider({ children }: { children: ReactNode }) {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [questions, setQuestions] = useState<EmployeeQuestion[]>(() => {
+    const saved = localStorage.getItem(QUESTIONS_KEY);
+    return saved ? JSON.parse(saved) : [];
+  });
+
   useEffect(() => {
     localStorage.setItem(USERS_KEY, JSON.stringify(users));
   }, [users]);
@@ -62,6 +82,10 @@ export function GymAccessProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem(LOGS_KEY, JSON.stringify(logs));
   }, [logs]);
+
+  useEffect(() => {
+    localStorage.setItem(QUESTIONS_KEY, JSON.stringify(questions));
+  }, [questions]);
 
   const generateAccessCode = (): string => {
     let code: string;
@@ -131,9 +155,31 @@ export function GymAccessProvider({ children }: { children: ReactNode }) {
 
   const clearLogs = () => setLogs([]);
 
+  const submitQuestion = (data: Omit<EmployeeQuestion, "id" | "createdAt" | "resolved">) => {
+    const question: EmployeeQuestion = {
+      ...data,
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+      resolved: false,
+    };
+    setQuestions((prev) => [question, ...prev]);
+  };
+
+  const replyToQuestion = (id: string, reply: string) => {
+    setQuestions((prev) =>
+      prev.map((q) => (q.id === id ? { ...q, reply } : q))
+    );
+  };
+
+  const resolveQuestion = (id: string) => {
+    setQuestions((prev) =>
+      prev.map((q) => (q.id === id ? { ...q, resolved: true } : q))
+    );
+  };
+
   return (
     <GymAccessContext.Provider
-      value={{ users, logs, addUser, updateUser, deleteUser, toggleUserActive, verifyAccessCode, generateAccessCode, clearLogs }}
+      value={{ users, logs, questions, addUser, updateUser, deleteUser, toggleUserActive, verifyAccessCode, generateAccessCode, clearLogs, submitQuestion, replyToQuestion, resolveQuestion }}
     >
       {children}
     </GymAccessContext.Provider>

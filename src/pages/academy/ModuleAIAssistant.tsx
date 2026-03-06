@@ -38,7 +38,7 @@ const API_KEY_STORAGE = "the100s-openai-api-key";
 const MODULE_ID = "ai-assistant";
 
 const ModuleAIAssistant = () => {
-  const { markModuleCompleted } = useProgress();
+  const { completeModule } = useProgress();
 
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -143,7 +143,7 @@ const ModuleAIAssistant = () => {
         },
       ]);
 
-      markModuleCompleted(MODULE_ID);
+      completeModule(MODULE_ID);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Unknown error";
       setMessages((prev) => [

@@ -260,17 +260,17 @@ const AdminDashboard = () => {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">Dashboard</h2>
-          <p className="text-muted-foreground text-sm">Manage gym members and access codes</p>
+          <p className="text-muted-foreground text-sm">Manage employees and onboarding access codes</p>
         </div>
         <Button onClick={() => setShowAdd(true)}>
           <Plus className="w-4 h-4 mr-2" />
-          Add Member
+          Add Employee
         </Button>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <StatsCard icon={Users} label="Total Members" value={users.length} color="bg-blue-100 text-blue-600" />
+        <StatsCard icon={Users} label="Total Employees" value={users.length} color="bg-blue-100 text-blue-600" />
         <StatsCard icon={UserCheck} label="Active" value={activeCount} color="bg-green-100 text-green-600" />
         <StatsCard icon={UserX} label="Inactive" value={inactiveCount} color="bg-red-100 text-red-600" />
         <StatsCard icon={UserCheck} label="Today's Entries" value={todayAccesses} color="bg-purple-100 text-purple-600" />
@@ -352,7 +352,7 @@ const AdminDashboard = () => {
               {filtered.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={6} className="text-center text-muted-foreground py-10">
-                    {users.length === 0 ? "No members yet. Add your first member!" : "No results found."}
+                    {users.length === 0 ? "No employees yet. Add your first employee!" : "No results found."}
                   </TableCell>
                 </TableRow>
               ) : (
@@ -426,9 +426,9 @@ const AdminDashboard = () => {
       <Dialog open={showAdd} onOpenChange={setShowAdd}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add New Member</DialogTitle>
+            <DialogTitle>Add New Employee</DialogTitle>
             <DialogDescription>
-              Create a new member and generate their permanent access code.
+              Create a new employee and generate their onboarding access code.
             </DialogDescription>
           </DialogHeader>
           <UserForm
@@ -436,7 +436,7 @@ const AdminDashboard = () => {
             onSubmit={handleAdd}
             onCancel={() => setShowAdd(false)}
             generateCode={generateAccessCode}
-            submitLabel="Create Member"
+            submitLabel="Create Employee"
           />
         </DialogContent>
       </Dialog>
@@ -446,7 +446,7 @@ const AdminDashboard = () => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit Member</DialogTitle>
-            <DialogDescription>Update member information or access code.</DialogDescription>
+            <DialogDescription>Update employee information or access code.</DialogDescription>
           </DialogHeader>
           {editUser && (
             <UserForm
@@ -464,7 +464,7 @@ const AdminDashboard = () => {
       <AlertDialog open={!!deleteTarget} onOpenChange={(open) => !open && setDeleteTarget(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Member</AlertDialogTitle>
+            <AlertDialogTitle>Delete Employee</AlertDialogTitle>
             <AlertDialogDescription>
               Are you sure you want to delete <strong>{deleteTarget?.name}</strong>? This action
               cannot be undone and their access code will be permanently revoked.
