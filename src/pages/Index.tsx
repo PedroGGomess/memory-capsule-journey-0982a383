@@ -98,9 +98,15 @@ const Index = () => {
             {/* Footer */}
             <footer className="py-20 text-center section-padding border-t border-border/30">
               <p className="text-2xl md:text-3xl font-light text-gold-gradient mb-4">The 100's</p>
-              <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground">
+              <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-8">
                 A Memory Capsule Experience
               </p>
+              <Link
+                to="/academy"
+                className="inline-block border border-primary/30 px-10 py-4 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold"
+              >
+                Enter the Academy
+              </Link>
               <div className="mt-8 h-px w-16 mx-auto bg-primary/20" />
               <p className="mt-8 text-xs text-muted-foreground/50">
                 © {new Date().getFullYear()} The 100's. All rights reserved.
