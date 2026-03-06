@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import HeroSection from "@/components/HeroSection";
+import LandingNav from "@/components/LandingNav";
 import StorySection from "@/components/StorySection";
 import MemorySection from "@/components/MemorySection";
 import CollectionSection from "@/components/CollectionSection";
@@ -22,6 +23,7 @@ const Index = () => {
 
   return (
     <div className="bg-background min-h-screen">
+      <LandingNav />
       <HeroSection onBegin={handleBegin} />
 
       <motion.div
@@ -155,10 +157,10 @@ const Index = () => {
           </p>
           <Link
             to="/gym-admin/login"
-            className="mt-6 inline-block text-[10px] text-muted-foreground/20 hover:text-muted-foreground/50 transition-colors tracking-widest"
-            aria-label="Admin"
+            className="mt-4 inline-block text-[10px] text-muted-foreground/20 hover:text-muted-foreground/60 transition-colors duration-500 tracking-widest uppercase"
+            aria-label="Admin access"
           >
-            ·
+            Admin
           </Link>
         </footer>
       </motion.div>
