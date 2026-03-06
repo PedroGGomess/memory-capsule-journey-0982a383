@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAcademyAuth } from "@/contexts/AcademyAuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { GraduationCap } from "lucide-react";
+import { motion } from "framer-motion";
 
 const AcademyLogin = () => {
   const { isAuthenticated, login } = useAcademyAuth();
@@ -32,31 +31,79 @@ const AcademyLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center section-padding">
-      <div className="w-full max-w-sm">
+    <div className="min-h-screen bg-background flex items-center justify-center section-padding relative overflow-hidden">
+      {/* Ambient glow */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="h-[500px] w-[500px] rounded-full bg-primary/5 blur-[100px] animate-slow-pulse" />
+      </div>
+
+      {/* Top line accent */}
+      <div className="absolute left-1/2 top-0 h-32 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
+
+      <motion.div
+        className="w-full max-w-sm relative z-10"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
         {/* Logo / Brand */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 border border-primary/20 mb-6">
-            <GraduationCap className="w-7 h-7 text-primary/60" />
-          </div>
-          <h1 className="text-3xl md:text-4xl font-light text-gold-gradient mb-2">
-            The 100's Academy
-          </h1>
-          <p className="text-sm text-muted-foreground font-light tracking-[0.2em] uppercase">
-            Employee Portal
-          </p>
+          <motion.p
+            className="text-[10px] tracking-[0.5em] uppercase text-primary/50 mb-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 1 }}
+          >
+            A Memory Capsule Experience
+          </motion.p>
+          <motion.h1
+            className="text-4xl md:text-5xl font-light text-gold-gradient mb-3"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 1 }}
+          >
+            The 100's
+          </motion.h1>
+          <motion.p
+            className="text-sm text-muted-foreground font-light tracking-[0.3em] uppercase"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7, duration: 1 }}
+          >
+            Academy
+          </motion.p>
         </div>
 
+        {/* Divider */}
+        <motion.div
+          className="flex items-center justify-center mb-10"
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{ delay: 0.9, duration: 0.8 }}
+        >
+          <div className="h-px w-16 bg-primary/20" />
+          <div className="mx-3 h-1 w-1 rounded-full bg-primary/40" />
+          <div className="h-px w-16 bg-primary/20" />
+        </motion.div>
+
         {/* Login card */}
-        <div className="border border-border/30 p-8 bg-card/30">
+        <motion.div
+          className="border border-border/30 p-8 bg-card/20 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.8 }}
+        >
+          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/60 text-center mb-6">
+            Employee Portal
+          </p>
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <Label
+            <div className="space-y-3">
+              <label
                 htmlFor="code"
-                className="text-xs tracking-[0.2em] uppercase text-muted-foreground"
+                className="block text-[10px] tracking-[0.3em] uppercase text-muted-foreground/70 text-center"
               >
                 Access Code
-              </Label>
+              </label>
               <Input
                 id="code"
                 type="text"
@@ -65,31 +112,59 @@ const AcademyLogin = () => {
                   setCode(e.target.value);
                   setError("");
                 }}
-                placeholder="Enter your access code"
-                className="font-mono tracking-widest text-center bg-background/50 border-border/40 focus:border-primary/40"
+                placeholder="· · · · · · · ·"
+                className="font-mono tracking-[0.4em] text-center bg-background/50 border-border/30 focus:border-primary/40 text-primary placeholder:text-muted-foreground/30 h-12"
                 autoComplete="off"
                 autoFocus
               />
             </div>
 
             {error && (
-              <p className="text-xs text-destructive text-center">{error}</p>
+              <motion.p
+                className="text-xs text-destructive text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                {error}
+              </motion.p>
             )}
 
             <Button
               type="submit"
               disabled={!code.trim()}
-              className="w-full border border-primary/30 bg-transparent text-primary hover:bg-primary/10 hover:border-primary tracking-[0.2em] uppercase text-xs font-light transition-all duration-500"
+              className="w-full border border-primary/30 bg-transparent text-primary hover:bg-primary/10 hover:border-primary tracking-[0.3em] uppercase text-xs font-light transition-all duration-500 h-12"
             >
               Enter Academy
             </Button>
           </form>
-        </div>
+        </motion.div>
 
-        <p className="text-center text-xs text-muted-foreground/50 mt-8 font-light">
+        <motion.p
+          className="text-center text-[10px] text-muted-foreground/40 mt-8 font-light tracking-wider"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
+        >
           Access code provided by your manager.
-        </p>
-      </div>
+        </motion.p>
+
+        <motion.div
+          className="text-center mt-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4, duration: 1 }}
+        >
+          <Link
+            to="/"
+            className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/30 hover:text-muted-foreground/60 transition-colors duration-500"
+          >
+            ← Return to experience
+          </Link>
+        </motion.div>
+
+        {/* Bottom line accent */}
+        <div className="absolute bottom-0 left-1/2 h-16 w-px -translate-x-1/2 bg-gradient-to-b from-primary/20 to-transparent pointer-events-none" />
+      </motion.div>
     </div>
   );
 };
