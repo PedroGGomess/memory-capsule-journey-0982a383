@@ -20,7 +20,7 @@ const AcademyLogin = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const trimmed = code.trim();
+    const trimmed = code.trim().toUpperCase();
     if (!trimmed) return;
     const success = login(trimmed);
     if (success) {
@@ -62,7 +62,7 @@ const AcademyLogin = () => {
                 type="text"
                 value={code}
                 onChange={(e) => {
-                  setCode(e.target.value.toUpperCase());
+                  setCode(e.target.value);
                   setError("");
                 }}
                 placeholder="Enter your access code"

@@ -33,7 +33,7 @@ const gifts = [
   },
   {
     name: "The White Pearl",
-    subtitle: "White",
+    subtitle: "White Port",
     tagline: "Elegance in white",
     num: "06",
   },

@@ -16,11 +16,9 @@ const SESSION_KEY = "the100s-academy-session";
 
 const generateCode = (): string => {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let result = "";
-  for (let i = 0; i < 8; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
+  const randomValues = new Uint32Array(8);
+  crypto.getRandomValues(randomValues);
+  return Array.from(randomValues, (v) => chars[v % chars.length]).join("");
 };
 
 const checkSession = (): boolean => {
