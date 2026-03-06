@@ -41,7 +41,6 @@ import { toast } from "sonner";
 interface UserFormData {
   name: string;
   email: string;
-  accessCode: string;
   notes: string;
   onboardingComplete: boolean;
 }
@@ -50,27 +49,20 @@ interface UserFormProps {
   initial?: Partial<UserFormData>;
   onSubmit: (data: UserFormData) => void;
   onCancel: () => void;
-  generateCode: () => string;
   submitLabel: string;
 }
 
-const UserForm = ({ initial, onSubmit, onCancel, generateCode, submitLabel }: UserFormProps) => {
+const UserForm = ({ initial, onSubmit, onCancel, submitLabel }: UserFormProps) => {
   const [form, setForm] = useState<UserFormData>({
     name: initial?.name ?? "",
     email: initial?.email ?? "",
-    accessCode: initial?.accessCode ?? "",
     notes: initial?.notes ?? "",
     onboardingComplete: initial?.onboardingComplete ?? false,
   });
 
-  const handleGenerate = () => {
-    setForm((f) => ({ ...f, accessCode: generateCode() }));
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim()) return;
-    if (!form.accessCode.trim()) return;
     onSubmit(form);
   };
 
@@ -95,22 +87,6 @@ const UserForm = ({ initial, onSubmit, onCancel, generateCode, submitLabel }: Us
           onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
           placeholder="joao@example.com"
         />
-      </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="code">Access Code *</Label>
-        <div className="flex gap-2">
-          <Input
-            id="code"
-            value={form.accessCode}
-            onChange={(e) => setForm((f) => ({ ...f, accessCode: e.target.value.toUpperCase() }))}
-            placeholder="XXX-XXXX-XXXX"
-            className="font-mono"
-            required
-          />
-          <Button type="button" variant="outline" size="sm" onClick={handleGenerate}>
-            <RefreshCw className="w-4 h-4" />
-          </Button>
-        </div>
       </div>
       <div className="space-y-1.5">
         <Label htmlFor="notes">Notes</Label>
@@ -170,7 +146,6 @@ const StatsCard = ({
 
 interface NewEmployeeCredentials {
   name: string;
-  gymCode: string;
   academyCode: string;
 }
 
@@ -200,11 +175,11 @@ const AdminDashboard = () => {
       u.accessCode.toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleAdd = (data: { name: string; email: string; accessCode: string; notes: string; onboardingComplete: boolean }) => {
+  const handleAdd = (data: { name: string; email: string; notes: string; onboardingComplete: boolean }) => {
     addUser({
       name: data.name,
       email: data.email,
-      accessCode: data.accessCode,
+      accessCode: generateAccessCode(),
       academyCode: newEmployeeAcademyCode,
       notes: data.notes,
       onboardingComplete: data.onboardingComplete,
@@ -212,15 +187,14 @@ const AdminDashboard = () => {
     });
     setShowAdd(false);
     toast.success("User created successfully");
-    setNewEmployeeCredentials({ name: data.name, gymCode: data.accessCode, academyCode: newEmployeeAcademyCode });
+    setNewEmployeeCredentials({ name: data.name, academyCode: newEmployeeAcademyCode });
   };
 
-  const handleEdit = (data: { name: string; email: string; accessCode: string; notes: string; onboardingComplete: boolean }) => {
+  const handleEdit = (data: { name: string; email: string; notes: string; onboardingComplete: boolean }) => {
     if (!editUser) return;
     updateUser(editUser.id, {
       name: data.name,
       email: data.email,
-      accessCode: data.accessCode,
       notes: data.notes,
       onboardingComplete: data.onboardingComplete,
     });
@@ -405,10 +379,9 @@ const AdminDashboard = () => {
             </p>
           </div>
           <UserForm
-            initial={{ accessCode: generateAccessCode() }}
+            initial={{}}
             onSubmit={handleAdd}
             onCancel={() => setShowAdd(false)}
-            generateCode={generateAccessCode}
             submitLabel="Create Employee"
           />
         </DialogContent>
@@ -419,14 +392,13 @@ const AdminDashboard = () => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit Member</DialogTitle>
-            <DialogDescription>Update employee information or access code.</DialogDescription>
+            <DialogDescription>Update employee information.</DialogDescription>
           </DialogHeader>
           {editUser && (
             <UserForm
               initial={editUser}
               onSubmit={handleEdit}
               onCancel={() => setEditUser(null)}
-              generateCode={generateAccessCode}
               submitLabel="Save Changes"
             />
           )}
@@ -464,23 +436,6 @@ const AdminDashboard = () => {
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-2">
-            <div className="space-y-1.5">
-              <p className="text-sm font-medium">Gym Access Code</p>
-              <div className="flex items-center gap-2">
-                <code className="flex-1 font-mono text-base tracking-[0.2em] bg-muted px-4 py-2 rounded text-center">
-                  {newEmployeeCredentials?.gymCode}
-                </code>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => {
-                    navigator.clipboard.writeText(newEmployeeCredentials?.gymCode ?? "").then(() => toast.success("Gym code copied!")).catch(() => toast.error("Failed to copy"));
-                  }}
-                >
-                  <Copy className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
             <div className="space-y-1.5">
               <p className="text-sm font-medium">Academy Access Code</p>
               <div className="flex items-center gap-2">
