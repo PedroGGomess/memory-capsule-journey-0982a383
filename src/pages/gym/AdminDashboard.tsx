@@ -169,6 +169,12 @@ const StatsCard = ({
 
 // ── Main Dashboard ────────────────────────────────────────────────────────────
 
+interface NewEmployeeCredentials {
+  name: string;
+  gymCode: string;
+  academyCode: string;
+}
+
 const AdminDashboard = () => {
   const { users, logs, addUser, updateUser, deleteUser, toggleUserActive, generateAccessCode } =
     useGymAccess();
@@ -184,6 +190,7 @@ const AdminDashboard = () => {
   const [deleteTarget, setDeleteTarget] = useState<GymUser | null>(null);
   const [confirmDeleteAcademy, setConfirmDeleteAcademy] = useState(false);
   const [academyCode, setAcademyCode] = useState<string | null>(() => getAccessCode());
+  const [newEmployeeCredentials, setNewEmployeeCredentials] = useState<NewEmployeeCredentials | null>(null);
 
   const handleGenerateAcademyCode = () => {
     const code = generateAcademyCode();
@@ -227,8 +234,15 @@ const AdminDashboard = () => {
       onboardingComplete: data.onboardingComplete,
       active: true,
     });
+    // Auto-generate academy code if none exists
+    let currentAcademyCode = academyCode;
+    if (!currentAcademyCode) {
+      currentAcademyCode = generateAcademyCode();
+      setAcademyCode(currentAcademyCode);
+    }
     setShowAdd(false);
     toast.success("User created successfully");
+    setNewEmployeeCredentials({ name: data.name, gymCode: data.accessCode, academyCode: currentAcademyCode });
   };
 
   const handleEdit = (data: { name: string; email: string; accessCode: string; notes: string; onboardingComplete: boolean }) => {
@@ -500,6 +514,63 @@ const AdminDashboard = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* New Employee Credentials Dialog */}
+      <Dialog open={!!newEmployeeCredentials} onOpenChange={(open) => !open && setNewEmployeeCredentials(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <GraduationCap className="w-5 h-5" />
+              Employee Created
+            </DialogTitle>
+            <DialogDescription>
+              Share the following credentials with <strong>{newEmployeeCredentials?.name}</strong>.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="space-y-1.5">
+              <p className="text-sm font-medium">Gym Access Code</p>
+              <div className="flex items-center gap-2">
+                <code className="flex-1 font-mono text-base tracking-[0.2em] bg-muted px-4 py-2 rounded text-center">
+                  {newEmployeeCredentials?.gymCode}
+                </code>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => {
+                    navigator.clipboard.writeText(newEmployeeCredentials?.gymCode ?? "").then(() => toast.success("Gym code copied!")).catch(() => toast.error("Failed to copy"));
+                  }}
+                >
+                  <Copy className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+            <div className="space-y-1.5">
+              <p className="text-sm font-medium">Academy Access Code</p>
+              <div className="flex items-center gap-2">
+                <code className="flex-1 font-mono text-base tracking-[0.2em] bg-muted px-4 py-2 rounded text-center">
+                  {newEmployeeCredentials?.academyCode}
+                </code>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => {
+                    navigator.clipboard.writeText(newEmployeeCredentials?.academyCode ?? "").then(() => toast.success("Academy code copied!")).catch(() => toast.error("Failed to copy"));
+                  }}
+                >
+                  <Copy className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              The Academy Access Code grants access to the employee portal at <strong>/academy/login</strong>.
+            </p>
+          </div>
+          <DialogFooter>
+            <Button onClick={() => setNewEmployeeCredentials(null)}>Done</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
