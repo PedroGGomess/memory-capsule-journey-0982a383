@@ -1,7 +1,7 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
 import ScrollReveal from "@/components/ScrollReveal";
 import storeImg from "@/assets/store-interior.jpg";
-import { QrCode, Smartphone, TrendingUp, Globe, Store, ShoppingCart } from "lucide-react";
+import { QrCode, Smartphone, TrendingUp, Globe, Store, ShoppingCart, User } from "lucide-react";
 
 const ModuleBusinessModel = () => (
   <ModuleLayout
@@ -100,7 +100,7 @@ const ModuleBusinessModel = () => (
           icon: Globe,
           num: "02",
           title: "Satellite Stores & Franchise Model",
-          desc: "Smaller retail units allow the brand to expand rapidly across tourism hotspots worldwide. The franchise model ensures consistency in brand experience while enabling local adaptation.",
+          desc: "Smaller retail units allow the brand to expand rapidly across tourism hotspots worldwide. Examples include The 100s Sevilla and The 100s London. The franchise model ensures consistency in brand experience while enabling local adaptation.",
         },
         {
           icon: ShoppingCart,
@@ -148,12 +148,60 @@ const ModuleBusinessModel = () => (
       ))}
     </div>
 
+    <ContentBlock title="The Executive Team">
+      <p>The 100's is led by a team of experienced founders and executives, each bringing deep expertise in their respective domains:</p>
+    </ContentBlock>
+
+    <div className="space-y-4">
+      {[
+        {
+          name: "Rui Marques",
+          role: "CEO & Founder",
+          bio: "Ex-CEO of GoContact, with over 20 years of entrepreneurial experience. The visionary behind The 100's concept and ecosystem.",
+        },
+        {
+          name: "Carla Machado",
+          role: "Chief Operating Officer (COO)",
+          bio: "Responsible for the operational excellence of the brand — ensuring that the experience is consistently delivered across every touchpoint.",
+        },
+        {
+          name: "Paulo Gonçalves",
+          role: "Chief Marketing Officer & CPO",
+          bio: "Leads brand marketing and product strategy, ensuring the visual and narrative identity of The 100's remains coherent and powerful.",
+        },
+        {
+          name: "João Camarate",
+          role: "Head of Innovation & M&A",
+          bio: "Drives innovation within the ecosystem and leads mergers and acquisition strategy to accelerate global expansion.",
+        },
+        {
+          name: "Bruno Azevedo",
+          role: "Chief Financial Officer (CFO)",
+          bio: "Oversees the financial architecture of the brand, supporting sustainable growth and investment readiness.",
+        },
+      ].map(person => (
+        <ScrollReveal key={person.name}>
+          <div className="border border-border/30 p-6 flex gap-5 items-start">
+            <div className="p-3 bg-primary/10 rounded-sm shrink-0">
+              <User className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-base font-light text-foreground/90 mb-0.5">{person.name}</p>
+              <p className="text-xs tracking-[0.15em] uppercase text-primary/60 mb-2">{person.role}</p>
+              <p className="text-sm text-foreground/60 font-light leading-relaxed">{person.bio}</p>
+            </div>
+          </div>
+        </ScrollReveal>
+      ))}
+    </div>
+
     <KeyTakeaway items={[
       "Four areas: Product Design, Immersive Retail, AI & Data-Driven Conversion, Premium Gifting",
       "Digital capture: QR codes, WhatsApp automation and digital funnels",
-      "Post-visit monetization converts single visits into long-term relationships",
-      "Three business model pillars: Flagship stores, Satellite/Franchise, E-commerce",
-      "'Send a Memory' allows the brand to reach customers globally"
+      "Memory Zone: SMS/WhatsApp sent exactly 1 year after visit — converting a visit into a long-term relationship",
+      "Three business model pillars: Flagship stores, Satellite/Franchise (e.g. The 100s Sevilla, The 100s London), E-commerce",
+      "'Send a Memory' allows the brand to reach customers globally",
+      "Executive team: Rui Marques (CEO), Carla Machado (COO), Paulo Gonçalves (CMO/CPO), João Camarate (Innovation), Bruno Azevedo (CFO)"
     ]} />
 
     <QuizBlock moduleId="business-model" questions={[
