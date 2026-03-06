@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AcademySidebar } from "@/components/AcademySidebar";
 import { ProgressProvider } from "@/contexts/ProgressContext";
+import { AIAssistantBubble } from "@/components/AIAssistantBubble";
 
 const AcademyLayout = () => {
   return (
@@ -22,6 +23,7 @@ const AcademyLayout = () => {
             </main>
           </div>
         </div>
+        <AIAssistantBubble />
       </SidebarProvider>
     </ProgressProvider>
   );

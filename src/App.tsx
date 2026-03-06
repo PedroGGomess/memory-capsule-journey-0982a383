@@ -33,6 +33,8 @@ const AdminDashboard = lazy(() => import("./pages/gym/AdminDashboard"));
 const AccessLogs = lazy(() => import("./pages/gym/AccessLogs"));
 const GymAIChat = lazy(() => import("./pages/gym/GymAIChat"));
 const AccessVerification = lazy(() => import("./pages/gym/AccessVerification"));
+const AdminAnalytics = lazy(() => import("./pages/gym/AdminAnalytics"));
+const AdminQuestions = lazy(() => import("./pages/gym/AdminQuestions"));
 
 const queryClient = new QueryClient();
 
@@ -97,6 +99,8 @@ const App = () => (
                     }
                   >
                     <Route index element={<AdminDashboard />} />
+                    <Route path="analytics" element={<AdminAnalytics />} />
+                    <Route path="questions" element={<AdminQuestions />} />
                     <Route path="logs" element={<AccessLogs />} />
                     <Route path="chat" element={<GymAIChat />} />
                   </Route>
