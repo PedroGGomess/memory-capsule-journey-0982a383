@@ -7,6 +7,10 @@ import { lazy, Suspense } from "react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AcademyLayout from "./layouts/AcademyLayout";
+import GymAdminLayout from "./layouts/GymAdminLayout";
+import ProtectedRoute from "./components/gym/ProtectedRoute";
+import { AuthProvider } from "./contexts/AuthContext";
+import { GymAccessProvider } from "./contexts/GymAccessContext";
 
 const Dashboard = lazy(() => import("./pages/academy/Dashboard"));
 const ModuleStory = lazy(() => import("./pages/academy/ModuleStory"));
@@ -19,6 +23,12 @@ const ModuleCustomerExperience = lazy(() => import("./pages/academy/ModuleCustom
 const ModuleAskTeam = lazy(() => import("./pages/academy/ModuleAskTeam"));
 const ModuleResources = lazy(() => import("./pages/academy/ModuleResources"));
 const ModuleCertification = lazy(() => import("./pages/academy/ModuleCertification"));
+
+const AdminLogin = lazy(() => import("./pages/gym/AdminLogin"));
+const AdminDashboard = lazy(() => import("./pages/gym/AdminDashboard"));
+const AccessLogs = lazy(() => import("./pages/gym/AccessLogs"));
+const GymAIChat = lazy(() => import("./pages/gym/GymAIChat"));
+const AccessVerification = lazy(() => import("./pages/gym/AccessVerification"));
 
 const queryClient = new QueryClient();
 
@@ -34,25 +44,50 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/academy" element={<AcademyLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="module/story" element={<ModuleStory />} />
-              <Route path="module/philosophy" element={<ModulePhilosophy />} />
-              <Route path="module/products" element={<ModuleProducts />} />
-              <Route path="module/gift" element={<ModuleGift />} />
-              <Route path="module/store" element={<ModuleStore />} />
-              <Route path="module/brand-voice" element={<ModuleBrandVoice />} />
-              <Route path="module/customer-experience" element={<ModuleCustomerExperience />} />
-              <Route path="module/ask-team" element={<ModuleAskTeam />} />
-              <Route path="module/resources" element={<ModuleResources />} />
-              <Route path="module/certification" element={<ModuleCertification />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+        <AuthProvider>
+          <GymAccessProvider>
+            <Suspense fallback={<Loading />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/academy" element={<AcademyLayout />}>
+                  <Route index element={<Dashboard />} />
+                  <Route path="module/story" element={<ModuleStory />} />
+                  <Route path="module/philosophy" element={<ModulePhilosophy />} />
+                  <Route path="module/products" element={<ModuleProducts />} />
+                  <Route path="module/gift" element={<ModuleGift />} />
+                  <Route path="module/store" element={<ModuleStore />} />
+                  <Route path="module/brand-voice" element={<ModuleBrandVoice />} />
+                  <Route path="module/customer-experience" element={<ModuleCustomerExperience />} />
+                  <Route path="module/ask-team" element={<ModuleAskTeam />} />
+                  <Route path="module/resources" element={<ModuleResources />} />
+                  <Route path="module/certification" element={<ModuleCertification />} />
+                </Route>
+
+                {/* Public gym access terminal */}
+                <Route path="/gym-access" element={<AccessVerification />} />
+
+                {/* Gym admin login */}
+                <Route path="/gym-admin/login" element={<AdminLogin />} />
+
+                {/* Protected gym admin routes */}
+                <Route
+                  path="/gym-admin"
+                  element={
+                    <ProtectedRoute>
+                      <GymAdminLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index element={<AdminDashboard />} />
+                  <Route path="logs" element={<AccessLogs />} />
+                  <Route path="chat" element={<GymAIChat />} />
+                </Route>
+
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </GymAccessProvider>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

@@ -1,7 +1,7 @@
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, LogOut, Dumbbell, History } from "lucide-react";
+import { LayoutDashboard, LogOut, Dumbbell, History, Bot } from "lucide-react";
 
 const GymAdminLayout = () => {
   const { logout } = useAuth();
@@ -47,6 +47,19 @@ const GymAdminLayout = () => {
           >
             <History className="w-4 h-4" />
             Access Logs
+          </NavLink>
+          <NavLink
+            to="/gym-admin/chat"
+            className={({ isActive }) =>
+              `flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
+                isActive
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              }`
+            }
+          >
+            <Bot className="w-4 h-4" />
+            AI Assistant
           </NavLink>
         </nav>
         <div className="p-3 border-t border-border/30">
