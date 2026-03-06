@@ -142,26 +142,30 @@ const Index = () => {
         {/* Footer */}
         <footer className="py-20 text-center section-padding border-t border-border/30">
           <p className="text-2xl md:text-3xl font-light text-gold-gradient mb-4">The 100's</p>
-          <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-8">
+          <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-2">
             A Memory Capsule Experience
           </p>
-          <Link
-            to="/academy/login"
-            className="inline-block border border-primary/30 px-10 py-4 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold"
-          >
-            Enter the Academy
-          </Link>
-          <div className="mt-8 h-px w-16 mx-auto bg-primary/20" />
+          <p className="text-xs text-muted-foreground/40 mb-8">
+            Portugal · Douro Valley · 100ml of history
+          </p>
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <Link
+              to="/academy/login"
+              className="inline-block border border-primary/30 px-10 py-4 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold"
+            >
+              Enter the Academy
+            </Link>
+            <Link
+              to="/gym-admin/login"
+              className="inline-flex items-center gap-2 border border-border/30 px-8 py-4 text-sm tracking-[0.25em] uppercase text-muted-foreground/60 transition-all duration-500 hover:border-border/60 hover:text-muted-foreground"
+            >
+              Admin Dashboard
+            </Link>
+          </div>
+          <div className="mt-10 h-px w-16 mx-auto bg-primary/20" />
           <p className="mt-8 text-xs text-muted-foreground/50">
             © {new Date().getFullYear()} The 100's. All rights reserved.
           </p>
-          <Link
-            to="/gym-admin/login"
-            className="mt-4 inline-block text-[10px] text-muted-foreground/20 hover:text-muted-foreground/60 transition-colors duration-500 tracking-widest uppercase"
-            aria-label="Admin access"
-          >
-            Admin
-          </Link>
         </footer>
       </motion.div>
     </div>

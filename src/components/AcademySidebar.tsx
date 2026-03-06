@@ -1,13 +1,14 @@
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { NavLink } from "@/components/NavLink";
 import { useProgress } from "@/contexts/ProgressContext";
+import { useAcademyAuth } from "@/contexts/AcademyAuthContext";
 import {
-  Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent,
+  Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent,
   SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar
 } from "@/components/ui/sidebar";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
-  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3
+  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut
 } from "lucide-react";
 
 const modules = [
@@ -30,6 +31,13 @@ export function AcademySidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const { isModuleCompleted } = useProgress();
+  const { logout } = useAcademyAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/academy/login");
+  };
 
   return (
     <Sidebar collapsible="icon" className="border-r border-border/30">
@@ -70,6 +78,18 @@ export function AcademySidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      <SidebarFooter className="bg-card border-t border-border/20 p-3">
+        <button
+          onClick={handleLogout}
+          className="flex w-full items-center gap-3 rounded-md px-6 py-2.5 text-sm font-light text-muted-foreground hover:text-foreground hover:bg-primary/5 transition-all duration-300 group"
+        >
+          <LogOut className="w-4 h-4 shrink-0 group-hover:text-primary transition-colors duration-300" />
+          {!collapsed && (
+            <span className="tracking-wide">Sign Out</span>
+          )}
+        </button>
+      </SidebarFooter>
     </Sidebar>
   );
 }
