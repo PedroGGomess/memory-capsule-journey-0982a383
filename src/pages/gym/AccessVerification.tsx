@@ -14,11 +14,11 @@ const AccessVerification = () => {
   const [memberName, setMemberName] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleVerify = (e: React.FormEvent) => {
+  const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!code.trim()) return;
 
-    const result = verifyAccessCode(code.trim());
+    const result = await verifyAccessCode(code.trim());
 
     if (result.allowed && result.user) {
       setState("allowed");

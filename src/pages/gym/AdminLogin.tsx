@@ -22,19 +22,22 @@ const AdminLogin = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
-    setTimeout(() => {
-      const ok = login(username.trim(), password);
+    try {
+      const ok = await login(username.trim(), password);
       if (ok) {
         navigate("/gym-admin", { replace: true });
       } else {
         setError("Invalid username or password.");
       }
+    } catch {
+      setError("An error occurred. Please try again.");
+    } finally {
       setLoading(false);
-    }, 300);
+    }
   };
 
   return (

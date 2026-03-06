@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String      @id @default(cuid())
+  name               String
+  email              String      @default("")
+  accessCode         String      @unique
+  active             Boolean     @default(true)
+  notes              String      @default("")
+  onboardingComplete Boolean     @default(false)
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+  accessLogs         AccessLog[]
+}
+
+model AccessLog {
+  id           String   @id @default(cuid())
+  userId       String?
+  user         User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  accessCode   String
+  result       String   // "allowed" | "denied"
+  timestamp    DateTime @default(now())
+}
+
+model AdminCredentials {
+  id           Int    @id @default(autoincrement())
+  username     String @unique
+  passwordHash String
+}

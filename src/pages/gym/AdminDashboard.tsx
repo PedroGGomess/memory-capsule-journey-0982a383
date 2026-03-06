@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useGymAccess, GymUser } from "@/contexts/GymAccessContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,7 +33,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Users, UserCheck, UserX, Copy, Pencil, Trash2, Plus, RefreshCw, Search } from "lucide-react";
+import { Users, UserCheck, UserX, Copy, Pencil, Trash2, Plus, RefreshCw, Search, Wifi, WifiOff } from "lucide-react";
 import { toast } from "sonner";
 
 // ── Form ─────────────────────────────────────────────────────────────────────
@@ -50,7 +50,7 @@ interface UserFormProps {
   initial?: Partial<UserFormData>;
   onSubmit: (data: UserFormData) => void;
   onCancel: () => void;
-  generateCode: () => string;
+  generateCode: () => Promise<string>;
   submitLabel: string;
 }
 
@@ -63,8 +63,9 @@ const UserForm = ({ initial, onSubmit, onCancel, generateCode, submitLabel }: Us
     onboardingComplete: initial?.onboardingComplete ?? false,
   });
 
-  const handleGenerate = () => {
-    setForm((f) => ({ ...f, accessCode: generateCode() }));
+  const handleGenerate = async () => {
+    const code = await generateCode();
+    setForm((f) => ({ ...f, accessCode: code }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -169,13 +170,21 @@ const StatsCard = ({
 // ── Main Dashboard ────────────────────────────────────────────────────────────
 
 const AdminDashboard = () => {
-  const { users, logs, addUser, updateUser, deleteUser, toggleUserActive, generateAccessCode } =
+  const { users, logs, loading, isOnline, refreshUsers, addUser, updateUser, deleteUser, toggleUserActive, generateAccessCode } =
     useGymAccess();
 
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
   const [editUser, setEditUser] = useState<GymUser | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<GymUser | null>(null);
+  const [initialCode, setInitialCode] = useState("");
+
+  // Pre-generate code when opening the Add dialog
+  useEffect(() => {
+    if (showAdd) {
+      generateAccessCode().then(setInitialCode);
+    }
+  }, [showAdd]);
 
   const todayStr = new Date().toDateString();
   const todayAccesses = logs.filter(
@@ -192,37 +201,49 @@ const AdminDashboard = () => {
       u.accessCode.toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleAdd = (data: { name: string; email: string; accessCode: string; notes: string; onboardingComplete: boolean }) => {
-    addUser({
-      name: data.name,
-      email: data.email,
-      accessCode: data.accessCode,
-      notes: data.notes,
-      onboardingComplete: data.onboardingComplete,
-      active: true,
-    });
-    setShowAdd(false);
-    toast.success("User created successfully");
+  const handleAdd = async (data: { name: string; email: string; accessCode: string; notes: string; onboardingComplete: boolean }) => {
+    try {
+      await addUser({
+        name: data.name,
+        email: data.email,
+        accessCode: data.accessCode,
+        notes: data.notes,
+        onboardingComplete: data.onboardingComplete,
+        active: true,
+      });
+      setShowAdd(false);
+      toast.success("Member created successfully");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Failed to create member");
+    }
   };
 
-  const handleEdit = (data: { name: string; email: string; accessCode: string; notes: string; onboardingComplete: boolean }) => {
+  const handleEdit = async (data: { name: string; email: string; accessCode: string; notes: string; onboardingComplete: boolean }) => {
     if (!editUser) return;
-    updateUser(editUser.id, {
-      name: data.name,
-      email: data.email,
-      accessCode: data.accessCode,
-      notes: data.notes,
-      onboardingComplete: data.onboardingComplete,
-    });
-    setEditUser(null);
-    toast.success("User updated");
+    try {
+      await updateUser(editUser.id, {
+        name: data.name,
+        email: data.email,
+        accessCode: data.accessCode,
+        notes: data.notes,
+        onboardingComplete: data.onboardingComplete,
+      });
+      setEditUser(null);
+      toast.success("Member updated");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Failed to update member");
+    }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!deleteTarget) return;
-    deleteUser(deleteTarget.id);
-    setDeleteTarget(null);
-    toast.success("User deleted");
+    try {
+      await deleteUser(deleteTarget.id);
+      setDeleteTarget(null);
+      toast.success("Member deleted");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Failed to delete member");
+    }
   };
 
   const copyCode = (code: string) => {
@@ -236,10 +257,19 @@ const AdminDashboard = () => {
           <h2 className="text-2xl font-bold">Dashboard</h2>
           <p className="text-muted-foreground text-sm">Manage gym members and access codes</p>
         </div>
-        <Button onClick={() => setShowAdd(true)}>
-          <Plus className="w-4 h-4 mr-2" />
-          Add Member
-        </Button>
+        <div className="flex items-center gap-2">
+          <span className={`flex items-center gap-1 text-xs ${isOnline ? "text-green-600" : "text-amber-500"}`}>
+            {isOnline ? <Wifi className="w-3 h-3" /> : <WifiOff className="w-3 h-3" />}
+            {isOnline ? "Connected to database" : "Offline mode"}
+          </span>
+          <Button variant="ghost" size="icon" onClick={refreshUsers} disabled={loading} title="Refresh">
+            <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
+          </Button>
+          <Button onClick={() => setShowAdd(true)}>
+            <Plus className="w-4 h-4 mr-2" />
+            Add Member
+          </Button>
+        </div>
       </div>
 
       {/* Stats */}
@@ -359,7 +389,7 @@ const AdminDashboard = () => {
             </DialogDescription>
           </DialogHeader>
           <UserForm
-            initial={{ accessCode: generateAccessCode() }}
+            initial={{ accessCode: initialCode }}
             onSubmit={handleAdd}
             onCancel={() => setShowAdd(false)}
             generateCode={generateAccessCode}

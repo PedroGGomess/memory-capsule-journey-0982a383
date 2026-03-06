@@ -22,12 +22,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Trash2, Search } from "lucide-react";
+import { Trash2, Search, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
 
 const AccessLogs = () => {
-  const { logs, clearLogs } = useGymAccess();
+  const { logs, loading, clearLogs, refreshLogs } = useGymAccess();
   const [search, setSearch] = useState("");
   const [confirmClear, setConfirmClear] = useState(false);
 
@@ -37,8 +37,8 @@ const AccessLogs = () => {
       l.accessCode.toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleClear = () => {
-    clearLogs();
+  const handleClear = async () => {
+    await clearLogs();
     setConfirmClear(false);
     toast.success("Logs cleared");
   };
@@ -52,15 +52,20 @@ const AccessLogs = () => {
             History of all entry attempts ({logs.length} records)
           </p>
         </div>
-        <Button
-          variant="destructive"
-          size="sm"
-          onClick={() => setConfirmClear(true)}
-          disabled={logs.length === 0}
-        >
-          <Trash2 className="w-4 h-4 mr-2" />
-          Clear Logs
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="icon" onClick={refreshLogs} disabled={loading} title="Refresh logs">
+            <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
+          </Button>
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={() => setConfirmClear(true)}
+            disabled={logs.length === 0}
+          >
+            <Trash2 className="w-4 h-4 mr-2" />
+            Clear Logs
+          </Button>
+        </div>
       </div>
 
       <Card>
