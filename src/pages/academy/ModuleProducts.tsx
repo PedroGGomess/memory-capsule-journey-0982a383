@@ -32,17 +32,21 @@ const ModuleProducts = () => (
       <p>White wines show that elegance and power can coexist in a single glass.</p>
     </ExpandableSection>
 
-    <ContentBlock title="Age Categories">
-      <p>Each age represents a different depth of experience:</p>
+    <ExpandableSection title="Olive Oil Souvenir">
+      <p>Alongside the wine range, The 100's also offers an exclusive Olive Oil souvenir — a celebration of another pillar of Portuguese culinary heritage. Available in the same premium packaging formats as the wine, the olive oil collection broadens the gifting offering beyond wine.</p>
+    </ExpandableSection>
+
+    <ContentBlock title="Age Categories & Product Names">
+      <p>Each age category has its own identity and name within The 100's universe:</p>
     </ContentBlock>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {[
-        { age: "Young", desc: "Fresh, vibrant, the beginning of the journey" },
-        { age: "10 Years", desc: "The first evolution — complexity emerges" },
-        { age: "30 Years", desc: "Deep maturity — a story told in layers" },
-        { age: "50 Years", desc: "Rare and extraordinary — living history" },
-        { age: "Very Very Old", desc: "The pinnacle — time itself, liquified" },
+        { age: "Young / Ruby Essentials", desc: "Fresh, vibrant, the beginning of the journey. The accessible entry point into the world of The 100's." },
+        { age: "10 Years — Signature", desc: "The first evolution — complexity emerges. The signature expression of The 100's experience." },
+        { age: "30 Years — Legacy", desc: "Deep maturity — a story told in layers. A wine that carries the weight and beauty of three decades." },
+        { age: "50 Years — The Icon", desc: "Rare and extraordinary — living history. One of the most precious expressions in the collection." },
+        { age: "Very Very Old / 100 Years — The Hundred", desc: "The pinnacle — time itself, liquified. The ultimate capsule, representing a full century of patience." },
       ].map(item => (
         <div key={item.age} className="border border-border/30 p-5 hover:border-primary/30 transition-colors">
           <p className="text-primary font-light text-lg mb-1">{item.age}</p>
@@ -53,6 +57,42 @@ const ModuleProducts = () => (
 
     <ImageBlock src={bottleImg} alt="Premium bottle" caption="Each bottle carries its own story" />
 
+    <ContentBlock title="Collections & Graphic Editions">
+      <p>The 100's launches exclusive editions inspired by Portuguese geography and culture. Each collection tells a different story, connecting the product to the rich heritage of Portugal.</p>
+    </ContentBlock>
+
+    <div className="space-y-4">
+      {[
+        {
+          name: "Porto City Collection",
+          desc: "Iconic imagery from the city of Porto: the Ribeira waterfront, the Torre dos Clérigos, the Dom Luís Bridge, the Igreja do Carmo and the famous Elétrico (tram).",
+        },
+        {
+          name: "Portugality Collection",
+          desc: "The soul of Portuguese culture: Lenços dos Namorados (love handkerchiefs), Fado music, filigree jewellery, sardines, sailing ships and the Galo de Barcelos.",
+        },
+        {
+          name: "Literature Collection",
+          desc: "Dedicated to Portugal's literary giants: Fernando Pessoa, José Saramago, Eça de Queirós and Luís de Camões. For those who find poetry in every drop.",
+        },
+        {
+          name: "Azulejo Collection",
+          desc: "A homage to Portugal's iconic blue-and-white tile tradition, featuring monuments such as the Palácio da Pena, Rossio station and the Madre de Deus church.",
+        },
+        {
+          name: "Further Subcollections (Planned)",
+          desc: "Grandes Navegações (caravels, compasses), Engenharias (balconies, cobblestone), Lifestyle & Vida (sardines, pastéis de nata), and Botânica (olive trees, grapevines).",
+        },
+      ].map(col => (
+        <ScrollReveal key={col.name}>
+          <div className="border border-border/30 p-6 hover:border-primary/30 transition-all duration-500">
+            <h4 className="text-lg font-light text-primary mb-2">{col.name}</h4>
+            <p className="text-sm text-foreground/70 font-light">{col.desc}</p>
+          </div>
+        </ScrollReveal>
+      ))}
+    </div>
+
     <ContentBlock title="Product Portfolio">
       <p>The 100's products are designed as collectible pieces. Each design combines aesthetic beauty with symbolic meaning. The containers are crafted to outlive the wine inside them.</p>
     </ContentBlock>
@@ -62,22 +102,22 @@ const ModuleProducts = () => (
         {
           name: "Entry Gift",
           desc: "The starting point of the collection. A simple and elegant product that introduces visitors to the concept of the memory capsule.",
-          materials: "Minimalist design, accessible price point",
+          materials: "Cardboard / kraft box with latch closure",
         },
         {
           name: "Cylinder Collection",
           desc: "Elegant cylindrical designs combining ceramic and cork materials. These products balance minimalism with warmth and natural texture.",
-          materials: "Ceramic · Cork",
+          materials: "Ceramic · Cork · Two-cap and full-cork variants",
         },
         {
           name: "Cube Collection",
           desc: "Modern geometric designs created for collectors. These pieces emphasize structure and visual presence.",
-          materials: "Premium finish · Geometric form",
+          materials: "Ceramic · Cork · Neodymium magnet closure (6–8 magnets)",
         },
         {
           name: "Wood & Brass Collection",
-          desc: "The most premium collection, crafted with oak wood, walnut wood and brass elements. These designs express timeless luxury and craftsmanship.",
-          materials: "Oak wood · Walnut wood · Brass elements",
+          desc: "The most premium collection, crafted with oak wood, walnut wood and brass or pewter elements. These designs express timeless luxury and craftsmanship.",
+          materials: "Oak wood · Walnut wood · Brass / pewter · Cork",
         },
       ].map(product => (
         <ScrollReveal key={product.name}>
@@ -104,16 +144,17 @@ const ModuleProducts = () => (
     </div>
 
     <KeyTakeaway items={[
-      "Two main wine categories: Tawny and White Port wines",
-      "Five age categories from Young to Very Very Old",
+      "Two main wine categories: Tawny and White Port wines — plus Olive Oil",
+      "Five age categories: Young/Ruby Essentials, Signature (10yr), Legacy (30yr), The Icon (50yr), The Hundred (100yr)",
       "Four design collections: Entry Gift, Cylinder, Cube, Wood & Brass",
-      "The Second Life Concept: containers become decorative objects after use",
-      "At the center: 100ml of wine represents centuries of history"
+      "Four graphic editions: Porto City, Portugality, Literature, Azulejo",
+      "The Second Life Concept: containers become decorative objects after use"
     ]} />
 
     <QuizBlock moduleId="products" questions={[
       { question: "What volume is each bottle in The 100's collection?", options: ["50ml", "100ml", "200ml", "750ml"], correct: 1 },
       { question: "What are the two main wine categories?", options: ["Red and Rosé", "Tawny and White", "Sweet and Dry", "Young and Old"], correct: 1 },
+      { question: "What is the product name for the 10-year wine?", options: ["The Hundred", "The Icon", "Signature", "Legacy"], correct: 2 },
       { question: "What is the Second Life Concept?", options: [
         "Bottles are refilled after use",
         "Old bottles are donated to museums",
