@@ -2,8 +2,8 @@ import ScrollReveal from "./ScrollReveal";
 import collectionImg from "@/assets/collection.jpg";
 
 const wines = [
-  { type: "Tawny", ages: ["Young", "10 Years", "30 Years", "50 Years", "Very Very Old"] },
-  { type: "White", ages: ["Young", "10 Years", "30 Years", "50 Years", "Very Very Old"] },
+  { type: "Tawny", ages: ["Young", "10 Years", "30 Years", "50 Years", "100 Years"] },
+  { type: "White", ages: ["Young", "10 Years", "30 Years", "50 Years", "100 Years"] },
 ];
 
 const CollectionSection = () => {
