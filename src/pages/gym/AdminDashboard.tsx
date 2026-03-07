@@ -155,7 +155,9 @@ const AdminDashboard = () => {
 
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
+  const [academyEnabled, setAcademyEnabled] = useState(false);
   const [editUser, setEditUser] = useState<GymUser | null>(null);
+  const [editAcademyCode, setEditAcademyCode] = useState<string | undefined>(undefined);
   const [deleteTarget, setDeleteTarget] = useState<GymUser | null>(null);
   const [newEmployeeAcademyCode, setNewEmployeeAcademyCode] = useState<string>("");
   const [newEmployeeCredentials, setNewEmployeeCredentials] = useState<NewEmployeeCredentials | null>(null);
@@ -176,18 +178,21 @@ const AdminDashboard = () => {
   );
 
   const handleAdd = (data: { name: string; email: string; notes: string; onboardingComplete: boolean }) => {
+    const code = academyEnabled ? newEmployeeAcademyCode : undefined;
     addUser({
       name: data.name,
       email: data.email,
       accessCode: generateAccessCode(),
-      academyCode: newEmployeeAcademyCode,
+      academyCode: code,
       notes: data.notes,
       onboardingComplete: data.onboardingComplete,
       active: true,
     });
     setShowAdd(false);
     toast.success("User created successfully");
-    setNewEmployeeCredentials({ name: data.name, academyCode: newEmployeeAcademyCode });
+    if (code) {
+      setNewEmployeeCredentials({ name: data.name, academyCode: code });
+    }
   };
 
   const handleEdit = (data: { name: string; email: string; notes: string; onboardingComplete: boolean }) => {
@@ -197,6 +202,7 @@ const AdminDashboard = () => {
       email: data.email,
       notes: data.notes,
       onboardingComplete: data.onboardingComplete,
+      academyCode: editAcademyCode,
     });
     setEditUser(null);
     toast.success("User updated");
@@ -207,6 +213,11 @@ const AdminDashboard = () => {
     deleteUser(deleteTarget.id);
     setDeleteTarget(null);
     toast.success("User deleted");
+  };
+
+  const handleOpenEdit = (user: GymUser) => {
+    setEditAcademyCode(user.academyCode);
+    setEditUser(user);
   };
 
   const copyCode = (code: string) => {
@@ -220,7 +231,7 @@ const AdminDashboard = () => {
           <h2 className="text-2xl font-bold">Dashboard</h2>
           <p className="text-muted-foreground text-sm">Manage employees and onboarding access codes</p>
         </div>
-        <Button onClick={() => { setNewEmployeeAcademyCode(generateUserAcademyCode()); setShowAdd(true); }}>
+        <Button onClick={() => { setAcademyEnabled(false); setShowAdd(true); }}>
           <Plus className="w-4 h-4 mr-2" />
           Add Employee
         </Button>
@@ -315,7 +326,7 @@ const AdminDashboard = () => {
                           variant="ghost"
                           size="icon"
                           className="h-8 w-8"
-                          onClick={() => setEditUser(user)}
+                          onClick={() => handleOpenEdit(user)}
                         >
                           <Pencil className="w-4 h-4" />
                         </Button>
@@ -343,40 +354,66 @@ const AdminDashboard = () => {
           <DialogHeader>
             <DialogTitle>Add New Employee</DialogTitle>
             <DialogDescription>
-              Create a new employee and generate their onboarding access code.
+              Create a new employee and optionally generate their academy access code.
             </DialogDescription>
           </DialogHeader>
-          <div className="rounded-md border px-4 py-3 space-y-2">
-            <p className="text-sm font-medium flex items-center gap-2">
-              <GraduationCap className="w-4 h-4" />
-              Academy Access Code
-            </p>
-            <div className="flex items-center gap-2">
-              <code className="flex-1 font-mono text-sm tracking-[0.2em] bg-muted px-3 py-1.5 rounded text-center">
-                {newEmployeeAcademyCode}
-              </code>
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                onClick={() => navigator.clipboard.writeText(newEmployeeAcademyCode).then(() => toast.success("Code copied!"))}
-                title="Copy academy code"
-              >
-                <Copy className="w-4 h-4" />
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                onClick={() => setNewEmployeeAcademyCode(generateUserAcademyCode())}
-                title="Regenerate academy code"
-              >
-                <RefreshCw className="w-4 h-4" />
-              </Button>
+          <div className="rounded-md border px-4 py-3 space-y-3">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium flex items-center gap-2">
+                <GraduationCap className="w-4 h-4" />
+                Academy Access
+              </p>
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="academy-access"
+                  checked={academyEnabled}
+                  onCheckedChange={(v) => {
+                    setAcademyEnabled(v);
+                    if (v && !newEmployeeAcademyCode) {
+                      setNewEmployeeAcademyCode(generateUserAcademyCode());
+                    }
+                  }}
+                />
+                <Label htmlFor="academy-access" className="text-sm text-muted-foreground">
+                  {academyEnabled ? "Enabled" : "Disabled"}
+                </Label>
+              </div>
             </div>
-            <p className="text-xs text-muted-foreground">
-              This code is unique to this employee. Share it so they can access the academy.
-            </p>
+            {academyEnabled && (
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <code className="flex-1 font-mono text-sm tracking-[0.2em] bg-muted px-3 py-1.5 rounded text-center">
+                    {newEmployeeAcademyCode}
+                  </code>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    onClick={() => navigator.clipboard.writeText(newEmployeeAcademyCode).then(() => toast.success("Code copied!"))}
+                    title="Copy academy code"
+                  >
+                    <Copy className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    onClick={() => setNewEmployeeAcademyCode(generateUserAcademyCode())}
+                    title="Regenerate academy code"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  This code is unique to this employee. Share it so they can access the academy.
+                </p>
+              </div>
+            )}
+            {!academyEnabled && (
+              <p className="text-xs text-muted-foreground">
+                Enable to generate an academy access code for this employee.
+              </p>
+            )}
           </div>
           <UserForm
             initial={{}}
@@ -395,12 +432,69 @@ const AdminDashboard = () => {
             <DialogDescription>Update employee information.</DialogDescription>
           </DialogHeader>
           {editUser && (
-            <UserForm
-              initial={editUser}
-              onSubmit={handleEdit}
-              onCancel={() => setEditUser(null)}
-              submitLabel="Save Changes"
-            />
+            <>
+              <div className="rounded-md border px-4 py-3 space-y-3">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium flex items-center gap-2">
+                    <GraduationCap className="w-4 h-4" />
+                    Academy Access
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <Switch
+                      id="edit-academy-access"
+                      checked={!!editAcademyCode}
+                      onCheckedChange={(v) => {
+                        setEditAcademyCode(v ? generateUserAcademyCode() : undefined);
+                      }}
+                    />
+                    <Label htmlFor="edit-academy-access" className="text-sm text-muted-foreground">
+                      {editAcademyCode ? "Enabled" : "Disabled"}
+                    </Label>
+                  </div>
+                </div>
+                {editAcademyCode && (
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <code className="flex-1 font-mono text-sm tracking-[0.2em] bg-muted px-3 py-1.5 rounded text-center">
+                        {editAcademyCode}
+                      </code>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        onClick={() => navigator.clipboard.writeText(editAcademyCode).then(() => toast.success("Code copied!"))}
+                        title="Copy academy code"
+                      >
+                        <Copy className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setEditAcademyCode(generateUserAcademyCode())}
+                        title="Regenerate academy code"
+                      >
+                        <RefreshCw className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Share this code with the employee to grant academy access.
+                    </p>
+                  </div>
+                )}
+                {!editAcademyCode && (
+                  <p className="text-xs text-muted-foreground">
+                    Enable to generate an academy access code for this employee.
+                  </p>
+                )}
+              </div>
+              <UserForm
+                initial={editUser}
+                onSubmit={handleEdit}
+                onCancel={() => setEditUser(null)}
+                submitLabel="Save Changes"
+              />
+            </>
           )}
         </DialogContent>
       </Dialog>
