@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode, useRef } from "react";
 
 interface ModuleProgress {
   completed: boolean;
@@ -26,15 +26,24 @@ const MODULES = [
   "brand-voice", "customer-experience", "business-model", "ask-team", "resources", "certification"
 ];
 
+const SESSION_KEY = "the100s-academy-session";
+
+function getProgressKey(): string {
+  const sessionCode = localStorage.getItem(SESSION_KEY);
+  return sessionCode ? `the100s-progress-${sessionCode}` : "the100s-progress";
+}
+
 export function ProgressProvider({ children }: { children: ReactNode }) {
+  const progressKey = useRef(getProgressKey()).current;
+
   const [progress, setProgress] = useState<ProgressState>(() => {
-    const saved = localStorage.getItem("the100s-progress");
+    const saved = localStorage.getItem(progressKey);
     return saved ? JSON.parse(saved) : {};
   });
 
   useEffect(() => {
-    localStorage.setItem("the100s-progress", JSON.stringify(progress));
-  }, [progress]);
+    localStorage.setItem(progressKey, JSON.stringify(progress));
+  }, [progress, progressKey]);
 
   const completeModule = (moduleId: string) => {
     setProgress(prev => ({

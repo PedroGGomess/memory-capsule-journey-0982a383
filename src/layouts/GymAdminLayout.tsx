@@ -1,7 +1,7 @@
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, LogOut, History, Bot, BarChart2, MessageSquare } from "lucide-react";
+import { LayoutDashboard, LogOut, History, Bot, BarChart2, MessageSquare, Home } from "lucide-react";
 
 const GymAdminLayout = () => {
   const { logout } = useAuth();
@@ -87,7 +87,16 @@ const GymAdminLayout = () => {
             AI Assistant
           </NavLink>
         </nav>
-        <div className="p-3 border-t border-border/30">
+        <div className="p-3 border-t border-border/30 space-y-1">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground"
+            onClick={() => navigate("/")}
+          >
+            <Home className="w-4 h-4" />
+            Home Page
+          </Button>
           <Button
             variant="ghost"
             size="sm"
