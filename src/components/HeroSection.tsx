@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface HeroSectionProps {
   onBegin: () => void;
 }
 
 const HeroSection = ({ onBegin }: HeroSectionProps) => {
+  const { t } = useLanguage();
+
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background">
       {/* Ambient glow */}
@@ -28,7 +30,7 @@ const HeroSection = ({ onBegin }: HeroSectionProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          A Memory Capsule Experience
+          {t.hero.subtitle}
         </motion.p>
 
         <motion.h1
@@ -47,10 +49,10 @@ const HeroSection = ({ onBegin }: HeroSectionProps) => {
           transition={{ delay: 1.4, duration: 1 }}
         >
           <p className="text-lg md:text-xl text-muted-foreground font-light italic">
-            Leave your time behind.
+            {t.hero.tagline1}
           </p>
           <p className="text-lg md:text-xl text-muted-foreground font-light italic">
-            You are entering a memory capsule.
+            {t.hero.tagline2}
           </p>
         </motion.div>
 
@@ -63,7 +65,7 @@ const HeroSection = ({ onBegin }: HeroSectionProps) => {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
-          <span>Begin the experience</span>
+          <span>{t.hero.cta}</span>
           <motion.span
             className="inline-block"
             animate={{ x: [0, 5, 0] }}

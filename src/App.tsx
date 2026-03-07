@@ -13,6 +13,7 @@ import AcademyProtectedRoute from "./components/academy/AcademyProtectedRoute";
 import { AuthProvider } from "./contexts/AuthContext";
 import { GymAccessProvider } from "./contexts/GymAccessContext";
 import { AcademyAuthProvider } from "./contexts/AcademyAuthContext";
+import { LanguageProvider } from "./contexts/LanguageContext";
 
 const Dashboard = lazy(() => import("./pages/academy/Dashboard"));
 const ModuleStory = lazy(() => import("./pages/academy/ModuleStory"));
@@ -54,6 +55,7 @@ const App = () => (
         <AuthProvider>
           <AcademyAuthProvider>
             <GymAccessProvider>
+              <LanguageProvider>
               <Suspense fallback={<Loading />}>
                 <Routes>
                   <Route path="/" element={<Index />} />
@@ -110,6 +112,7 @@ const App = () => (
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
+              </LanguageProvider>
             </GymAccessProvider>
           </AcademyAuthProvider>
         </AuthProvider>

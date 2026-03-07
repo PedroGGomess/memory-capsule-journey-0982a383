@@ -1,5 +1,6 @@
 import ScrollReveal from "./ScrollReveal";
 import collectionImg from "@/assets/collection.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const wines = [
   { type: "Tawny", ages: ["Young", "10 Years", "30 Years", "50 Years", "100 Years"] },
@@ -7,23 +8,25 @@ const wines = [
 ];
 
 const CollectionSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="min-h-screen flex flex-col items-center justify-center section-padding py-32">
       <div className="max-w-6xl mx-auto w-full">
         <div className="text-center mb-20">
           <ScrollReveal>
-            <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-6">The Collection</p>
+            <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-6">{t.collection.label}</p>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <h2 className="text-4xl md:text-6xl font-light text-gold-gradient mb-8">
-              The 100's Collection
+              {t.collection.title}
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.3}>
-            <p className="text-lg text-foreground/70 font-light">100ml of history.</p>
+            <p className="text-lg text-foreground/70 font-light">{t.collection.subtitle1}</p>
           </ScrollReveal>
           <ScrollReveal delay={0.4}>
-            <p className="text-lg text-foreground/70 font-light">Encapsulated in a bottle.</p>
+            <p className="text-lg text-foreground/70 font-light">{t.collection.subtitle2}</p>
           </ScrollReveal>
         </div>
 
@@ -63,10 +66,10 @@ const CollectionSection = () => {
         <ScrollReveal delay={0.8}>
           <div className="text-center mt-20">
             <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground">
-              Time reveals true value.
+              {t.collection.tagline1}
             </p>
             <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground/50 mt-3">
-              7 unique gift experiences available
+              {t.collection.tagline2}
             </p>
           </div>
         </ScrollReveal>
