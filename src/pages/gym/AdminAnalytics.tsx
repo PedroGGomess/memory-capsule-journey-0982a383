@@ -1,4 +1,5 @@
 import { useGymAccess } from "@/contexts/GymAccessContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +10,7 @@ const COLORS = ["#a78bfa", "#34d399", "#fb923c", "#60a5fa", "#f472b6"];
 
 const AdminAnalytics = () => {
   const { users, logs, questions } = useGymAccess();
+  const { t } = useLanguage();
 
   const totalEmployees = users.length;
   const onboardingComplete = users.filter((u) => u.onboardingComplete).length;
@@ -43,8 +45,8 @@ const AdminAnalytics = () => {
 
   // Onboarding pie chart
   const onboardingPie = [
-    { name: "Completed", value: onboardingComplete },
-    { name: "In Progress", value: totalEmployees - onboardingComplete },
+    { name: t.admin.analytics.completed, value: onboardingComplete },
+    { name: t.admin.analytics.inProgress, value: totalEmployees - onboardingComplete },
   ];
 
   // Recent activity feed
@@ -53,7 +55,7 @@ const AdminAnalytics = () => {
     .slice(0, 8)
     .map((l) => ({
       name: l.userName!,
-      action: "accessed the platform",
+      action: t.admin.analytics.accessedPlatform,
       time: new Date(l.timestamp).toLocaleDateString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }),
     }));
 
@@ -63,8 +65,8 @@ const AdminAnalytics = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold">Analytics</h2>
-        <p className="text-muted-foreground text-sm">Onboarding performance and employee activity</p>
+        <h2 className="text-2xl font-bold">{t.admin.analytics.title}</h2>
+        <p className="text-muted-foreground text-sm">{t.admin.analytics.subtitle}</p>
       </div>
 
       {/* KPI Cards */}
@@ -75,7 +77,7 @@ const AdminAnalytics = () => {
               <div className="w-9 h-9 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center">
                 <TrendingUp className="w-4 h-4" />
               </div>
-              <p className="text-sm text-muted-foreground">Completion Rate</p>
+              <p className="text-sm text-muted-foreground">{t.admin.analytics.completionRate}</p>
             </div>
             <p className="text-3xl font-bold">{completionRate}%</p>
             <Progress value={completionRate} className="h-1 mt-2" />
@@ -87,10 +89,10 @@ const AdminAnalytics = () => {
               <div className="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
                 <Users className="w-4 h-4" />
               </div>
-              <p className="text-sm text-muted-foreground">Total Employees</p>
+              <p className="text-sm text-muted-foreground">{t.admin.analytics.totalEmployees}</p>
             </div>
             <p className="text-3xl font-bold">{totalEmployees}</p>
-            <p className="text-xs text-muted-foreground mt-1">{activeEmployees} active</p>
+            <p className="text-xs text-muted-foreground mt-1">{activeEmployees} {t.admin.analytics.active}</p>
           </CardContent>
         </Card>
         <Card>
@@ -99,10 +101,10 @@ const AdminAnalytics = () => {
               <div className="w-9 h-9 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
                 <CheckCircle className="w-4 h-4" />
               </div>
-              <p className="text-sm text-muted-foreground">Onboarding Done</p>
+              <p className="text-sm text-muted-foreground">{t.admin.analytics.onboardingDone}</p>
             </div>
             <p className="text-3xl font-bold">{onboardingComplete}</p>
-            <p className="text-xs text-muted-foreground mt-1">of {totalEmployees} employees</p>
+            <p className="text-xs text-muted-foreground mt-1">{t.admin.analytics.of} {totalEmployees} {t.admin.analytics.employees}</p>
           </CardContent>
         </Card>
         <Card>
@@ -111,10 +113,10 @@ const AdminAnalytics = () => {
               <div className="w-9 h-9 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center">
                 <HelpCircle className="w-4 h-4" />
               </div>
-              <p className="text-sm text-muted-foreground">Open Questions</p>
+              <p className="text-sm text-muted-foreground">{t.admin.analytics.openQuestions}</p>
             </div>
             <p className="text-3xl font-bold">{openQuestions}</p>
-            <p className="text-xs text-muted-foreground mt-1">{resolvedQuestions} resolved</p>
+            <p className="text-xs text-muted-foreground mt-1">{resolvedQuestions} {t.admin.analytics.resolved}</p>
           </CardContent>
         </Card>
       </div>
@@ -126,7 +128,7 @@ const AdminAnalytics = () => {
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center gap-2">
               <Activity className="w-4 h-4 text-primary" />
-              Platform Activity (Last 7 Days)
+              {t.admin.analytics.platformActivity}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -270,7 +272,7 @@ const AdminAnalytics = () => {
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2">
               <Activity className="w-4 h-4 text-primary" />
-              Recent Activity
+              {t.admin.analytics.recentActivity}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">

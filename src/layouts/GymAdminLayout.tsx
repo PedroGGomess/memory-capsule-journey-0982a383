@@ -1,11 +1,13 @@
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard, LogOut, History, Bot, BarChart2, MessageSquare, Home } from "lucide-react";
 
 const GymAdminLayout = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const { t, language, setLanguage } = useLanguage();
 
   const handleLogout = () => {
     logout();
@@ -17,7 +19,7 @@ const GymAdminLayout = () => {
       {/* Sidebar */}
       <aside className="w-60 border-r border-border/30 bg-card/50 flex flex-col">
         <div className="h-16 flex items-center px-5 border-b border-border/30">
-          <span className="font-semibold text-sm tracking-wide">The Hundreds Admin</span>
+          <span className="font-semibold text-sm tracking-wide">{t.admin.layout.brandTitle}</span>
         </div>
         <nav className="flex-1 p-3 space-y-1">
           <NavLink
@@ -32,7 +34,7 @@ const GymAdminLayout = () => {
             }
           >
             <LayoutDashboard className="w-4 h-4" />
-            Dashboard
+            {t.admin.layout.dashboard}
           </NavLink>
           <NavLink
             to="/gym-admin/analytics"
@@ -45,7 +47,7 @@ const GymAdminLayout = () => {
             }
           >
             <BarChart2 className="w-4 h-4" />
-            Analytics
+            {t.admin.layout.analytics}
           </NavLink>
           <NavLink
             to="/gym-admin/questions"
@@ -58,7 +60,7 @@ const GymAdminLayout = () => {
             }
           >
             <MessageSquare className="w-4 h-4" />
-            Questions Inbox
+            {t.admin.layout.questionsInbox}
           </NavLink>
           <NavLink
             to="/gym-admin/logs"
@@ -71,7 +73,7 @@ const GymAdminLayout = () => {
             }
           >
             <History className="w-4 h-4" />
-            Access Logs
+            {t.admin.layout.accessLogs}
           </NavLink>
           <NavLink
             to="/gym-admin/chat"
@@ -84,10 +86,25 @@ const GymAdminLayout = () => {
             }
           >
             <Bot className="w-4 h-4" />
-            AI Assistant
+            {t.admin.layout.aiAssistant}
           </NavLink>
         </nav>
         <div className="p-3 border-t border-border/30 space-y-1">
+          <div className="flex items-center gap-2 px-3 py-2">
+            <button
+              onClick={() => setLanguage("en")}
+              className={`text-xs tracking-[0.15em] uppercase transition-colors ${language === "en" ? "text-primary font-medium" : "text-muted-foreground/60 hover:text-muted-foreground"}`}
+            >
+              EN
+            </button>
+            <span className="text-muted-foreground/30">|</span>
+            <button
+              onClick={() => setLanguage("pt")}
+              className={`text-xs tracking-[0.15em] uppercase transition-colors ${language === "pt" ? "text-primary font-medium" : "text-muted-foreground/60 hover:text-muted-foreground"}`}
+            >
+              PT
+            </button>
+          </div>
           <Button
             variant="ghost"
             size="sm"
@@ -95,7 +112,7 @@ const GymAdminLayout = () => {
             onClick={() => navigate("/")}
           >
             <Home className="w-4 h-4" />
-            Home Page
+            {t.admin.layout.homePage}
           </Button>
           <Button
             variant="ghost"
@@ -104,7 +121,7 @@ const GymAdminLayout = () => {
             onClick={handleLogout}
           >
             <LogOut className="w-4 h-4" />
-            Logout
+            {t.admin.layout.logout}
           </Button>
         </div>
       </aside>
@@ -113,7 +130,7 @@ const GymAdminLayout = () => {
       <div className="flex-1 flex flex-col min-h-screen">
         <header className="h-16 flex items-center justify-between px-6 border-b border-border/30 bg-card/50">
           <h1 className="text-sm font-medium tracking-wide text-muted-foreground uppercase">
-            The Hundreds — Admin Panel
+            {t.admin.layout.headerTitle}
           </h1>
         </header>
         <main className="flex-1 p-6">

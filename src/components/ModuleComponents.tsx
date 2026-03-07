@@ -2,6 +2,7 @@ import { ReactNode, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown } from "lucide-react";
 import { useProgress } from "@/contexts/ProgressContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "./ScrollReveal";
 
 /* ── Module Layout ── */
@@ -16,18 +17,18 @@ interface ModuleLayoutProps {
 
 export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImage, children }: ModuleLayoutProps) {
   const { completeModule, isModuleCompleted, totalModules } = useProgress();
+  const { t } = useLanguage();
   const completed = isModuleCompleted(moduleId);
 
   return (
     <div className="min-h-screen">
-      {/* Hero */}
       <div className="relative h-[50vh] flex items-end overflow-hidden">
         <img src={heroImage} alt={title} className="absolute inset-0 w-full h-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
         <div className="relative z-10 section-padding pb-12 w-full max-w-5xl mx-auto">
           <ScrollReveal>
             <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-3">
-              Module {moduleNumber} of {totalModules}
+              {t.academy.module.moduleOf} {moduleNumber} {t.academy.module.of} {totalModules}
             </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gold-gradient mb-3">{title}</h1>
             <p className="text-lg text-muted-foreground font-light">{subtitle}</p>
@@ -35,24 +36,22 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
         </div>
       </div>
 
-      {/* Content */}
       <div className="section-padding py-16 max-w-4xl mx-auto space-y-16">
         {children}
 
-        {/* Complete button */}
         <ScrollReveal>
           <div className="flex justify-center pt-8 border-t border-border/30">
             {completed ? (
               <div className="flex items-center gap-3 text-primary">
                 <Check className="w-5 h-5" />
-                <span className="text-sm tracking-[0.2em] uppercase">Module completed</span>
+                <span className="text-sm tracking-[0.2em] uppercase">{t.academy.module.completed}</span>
               </div>
             ) : (
               <button
                 onClick={() => completeModule(moduleId)}
                 className="border border-primary/30 px-10 py-4 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold"
               >
-                Mark as completed
+                {t.academy.module.markComplete}
               </button>
             )}
           </div>
@@ -76,10 +75,11 @@ export function ContentBlock({ title, children }: { title?: string; children: Re
 
 /* ── Key Takeaway ── */
 export function KeyTakeaway({ items }: { items: string[] }) {
+  const { t } = useLanguage();
   return (
     <ScrollReveal>
       <div className="border border-border/50 p-8 space-y-4">
-        <p className="text-xs tracking-[0.3em] uppercase text-primary/60">Key Takeaways</p>
+        <p className="text-xs tracking-[0.3em] uppercase text-primary/60">{t.academy.module.keyTakeaways}</p>
         <ul className="space-y-3">
           {items.map((item, i) => (
             <li key={i} className="flex items-start gap-3 text-foreground/70 font-light">
@@ -152,6 +152,7 @@ interface QuizQuestion {
 
 export function QuizBlock({ moduleId, questions }: { moduleId: string; questions: QuizQuestion[] }) {
   const { setQuizScore } = useProgress();
+  const { t } = useLanguage();
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(questions.length).fill(null));
   const [submitted, setSubmitted] = useState(false);
 
@@ -173,7 +174,7 @@ export function QuizBlock({ moduleId, questions }: { moduleId: string; questions
   return (
     <ScrollReveal>
       <div className="border border-border/50 p-8 space-y-8">
-        <p className="text-xs tracking-[0.3em] uppercase text-primary/60">Knowledge Check</p>
+        <p className="text-xs tracking-[0.3em] uppercase text-primary/60">{t.academy.module.quiz}</p>
         {questions.map((q, qi) => (
           <div key={qi} className="space-y-3">
             <p className="text-foreground/90 font-light">{q.question}</p>
@@ -206,7 +207,7 @@ export function QuizBlock({ moduleId, questions }: { moduleId: string; questions
             disabled={!allAnswered}
             className="border border-primary/30 px-8 py-3 text-sm tracking-[0.2em] uppercase text-primary transition-all duration-500 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
           >
-            Submit answers
+            {t.academy.module.checkAnswer}
           </button>
         )}
         {submitted && (
@@ -221,15 +222,16 @@ export function QuizBlock({ moduleId, questions }: { moduleId: string; questions
 
 /* ── Reflection ── */
 export function ReflectionBlock({ questions }: { questions: string[] }) {
+  const { t } = useLanguage();
   return (
     <ScrollReveal>
       <div className="border border-border/50 p-8 space-y-4">
-        <p className="text-xs tracking-[0.3em] uppercase text-primary/60">Reflection</p>
+        <p className="text-xs tracking-[0.3em] uppercase text-primary/60">{t.academy.module.reflection}</p>
         {questions.map((q, i) => (
           <div key={i} className="space-y-2">
             <p className="text-foreground/80 font-light italic">{q}</p>
             <textarea
-              placeholder="Your thoughts..."
+              placeholder={t.academy.module.reflectionPlaceholder}
               className="w-full min-h-[80px] bg-secondary/30 border border-border/30 text-foreground/70 p-4 text-sm font-light resize-none focus:outline-none focus:border-primary/30 transition-colors placeholder:text-muted-foreground/30"
             />
           </div>

@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
-import { useGymAccess, GymUser } from "@/contexts/GymAccessContext";
+import { useGymAccess } from "@/contexts/GymAccessContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dumbbell, CheckCircle2, XCircle, RotateCcw } from "lucide-react";
@@ -9,6 +10,7 @@ type VerifyState = "idle" | "allowed" | "denied";
 
 const AccessVerification = () => {
   const { verifyAccessCode } = useGymAccess();
+  const { t } = useLanguage();
   const [code, setCode] = useState("");
   const [state, setState] = useState<VerifyState>("idle");
   const [memberName, setMemberName] = useState<string | null>(null);
@@ -39,14 +41,13 @@ const AccessVerification = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background px-4">
       <div className="w-full max-w-sm space-y-6">
-        {/* Header */}
         <div className="text-center space-y-2">
           <div className="mx-auto w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
             <Dumbbell className="w-7 h-7 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight">Gym Access</h1>
+          <h1 className="text-2xl font-bold tracking-tight">{t.gymAccess.title}</h1>
           <p className="text-muted-foreground text-sm">
-            Enter your access code to check in
+            {t.gymAccess.subtitle}
           </p>
         </div>
 
@@ -72,7 +73,7 @@ const AccessVerification = () => {
                   spellCheck={false}
                 />
                 <Button type="submit" className="w-full h-12 text-base" disabled={!code.trim()}>
-                  Verify Access
+                  {t.gymAccess.verifyButton}
                 </Button>
               </form>
             </motion.div>
@@ -91,13 +92,13 @@ const AccessVerification = () => {
                 <CheckCircle2 className="w-10 h-10 text-green-600" />
               </div>
               <div>
-                <p className="text-green-600 font-semibold text-lg">Access Granted</p>
+                <p className="text-green-600 font-semibold text-lg">{t.gymAccess.allowed.welcome}</p>
                 <p className="text-2xl font-bold mt-1">{memberName}</p>
-                <p className="text-muted-foreground text-sm mt-1">Welcome! Have a great workout.</p>
+                <p className="text-muted-foreground text-sm mt-1">{t.gymAccess.allowed.message}</p>
               </div>
               <Button variant="outline" className="w-full" onClick={handleReset}>
                 <RotateCcw className="w-4 h-4 mr-2" />
-                New Check-in
+                {t.gymAccess.tryAgain}
               </Button>
             </motion.div>
           )}
@@ -115,14 +116,14 @@ const AccessVerification = () => {
                 <XCircle className="w-10 h-10 text-red-600" />
               </div>
               <div>
-                <p className="text-red-600 font-semibold text-lg">Access Denied</p>
+                <p className="text-red-600 font-semibold text-lg">{t.gymAccess.denied.title}</p>
                 <p className="text-muted-foreground text-sm mt-1">
-                  Invalid or inactive code. Please contact the staff.
+                  {t.gymAccess.denied.message}
                 </p>
               </div>
               <Button variant="outline" className="w-full" onClick={handleReset}>
                 <RotateCcw className="w-4 h-4 mr-2" />
-                Try Again
+                {t.gymAccess.tryAgain}
               </Button>
             </motion.div>
           )}

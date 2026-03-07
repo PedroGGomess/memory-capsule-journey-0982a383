@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Bot, Send, User, AlertCircle, Settings } from "lucide-react";
 import { toast } from "sonner";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Message {
   id: string;
@@ -21,12 +22,12 @@ Be concise, friendly, and professional. Answer in the same language the user wri
 const API_KEY_STORAGE = "gym-openai-api-key";
 
 const GymAIChat = () => {
+  const { t } = useLanguage();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
       role: "assistant",
-      content:
-        "Olá! Sou o assistente da academia. Posso ajudar com questões sobre gestão de membros, códigos de acesso, operações e muito mais. Como posso ajudar?",
+      content: t.admin.chat.welcomeMessage,
       timestamp: new Date(),
     },
   ]);
@@ -50,14 +51,14 @@ const GymAIChat = () => {
     setApiKey(trimmed);
     setKeyDraft("");
     setShowKeyInput(false);
-    toast.success("API key saved");
+    toast.success(t.admin.chat.apiKeySaved);
   };
 
   const clearApiKey = () => {
     localStorage.removeItem(API_KEY_STORAGE);
     setApiKey("");
     setShowKeyInput(false);
-    toast.success("API key removed");
+    toast.success(t.admin.chat.apiKeyRemoved);
   };
 
   const sendMessage = async (e: React.FormEvent) => {
@@ -67,7 +68,7 @@ const GymAIChat = () => {
 
     if (!apiKey) {
       setShowKeyInput(true);
-      toast.error("Please configure your OpenAI API key first");
+      toast.error(t.admin.chat.apiKeyRequired);
       return;
     }
 
@@ -134,7 +135,7 @@ const GymAIChat = () => {
           timestamp: new Date(),
         },
       ]);
-      toast.error("Failed to get response");
+      toast.error(t.admin.chat.failed);
     } finally {
       setLoading(false);
     }
@@ -148,9 +149,9 @@ const GymAIChat = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">AI Assistant</h2>
+          <h2 className="text-2xl font-bold">{t.admin.chat.title}</h2>
           <p className="text-muted-foreground text-sm">
-            Ask questions about gym operations, members, and policies
+            {t.admin.chat.subtitle}
           </p>
         </div>
         <Button
@@ -162,7 +163,7 @@ const GymAIChat = () => {
           }}
         >
           <Settings className="w-4 h-4 mr-2" />
-          {apiKey ? "Change API Key" : "Set API Key"}
+          {apiKey ? t.admin.chat.changeApiKey : t.admin.chat.setApiKey}
         </Button>
       </div>
 
@@ -172,10 +173,7 @@ const GymAIChat = () => {
           <CardContent className="pt-4 pb-4 space-y-3">
             <div className="flex items-start gap-2 text-sm text-muted-foreground">
               <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
-              <span>
-                Enter your OpenAI API key. It is stored only in your browser and never sent
-                anywhere except directly to OpenAI.
-              </span>
+              <span>{t.admin.chat.apiKeyNote}</span>
             </div>
             <div className="flex gap-2">
               <Input
@@ -187,11 +185,11 @@ const GymAIChat = () => {
                 className="font-mono text-xs"
               />
               <Button size="sm" onClick={saveApiKey} disabled={!keyDraft.trim()}>
-                Save
+                {t.admin.chat.save}
               </Button>
               {apiKey && (
                 <Button size="sm" variant="destructive" onClick={clearApiKey}>
-                  Remove
+                  {t.admin.chat.remove}
                 </Button>
               )}
             </div>
@@ -269,8 +267,8 @@ const GymAIChat = () => {
               onChange={(e) => setInput(e.target.value)}
               placeholder={
                 apiKey
-                  ? "Ask a question about gym operations…"
-                  : "Configure your OpenAI API key to start chatting…"
+                  ? t.admin.chat.inputPlaceholder
+                  : t.admin.chat.inputPlaceholderNoKey
               }
               disabled={loading || !apiKey}
               className="flex-1"
@@ -282,7 +280,7 @@ const GymAIChat = () => {
           </form>
           {!apiKey && (
             <p className="text-xs text-muted-foreground mt-2 text-center">
-              Click <strong>Set API Key</strong> above to configure your OpenAI key
+              {t.admin.chat.configureKey}
             </p>
           )}
         </div>

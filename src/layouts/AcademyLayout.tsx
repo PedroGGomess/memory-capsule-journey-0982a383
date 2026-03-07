@@ -3,8 +3,10 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AcademySidebar } from "@/components/AcademySidebar";
 import { ProgressProvider } from "@/contexts/ProgressContext";
 import { AIAssistantBubble } from "@/components/AIAssistantBubble";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const AcademyLayout = () => {
+  const { t } = useLanguage();
   return (
     <ProgressProvider>
       <SidebarProvider>
@@ -15,7 +17,7 @@ const AcademyLayout = () => {
               <SidebarTrigger className="text-muted-foreground hover:text-foreground" />
               <div className="ml-4 h-px flex-1 bg-border/10" />
               <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/50 ml-4">
-                Internal Platform
+                {t.academy.layout.internalPlatform}
               </p>
             </header>
             <main className="flex-1">
