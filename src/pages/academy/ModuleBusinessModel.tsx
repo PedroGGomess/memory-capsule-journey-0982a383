@@ -22,24 +22,17 @@ const ModuleBusinessModel = () => {
     </ContentBlock>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      {[
-        {
-          title: "Product Design & Personalization",
-          desc: "We design collectible objects inspired by culture, time and place. Every product is created with premium materials and refined aesthetics, transforming traditional souvenirs into meaningful design pieces.",
-        },
-        {
-          title: "Immersive Retail Experience",
-          desc: "Our stores are designed as experiential destinations. The space invites visitors to slow down, explore and interact with the products — immersive, emotionally engaging and aesthetically memorable.",
-        },
-        {
-          title: "AI & Data-Driven Conversion",
-          desc: "The 100's integrates technology into the retail experience. Through digital capture tools, we transform visitors into long-term customers and analyze behavior to optimize engagement.",
-        },
-        {
-          title: "Tourism Premium Gifting",
-          desc: "We are creating a new category in tourism retail. Instead of traditional souvenirs, we offer premium collectible gifts that represent cultural heritage and emotional value.",
-        },
-      ].map(area => (
+      {(isEN ? [
+        { title: "Product Design & Personalization", desc: "We design collectible objects inspired by culture, time and place. Every product is created with premium materials and refined aesthetics, transforming traditional souvenirs into meaningful design pieces." },
+        { title: "Immersive Retail Experience", desc: "Our stores are designed as experiential destinations. The space invites visitors to slow down, explore and interact with the products — immersive, emotionally engaging and aesthetically memorable." },
+        { title: "AI & Data-Driven Conversion", desc: "The 100's integrates technology into the retail experience. Through digital capture tools, we transform visitors into long-term customers and analyze behavior to optimize engagement." },
+        { title: "Tourism Premium Gifting", desc: "We are creating a new category in tourism retail. Instead of traditional souvenirs, we offer premium collectible gifts that represent cultural heritage and emotional value." },
+      ] : [
+        { title: "Design e Personalização de Produtos", desc: "Concebemos objetos colecionáveis inspirados na cultura, tempo e lugar. Cada produto é criado com materiais premium e estética refinada, transformando souvenirs tradicionais em peças de design significativas." },
+        { title: "Experiência de Retalho Imersiva", desc: "As nossas lojas são concebidas como destinos experienciais. O espaço convida os visitantes a abrandar, explorar e interagir com os produtos — imersivo, emocionalmente envolvente e esteticamente memorável." },
+        { title: "Conversão com IA e Dados", desc: "O The 100's integra tecnologia na experiência de retalho. Através de ferramentas de captura digital, transformamos visitantes em clientes de longo prazo e analisamos comportamentos para otimizar o envolvimento." },
+        { title: "Ofertas Premium de Turismo", desc: "Estamos a criar uma nova categoria no retalho turístico. Em vez de souvenirs tradicionais, oferecemos presentes colecionáveis premium que representam herança cultural e valor emocional." },
+      ]).map(area => (
         <ScrollReveal key={area.title}>
           <div className="border border-border/30 p-6 h-full">
             <h4 className="text-base font-light text-primary mb-3">{area.title}</h4>
