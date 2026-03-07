@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useGymAccess, GymUser } from "@/contexts/GymAccessContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -152,6 +153,7 @@ interface NewEmployeeCredentials {
 const AdminDashboard = () => {
   const { users, logs, addUser, updateUser, deleteUser, toggleUserActive, generateAccessCode, generateUserAcademyCode } =
     useGymAccess();
+  const { t } = useLanguage();
 
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
@@ -189,7 +191,7 @@ const AdminDashboard = () => {
       active: true,
     });
     setShowAdd(false);
-    toast.success("User created successfully");
+    toast.success(t.admin.dashboard.employeeAdded);
     if (code) {
       setNewEmployeeCredentials({ name: data.name, academyCode: code });
     }
@@ -205,14 +207,14 @@ const AdminDashboard = () => {
       academyCode: editAcademyCode,
     });
     setEditUser(null);
-    toast.success("User updated");
+    toast.success(t.admin.dashboard.employeeUpdated);
   };
 
   const handleDelete = () => {
     if (!deleteTarget) return;
     deleteUser(deleteTarget.id);
     setDeleteTarget(null);
-    toast.success("User deleted");
+    toast.success(t.admin.dashboard.employeeDeleted);
   };
 
   const handleOpenEdit = (user: GymUser) => {
@@ -228,20 +230,20 @@ const AdminDashboard = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Dashboard</h2>
-          <p className="text-muted-foreground text-sm">Manage employees and onboarding access codes</p>
+          <h2 className="text-2xl font-bold">{t.admin.dashboard.title}</h2>
+          <p className="text-muted-foreground text-sm">{t.admin.dashboard.subtitle}</p>
         </div>
         <Button onClick={() => { setAcademyEnabled(false); setShowAdd(true); }}>
           <Plus className="w-4 h-4 mr-2" />
-          Add Employee
+          {t.admin.dashboard.addEmployee}
         </Button>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <StatsCard icon={Users} label="Total Employees" value={users.length} color="bg-blue-100 text-blue-600" />
-        <StatsCard icon={UserCheck} label="Active" value={activeCount} color="bg-green-100 text-green-600" />
-        <StatsCard icon={UserX} label="Inactive" value={inactiveCount} color="bg-red-100 text-red-600" />
+        <StatsCard icon={Users} label={t.admin.dashboard.totalEmployees} value={users.length} color="bg-blue-100 text-blue-600" />
+        <StatsCard icon={UserCheck} label={t.admin.dashboard.activeEmployees} value={activeCount} color="bg-green-100 text-green-600" />
+        <StatsCard icon={UserX} label={t.admin.dashboard.inactiveEmployees} value={inactiveCount} color="bg-red-100 text-red-600" />
         <StatsCard icon={UserCheck} label="Today's Entries" value={todayAccesses} color="bg-purple-100 text-purple-600" />
       </div>
 
@@ -251,7 +253,7 @@ const AdminDashboard = () => {
           <div className="flex items-center gap-3">
             <Search className="w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="Search by name, email or code…"
+              placeholder={t.admin.dashboard.searchPlaceholder}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="max-w-xs h-8"

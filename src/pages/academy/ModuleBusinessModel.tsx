@@ -1,18 +1,24 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
+import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import storeImg from "@/assets/store-interior.jpg";
 import { QrCode, Smartphone, TrendingUp, Globe, Store, ShoppingCart, User } from "lucide-react";
 
-const ModuleBusinessModel = () => (
+const ModuleBusinessModel = () => {
+  const { language } = useLanguage();
+  const isEN = language === "en";
+  return (
   <ModuleLayout
     moduleId="business-model"
     moduleNumber={8}
-    title="Business Model & Digital Strategy"
-    subtitle="How The 100's operates, grows and captures lasting relationships."
+    title={isEN ? "Business Model & Digital Strategy" : "Modelo de Negócio e Estratégia Digital"}
+    subtitle={isEN ? "How The 100's operates, grows and captures lasting relationships." : "Como o The 100's opera, cresce e cria relações duradouras."}
     heroImage={storeImg}
   >
-    <ContentBlock title="What We Do">
-      <p>The 100's operates at the intersection of four key areas. Together, they form a system that transforms a tourist moment into a lasting emotional and commercial relationship.</p>
+    <ContentBlock title={isEN ? "What We Do" : "O Que Fazemos"}>
+      <p>{isEN
+        ? "The 100's operates at the intersection of four key areas. Together, they form a system that transforms a tourist moment into a lasting emotional and commercial relationship."
+        : "O The 100's opera na interseção de quatro áreas-chave. Juntas, formam um sistema que transforma um momento turístico numa relação emocional e comercial duradoura."}</p>
     </ContentBlock>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -232,6 +238,7 @@ const ModuleBusinessModel = () => (
       "Why is post-visit monetization important for a tourism brand like The 100's?"
     ]} />
   </ModuleLayout>
-);
+  );
+};
 
 export default ModuleBusinessModel;

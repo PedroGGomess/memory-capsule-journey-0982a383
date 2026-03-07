@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAcademyAuth } from "@/contexts/AcademyAuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
@@ -8,6 +9,7 @@ import { motion } from "framer-motion";
 const AcademyLogin = () => {
   const { isAuthenticated, login } = useAcademyAuth();
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
 
@@ -25,19 +27,16 @@ const AcademyLogin = () => {
     if (success) {
       navigate("/academy", { replace: true });
     } else {
-      setError("Invalid access code. Please try again.");
+      setError(t.academy.login.invalidCode);
       setCode("");
     }
   };
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center section-padding relative overflow-hidden">
-      {/* Ambient glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="h-[500px] w-[500px] rounded-full bg-primary/5 blur-[100px] animate-slow-pulse" />
       </div>
-
-      {/* Top line accent */}
       <div className="absolute left-1/2 top-0 h-32 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
 
       <motion.div
@@ -46,7 +45,6 @@ const AcademyLogin = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
       >
-        {/* Logo / Brand */}
         <div className="text-center mb-12">
           <motion.p
             className="text-[10px] tracking-[0.5em] uppercase text-primary/50 mb-6"
@@ -54,7 +52,7 @@ const AcademyLogin = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 1 }}
           >
-            A Memory Capsule Experience
+            {t.academy.login.tagline}
           </motion.p>
           <motion.h1
             className="text-4xl md:text-5xl font-light text-gold-gradient mb-3"
@@ -62,7 +60,7 @@ const AcademyLogin = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1 }}
           >
-            The 100's
+            {t.academy.login.title}
           </motion.h1>
           <motion.p
             className="text-sm text-muted-foreground font-light tracking-[0.3em] uppercase"
@@ -70,11 +68,10 @@ const AcademyLogin = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 1 }}
           >
-            Academy
+            {t.academy.login.subtitle}
           </motion.p>
         </div>
 
-        {/* Divider */}
         <motion.div
           className="flex items-center justify-center mb-10"
           initial={{ opacity: 0, scaleX: 0 }}
@@ -86,7 +83,6 @@ const AcademyLogin = () => {
           <div className="h-px w-16 bg-primary/20" />
         </motion.div>
 
-        {/* Login card */}
         <motion.div
           className="border border-border/30 p-8 bg-card/20 backdrop-blur-sm"
           initial={{ opacity: 0 }}
@@ -94,7 +90,7 @@ const AcademyLogin = () => {
           transition={{ delay: 1, duration: 0.8 }}
         >
           <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/60 text-center mb-6">
-            Employee Portal
+            {t.academy.login.portalLabel}
           </p>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-3">
@@ -102,7 +98,7 @@ const AcademyLogin = () => {
                 htmlFor="code"
                 className="block text-[10px] tracking-[0.3em] uppercase text-muted-foreground/70 text-center"
               >
-                Access Code
+                {t.academy.login.codeLabel}
               </label>
               <Input
                 id="code"
@@ -134,7 +130,7 @@ const AcademyLogin = () => {
               disabled={!code.trim()}
               className="w-full border border-primary/30 bg-transparent text-primary hover:bg-primary/10 hover:border-primary tracking-[0.3em] uppercase text-xs font-light transition-all duration-500 h-12"
             >
-              Enter Academy
+              {t.academy.login.enterButton}
             </Button>
           </form>
         </motion.div>
@@ -145,7 +141,7 @@ const AcademyLogin = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 1 }}
         >
-          Access code provided by your manager.
+          {t.academy.login.codeHint}
         </motion.p>
 
         <motion.div
@@ -158,11 +154,10 @@ const AcademyLogin = () => {
             to="/"
             className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/30 hover:text-muted-foreground/60 transition-colors duration-500"
           >
-            ← Return to experience
+            {t.academy.login.returnLink}
           </Link>
         </motion.div>
 
-        {/* Bottom line accent */}
         <div className="absolute bottom-0 left-1/2 h-16 w-px -translate-x-1/2 bg-gradient-to-b from-primary/20 to-transparent pointer-events-none" />
       </motion.div>
     </div>

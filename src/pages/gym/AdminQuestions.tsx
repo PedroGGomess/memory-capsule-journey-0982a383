@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useGymAccess } from "@/contexts/GymAccessContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,7 @@ import { toast } from "sonner";
 
 const AdminQuestions = () => {
   const { questions, replyToQuestion, resolveQuestion } = useGymAccess();
+  const { t } = useLanguage();
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | "open" | "resolved">("all");
   const [replyTarget, setReplyTarget] = useState<string | null>(null);
@@ -49,12 +51,12 @@ const AdminQuestions = () => {
     replyToQuestion(replyTarget, replyText.trim());
     setReplyTarget(null);
     setReplyText("");
-    toast.success("Reply sent");
+    toast.success(t.admin.questions.replySent);
   };
 
   const handleResolve = (id: string) => {
     resolveQuestion(id);
-    toast.success("Marked as resolved");
+    toast.success(t.admin.questions.markedResolved);
   };
 
   const formatDate = (iso: string) => {
@@ -68,8 +70,8 @@ const AdminQuestions = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Questions Inbox</h2>
-          <p className="text-muted-foreground text-sm">Employee questions from the onboarding platform</p>
+          <h2 className="text-2xl font-bold">{t.admin.questions.title}</h2>
+          <p className="text-muted-foreground text-sm">{t.admin.questions.subtitle}</p>
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Inbox className="w-4 h-4" />
@@ -86,7 +88,7 @@ const AdminQuestions = () => {
             </div>
             <div>
               <p className="text-2xl font-bold">{questions.length}</p>
-              <p className="text-sm text-muted-foreground">Total Questions</p>
+              <p className="text-sm text-muted-foreground">{t.admin.questions.all} {t.admin.questions.tableHeaders.question}s</p>
             </div>
           </CardContent>
         </Card>
@@ -97,7 +99,7 @@ const AdminQuestions = () => {
             </div>
             <div>
               <p className="text-2xl font-bold">{openCount}</p>
-              <p className="text-sm text-muted-foreground">Awaiting Reply</p>
+              <p className="text-sm text-muted-foreground">{t.admin.questions.open}</p>
             </div>
           </CardContent>
         </Card>
@@ -108,7 +110,7 @@ const AdminQuestions = () => {
             </div>
             <div>
               <p className="text-2xl font-bold">{resolvedCount}</p>
-              <p className="text-sm text-muted-foreground">Resolved</p>
+              <p className="text-sm text-muted-foreground">{t.admin.questions.resolved}</p>
             </div>
           </CardContent>
         </Card>
@@ -121,7 +123,7 @@ const AdminQuestions = () => {
             <div className="flex items-center gap-2">
               <Search className="w-4 h-4 text-muted-foreground" />
               <Input
-                placeholder="Search questions…"
+                placeholder={t.admin.questions.searchPlaceholder}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="max-w-xs h-8"

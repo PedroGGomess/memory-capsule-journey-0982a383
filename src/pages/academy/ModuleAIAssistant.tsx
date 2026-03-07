@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Bot, Send, User, AlertCircle, Settings } from "lucide-react";
 import { toast } from "sonner";
 import { useProgress } from "@/contexts/ProgressContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Message {
   id: string;
@@ -39,13 +40,13 @@ const MODULE_ID = "ai-assistant";
 
 const ModuleAIAssistant = () => {
   const { completeModule } = useProgress();
+  const { t } = useLanguage();
 
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
       role: "assistant",
-      content:
-        "Welcome to The 100's Academy AI Assistant. I'm here to help you with brand knowledge, product details, store operations, and any questions about your onboarding journey. How can I assist you today?",
+      content: t.academy.aiAssistant.welcomeMessage,
       timestamp: new Date(),
     },
   ]);
@@ -69,14 +70,14 @@ const ModuleAIAssistant = () => {
     setApiKey(trimmed);
     setKeyDraft("");
     setShowKeyInput(false);
-    toast.success("API key saved");
+    toast.success(t.admin.chat.apiKeySaved);
   };
 
   const clearApiKey = () => {
     localStorage.removeItem(API_KEY_STORAGE);
     setApiKey("");
     setShowKeyInput(false);
-    toast.success("API key removed");
+    toast.success(t.admin.chat.apiKeyRemoved);
   };
 
   const sendMessage = async (e: React.FormEvent) => {
@@ -86,7 +87,7 @@ const ModuleAIAssistant = () => {
 
     if (!apiKey) {
       setShowKeyInput(true);
-      toast.error("Please configure your OpenAI API key first");
+      toast.error(t.admin.chat.apiKeyRequired);
       return;
     }
 
@@ -155,7 +156,7 @@ const ModuleAIAssistant = () => {
           timestamp: new Date(),
         },
       ]);
-      toast.error("Failed to get response");
+      toast.error(t.admin.chat.failed);
     } finally {
       setLoading(false);
     }
@@ -166,13 +167,12 @@ const ModuleAIAssistant = () => {
 
   return (
     <div className="section-padding py-16 max-w-4xl mx-auto flex flex-col h-[calc(100vh-8rem)] space-y-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-2">Module 11</p>
-          <h1 className="text-3xl md:text-4xl font-light text-gold-gradient">AI Assistant</h1>
+          <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-2">{t.academy.aiAssistant.moduleLabel}</p>
+          <h1 className="text-3xl md:text-4xl font-light text-gold-gradient">{t.academy.aiAssistant.title}</h1>
           <p className="text-sm text-muted-foreground font-light mt-1">
-            Ask questions about The 100's brand, products, and store operations
+            {t.academy.aiAssistant.subtitle}
           </p>
         </div>
         <Button
@@ -185,19 +185,15 @@ const ModuleAIAssistant = () => {
           className="border-border/40 text-muted-foreground hover:text-foreground text-xs tracking-[0.1em]"
         >
           <Settings className="w-3.5 h-3.5 mr-2" />
-          {apiKey ? "Change API Key" : "Set API Key"}
+          {apiKey ? t.academy.aiAssistant.changeApiKey : t.academy.aiAssistant.setApiKey}
         </Button>
       </div>
 
-      {/* API Key configuration */}
       {showKeyInput && (
         <div className="border border-border/30 p-5 space-y-3 bg-card/30">
           <div className="flex items-start gap-2 text-xs text-muted-foreground font-light">
             <AlertCircle className="w-3.5 h-3.5 mt-0.5 shrink-0 text-primary/40" />
-            <span>
-              Enter your OpenAI API key. It is stored only in your browser and never sent
-              anywhere except directly to OpenAI.
-            </span>
+            <span>{t.academy.aiAssistant.apiKeyNote}</span>
           </div>
           <div className="flex gap-2">
             <Input
@@ -209,18 +205,17 @@ const ModuleAIAssistant = () => {
               className="font-mono text-xs bg-background/50 border-border/40"
             />
             <Button size="sm" onClick={saveApiKey} disabled={!keyDraft.trim()} className="text-xs">
-              Save
+              {t.academy.aiAssistant.save}
             </Button>
             {apiKey && (
               <Button size="sm" variant="destructive" onClick={clearApiKey} className="text-xs">
-                Remove
+                {t.academy.aiAssistant.remove}
               </Button>
             )}
           </div>
         </div>
       )}
 
-      {/* Chat area */}
       <Card className="flex-1 flex flex-col overflow-hidden border-border/30 bg-card/20">
         <ScrollArea className="flex-1 p-5">
           <div className="space-y-5 pr-2">
@@ -282,17 +277,12 @@ const ModuleAIAssistant = () => {
           </div>
         </ScrollArea>
 
-        {/* Input */}
         <div className="border-t border-border/20 p-4">
           <form onSubmit={sendMessage} className="flex gap-2">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={
-                apiKey
-                  ? "Ask about The 100's brand, products, or store operations…"
-                  : "Configure your OpenAI API key to start chatting…"
-              }
+              placeholder={apiKey ? t.academy.aiAssistant.inputPlaceholder : t.academy.aiAssistant.inputPlaceholderNoKey}
               disabled={loading || !apiKey}
               className="flex-1 bg-background/50 border-border/30 font-light text-sm focus:border-primary/30"
               autoComplete="off"
@@ -308,7 +298,7 @@ const ModuleAIAssistant = () => {
           </form>
           {!apiKey && (
             <p className="text-xs text-muted-foreground/40 mt-2 text-center font-light">
-              Click <strong className="text-muted-foreground/60">Set API Key</strong> above to configure your OpenAI key
+              {t.academy.aiAssistant.configureKey}
             </p>
           )}
         </div>
