@@ -1,76 +1,31 @@
 import ScrollReveal from "./ScrollReveal";
-
-const gifts = [
-  {
-    name: "Entry Gift",
-    tagline: "A lembrança perfeita para iniciar a viagem.",
-    price: "A partir de 19,99€",
-    num: "01",
-    featured: false,
-  },
-  {
-    name: "Cilindro Duas Tampas",
-    tagline: "Elegância em cerâmica e cortiça.",
-    price: "A partir de 29,99€",
-    num: "02",
-    featured: false,
-  },
-  {
-    name: "Cilindro Cortiça",
-    tagline: "Sofisticação e durabilidade.",
-    price: "A partir de 49,99€",
-    num: "03",
-    featured: false,
-  },
-  {
-    name: "Cubo Duas Tampas",
-    tagline: "Estilo moderno em cerâmica e cortiça.",
-    price: "A partir de 69,99€",
-    num: "04",
-    featured: false,
-  },
-  {
-    name: "Cubo Cortiça",
-    tagline: "O bloco maciço para colecionadores.",
-    price: "A partir de 99,99€",
-    num: "05",
-    featured: false,
-  },
-  {
-    name: "Madeira de Carvalho + Latão",
-    tagline: "Clássico intemporal.",
-    price: "A partir de 230€",
-    num: "06",
-    featured: false,
-  },
-  {
-    name: "Madeira de Nogueira + Latão",
-    tagline: "A nossa embalagem mais exclusiva.",
-    price: "A partir de 260€",
-    num: "07",
-    featured: true,
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const GiftsSection = () => {
+  const { t } = useLanguage();
+  const gifts = t.gifts.items.map((item, i) => ({
+    ...item,
+    num: String(i + 1).padStart(2, "0"),
+    featured: i === 6,
+  }));
+
   return (
     <section className="min-h-screen flex flex-col items-center justify-center section-padding py-32">
       <div className="max-w-6xl mx-auto w-full">
         {/* Heading */}
         <div className="text-center mb-20">
           <ScrollReveal>
-            <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-6">Gift Experiences</p>
+            <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-6">{t.gifts.label}</p>
           </ScrollReveal>
           <ScrollReveal delay={0.15}>
             <h2 className="text-4xl md:text-6xl font-light text-gold-gradient mb-6">
-              7 Unique Gifts.{" "}
-              <span className="block">7 Ways to Keep Time.</span>
+              {t.gifts.title1}{" "}
+              <span className="block">{t.gifts.title2}</span>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.25}>
             <p className="text-lg text-foreground/60 font-light max-w-xl mx-auto">
-              Each packaging is a vessel for memory — crafted to endure long after the wine is
-              gone.
+              {t.gifts.description}
             </p>
           </ScrollReveal>
         </div>
@@ -104,7 +59,7 @@ const GiftsSection = () => {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
                 <p className="text-[10px] tracking-[0.4em] uppercase text-primary/40 mb-3">
-                  {gifts[6].num} — Most Exclusive
+                  {gifts[6].num} — {t.gifts.mostExclusive}
                 </p>
                 <h3 className="text-2xl md:text-3xl font-light text-gold-gradient mb-2">
                   {gifts[6].name}
@@ -127,10 +82,10 @@ const GiftsSection = () => {
           <div className="text-center mt-16">
             <div className="h-px w-16 mx-auto bg-primary/20 mb-6" />
             <p className="text-xs tracking-[0.3em] uppercase text-primary/50">
-              Second Life Concept
+              {t.gifts.secondLife}
             </p>
             <p className="mt-2 text-sm text-muted-foreground/50 font-light italic">
-              Crafted to live beyond the wine.
+              {t.gifts.secondLifeTagline}
             </p>
           </div>
         </ScrollReveal>
