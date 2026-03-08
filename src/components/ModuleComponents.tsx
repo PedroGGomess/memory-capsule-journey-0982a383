@@ -271,13 +271,13 @@ export function QuizBlock({ moduleId, questions }: { moduleId: string; questions
                 {questions.map((q, qi) => {
                   const isCorrect = answers[qi] === q.correct;
                   return (
-                    <div key={qi} className={`p-6 border ${isCorrect ? "border-green-500/20 bg-green-500/5" : "border-red-500/20 bg-red-500/5"}`}>
+                    <div key={qi} className={`p-6 border ${isCorrect ? "border-primary/30 bg-primary/5" : "border-destructive/30 bg-destructive/5"}`}>
                       <div className="flex gap-4">
                         <div className="mt-1">
                           {isCorrect ? (
-                            <CheckCircle2 className="w-5 h-5 text-green-500" />
+                            <CheckCircle2 className="w-5 h-5 text-primary" />
                           ) : (
-                            <XCircle className="w-5 h-5 text-red-500" />
+                            <XCircle className="w-5 h-5 text-destructive" />
                           )}
                         </div>
                         <div className="space-y-3 flex-1">
