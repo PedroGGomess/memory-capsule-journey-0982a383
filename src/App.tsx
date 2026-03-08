@@ -107,7 +107,7 @@ const App = () => (
                     <Route path="analytics" element={<AdminAnalytics />} />
                     <Route path="questions" element={<AdminQuestions />} />
                     <Route path="logs" element={<AccessLogs />} />
-                    <Route path="chat" element={<GymAIChat />} />
+                    <Route path="admins" element={<AdminManagement />} />
                   </Route>
 
                   <Route path="*" element={<NotFound />} />
