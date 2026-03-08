@@ -97,7 +97,7 @@ const AdminDashboard = () => {
   const [filterStatus, setFilterStatus] = useState<"all" | "active" | "inactive">("all");
   const [filterOnboarding, setFilterOnboarding] = useState<"all" | "complete" | "pending">("all");
   const [showAdd, setShowAdd] = useState(false);
-  const [academyEnabled, setAcademyEnabled] = useState(false);
+  const [academyEnabled, setAcademyEnabled] = useState(true);
   const [editUser, setEditUser] = useState<GymUser | null>(null);
   const [editAcademyCode, setEditAcademyCode] = useState<string | undefined>(undefined);
   const [deleteTarget, setDeleteTarget] = useState<GymUser | null>(null);
@@ -191,7 +191,7 @@ const AdminDashboard = () => {
           <h2 className="text-2xl font-bold">Gestão de Colaboradores</h2>
           <p className="text-muted-foreground text-sm">Gerir equipa e acessos à plataforma</p>
         </div>
-        <Button onClick={() => { setAcademyEnabled(false); setShowAdd(true); }}>
+        <Button onClick={() => { setAcademyEnabled(true); setNewEmployeeAcademyCode(generateUserAcademyCode()); setShowAdd(true); }}>
           <Plus className="w-4 h-4 mr-2" />
           Adicionar Colaborador
         </Button>
