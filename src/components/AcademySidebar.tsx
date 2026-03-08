@@ -103,6 +103,15 @@ export function AcademySidebar() {
           </div>
         )}
         <button
+          onClick={() => navigate("/")}
+          className="flex w-full items-center gap-3 rounded-md px-6 py-2.5 text-sm font-light text-muted-foreground hover:text-foreground hover:bg-primary/5 transition-all duration-300 group"
+        >
+          <Home className="w-4 h-4 shrink-0 group-hover:text-primary transition-colors duration-300" />
+          {!collapsed && (
+            <span className="tracking-wide">Página Inicial</span>
+          )}
+        </button>
+        <button
           onClick={handleLogout}
           className="flex w-full items-center gap-3 rounded-md px-6 py-2.5 text-sm font-light text-muted-foreground hover:text-foreground hover:bg-primary/5 transition-all duration-300 group"
         >
