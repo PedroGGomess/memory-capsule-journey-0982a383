@@ -37,6 +37,7 @@ const GymAIChat = lazy(() => import("./pages/gym/GymAIChat"));
 const AccessVerification = lazy(() => import("./pages/gym/AccessVerification"));
 const AdminAnalytics = lazy(() => import("./pages/gym/AdminAnalytics"));
 const AdminQuestions = lazy(() => import("./pages/gym/AdminQuestions"));
+const AdminManagement = lazy(() => import("./pages/gym/AdminManagement"));
 
 const queryClient = new QueryClient();
 
