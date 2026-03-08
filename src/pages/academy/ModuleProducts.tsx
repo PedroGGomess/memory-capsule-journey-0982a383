@@ -2,13 +2,30 @@ import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection,
 import { useLanguage } from "@/contexts/LanguageContext";
 import collectionImg from "@/assets/collection.jpg";
 import bottleImg from "@/assets/bottle-closeup.jpg";
-import giftImg from "@/assets/gift-packaging.jpg";
-import storeImg from "@/assets/store-interior.jpg";
-import hourglassImg from "@/assets/hourglass.jpg";
-import hedonismImg from "@/assets/hedonism.jpg";
-import douroImg from "@/assets/douro-valley.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
 import { ProductGallery } from "@/components/ProductGallery";
+
+// Product photos
+import entryGiftImg from "@/assets/produtos/entry-gift.jpg";
+import garrafas2Img from "@/assets/produtos/garrafas-2.jpg";
+import cilindro2t1 from "@/assets/produtos/cilindro-2t-1.jpg";
+import cilindro2t2 from "@/assets/produtos/cilindro-2t-2.jpg";
+import cilindro2t3 from "@/assets/produtos/cilindro-2t-3.jpg";
+import cilindroCork1 from "@/assets/produtos/cilindro-cork-1.jpg";
+import cilindroCork2 from "@/assets/produtos/cilindro-cork-2.jpg";
+import cilindroCork3 from "@/assets/produtos/cilindro-cork-3.jpg";
+import quadrado2t1 from "@/assets/produtos/quadrado-2t-1.jpg";
+import quadrado2t2 from "@/assets/produtos/quadrado-2t-2.jpg";
+import quadrado2t3 from "@/assets/produtos/quadrado-2t-3.jpg";
+import quadradoCork1 from "@/assets/produtos/quadrado-cork-1.jpg";
+import quadradoCork2 from "@/assets/produtos/quadrado-cork-2.jpg";
+import quadradoCork3 from "@/assets/produtos/quadrado-cork-3.jpg";
+import quadradoCarvalho1 from "@/assets/produtos/quadrado-carvalho-1.jpg";
+import quadradoCarvalho2 from "@/assets/produtos/quadrado-carvalho-2.jpg";
+import quadradoCarvalho3 from "@/assets/produtos/quadrado-carvalho-3.jpg";
+import quadradoNogueira1 from "@/assets/produtos/quadrado-nogueira-1.jpg";
+import quadradoNogueira2 from "@/assets/produtos/quadrado-nogueira-2.jpg";
+import quadradoNogueira3 from "@/assets/produtos/quadrado-nogueira-3.jpg";
 
 const ModuleProducts = () => {
   const { language } = useLanguage();
