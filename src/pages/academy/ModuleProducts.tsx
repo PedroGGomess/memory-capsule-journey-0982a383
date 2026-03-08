@@ -2,7 +2,13 @@ import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection,
 import { useLanguage } from "@/contexts/LanguageContext";
 import collectionImg from "@/assets/collection.jpg";
 import bottleImg from "@/assets/bottle-closeup.jpg";
+import giftImg from "@/assets/gift-packaging.jpg";
+import storeImg from "@/assets/store-interior.jpg";
+import hourglassImg from "@/assets/hourglass.jpg";
+import hedonismImg from "@/assets/hedonism.jpg";
+import douroImg from "@/assets/douro-valley.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
+import { ProductGallery } from "@/components/ProductGallery";
 
 const ModuleProducts = () => {
   const { language } = useLanguage();
@@ -36,17 +42,57 @@ const ModuleProducts = () => {
     { name: "Subcoleções Adicionais (Planeadas)", desc: "Grandes Navegações (caravelas, bússolas), Engenharias (varandas, calçada), Lifestyle & Vida (sardinhas, pastéis de nata) e Botânica (oliveiras, videiras)." },
   ];
 
-  const productPortfolio = isEN ? [
-    { name: "Entry Gift", desc: "The starting point of the collection. A simple and elegant product that introduces visitors to the concept of the memory capsule.", materials: "Cardboard / kraft box with latch closure" },
-    { name: "Cylinder Collection", desc: "Elegant cylindrical designs combining ceramic and cork materials. These products balance minimalism with warmth and natural texture.", materials: "Ceramic · Cork · Two-cap and full-cork variants" },
-    { name: "Cube Collection", desc: "Modern geometric designs created for collectors. These pieces emphasize structure and visual presence.", materials: "Ceramic · Cork · Neodymium magnet closure (6–8 magnets)" },
-    { name: "Wood & Brass Collection", desc: "The most premium collection, crafted with oak wood, walnut wood and brass or pewter elements. These designs express timeless luxury and craftsmanship.", materials: "Oak wood · Walnut wood · Brass / pewter · Cork" },
-  ] : [
-    { name: "Entry Gift", desc: "O ponto de partida da coleção. Um produto simples e elegante que introduz os visitantes ao conceito da cápsula de memória.", materials: "Caixa de cartão / kraft com fecho" },
-    { name: "Coleção Cilindro", desc: "Designs cilíndricos elegantes que combinam materiais cerâmicos e de cortiça. Estes produtos equilibram o minimalismo com a textura natural.", materials: "Cerâmica · Cortiça · Variantes de duas tampas e cortiça total" },
-    { name: "Coleção Cubo", desc: "Designs geométricos modernos criados para colecionadores. Estas peças enfatizam a estrutura e a presença visual.", materials: "Cerâmica · Cortiça · Fecho com ímã de neodímio (6–8 ímanes)" },
-    { name: "Coleção Madeira & Latão", desc: "A coleção mais premium, elaborada com madeira de carvalho, madeira de nogueira e elementos de latão ou peltre. Estes designs expressam luxo intemporal e artesanato.", materials: "Madeira de carvalho · Madeira de nogueira · Latão / peltre · Cortiça" },
+  // Shared product photo arrays — replace with real product photos when available
+  const productPhotos = [
+    [collectionImg, giftImg, bottleImg],        // Entry Gift
+    [bottleImg, collectionImg, storeImg],       // Cylinder Collection
+    [hourglassImg, collectionImg, storeImg],    // Cube Collection
+    [hedonismImg, douroImg, hourglassImg],      // Wood & Brass Collection
   ];
+
+  const productPortfolio = (isEN ? [
+    {
+      name: "Entry Gift",
+      desc: "The starting point of the collection. A simple and elegant product that introduces visitors to the concept of the memory capsule.",
+      materials: "Cardboard / kraft box with latch closure",
+    },
+    {
+      name: "Cylinder Collection",
+      desc: "Elegant cylindrical designs combining ceramic and cork materials. These products balance minimalism with warmth and natural texture.",
+      materials: "Ceramic · Cork · Two-cap and full-cork variants",
+    },
+    {
+      name: "Cube Collection",
+      desc: "Modern geometric designs created for collectors. These pieces emphasize structure and visual presence.",
+      materials: "Ceramic · Cork · Neodymium magnet closure (6–8 magnets)",
+    },
+    {
+      name: "Wood & Brass Collection",
+      desc: "The most premium collection, crafted with oak wood, walnut wood and brass or pewter elements. These designs express timeless luxury and craftsmanship.",
+      materials: "Oak wood · Walnut wood · Brass / pewter · Cork",
+    },
+  ] : [
+    {
+      name: "Entry Gift",
+      desc: "O ponto de partida da coleção. Um produto simples e elegante que introduz os visitantes ao conceito da cápsula de memória.",
+      materials: "Caixa de cartão / kraft com fecho",
+    },
+    {
+      name: "Coleção Cilindro",
+      desc: "Designs cilíndricos elegantes que combinam materiais cerâmicos e de cortiça. Estes produtos equilibram o minimalismo com a textura natural.",
+      materials: "Cerâmica · Cortiça · Variantes de duas tampas e cortiça total",
+    },
+    {
+      name: "Coleção Cubo",
+      desc: "Designs geométricos modernos criados para colecionadores. Estas peças enfatizam a estrutura e a presença visual.",
+      materials: "Cerâmica · Cortiça · Fecho com ímã de neodímio (6–8 ímanes)",
+    },
+    {
+      name: "Coleção Madeira & Latão",
+      desc: "A coleção mais premium, elaborada com madeira de carvalho, madeira de nogueira e elementos de latão ou peltre. Estes designs expressam luxo intemporal e artesanato.",
+      materials: "Madeira de carvalho · Madeira de nogueira · Latão / peltre · Cortiça",
+    },
+  ]).map((p, i) => ({ ...p, photos: productPhotos[i] }));
 
   const secondLifeUses = isEN
     ? ["Candle holder", "Jewelry holder", "Diffuser", "Decorative sculpture"]
@@ -134,21 +180,17 @@ const ModuleProducts = () => {
 
       <ContentBlock title={isEN ? "Product Portfolio" : "Portfólio de Produtos"}>
         <p>{isEN
-          ? "The 100's products are designed as collectible pieces. Each design combines aesthetic beauty with symbolic meaning. The containers are crafted to outlive the wine inside them."
-          : "Os produtos do The 100's são concebidos como peças colecionáveis. Cada design combina beleza estética com significado simbólico. Os recipientes são criados para durar mais do que o vinho que contêm."}</p>
+          ? "The 100's products are designed as collectible pieces. Each design combines aesthetic beauty with symbolic meaning. The containers are crafted to outlive the wine inside them. Click on any product to explore its gallery."
+          : "Os produtos do The 100's são concebidos como peças colecionáveis. Cada design combina beleza estética com significado simbólico. Os recipientes são criados para durar mais do que o vinho que contêm. Clique em qualquer produto para explorar a galeria."}</p>
       </ContentBlock>
 
-      <div className="space-y-4">
-        {productPortfolio.map(product => (
-          <ScrollReveal key={product.name}>
-            <div className="border border-border/30 p-6 hover:border-primary/30 transition-all duration-500">
-              <h4 className="text-lg font-light text-primary mb-2">{product.name}</h4>
-              <p className="text-sm text-foreground/70 font-light mb-3">{product.desc}</p>
-              <p className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground/50">{product.materials}</p>
-            </div>
-          </ScrollReveal>
-        ))}
-      </div>
+      <ProductGallery
+        products={productPortfolio}
+        viewLabel={isEN ? "View gallery for" : "Ver galeria de"}
+        collectionLabel={isEN ? "The 100's Collection" : "Coleção The 100's"}
+        photoLabel={isEN ? "PHOTO" : "FOTO"}
+        photosLabel={isEN ? "PHOTOS" : "FOTOS"}
+      />
 
       <ContentBlock title={isEN ? "The Second Life Concept" : "O Conceito de Segunda Vida"}>
         <p>{isEN
