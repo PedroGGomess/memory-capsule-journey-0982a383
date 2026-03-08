@@ -138,7 +138,7 @@ const ModuleAIAssistant = () => {
         onDelta: upsert,
         onDone: () => {
           setLoading(false);
-          completeModule(MODULE_ID);
+          // ai-assistant is a tool, not a trackable module
         },
         onError: (msg) => {
           setMessages((prev) => [...prev, { role: "assistant", content: `⚠️ ${msg}` }]);
