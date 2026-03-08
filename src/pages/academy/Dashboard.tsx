@@ -23,10 +23,14 @@ const Dashboard = () => {
     { id: "brand-voice", num: 6, title: t.academy.nav.brandVoice, desc: t.academy.dashboard.subtitle, icon: MessageCircle, path: "/academy/module/brand-voice" },
     { id: "customer-experience", num: 7, title: t.academy.nav.customerExperience, desc: t.academy.dashboard.subtitle, icon: Users, path: "/academy/module/customer-experience" },
     { id: "business-model", num: 8, title: t.academy.nav.businessModel, desc: t.academy.dashboard.subtitle, icon: BarChart3, path: "/academy/module/business-model" },
-    { id: "ask-team", num: 9, title: t.academy.nav.askTeam, desc: t.academy.dashboard.subtitle, icon: Sparkles, path: "/academy/module/ask-team" },
-    { id: "resources", num: 10, title: t.academy.nav.resources, desc: t.academy.dashboard.subtitle, icon: FolderOpen, path: "/academy/module/resources" },
-    { id: "ai-assistant", num: 11, title: t.academy.nav.aiAssistant, desc: t.academy.dashboard.subtitle, icon: Bot, path: "/academy/module/ai-assistant" },
-    { id: "certification", num: 12, title: t.academy.nav.certification, desc: t.academy.dashboard.subtitle, icon: Award, path: "/academy/module/certification" },
+    { id: "certification", num: 9, title: t.academy.nav.certification, desc: t.academy.dashboard.subtitle, icon: Award, path: "/academy/module/certification" },
+  ];
+
+  // Tools — not counted as modules
+  const tools = [
+    { id: "ask-team", title: t.academy.nav.askTeam, icon: Sparkles, path: "/academy/module/ask-team" },
+    { id: "resources", title: t.academy.nav.resources, icon: FolderOpen, path: "/academy/module/resources" },
+    { id: "ai-assistant", title: t.academy.nav.aiAssistant, icon: Bot, path: "/academy/module/ai-assistant" },
   ];
 
   const nextModule = modules.find((m) => !isModuleCompleted(m.id));
@@ -146,6 +150,26 @@ const Dashboard = () => {
           );
         })}
       </div>
+
+      <ScrollReveal delay={0.3}>
+        <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground/50 mt-12 mb-4 px-1">Ferramentas</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {tools.map((tool, i) => (
+            <Link key={tool.id} to={tool.path}>
+              <motion.div
+                className="group border border-border/30 p-5 flex items-center gap-4 transition-all duration-500 hover:border-primary/40 hover:bg-card"
+                whileHover={{ x: 4 }}
+              >
+                <div className="p-2.5 rounded-sm bg-secondary/50">
+                  <tool.icon className="w-4 h-4 text-muted-foreground" />
+                </div>
+                <h3 className="text-sm font-light text-foreground/80">{tool.title}</h3>
+                <ArrowRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary/60 transition-colors ml-auto shrink-0" />
+              </motion.div>
+            </Link>
+          ))}
+        </div>
+      </ScrollReveal>
 
       <ScrollReveal delay={0.3}>
         <div className="text-center mt-20 py-12 border-t border-border/20">
