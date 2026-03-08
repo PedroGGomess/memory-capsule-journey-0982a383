@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/sidebar";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
-  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut
+  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut, Home
 } from "lucide-react";
+import logoImg from "@/assets/Logo.png";
 
 export function AcademySidebar() {
   const { state } = useSidebar();
