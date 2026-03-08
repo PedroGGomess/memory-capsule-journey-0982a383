@@ -157,7 +157,7 @@ const Index = () => {
                   <p className="text-xs tracking-[0.35em] uppercase text-primary/50 mb-4">{t.brand.missionTitle}</p>
                   <p className="text-sm text-foreground/60 font-light leading-relaxed mb-4">{t.brand.missionIntro}</p>
                   <ul className="space-y-1.5">
-                    {(t.brand.missionItems as string[]).map((item, i) => (
+                    {[...t.brand.missionItems].map((item, i) => (
                       <li key={i} className="text-xs text-foreground/40 font-light flex items-start gap-2">
                         <span className="text-primary/30 mt-0.5">·</span>
                         <span>{item}</span>
