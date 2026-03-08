@@ -122,13 +122,18 @@ export function ExpandableSection({ title, children }: { title: string; children
   const [open, setOpen] = useState(false);
   return (
     <ScrollReveal>
-      <div className="border-b border-border/30">
+      <div className={`border border-primary/20 bg-secondary/5 backdrop-blur-sm transition-all duration-500 overflow-hidden ${open ? 'my-6 shadow-lg shadow-primary/5' : 'my-4 hover:border-primary/40 hover:bg-secondary/10'}`}>
         <button
           onClick={() => setOpen(!open)}
-          className="w-full flex items-center justify-between py-5 text-left"
+          className="w-full flex items-center justify-between p-6 text-left relative group"
         >
-          <span className="text-lg font-light text-foreground/90">{title}</span>
-          <ChevronDown className={`w-5 h-5 text-primary/60 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
+          <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary/40 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-center" />
+          {open && <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary transition-all duration-300" />}
+          
+          <span className={`text-lg font-light transition-colors duration-300 ${open ? 'text-primary' : 'text-foreground/90 group-hover:text-primary/80'}`}>{title}</span>
+          <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300 ${open ? 'border-primary bg-primary/10 text-primary' : 'border-border/50 text-foreground/50 group-hover:border-primary/30 group-hover:text-primary/70'}`}>
+            <ChevronDown className={`w-4 h-4 transition-transform duration-500 ${open ? "rotate-180" : ""}`} />
+          </div>
         </button>
         <AnimatePresence>
           {open && (
@@ -136,11 +141,13 @@ export function ExpandableSection({ title, children }: { title: string; children
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden"
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="pb-6 text-foreground/70 font-light leading-relaxed space-y-3">
-                {children}
+              <div className="px-6 pb-8 pt-2">
+                <div className="h-px w-full bg-gradient-to-r from-primary/20 to-transparent mb-6" />
+                <div className="text-foreground/70 font-light leading-relaxed space-y-4 pl-4 border-l border-primary/10">
+                  {children}
+                </div>
               </div>
             </motion.div>
           )}
