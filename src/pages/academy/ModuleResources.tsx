@@ -59,7 +59,6 @@ const ModuleResources = () => {
     <ModuleLayout
       hideCompletion
       moduleId="resources"
-      moduleNumber={10}
       title={language === "pt" ? "Recursos" : "Resources"}
       subtitle={language === "pt" ? "A tua biblioteca da marca — tudo o que precisas num só lugar." : "Your brand library — everything you need in one place."}
       heroImage={douroImg}

@@ -28,9 +28,11 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
         <div className="relative z-10 section-padding pb-12 w-full max-w-5xl mx-auto">
           <ScrollReveal>
-            <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-3">
-              {t.academy.module.moduleOf} {moduleNumber} {t.academy.module.of} {totalModules}
-            </p>
+            {moduleNumber && (
+              <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-3">
+                {t.academy.module.moduleOf} {moduleNumber} {t.academy.module.of} {totalModules}
+              </p>
+            )}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gold-gradient mb-3">{title}</h1>
             <p className="text-lg text-muted-foreground font-light">{subtitle}</p>
           </ScrollReveal>

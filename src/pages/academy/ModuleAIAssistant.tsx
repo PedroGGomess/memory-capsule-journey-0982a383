@@ -154,9 +154,6 @@ const ModuleAIAssistant = () => {
   return (
     <div className="section-padding py-16 max-w-4xl mx-auto flex flex-col h-[calc(100vh-8rem)] space-y-6">
       <div>
-        <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-2">
-          {t.academy.aiAssistant.moduleLabel}
-        </p>
         <h1 className="text-3xl md:text-4xl font-light text-gold-gradient">
           {t.academy.aiAssistant.title}
         </h1>
