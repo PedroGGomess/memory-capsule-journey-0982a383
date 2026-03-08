@@ -81,13 +81,17 @@ export function KeyTakeaway({ items }: { items: string[] }) {
   const { t } = useLanguage();
   return (
     <ScrollReveal>
-      <div className="border border-border/50 p-8 space-y-4">
-        <p className="text-xs tracking-[0.3em] uppercase text-primary/60">{t.academy.module.keyTakeaways}</p>
-        <ul className="space-y-3">
+      <div className="relative border border-primary/20 bg-primary/[0.03] backdrop-blur-md p-8 md:p-10 my-12">
+        <div className="absolute top-0 left-0 w-1 h-full bg-primary/40" />
+        <div className="flex items-center gap-3 mb-8">
+          <Bookmark className="w-5 h-5 text-primary" />
+          <p className="text-xs tracking-[0.3em] uppercase text-primary font-medium">{t.academy.module.keyTakeaways}</p>
+        </div>
+        <ul className="space-y-5">
           {items.map((item, i) => (
-            <li key={i} className="flex items-start gap-3 text-foreground/70 font-light">
-              <span className="text-primary mt-1 text-xs">◆</span>
-              <span>{item}</span>
+            <li key={i} className="flex items-start gap-4 text-foreground/80 font-light leading-relaxed">
+              <div className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/60 shrink-0" />
+              <span className="text-lg">{item}</span>
             </li>
           ))}
         </ul>
