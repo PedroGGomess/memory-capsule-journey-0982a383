@@ -122,7 +122,7 @@ const ModuleCrossSelling = () => {
       moduleNumber={11}
       title={isEN ? "Cross-Selling & Upselling" : "Cross-Selling & Upselling"}
       subtitle={isEN ? "The art of suggesting more — without pushing." : "A arte de sugerir mais — sem forçar."}
-      heroImage={collectionImg}
+      heroImage={crossSellingImg}
     >
       <ContentBlock title={isEN ? "Sell the Story, Not the Product" : "Vende a História, Não o Produto"}>
         <p>{isEN

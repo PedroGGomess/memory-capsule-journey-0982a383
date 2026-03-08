@@ -177,7 +177,7 @@ const ModuleTastingGuide = () => {
       moduleNumber={9}
       title={isEN ? "Tasting Guide & Sales Ritual" : "Guia de Prova & Ritual de Vendas"}
       subtitle={isEN ? "The art of presenting The 100's — every word, every gesture matters." : "A arte de apresentar o The 100's — cada palavra, cada gesto conta."}
-      heroImage={storeImg}
+      heroImage={tastingImg}
     >
       <ContentBlock title={isEN ? "You Are the Experience" : "Tu És a Experiência"}>
         <p>{isEN
