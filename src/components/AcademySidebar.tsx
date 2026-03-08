@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/sidebar";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
-  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut
+  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut, Home
 } from "lucide-react";
+import logoImg from "@/assets/Logo.png";
 
 export function AcademySidebar() {
   const { state } = useSidebar();
@@ -44,12 +45,15 @@ export function AcademySidebar() {
   return (
     <Sidebar collapsible="icon" className="border-r border-border/30">
       <SidebarContent className="bg-card pt-6">
-        {!collapsed && (
-          <div className="px-6 pb-6 border-b border-border/20">
-            <p className="text-lg font-light text-gold-gradient">The 100's</p>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mt-1">{t.academy.layout.academy}</p>
-          </div>
-        )}
+        <div className="px-6 pb-6 border-b border-border/20 flex items-center gap-3">
+          <img src={logoImg} alt="The 100's" className="w-8 h-8 object-contain" />
+          {!collapsed && (
+            <div>
+              <p className="text-lg font-light text-gold-gradient">The 100's</p>
+              <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mt-1">{t.academy.layout.academy}</p>
+            </div>
+          )}
+        </div>
 
         <SidebarGroup>
           {!collapsed && <SidebarGroupLabel className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/60 px-6">{t.academy.layout.navigation}</SidebarGroupLabel>}
@@ -98,6 +102,15 @@ export function AcademySidebar() {
             </button>
           </div>
         )}
+        <button
+          onClick={() => navigate("/")}
+          className="flex w-full items-center gap-3 rounded-md px-6 py-2.5 text-sm font-light text-muted-foreground hover:text-foreground hover:bg-primary/5 transition-all duration-300 group"
+        >
+          <Home className="w-4 h-4 shrink-0 group-hover:text-primary transition-colors duration-300" />
+          {!collapsed && (
+            <span className="tracking-wide">Página Inicial</span>
+          )}
+        </button>
         <button
           onClick={handleLogout}
           className="flex w-full items-center gap-3 rounded-md px-6 py-2.5 text-sm font-light text-muted-foreground hover:text-foreground hover:bg-primary/5 transition-all duration-300 group"

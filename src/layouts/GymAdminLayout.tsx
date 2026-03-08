@@ -3,6 +3,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard, LogOut, History, Bot, BarChart2, MessageSquare, Home } from "lucide-react";
+import logoImg from "@/assets/Logo.png";
 
 const GymAdminLayout = () => {
   const { logout } = useAuth();
@@ -18,7 +19,8 @@ const GymAdminLayout = () => {
     <div className="min-h-screen flex bg-background">
       {/* Sidebar */}
       <aside className="w-60 border-r border-border/30 bg-card/50 flex flex-col">
-        <div className="h-16 flex items-center px-5 border-b border-border/30">
+        <div className="h-16 flex items-center gap-3 px-5 border-b border-border/30">
+          <img src={logoImg} alt="The 100's" className="w-8 h-8 object-contain" />
           <span className="font-semibold text-sm tracking-wide">{t.admin.layout.brandTitle}</span>
         </div>
         <nav className="flex-1 p-3 space-y-1">
