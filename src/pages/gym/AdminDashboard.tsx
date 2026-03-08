@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
-import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
 import {
   Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
 } from "@/components/ui/dialog";
@@ -24,6 +24,16 @@ import {
 import { Users, UserCheck, UserX, Copy, Pencil, Trash2, Plus, RefreshCw, Search, GraduationCap, CheckCircle, Clock, Mail } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+
+const ease = [0.16, 1, 0.3, 1] as const;
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
+};
 
 // ── Form ──────────────────────────────────────────────────────────────────
 
@@ -56,26 +66,26 @@ const UserForm = ({ initial, onSubmit, onCancel, submitLabel }: UserFormProps) =
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="space-y-1.5">
-        <Label>Nome Completo *</Label>
-        <Input value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} placeholder="João Silva" required />
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="space-y-2">
+        <Label className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/50">Nome Completo *</Label>
+        <Input value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} placeholder="João Silva" required className="bg-background/30 border-border/15 h-11 text-sm font-light" />
       </div>
-      <div className="space-y-1.5">
-        <Label>Email</Label>
-        <Input type="email" value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} placeholder="joao@exemplo.com" />
+      <div className="space-y-2">
+        <Label className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/50">Email</Label>
+        <Input type="email" value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} placeholder="joao@exemplo.com" className="bg-background/30 border-border/15 h-11 text-sm font-light" />
       </div>
-      <div className="space-y-1.5">
-        <Label>Notas</Label>
-        <Textarea value={form.notes} onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))} placeholder="Notas opcionais…" rows={2} />
+      <div className="space-y-2">
+        <Label className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/50">Notas</Label>
+        <Textarea value={form.notes} onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))} placeholder="Notas opcionais…" rows={2} className="bg-background/30 border-border/15 text-sm font-light" />
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <Switch id="onboarding" checked={form.onboardingComplete} onCheckedChange={(v) => setForm((f) => ({ ...f, onboardingComplete: v }))} />
-        <Label htmlFor="onboarding">Onboarding completo</Label>
+        <Label htmlFor="onboarding" className="text-sm font-light text-muted-foreground/60">Onboarding completo</Label>
       </div>
       <DialogFooter>
-        <Button type="button" variant="ghost" onClick={onCancel}>Cancelar</Button>
-        <Button type="submit">{submitLabel}</Button>
+        <Button type="button" variant="ghost" onClick={onCancel} className="text-muted-foreground/50">Cancelar</Button>
+        <Button type="submit" className="border border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/40 tracking-[0.15em] uppercase text-[10px] font-light">{submitLabel}</Button>
       </DialogFooter>
     </form>
   );
@@ -154,7 +164,6 @@ const AdminDashboard = () => {
     toast.success("Colaborador adicionado!");
     if (code) {
       setNewEmployeeCredentials({ name: data.name, academyCode: code });
-      // Send welcome email with academy link and code
       if (data.email) {
         sendWelcomeEmail(data.name, data.email, code);
       }
@@ -184,155 +193,138 @@ const AdminDashboard = () => {
     navigator.clipboard.writeText(code).then(() => toast.success("Código copiado!"));
   };
 
+  const stats = [
+    { label: "Total", value: users.length, icon: Users, color: "text-primary" },
+    { label: "Ativos", value: activeCount, icon: UserCheck, color: "text-emerald-500" },
+    { label: "Inativos", value: inactiveCount, icon: UserX, color: "text-destructive" },
+    { label: "Onboarding", value: onboardingDone, icon: GraduationCap, color: "text-primary" },
+  ];
+
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <motion.div
+      className="space-y-8"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {/* Header */}
+      <motion.div variants={itemVariants} className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Gestão de Colaboradores</h2>
-          <p className="text-muted-foreground text-sm">Gerir equipa e acessos à plataforma</p>
+          <h2 className="text-2xl font-extralight text-foreground/80">Gestão de Colaboradores</h2>
+          <p className="text-xs text-muted-foreground/40 font-light mt-1">Gerir equipa e acessos à plataforma</p>
         </div>
-        <Button onClick={() => { setAcademyEnabled(true); setNewEmployeeAcademyCode(generateUserAcademyCode()); setShowAdd(true); }}>
-          <Plus className="w-4 h-4 mr-2" />
-          Adicionar Colaborador
+        <Button
+          onClick={() => { setAcademyEnabled(true); setNewEmployeeAcademyCode(generateUserAcademyCode()); setShowAdd(true); }}
+          className="border border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/40 tracking-[0.15em] uppercase text-[10px] font-light h-10 px-5"
+        >
+          <Plus className="w-3.5 h-3.5 mr-2" />
+          Adicionar
         </Button>
-      </div>
+      </motion.div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="pt-5 pb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
-                <Users className="w-4 h-4 text-primary" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{users.length}</p>
-                <p className="text-xs text-muted-foreground">Total</p>
-              </div>
+      <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-4 gap-[1px] bg-border/10">
+        {stats.map((s) => (
+          <div key={s.label} className="bg-background p-5 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full bg-muted/20 flex items-center justify-center">
+              <s.icon className={`w-4 h-4 ${s.color}`} />
             </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-5 pb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                <UserCheck className="w-4 h-4 text-emerald-500" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{activeCount}</p>
-                <p className="text-xs text-muted-foreground">Ativos</p>
-              </div>
+            <div>
+              <p className="text-2xl font-extralight text-foreground/80">{s.value}</p>
+              <p className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/30">{s.label}</p>
             </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-5 pb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-destructive/10 flex items-center justify-center">
-                <UserX className="w-4 h-4 text-destructive" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{inactiveCount}</p>
-                <p className="text-xs text-muted-foreground">Inativos</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-5 pb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
-                <GraduationCap className="w-4 h-4 text-primary" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{onboardingDone}</p>
-                <p className="text-xs text-muted-foreground">Onboarding completo</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+        ))}
+      </motion.div>
 
       {/* Search + Filters + Table */}
-      <Card>
-        <div className="p-4 border-b border-border/20">
-          <div className="flex items-center gap-3 flex-wrap">
-            <Search className="w-4 h-4 text-muted-foreground" />
-            <Input placeholder="Pesquisar por nome, email ou código..." value={search} onChange={(e) => setSearch(e.target.value)} className="max-w-xs h-8" />
-            <Select value={filterStatus} onValueChange={(v) => setFilterStatus(v as "all" | "active" | "inactive")}>
-              <SelectTrigger className="w-[130px] h-8">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Todos</SelectItem>
-                <SelectItem value="active">Ativos</SelectItem>
-                <SelectItem value="inactive">Inativos</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select value={filterOnboarding} onValueChange={(v) => setFilterOnboarding(v as "all" | "complete" | "pending")}>
-              <SelectTrigger className="w-[150px] h-8">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Onboarding: Todos</SelectItem>
-                <SelectItem value="complete">Completo</SelectItem>
-                <SelectItem value="pending">Pendente</SelectItem>
-              </SelectContent>
-            </Select>
-            <span className="text-xs text-muted-foreground ml-auto">{filtered.length} de {users.length}</span>
+      <motion.div variants={itemVariants}>
+        <div className="border border-border/10 overflow-hidden">
+          {/* Toolbar */}
+          <div className="p-4 border-b border-border/10 bg-card/20">
+            <div className="flex items-center gap-3 flex-wrap">
+              <Search className="w-3.5 h-3.5 text-muted-foreground/30" />
+              <Input
+                placeholder="Pesquisar..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="max-w-xs h-9 bg-background/30 border-border/15 text-sm font-light"
+              />
+              <Select value={filterStatus} onValueChange={(v) => setFilterStatus(v as "all" | "active" | "inactive")}>
+                <SelectTrigger className="w-[120px] h-9 bg-background/30 border-border/15 text-sm font-light">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todos</SelectItem>
+                  <SelectItem value="active">Ativos</SelectItem>
+                  <SelectItem value="inactive">Inativos</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={filterOnboarding} onValueChange={(v) => setFilterOnboarding(v as "all" | "complete" | "pending")}>
+                <SelectTrigger className="w-[150px] h-9 bg-background/30 border-border/15 text-sm font-light">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Onboarding: Todos</SelectItem>
+                  <SelectItem value="complete">Completo</SelectItem>
+                  <SelectItem value="pending">Pendente</SelectItem>
+                </SelectContent>
+              </Select>
+              <span className="text-[9px] tracking-[0.1em] text-muted-foreground/25 ml-auto">{filtered.length} de {users.length}</span>
+            </div>
           </div>
-        </div>
-        <CardContent className="p-0">
+
+          {/* Table */}
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Colaborador</TableHead>
-                <TableHead>Código Academy</TableHead>
-                <TableHead>Onboarding</TableHead>
-                <TableHead>Estado</TableHead>
-                <TableHead className="text-right">Ações</TableHead>
+              <TableRow className="border-border/10 hover:bg-transparent">
+                <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Colaborador</TableHead>
+                <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Código Academy</TableHead>
+                <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Onboarding</TableHead>
+                <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Estado</TableHead>
+                <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light text-right">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center text-muted-foreground py-10">
+                  <TableCell colSpan={5} className="text-center text-muted-foreground/30 py-16 text-sm font-light">
                     {users.length === 0 ? "Sem colaboradores. Adicione o primeiro!" : "Sem resultados."}
                   </TableCell>
                 </TableRow>
               ) : (
                 filtered.map((user) => (
-                  <TableRow key={user.id}>
+                  <TableRow key={user.id} className="border-border/5 hover:bg-primary/[0.02] transition-colors">
                     <TableCell>
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-semibold">
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-[10px] font-medium">
                           {user.name.charAt(0).toUpperCase()}
                         </div>
                         <div>
-                          <p className="font-medium text-sm">{user.name}</p>
-                          <p className="text-xs text-muted-foreground">{user.email || "—"}</p>
+                          <p className="text-sm font-light text-foreground/70">{user.name}</p>
+                          <p className="text-[10px] text-muted-foreground/30">{user.email || "—"}</p>
                         </div>
                       </div>
                     </TableCell>
                     <TableCell>
                       {user.academyCode ? (
-                        <div className="flex items-center gap-1">
-                          <code className="text-xs bg-muted px-1.5 py-0.5 rounded font-mono">{user.academyCode}</code>
-                          <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => copyCode(user.academyCode!)}>
+                        <div className="flex items-center gap-1.5">
+                          <code className="text-[10px] bg-muted/30 px-2 py-1 rounded font-mono tracking-wider text-foreground/50">{user.academyCode}</code>
+                          <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground/30 hover:text-primary" onClick={() => copyCode(user.academyCode!)}>
                             <Copy className="w-3 h-3" />
                           </Button>
                         </div>
                       ) : (
-                        <span className="text-xs text-muted-foreground">—</span>
+                        <span className="text-[10px] text-muted-foreground/20">—</span>
                       )}
                     </TableCell>
                     <TableCell>
                       {user.onboardingComplete ? (
-                        <Badge variant="secondary" className="text-xs bg-emerald-500/10 text-emerald-600 border-0">
+                        <Badge variant="secondary" className="text-[9px] tracking-[0.1em] bg-emerald-500/10 text-emerald-500/70 border-0 font-light">
                           <CheckCircle className="w-3 h-3 mr-1" /> Completo
                         </Badge>
                       ) : (
-                        <Badge variant="outline" className="text-xs">
+                        <Badge variant="outline" className="text-[9px] tracking-[0.1em] border-border/15 text-muted-foreground/30 font-light">
                           <Clock className="w-3 h-3 mr-1" /> Pendente
                         </Badge>
                       )}
@@ -340,18 +332,18 @@ const AdminDashboard = () => {
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Switch checked={user.active} onCheckedChange={() => toggleUserActive(user.id)} />
-                        <span className={`text-xs ${user.active ? "text-emerald-500" : "text-muted-foreground"}`}>
+                        <span className={`text-[10px] ${user.active ? "text-emerald-500/60" : "text-muted-foreground/30"}`}>
                           {user.active ? "Ativo" : "Inativo"}
                         </span>
                       </div>
                     </TableCell>
                     <TableCell className="text-right">
-                      <div className="flex items-center justify-end gap-1">
-                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleOpenEdit(user)} title="Editar">
-                          <Pencil className="w-4 h-4" />
+                      <div className="flex items-center justify-end gap-0.5">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground/30 hover:text-foreground" onClick={() => handleOpenEdit(user)}>
+                          <Pencil className="w-3.5 h-3.5" />
                         </Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive" onClick={() => setDeleteTarget(user)} title="Eliminar">
-                          <Trash2 className="w-4 h-4" />
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground/30 hover:text-destructive" onClick={() => setDeleteTarget(user)}>
+                          <Trash2 className="w-3.5 h-3.5" />
                         </Button>
                       </div>
                     </TableCell>
@@ -360,19 +352,21 @@ const AdminDashboard = () => {
               )}
             </TableBody>
           </Table>
-        </CardContent>
-      </Card>
+        </div>
+      </motion.div>
 
       {/* Add User Dialog */}
       <Dialog open={showAdd} onOpenChange={setShowAdd}>
-        <DialogContent>
+        <DialogContent className="border-border/15 bg-card/95 backdrop-blur-xl">
           <DialogHeader>
-            <DialogTitle>Adicionar Colaborador</DialogTitle>
-            <DialogDescription>Crie um novo colaborador e opcionalmente gere o código de acesso à Academy.</DialogDescription>
+            <DialogTitle className="text-lg font-extralight">Adicionar Colaborador</DialogTitle>
+            <DialogDescription className="text-xs text-muted-foreground/40 font-light">
+              Crie um novo colaborador e opcionalmente gere o código de acesso à Academy.
+            </DialogDescription>
           </DialogHeader>
-          <div className="rounded-md border px-4 py-3 space-y-3">
+          <div className="border border-border/10 px-5 py-4 space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium flex items-center gap-2">
+              <p className="text-sm font-light flex items-center gap-2 text-foreground/60">
                 <GraduationCap className="w-4 h-4" /> Acesso Academy
               </p>
               <div className="flex items-center gap-2">
@@ -380,24 +374,24 @@ const AdminDashboard = () => {
                   setAcademyEnabled(v);
                   if (v && !newEmployeeAcademyCode) setNewEmployeeAcademyCode(generateUserAcademyCode());
                 }} />
-                <Label htmlFor="academy-access" className="text-sm text-muted-foreground">{academyEnabled ? "Ativado" : "Desativado"}</Label>
+                <Label htmlFor="academy-access" className="text-xs text-muted-foreground/40">{academyEnabled ? "Ativado" : "Desativado"}</Label>
               </div>
             </div>
             {academyEnabled && (
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <code className="flex-1 font-mono text-sm tracking-[0.2em] bg-muted px-3 py-1.5 rounded text-center">{newEmployeeAcademyCode}</code>
-                  <Button type="button" variant="outline" size="icon" onClick={() => copyCode(newEmployeeAcademyCode)} title="Copiar">
+                  <code className="flex-1 font-mono text-sm tracking-[0.2em] bg-muted/20 px-3 py-2 rounded text-center text-foreground/60">{newEmployeeAcademyCode}</code>
+                  <Button type="button" variant="ghost" size="icon" className="text-muted-foreground/30 hover:text-primary" onClick={() => copyCode(newEmployeeAcademyCode)}>
                     <Copy className="w-4 h-4" />
                   </Button>
-                  <Button type="button" variant="outline" size="icon" onClick={() => setNewEmployeeAcademyCode(generateUserAcademyCode())} title="Regenerar">
+                  <Button type="button" variant="ghost" size="icon" className="text-muted-foreground/30 hover:text-primary" onClick={() => setNewEmployeeAcademyCode(generateUserAcademyCode())}>
                     <RefreshCw className="w-4 h-4" />
                   </Button>
                 </div>
-                <p className="text-xs text-muted-foreground">Código único. Partilhe com o colaborador para aceder à Academy.</p>
+                <p className="text-[10px] text-muted-foreground/30">Código único para aceder à Academy.</p>
               </div>
             )}
-            {!academyEnabled && <p className="text-xs text-muted-foreground">Ative para gerar um código de acesso à Academy.</p>}
+            {!academyEnabled && <p className="text-[10px] text-muted-foreground/25">Ative para gerar um código de acesso à Academy.</p>}
           </div>
           <UserForm initial={{}} onSubmit={handleAdd} onCancel={() => setShowAdd(false)} submitLabel="Criar Colaborador" />
         </DialogContent>
@@ -405,31 +399,33 @@ const AdminDashboard = () => {
 
       {/* Edit User Dialog */}
       <Dialog open={!!editUser} onOpenChange={(open) => !open && setEditUser(null)}>
-        <DialogContent>
+        <DialogContent className="border-border/15 bg-card/95 backdrop-blur-xl">
           <DialogHeader>
-            <DialogTitle>Editar Colaborador</DialogTitle>
-            <DialogDescription>Atualizar informações do colaborador.</DialogDescription>
+            <DialogTitle className="text-lg font-extralight">Editar Colaborador</DialogTitle>
+            <DialogDescription className="text-xs text-muted-foreground/40 font-light">
+              Atualizar informações do colaborador.
+            </DialogDescription>
           </DialogHeader>
           {editUser && (
             <>
-              <div className="rounded-md border px-4 py-3 space-y-3">
+              <div className="border border-border/10 px-5 py-4 space-y-3">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium flex items-center gap-2">
+                  <p className="text-sm font-light flex items-center gap-2 text-foreground/60">
                     <GraduationCap className="w-4 h-4" /> Acesso Academy
                   </p>
                   <div className="flex items-center gap-2">
                     <Switch id="edit-academy-access" checked={!!editAcademyCode} onCheckedChange={(v) => setEditAcademyCode(v ? generateUserAcademyCode() : undefined)} />
-                    <Label htmlFor="edit-academy-access" className="text-sm text-muted-foreground">{editAcademyCode ? "Ativado" : "Desativado"}</Label>
+                    <Label htmlFor="edit-academy-access" className="text-xs text-muted-foreground/40">{editAcademyCode ? "Ativado" : "Desativado"}</Label>
                   </div>
                 </div>
                 {editAcademyCode && (
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <code className="flex-1 font-mono text-sm tracking-[0.2em] bg-muted px-3 py-1.5 rounded text-center">{editAcademyCode}</code>
-                      <Button type="button" variant="outline" size="icon" onClick={() => copyCode(editAcademyCode)}>
+                      <code className="flex-1 font-mono text-sm tracking-[0.2em] bg-muted/20 px-3 py-2 rounded text-center text-foreground/60">{editAcademyCode}</code>
+                      <Button type="button" variant="ghost" size="icon" className="text-muted-foreground/30 hover:text-primary" onClick={() => copyCode(editAcademyCode)}>
                         <Copy className="w-4 h-4" />
                       </Button>
-                      <Button type="button" variant="outline" size="icon" onClick={() => setEditAcademyCode(generateUserAcademyCode())}>
+                      <Button type="button" variant="ghost" size="icon" className="text-muted-foreground/30 hover:text-primary" onClick={() => setEditAcademyCode(generateUserAcademyCode())}>
                         <RefreshCw className="w-4 h-4" />
                       </Button>
                     </div>
@@ -444,51 +440,51 @@ const AdminDashboard = () => {
 
       {/* Delete Confirmation */}
       <AlertDialog open={!!deleteTarget} onOpenChange={(open) => !open && setDeleteTarget(null)}>
-        <AlertDialogContent>
+        <AlertDialogContent className="border-border/15 bg-card/95 backdrop-blur-xl">
           <AlertDialogHeader>
-            <AlertDialogTitle>Eliminar Colaborador</AlertDialogTitle>
-            <AlertDialogDescription>
-              Tem a certeza que quer eliminar <strong>{deleteTarget?.name}</strong>? O código de acesso será revogado permanentemente.
+            <AlertDialogTitle className="text-lg font-extralight">Eliminar Colaborador</AlertDialogTitle>
+            <AlertDialogDescription className="text-xs text-muted-foreground/40 font-light">
+              Tem a certeza que quer eliminar <strong className="text-foreground/60">{deleteTarget?.name}</strong>? O código de acesso será revogado permanentemente.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete} className="bg-destructive hover:bg-destructive/90">Eliminar</AlertDialogAction>
+            <AlertDialogCancel className="text-muted-foreground/50">Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} className="bg-destructive/80 hover:bg-destructive text-destructive-foreground">Eliminar</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
 
       {/* New Employee Credentials Dialog */}
       <Dialog open={!!newEmployeeCredentials} onOpenChange={(open) => !open && setNewEmployeeCredentials(null)}>
-        <DialogContent>
+        <DialogContent className="border-border/15 bg-card/95 backdrop-blur-xl">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <GraduationCap className="w-5 h-5" /> Colaborador Criado
+            <DialogTitle className="text-lg font-extralight flex items-center gap-2">
+              <GraduationCap className="w-5 h-5 text-primary/60" /> Colaborador Criado
             </DialogTitle>
-            <DialogDescription>
-              Partilhe as credenciais com <strong>{newEmployeeCredentials?.name}</strong>.
+            <DialogDescription className="text-xs text-muted-foreground/40 font-light">
+              Partilhe as credenciais com <strong className="text-foreground/60">{newEmployeeCredentials?.name}</strong>.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-2">
-            <div className="space-y-1.5">
-              <p className="text-sm font-medium">Código de Acesso Academy</p>
+            <div className="space-y-2">
+              <p className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/40">Código de Acesso Academy</p>
               <div className="flex items-center gap-2">
-                <code className="flex-1 font-mono text-base tracking-[0.2em] bg-muted px-4 py-2 rounded text-center">{newEmployeeCredentials?.academyCode}</code>
-                <Button variant="outline" size="icon" onClick={() => copyCode(newEmployeeCredentials?.academyCode ?? "")}>
+                <code className="flex-1 font-mono text-base tracking-[0.3em] bg-muted/20 px-4 py-3 rounded text-center text-foreground/70">{newEmployeeCredentials?.academyCode}</code>
+                <Button variant="ghost" size="icon" className="text-muted-foreground/30 hover:text-primary" onClick={() => copyCode(newEmployeeCredentials?.academyCode ?? "")}>
                   <Copy className="w-4 h-4" />
                 </Button>
               </div>
             </div>
-            <p className="text-xs text-muted-foreground">
-              O colaborador acede à Academy em <strong>/academy/login</strong> com este código.
+            <p className="text-[10px] text-muted-foreground/30">
+              O colaborador acede à Academy em <strong className="text-foreground/50">/academy/login</strong> com este código.
             </p>
           </div>
           <DialogFooter>
-            <Button onClick={() => setNewEmployeeCredentials(null)}>Fechar</Button>
+            <Button onClick={() => setNewEmployeeCredentials(null)} className="border border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/40 tracking-[0.15em] uppercase text-[10px] font-light">Fechar</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+    </motion.div>
   );
 };
 
