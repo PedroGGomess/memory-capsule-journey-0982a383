@@ -45,9 +45,12 @@ const ModuleProducts = () => {
   // Shared product photo arrays — replace with real product photos when available
   const productPhotos = [
     [collectionImg, giftImg, bottleImg],        // Entry Gift
-    [bottleImg, collectionImg, storeImg],       // Cylinder Collection
-    [hourglassImg, collectionImg, storeImg],    // Cube Collection
-    [hedonismImg, douroImg, hourglassImg],      // Wood & Brass Collection
+    [bottleImg, collectionImg, storeImg],       // Cilindro de Cortiça com Cerâmica
+    [collectionImg, bottleImg, storeImg],       // Cilindro de Cortiça
+    [hourglassImg, collectionImg, storeImg],    // Cubo de Cortiça com Cerâmica
+    [storeImg, hourglassImg, collectionImg],    // Cubo de Cortiça
+    [hedonismImg, douroImg, hourglassImg],      // Madeira com Latão
+    [douroImg, hedonismImg, storeImg],          // Madeira de Carvalho com Latão
   ];
 
   const productPortfolio = (isEN ? [
@@ -57,19 +60,34 @@ const ModuleProducts = () => {
       materials: "Cardboard / kraft box with latch closure",
     },
     {
-      name: "Cylinder Collection",
-      desc: "Elegant cylindrical designs combining ceramic and cork materials. These products balance minimalism with warmth and natural texture.",
-      materials: "Ceramic · Cork · Two-cap and full-cork variants",
+      name: "Cork Cylinder with Ceramic",
+      desc: "A cylindrical design combining a ceramic body with cork elements. Balances the warmth of natural cork with the refined texture of ceramic.",
+      materials: "Ceramic · Cork · Two-cap variant",
     },
     {
-      name: "Cube Collection",
-      desc: "Modern geometric designs created for collectors. These pieces emphasize structure and visual presence.",
+      name: "Cork Cylinder",
+      desc: "A fully cork cylindrical design expressing natural simplicity and warmth. The pure cork variant for those who value nature-forward aesthetics.",
+      materials: "Cork · Full-cork variant",
+    },
+    {
+      name: "Cork Cube with Ceramic",
+      desc: "A modern geometric cube combining ceramic and cork materials. Structure meets natural texture in this collector's piece.",
       materials: "Ceramic · Cork · Neodymium magnet closure (6–8 magnets)",
     },
     {
-      name: "Wood & Brass Collection",
-      desc: "The most premium collection, crafted with oak wood, walnut wood and brass or pewter elements. These designs express timeless luxury and craftsmanship.",
-      materials: "Oak wood · Walnut wood · Brass / pewter · Cork",
+      name: "Cork Cube",
+      desc: "A fully cork geometric cube design. Clean lines and natural material create a minimalist collectible with strong visual presence.",
+      materials: "Cork · Neodymium magnet closure (6–8 magnets)",
+    },
+    {
+      name: "Wood with Brass",
+      desc: "A premium design crafted with walnut wood and brass elements. Timeless craftsmanship expressed through warm wood tones and metallic accents.",
+      materials: "Walnut wood · Brass · Cork",
+    },
+    {
+      name: "Oak Wood with Brass",
+      desc: "The pinnacle of the collection, crafted with oak wood and brass elements. Expresses enduring luxury and artisanal excellence.",
+      materials: "Oak wood · Brass · Cork",
     },
   ] : [
     {
@@ -78,19 +96,34 @@ const ModuleProducts = () => {
       materials: "Caixa de cartão / kraft com fecho",
     },
     {
-      name: "Coleção Cilindro",
-      desc: "Designs cilíndricos elegantes que combinam materiais cerâmicos e de cortiça. Estes produtos equilibram o minimalismo com a textura natural.",
-      materials: "Cerâmica · Cortiça · Variantes de duas tampas e cortiça total",
+      name: "Cilindro de Cortiça com Cerâmica",
+      desc: "Um design cilíndrico que combina corpo em cerâmica com elementos de cortiça. Equilibra o calor da cortiça natural com a textura refinada da cerâmica.",
+      materials: "Cerâmica · Cortiça · Variante de duas tampas",
     },
     {
-      name: "Coleção Cubo",
-      desc: "Designs geométricos modernos criados para colecionadores. Estas peças enfatizam a estrutura e a presença visual.",
+      name: "Cilindro de Cortiça",
+      desc: "Um design cilíndrico totalmente em cortiça, que expressa simplicidade e calor natural. A variante de cortiça pura para quem valoriza a estética da natureza.",
+      materials: "Cortiça · Variante de cortiça total",
+    },
+    {
+      name: "Cubo de Cortiça com Cerâmica",
+      desc: "Um cubo geométrico moderno que combina cerâmica e cortiça. Estrutura e textura natural fundem-se nesta peça para colecionadores.",
       materials: "Cerâmica · Cortiça · Fecho com ímã de neodímio (6–8 ímanes)",
     },
     {
-      name: "Coleção Madeira & Latão",
-      desc: "A coleção mais premium, elaborada com madeira de carvalho, madeira de nogueira e elementos de latão ou peltre. Estes designs expressam luxo intemporal e artesanato.",
-      materials: "Madeira de carvalho · Madeira de nogueira · Latão / peltre · Cortiça",
+      name: "Cubo de Cortiça",
+      desc: "Um design de cubo geométrico totalmente em cortiça. Linhas limpas e material natural criam uma peça colecionável minimalista com forte presença visual.",
+      materials: "Cortiça · Fecho com ímã de neodímio (6–8 ímanes)",
+    },
+    {
+      name: "Madeira com Latão",
+      desc: "Um design premium elaborado com madeira de nogueira e elementos de latão. Artesanato intemporal expresso através de tons de madeira quente e acentos metálicos.",
+      materials: "Madeira de nogueira · Latão · Cortiça",
+    },
+    {
+      name: "Madeira de Carvalho com Latão",
+      desc: "O pináculo da coleção, elaborado com madeira de carvalho e elementos de latão. Expressa luxo duradouro e excelência artesanal.",
+      materials: "Madeira de carvalho · Latão · Cortiça",
     },
   ]).map((p, i) => ({ ...p, photos: productPhotos[i] }));
 
@@ -212,13 +245,13 @@ const ModuleProducts = () => {
       <KeyTakeaway items={isEN ? [
         "Two main wine categories: Tawny and White Port wines — plus Olive Oil",
         "Five age categories: Young/Ruby Essentials, Signature (10yr), Legacy (30yr), The Icon (50yr), The Hundred (100yr)",
-        "Four design collections: Entry Gift, Cylinder, Cube, Wood & Brass",
+        "Seven individual products: Entry Gift, Cork Cylinder with Ceramic, Cork Cylinder, Cork Cube with Ceramic, Cork Cube, Wood with Brass, Oak Wood with Brass",
         "Four graphic editions: Porto City, Portugality, Literature, Azulejo",
         "The Second Life Concept: containers become decorative objects after use"
       ] : [
         "Duas categorias principais de vinho: Tawny e Branco — mais Azeite",
         "Cinco categorias de idade: Young/Ruby Essentials, Signature (10a), Legacy (30a), The Icon (50a), The Hundred (100a)",
-        "Quatro coleções de design: Entry Gift, Cilindro, Cubo, Madeira & Latão",
+        "Sete produtos individuais: Entry Gift, Cilindro de Cortiça com Cerâmica, Cilindro de Cortiça, Cubo de Cortiça com Cerâmica, Cubo de Cortiça, Madeira com Latão, Madeira de Carvalho com Latão",
         "Quatro edições gráficas: Porto City, Portugality, Literatura, Azulejo",
         "O Conceito de Segunda Vida: os recipientes tornam-se objetos decorativos após uso"
       ]} />
