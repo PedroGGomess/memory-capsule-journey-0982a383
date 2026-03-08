@@ -117,6 +117,28 @@ const AdminDashboard = () => {
     return matchSearch && matchStatus && matchOnboarding;
   });
 
+  const sendWelcomeEmail = async (name: string, email: string, academyCode: string) => {
+    if (!email) return;
+    try {
+      const academyUrl = `${window.location.origin}/academy/login`;
+      const { data, error } = await supabase.functions.invoke("send-welcome-email", {
+        body: { name, email, academyCode, academyUrl },
+      });
+      if (error) {
+        console.error("Email error:", error);
+        toast.info("Colaborador criado. Email não enviado (domínio de email pendente).");
+        return;
+      }
+      if (data?.emailSent) {
+        toast.success("Email de boas-vindas enviado!");
+      } else {
+        toast.info("Colaborador criado. Email será enviado quando o domínio estiver configurado.");
+      }
+    } catch (err) {
+      console.error("Email send failed:", err);
+    }
+  };
+
   const handleAdd = (data: UserFormData) => {
     const code = academyEnabled ? newEmployeeAcademyCode : undefined;
     addUser({
@@ -130,7 +152,13 @@ const AdminDashboard = () => {
     });
     setShowAdd(false);
     toast.success("Colaborador adicionado!");
-    if (code) setNewEmployeeCredentials({ name: data.name, academyCode: code });
+    if (code) {
+      setNewEmployeeCredentials({ name: data.name, academyCode: code });
+      // Send welcome email with academy link and code
+      if (data.email) {
+        sendWelcomeEmail(data.name, data.email, code);
+      }
+    }
   };
 
   const handleEdit = (data: UserFormData) => {
