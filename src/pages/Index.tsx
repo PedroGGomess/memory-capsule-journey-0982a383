@@ -107,7 +107,7 @@ const Index = () => {
               <ScrollReveal delay={0.55}>
                 <p className="text-sm text-foreground/50 font-light mt-2">{t.brand.giftsLabel}</p>
                 <ul className="mt-3 space-y-1">
-                  {(t.brand.giftItems as string[]).map((item, i) => (
+                  {[...t.brand.giftItems].map((item, i) => (
                     <li key={i} className="text-sm text-foreground/50 font-light flex items-start gap-2">
                       <span className="text-primary/40 mt-0.5">·</span>
                       <span>{item}</span>
