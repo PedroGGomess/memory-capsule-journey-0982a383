@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useProgress } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -8,6 +8,29 @@ import badgeImg from "@/assets/badge.png";
 import { Link } from "react-router-dom";
 import { Download, Sparkles } from "lucide-react";
 import jsPDF from "jspdf";
+
+const USERS_KEY = "gym-users";
+const SESSION_KEY = "the100s-academy-session";
+
+// Mark user's onboarding as complete in localStorage
+function markOnboardingComplete() {
+  try {
+    const sessionCode = localStorage.getItem(SESSION_KEY);
+    if (!sessionCode) return;
+    const usersData = localStorage.getItem(USERS_KEY);
+    if (!usersData) return;
+    const users = JSON.parse(usersData);
+    const updated = users.map((u: any) => {
+      if (u.academyCode && u.academyCode === sessionCode) {
+        return { ...u, onboardingComplete: true };
+      }
+      return u;
+    });
+    localStorage.setItem(USERS_KEY, JSON.stringify(updated));
+  } catch (e) {
+    console.error("Failed to mark onboarding complete:", e);
+  }
+}
 
 const ModuleCertification = () => {
   const { getCompletionPercentage, completedModules, totalModules, completeModule, isModuleCompleted } = useProgress();
@@ -21,6 +44,7 @@ const ModuleCertification = () => {
 
   const handleClaim = () => {
     completeModule("certification");
+    markOnboardingComplete();
     setShowCelebration(true);
     setTimeout(() => setShowCelebration(false), 4000);
   };
