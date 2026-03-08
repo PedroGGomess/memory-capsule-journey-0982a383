@@ -341,7 +341,7 @@ const pt = {
       welcomeMessage: "Bem-vindo ao Assistente IA da Academia The 100's. Estou aqui para te ajudar com o conhecimento da marca, detalhes dos produtos, operações da loja e quaisquer questões sobre a tua jornada de integração. Como posso ajudar hoje?",
     },
     certification: {
-      moduleLabel: "Módulo 12 de 12",
+      moduleLabel: "Certificação Oficial",
       title: "Certificação Final",
       progress: "O teu progresso",
       of: "de",
