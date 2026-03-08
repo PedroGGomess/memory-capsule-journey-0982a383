@@ -97,7 +97,7 @@ const AdminDashboard = () => {
   const [filterStatus, setFilterStatus] = useState<"all" | "active" | "inactive">("all");
   const [filterOnboarding, setFilterOnboarding] = useState<"all" | "complete" | "pending">("all");
   const [showAdd, setShowAdd] = useState(false);
-  const [academyEnabled, setAcademyEnabled] = useState(false);
+  const [academyEnabled, setAcademyEnabled] = useState(true);
   const [editUser, setEditUser] = useState<GymUser | null>(null);
   const [editAcademyCode, setEditAcademyCode] = useState<string | undefined>(undefined);
   const [deleteTarget, setDeleteTarget] = useState<GymUser | null>(null);
