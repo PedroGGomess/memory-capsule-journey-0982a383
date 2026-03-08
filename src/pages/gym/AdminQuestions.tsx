@@ -11,7 +11,11 @@ import {
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
-import { MessageSquare, CheckCircle, Search, Reply, Inbox, RefreshCw } from "lucide-react";
+import { MessageSquare, CheckCircle, Search, Reply, Inbox, RefreshCw, Trash2 } from "lucide-react";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
+  AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -33,6 +37,7 @@ const AdminQuestions = () => {
   const [filter, setFilter] = useState<"all" | "open" | "resolved">("all");
   const [replyTarget, setReplyTarget] = useState<string | null>(null);
   const [replyText, setReplyText] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchQuestions = useCallback(async () => {
@@ -94,6 +99,19 @@ const AdminQuestions = () => {
       .eq("id", id);
     if (!error) {
       toast.success(t.admin.questions.markedResolved);
+      fetchQuestions();
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
+    const { error } = await supabase
+      .from("employee_questions")
+      .delete()
+      .eq("id", deleteTarget);
+    if (!error) {
+      setDeleteTarget(null);
+      toast.success("Questão eliminada.");
       fetchQuestions();
     }
   };
@@ -242,6 +260,9 @@ const AdminQuestions = () => {
                             <CheckCircle className="w-3 h-3 mr-1" /> Resolve
                           </Button>
                         )}
+                        <Button variant="ghost" size="sm" className="h-7 text-xs text-destructive hover:text-destructive" onClick={() => setDeleteTarget(q.id)}>
+                          <Trash2 className="w-3 h-3" />
+                        </Button>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -275,6 +296,22 @@ const AdminQuestions = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Delete Confirmation */}
+      <AlertDialog open={!!deleteTarget} onOpenChange={(open) => !open && setDeleteTarget(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Eliminar Questão</AlertDialogTitle>
+            <AlertDialogDescription>
+              Tem a certeza que quer eliminar esta questão? Esta ação não pode ser revertida.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} className="bg-destructive hover:bg-destructive/90">Eliminar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
