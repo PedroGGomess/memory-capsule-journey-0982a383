@@ -24,6 +24,10 @@ const ModuleStore = lazy(() => import("./pages/academy/ModuleStore"));
 const ModuleBrandVoice = lazy(() => import("./pages/academy/ModuleBrandVoice"));
 const ModuleCustomerExperience = lazy(() => import("./pages/academy/ModuleCustomerExperience"));
 const ModuleBusinessModel = lazy(() => import("./pages/academy/ModuleBusinessModel"));
+const ModuleTastingGuide = lazy(() => import("./pages/academy/ModuleTastingGuide"));
+const ModuleGlossary = lazy(() => import("./pages/academy/ModuleGlossary"));
+const ModuleCrossSelling = lazy(() => import("./pages/academy/ModuleCrossSelling"));
+const ModuleVisualMerchandising = lazy(() => import("./pages/academy/ModuleVisualMerchandising"));
 const ModuleAskTeam = lazy(() => import("./pages/academy/ModuleAskTeam"));
 const ModuleResources = lazy(() => import("./pages/academy/ModuleResources"));
 const ModuleCertification = lazy(() => import("./pages/academy/ModuleCertification"));
@@ -82,6 +86,10 @@ const App = () => (
                     <Route path="module/brand-voice" element={<ModuleBrandVoice />} />
                     <Route path="module/customer-experience" element={<ModuleCustomerExperience />} />
                     <Route path="module/business-model" element={<ModuleBusinessModel />} />
+                    <Route path="module/tasting-guide" element={<ModuleTastingGuide />} />
+                    <Route path="module/glossary" element={<ModuleGlossary />} />
+                    <Route path="module/cross-selling" element={<ModuleCrossSelling />} />
+                    <Route path="module/visual-merchandising" element={<ModuleVisualMerchandising />} />
                     <Route path="module/ask-team" element={<ModuleAskTeam />} />
                     <Route path="module/resources" element={<ModuleResources />} />
                     <Route path="module/certification" element={<ModuleCertification />} />

@@ -4,6 +4,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import { FileText, Image, Video, BookOpen, Download, ExternalLink } from "lucide-react";
 import douroImg from "@/assets/douro-valley.jpg";
 import { toast } from "sonner";
+import jsPDF from "jspdf";
 
 const iconMap = [FileText, FileText, FileText, Image, Video, BookOpen, FileText, Image];
 
@@ -12,24 +13,134 @@ const downloadUrls: Record<string, string | null> = {
   // EN titles
   "Brand Book / Dossier": "/downloads/DOSSIER_FINAL-v2.pdf",
   "The 100's Concept": "/downloads/100s_conceito_final.pdf",
-  "Summary: What is The 100's": "/downloads/O_Que_E_The_100s.md",
+  "Summary: What is The 100's": "generate-pdf-resumo",
   "Product Photography": null,
   "Training Videos": null,
   "Tasting Guide": null,
-  "FAQ Document": "/downloads/FAQ_The100s.md",
+  "FAQ Document": "generate-pdf-faq",
   "Store Visual Standards": null,
   // PT titles
   "O Conceito The 100's": "/downloads/100s_conceito_final.pdf",
-  "Resumo: O que é o The 100's": "/downloads/O_Que_E_The_100s.md",
+  "Resumo: O que é o The 100's": "generate-pdf-resumo",
   "Fotografia de Produtos": null,
   "Vídeos de Formação": null,
   "Guia de Prova": null,
-  "Documento de FAQ": "/downloads/FAQ_The100s.md",
+  "Documento de FAQ": "generate-pdf-faq",
   "Padrões Visuais da Loja": null,
 };
 
 const ModuleResources = () => {
   const { t, language } = useLanguage();
+
+  const generatePremiumPDF = (type: "faq" | "resumo") => {
+    toast.info(language === "pt" ? "A gerar documento PDF premium..." : "Generating premium PDF document...", { duration: 3000 });
+    
+    try {
+      const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+      const w = doc.internal.pageSize.getWidth();
+      const h = doc.internal.pageSize.getHeight();
+
+      // Dark Background
+      doc.setFillColor(15, 13, 11);
+      doc.rect(0, 0, w, h, "F");
+
+      // Gold Border
+      doc.setDrawColor(180, 140, 60);
+      doc.setLineWidth(0.5);
+      doc.rect(10, 10, w - 20, h - 20);
+
+      // Header
+      doc.setTextColor(180, 140, 60);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(24);
+      doc.text("The 100's Academy", w / 2, 30, { align: "center" });
+
+      const isFAQ = type === "faq";
+      const title = isFAQ ? "FAQ - Perguntas Frequentes" : "Resumo: O que é o The 100's?";
+      
+      const contentFAQ = `1. O que é a The 100's?
+A The 100's não é apenas uma loja de vinhos. É um espaço imersivo que transforma a herança do Vinho do Porto numa "Cápsula de Memória". Vendemos tempo, legado e história engarrafados em 100ml.
+
+2. Porquê o formato de 100ml?
+É o tamanho ideal para uma lembrança premium e é "Travel-friendly" (pode ser levado na bagagem de cabine).
+
+3. O que é o "Conceito de Segunda Vida"?
+Uma vez consumido o vinho, a embalagem pode ser reutilizada como peça de decoração (suporte para velas, difusor, porta-joias).
+
+4. Que tipos de vinho vendem?
+Vinho do Porto Tawny, Branco e também Azeite premium.
+
+5. Quais são as categorias de idade disponíveis?
+Young / Ruby Essentials, 10 Anos (Signature), 30 Anos (Legacy), 50 Anos (The Icon), 100 Anos (The Hundred).
+
+6. O cliente pode provar antes de comprar?
+Sim. As provas são uma verdadeira jornada sensorial.`;
+
+      const contentResumo = `O Conceito
+A The 100's é uma loja sensorial e imersiva, destinada a turistas e viajantes, focada na venda de souvenirs que representam a geografia local.
+
+Ponto de Partida
+O conceito baseia-se no TEMPO. "É no tempo que se revela o verdadeiro valor."
+
+O Produto
+É um souvenir. É Vinho do Porto (cerca de 400 anos de história) engarrafado em 100ml.
+
+Narrativa de Marca: A Memory Capsule
+O propósito da marca é transformar o tempo em algo tangível e eterno.
+
+Narrativa de Loja
+Desenvolve-se através de um conjunto de sensações: Descoberta, Tempo, Singularidade, Hedonismo, Memória.
+
+Mensagem à entrada da loja:
+"Leave your time behind. You're entering a time capsule."`;
+
+      const content = isFAQ ? contentFAQ : contentResumo;
+
+      doc.text(title, w / 2, 45, { align: "center" });
+      
+      doc.setDrawColor(180, 140, 60);
+      doc.setLineWidth(0.2);
+      doc.line(w / 2 - 30, 50, w / 2 + 30, 50);
+
+      doc.setFontSize(11);
+      doc.setTextColor(200, 190, 180);
+      
+      const splitText = doc.splitTextToSize(content, w - 40);
+      let y = 65;
+      
+      splitText.forEach((line: string) => {
+        if (y > h - 30) {
+          doc.addPage();
+          doc.setFillColor(15, 13, 11);
+          doc.rect(0, 0, w, h, "F");
+          doc.setDrawColor(180, 140, 60);
+          doc.setLineWidth(0.5);
+          doc.rect(10, 10, w - 20, h - 20);
+          y = 30;
+        }
+        
+        if (line.match(/^[0-9]\.|^O Conceito|^Ponto de|^O Produto|^Narrativa|^Mensagem/)) {
+          doc.setTextColor(180, 140, 60);
+          doc.setFont("helvetica", "bold");
+          y += 4;
+        } else {
+          doc.setTextColor(200, 190, 180);
+          doc.setFont("helvetica", "normal");
+        }
+        
+        doc.text(line, 20, y);
+        y += 7;
+      });
+
+      doc.setTextColor(100, 90, 80);
+      doc.setFontSize(8);
+      doc.text("The 100's Academy - Premium Internal Resources", w / 2, h - 15, { align: "center" });
+
+      doc.save(`The100s_${type.toUpperCase()}.pdf`);
+    } catch (e) {
+      toast.error("Failed to generate PDF.");
+    }
+  };
 
   const handleDownload = (title: string) => {
     if (title === "Fotografia de Produtos" || title === "Product Photography") {
@@ -38,6 +149,9 @@ const ModuleResources = () => {
     }
 
     const url = downloadUrls[title];
+    if (url === "generate-pdf-faq") return generatePremiumPDF("faq");
+    if (url === "generate-pdf-resumo") return generatePremiumPDF("resumo");
+    
     if (url) {
       const a = document.createElement("a");
       a.href = url;

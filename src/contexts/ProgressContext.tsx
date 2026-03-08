@@ -23,7 +23,9 @@ const ProgressContext = createContext<ProgressContextType | null>(null);
 
 const MODULES = [
   "story", "philosophy", "products", "gift", "store",
-  "brand-voice", "customer-experience", "business-model", "certification"
+  "brand-voice", "customer-experience", "business-model",
+  "tasting-guide", "glossary", "cross-selling", "visual-merchandising",
+  "certification"
 ];
 
 const SESSION_KEY = "the100s-academy-session";
