@@ -8,6 +8,7 @@ import MemorySection from "@/components/MemorySection";
 import CollectionSection from "@/components/CollectionSection";
 import GiftsSection from "@/components/GiftsSection";
 import ScrollReveal from "@/components/ScrollReveal";
+import ChatBot from "@/components/ChatBot";
 import CinematicStorytellingSection from "@/components/CinematicStorytellingSection";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -215,6 +216,7 @@ const Index = () => {
           </p>
         </footer>
       </motion.div>
+      <ChatBot />
     </div>
   );
 };
