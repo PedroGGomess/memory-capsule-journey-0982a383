@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, CheckCircle2, XCircle, Trophy, Sparkles } from "lucide-react";
+import { Check, ChevronDown, CheckCircle2, XCircle, Trophy, Sparkles, Bookmark, PenTool } from "lucide-react";
 import { useProgress } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "./ScrollReveal";
@@ -81,13 +81,17 @@ export function KeyTakeaway({ items }: { items: string[] }) {
   const { t } = useLanguage();
   return (
     <ScrollReveal>
-      <div className="border border-border/50 p-8 space-y-4">
-        <p className="text-xs tracking-[0.3em] uppercase text-primary/60">{t.academy.module.keyTakeaways}</p>
-        <ul className="space-y-3">
+      <div className="relative border border-primary/20 bg-primary/[0.03] backdrop-blur-md p-8 md:p-10 my-12">
+        <div className="absolute top-0 left-0 w-1 h-full bg-primary/40" />
+        <div className="flex items-center gap-3 mb-8">
+          <Bookmark className="w-5 h-5 text-primary" />
+          <p className="text-xs tracking-[0.3em] uppercase text-primary font-medium">{t.academy.module.keyTakeaways}</p>
+        </div>
+        <ul className="space-y-5">
           {items.map((item, i) => (
-            <li key={i} className="flex items-start gap-3 text-foreground/70 font-light">
-              <span className="text-primary mt-1 text-xs">◆</span>
-              <span>{item}</span>
+            <li key={i} className="flex items-start gap-4 text-foreground/80 font-light leading-relaxed">
+              <div className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/60 shrink-0" />
+              <span className="text-lg">{item}</span>
             </li>
           ))}
         </ul>
@@ -321,17 +325,28 @@ export function ReflectionBlock({ questions }: { questions: string[] }) {
   const { t } = useLanguage();
   return (
     <ScrollReveal>
-      <div className="border border-border/50 p-8 space-y-4">
-        <p className="text-xs tracking-[0.3em] uppercase text-primary/60">{t.academy.module.reflection}</p>
-        {questions.map((q, i) => (
-          <div key={i} className="space-y-2">
-            <p className="text-foreground/80 font-light italic">{q}</p>
-            <textarea
-              placeholder={t.academy.module.reflectionPlaceholder}
-              className="w-full min-h-[80px] bg-secondary/30 border border-border/30 text-foreground/70 p-4 text-sm font-light resize-none focus:outline-none focus:border-primary/30 transition-colors placeholder:text-muted-foreground/30"
-            />
-          </div>
-        ))}
+      <div className="relative border border-border/30 bg-secondary/5 backdrop-blur-xl p-8 md:p-12 my-12">
+        <div className="flex items-center gap-3 mb-10">
+          <PenTool className="w-5 h-5 text-primary" />
+          <p className="text-xs tracking-[0.3em] uppercase text-primary">{t.academy.module.reflection}</p>
+        </div>
+        <div className="space-y-10">
+          {questions.map((q, i) => (
+            <div key={i} className="space-y-4">
+              <p className="text-foreground/90 font-light text-lg leading-relaxed">
+                <span className="text-primary/50 mr-3 text-sm">{i + 1}.</span>
+                {q}
+              </p>
+              <div className="relative group">
+                <textarea
+                  placeholder={t.academy.module.reflectionPlaceholder}
+                  className="w-full min-h-[140px] bg-background/40 border border-border/30 text-foreground/80 p-5 text-base font-light resize-none focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground/30 relative z-10"
+                />
+                <div className="absolute inset-0 bg-primary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </ScrollReveal>
   );
