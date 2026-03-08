@@ -45,12 +45,15 @@ export function AcademySidebar() {
   return (
     <Sidebar collapsible="icon" className="border-r border-border/30">
       <SidebarContent className="bg-card pt-6">
-        {!collapsed && (
-          <div className="px-6 pb-6 border-b border-border/20">
-            <p className="text-lg font-light text-gold-gradient">The 100's</p>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mt-1">{t.academy.layout.academy}</p>
-          </div>
-        )}
+        <div className="px-6 pb-6 border-b border-border/20 flex items-center gap-3">
+          <img src={logoImg} alt="The 100's" className="w-8 h-8 object-contain" />
+          {!collapsed && (
+            <div>
+              <p className="text-lg font-light text-gold-gradient">The 100's</p>
+              <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mt-1">{t.academy.layout.academy}</p>
+            </div>
+          )}
+        </div>
 
         <SidebarGroup>
           {!collapsed && <SidebarGroupLabel className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/60 px-6">{t.academy.layout.navigation}</SidebarGroupLabel>}
