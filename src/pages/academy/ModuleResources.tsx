@@ -47,6 +47,7 @@ const ModuleResources = () => {
 
   return (
     <ModuleLayout
+      hideCompletion
       moduleId="resources"
       moduleNumber={10}
       title={language === "pt" ? "Recursos" : "Resources"}
