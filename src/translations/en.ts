@@ -341,7 +341,7 @@ const en = {
       welcomeMessage: "Welcome to The 100's Academy AI Assistant. I'm here to help you with brand knowledge, product details, store operations, and any questions about your onboarding journey. How can I assist you today?",
     },
     certification: {
-      moduleLabel: "Module 12 of 12",
+      moduleLabel: "Official Certification",
       title: "Final Certification",
       progress: "Your progress",
       of: "of",
