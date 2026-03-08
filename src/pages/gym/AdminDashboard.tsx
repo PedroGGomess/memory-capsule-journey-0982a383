@@ -21,7 +21,7 @@ import {
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
-import { Users, UserCheck, UserX, Copy, Pencil, Trash2, Plus, RefreshCw, Search, GraduationCap, CheckCircle, Clock } from "lucide-react";
+import { Users, UserCheck, UserX, Copy, Pencil, Trash2, Plus, RefreshCw, Search, GraduationCap, CheckCircle, Clock, Mail } from "lucide-react";
 import { toast } from "sonner";
 
 // ── Form ──────────────────────────────────────────────────────────────────
