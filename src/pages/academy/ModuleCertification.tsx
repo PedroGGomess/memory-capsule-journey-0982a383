@@ -176,7 +176,13 @@ const ModuleCertification = () => {
   }));
 
   return (
-    <div className="min-h-screen flex items-center justify-center section-padding py-32 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center section-padding py-32 relative overflow-hidden bg-background">
+      {/* Premium Background Elements */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/[0.03] via-background to-background pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+      <div className="absolute top-0 right-0 w-[1px] h-full bg-gradient-to-b from-transparent via-primary/10 to-transparent" />
+
       {/* Celebration particles */}
       <AnimatePresence>
         {showCelebration && particles.map((p) => (
@@ -194,23 +200,31 @@ const ModuleCertification = () => {
         ))}
       </AnimatePresence>
 
-      {/* Ambient glow */}
+      {/* Ambient glow for certified state */}
       {certified && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 2 }}
-          className="absolute inset-0 pointer-events-none"
+          transition={{ duration: 3 }}
+          className="absolute inset-0 pointer-events-none overflow-hidden"
         >
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[100px]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-primary/10 blur-[60px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-primary/5 blur-[120px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-primary/10 blur-[80px]" />
         </motion.div>
       )}
 
-      <div className="max-w-2xl mx-auto text-center w-full relative z-10">
+      <div className="max-w-3xl mx-auto text-center w-full relative z-10">
         <ScrollReveal>
-          <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-4">{t.academy.certification.moduleLabel}</p>
-          <h1 className="text-4xl md:text-6xl font-light text-gold-gradient mb-8">{t.academy.certification.title}</h1>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="inline-flex items-center gap-2 px-4 py-2 border border-primary/20 bg-primary/5 backdrop-blur-sm rounded-full mb-8"
+          >
+            <Sparkles className="w-4 h-4 text-primary" />
+            <p className="text-[10px] tracking-[0.3em] uppercase text-primary font-medium">{t.academy.certification.moduleLabel}</p>
+          </motion.div>
+          <h1 className="text-5xl md:text-7xl font-extralight text-gold-gradient mb-12 tracking-wide">{t.academy.certification.title}</h1>
         </ScrollReveal>
 
         {certified ? (
