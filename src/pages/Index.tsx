@@ -63,7 +63,7 @@ const Index = () => {
           image={bottleImg}
           title={t.sections.singularity.title}
           imagePosition="right"
-          lines={t.sections.singularity.lines as string[]}
+          lines={[...t.sections.singularity.lines]}
         />
 
         {/* Section 5 — Hedonism */}
