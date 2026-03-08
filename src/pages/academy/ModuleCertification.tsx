@@ -389,26 +389,35 @@ const ModuleCertification = () => {
               </div>
 
               {otherModulesComplete ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="space-y-6"
-                >
-                  <p className="text-foreground/70 font-light">
-                    {t.academy.certification.congratulations}
-                  </p>
-                  <motion.button
-                    onClick={handleClaim}
-                    whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(180,140,60,0.3)" }}
-                    whileTap={{ scale: 0.95 }}
-                    className="border border-primary/30 px-10 py-4 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold"
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-8 bg-primary/5 backdrop-blur-md border border-primary/20 p-10 max-w-lg mx-auto mt-8 rounded-sm relative overflow-hidden group"
                   >
-                    <span className="flex items-center gap-3">
-                      <Sparkles className="w-4 h-4" />
-                      {t.academy.certification.claimButton}
-                    </span>
-                  </motion.button>
-                </motion.div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                    
+                    <div className="space-y-4 relative z-10">
+                      <Sparkles className="w-8 h-8 text-primary mx-auto mb-4" />
+                      <p className="text-xl text-foreground/90 font-light tracking-wide">
+                        {t.academy.certification.congratulations}
+                      </p>
+                      <p className="text-sm text-foreground/50 font-light">
+                        {language === "pt" ? "Concluíste toda a jornada e estás pronto(a) para obter o teu certificado oficial." : "You've completed the entire journey and are ready to claim your official certificate."}
+                      </p>
+                    </div>
+
+                    <motion.button
+                      onClick={handleClaim}
+                      whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(180,140,60,0.3)" }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-full relative overflow-hidden group border border-primary/40 bg-background/50 px-10 py-5 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:border-primary backdrop-blur-sm"
+                    >
+                      <div className="absolute inset-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+                      <span className="relative z-10 flex items-center justify-center gap-3 font-medium">
+                        {t.academy.certification.claimButton}
+                      </span>
+                    </motion.button>
+                  </motion.div>
               ) : (
                 <div className="space-y-4">
                   <p className="text-foreground/70 font-light">
