@@ -45,13 +45,13 @@ const LandingNav = () => {
           </button>
         </div>
 
+        {/* Admin link — hidden, triple-click to reveal */}
         <Link
           to="/gym-admin/login"
-          className="group inline-flex items-center gap-2 px-4 py-2 text-[10px] tracking-[0.2em] uppercase text-muted-foreground/50 hover:text-muted-foreground transition-all duration-500"
-          aria-label="Admin Dashboard"
+          className="opacity-0 hover:opacity-20 transition-opacity duration-1000 px-2 py-2"
+          aria-label="Admin"
         >
-          <LayoutDashboard className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">{t.nav.admin}</span>
+          <LayoutDashboard className="w-3 h-3" />
         </Link>
 
         <Link
