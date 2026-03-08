@@ -2,7 +2,7 @@ import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, LogOut, History, Bot, BarChart2, MessageSquare, Home } from "lucide-react";
+import { LayoutDashboard, LogOut, History, BarChart2, MessageSquare, Home, UserPlus } from "lucide-react";
 import logoImg from "@/assets/Logo.png";
 
 const GymAdminLayout = () => {
@@ -81,7 +81,7 @@ const GymAdminLayout = () => {
             {t.admin.layout.accessLogs}
           </NavLink>
           <NavLink
-            to="/gym-admin/chat"
+            to="/gym-admin/admins"
             className={({ isActive }) =>
               `flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
                 isActive
@@ -90,8 +90,8 @@ const GymAdminLayout = () => {
               }`
             }
           >
-            <Bot className="w-4 h-4" />
-            {t.admin.layout.aiAssistant}
+            <UserPlus className="w-4 h-4" />
+            Adicionar Admin
           </NavLink>
         </nav>
         <div className="p-3 border-t border-border/30 space-y-1">
@@ -135,7 +135,7 @@ const GymAdminLayout = () => {
       <div className="flex-1 flex flex-col min-h-screen">
         <header className="h-16 flex items-center justify-between px-6 border-b border-border/30 bg-card/50">
           <h1 className="text-sm font-medium tracking-wide text-muted-foreground uppercase">
-            {t.admin.layout.headerTitle}
+            The100s Painel Admin
           </h1>
         </header>
         <main className="flex-1 p-6">
