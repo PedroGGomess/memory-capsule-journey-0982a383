@@ -229,6 +229,8 @@ const ModuleTastingGuide = () => {
         })}
       </div>
 
+      <ImageBlock src={portWineImg} alt={isEN ? "Port wine tasting" : "Prova de Vinho do Porto"} caption={isEN ? "The amber glow of aged Tawny — decades of patience in every drop" : "O brilho âmbar do Tawny envelhecido — décadas de paciência em cada gota"} />
+
       <ContentBlock title={isEN ? "The Tasting — Sensory Breakdown" : "A Prova — Análise Sensorial"}>
         <p>{isEN
           ? "When presenting the tasting, guide visitors through three sensory layers:"
