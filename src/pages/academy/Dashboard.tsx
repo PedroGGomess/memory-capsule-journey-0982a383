@@ -23,10 +23,14 @@ const Dashboard = () => {
     { id: "brand-voice", num: 6, title: t.academy.nav.brandVoice, desc: t.academy.dashboard.subtitle, icon: MessageCircle, path: "/academy/module/brand-voice" },
     { id: "customer-experience", num: 7, title: t.academy.nav.customerExperience, desc: t.academy.dashboard.subtitle, icon: Users, path: "/academy/module/customer-experience" },
     { id: "business-model", num: 8, title: t.academy.nav.businessModel, desc: t.academy.dashboard.subtitle, icon: BarChart3, path: "/academy/module/business-model" },
-    { id: "ask-team", num: 9, title: t.academy.nav.askTeam, desc: t.academy.dashboard.subtitle, icon: Sparkles, path: "/academy/module/ask-team" },
-    { id: "resources", num: 10, title: t.academy.nav.resources, desc: t.academy.dashboard.subtitle, icon: FolderOpen, path: "/academy/module/resources" },
-    { id: "ai-assistant", num: 11, title: t.academy.nav.aiAssistant, desc: t.academy.dashboard.subtitle, icon: Bot, path: "/academy/module/ai-assistant" },
-    { id: "certification", num: 12, title: t.academy.nav.certification, desc: t.academy.dashboard.subtitle, icon: Award, path: "/academy/module/certification" },
+    { id: "certification", num: 9, title: t.academy.nav.certification, desc: t.academy.dashboard.subtitle, icon: Award, path: "/academy/module/certification" },
+  ];
+
+  // Tools — not counted as modules
+  const tools = [
+    { id: "ask-team", title: t.academy.nav.askTeam, icon: Sparkles, path: "/academy/module/ask-team" },
+    { id: "resources", title: t.academy.nav.resources, icon: FolderOpen, path: "/academy/module/resources" },
+    { id: "ai-assistant", title: t.academy.nav.aiAssistant, icon: Bot, path: "/academy/module/ai-assistant" },
   ];
 
   const nextModule = modules.find((m) => !isModuleCompleted(m.id));
