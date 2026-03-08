@@ -296,34 +296,66 @@ const ModuleCertification = () => {
                 </motion.div>
               ) : (
                 <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.6 }}
-                  className="space-y-6"
+                  initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="space-y-10"
                 >
-                  {/* Certificate preview card */}
-                  <div className="relative border border-primary/20 bg-background/80 backdrop-blur-sm p-8 max-w-md mx-auto">
-                    <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
-                    <div className="relative space-y-3">
-                      <p className="text-[9px] tracking-[0.4em] uppercase text-primary/50">CERTIFICATE OF COMPLETION</p>
-                      <p className="text-2xl font-light text-gold-gradient">The 100's</p>
-                      <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/50">ACADEMY</p>
-                      <div className="h-px w-16 mx-auto bg-primary/20 my-4" />
-                      <p className="text-lg font-light text-foreground/80">{userName}</p>
-                      <p className="text-xs text-muted-foreground/50">
-                        {new Date().toLocaleDateString(language === "pt" ? "pt-PT" : "en-US", { day: "numeric", month: "long", year: "numeric" })}
-                      </p>
+                  {/* Premium Certificate preview card */}
+                  <div className="relative bg-gradient-to-br from-[#1A1814] to-[#0A0908] p-1 max-w-xl mx-auto rounded-sm shadow-2xl shadow-primary/20">
+                    {/* Gold Foil Border */}
+                    <div className="absolute inset-0 border border-primary/40 rounded-sm pointer-events-none" />
+                    
+                    <div className="relative border border-primary/20 bg-[#0F0D0B] p-10 md:p-14 overflow-hidden">
+                      {/* Subtle grain overlay */}
+                      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay pointer-events-none" />
+                      
+                      {/* Corner Accents */}
+                      <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-primary/50" />
+                      <div className="absolute top-4 right-4 w-4 h-4 border-t border-r border-primary/50" />
+                      <div className="absolute bottom-4 left-4 w-4 h-4 border-b border-l border-primary/50" />
+                      <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-primary/50" />
+
+                      <div className="relative space-y-5 z-10">
+                        <div className="flex items-center justify-center gap-4 mb-2">
+                          <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/50" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary/70" />
+                          <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/50" />
+                        </div>
+                        
+                        <p className="text-[10px] tracking-[0.4em] uppercase text-primary/70 font-medium">Certificate of Completion</p>
+                        <h3 className="text-4xl font-serif font-light text-gold-gradient my-6">The 100's</h3>
+                        <p className="text-[11px] tracking-[0.5em] uppercase text-primary/40">Academy</p>
+                        
+                        <div className="h-px w-24 mx-auto bg-gradient-to-r from-transparent via-primary/40 to-transparent my-8" />
+                        
+                        <p className="text-sm text-foreground/50 font-light italic mb-2">This certifies that</p>
+                        <p className="text-3xl font-light text-foreground/90 tracking-wide pb-2 border-b border-primary/20 inline-block px-8">{userName}</p>
+                        
+                        <p className="text-xs text-foreground/40 font-light mt-8 max-w-xs mx-auto leading-relaxed">
+                          has successfully completed all modules, demonstrating mastery of brand story and experience.
+                        </p>
+                        
+                        <div className="mt-8 flex justify-center items-center gap-2 text-primary/40">
+                          <div className="w-1 h-1 rounded-full bg-primary/40" />
+                          <p className="text-[10px] tracking-widest">
+                            {new Date().toLocaleDateString(language === "pt" ? "pt-PT" : "en-US", { day: "numeric", month: "long", year: "numeric" })}
+                          </p>
+                          <div className="w-1 h-1 rounded-full bg-primary/40" />
+                        </div>
+                      </div>
                     </div>
                   </div>
 
                   <motion.button
                     onClick={generatePDF}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(180,140,60,0.2)" }}
                     whileTap={{ scale: 0.98 }}
-                    className="inline-flex items-center gap-3 border border-primary/30 px-10 py-4 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold"
+                    className="inline-flex items-center gap-3 border border-primary/40 bg-primary/5 px-12 py-5 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:bg-primary/10 hover:border-primary relative overflow-hidden group rounded-sm"
                   >
-                    <Download className="w-4 h-4" />
-                    {language === "pt" ? "Descarregar Certificado PDF" : "Download Certificate PDF"}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+                    <Download className="w-4 h-4 relative z-10" />
+                    <span className="relative z-10 font-medium">{language === "pt" ? "Descarregar Certificado (PDF)" : "Download PDF Certificate"}</span>
                   </motion.button>
                 </motion.div>
               )}
