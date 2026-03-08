@@ -13,9 +13,10 @@ interface ModuleLayoutProps {
   subtitle: string;
   heroImage: string;
   children: ReactNode;
+  hideCompletion?: boolean;
 }
 
-export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImage, children }: ModuleLayoutProps) {
+export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImage, children, hideCompletion }: ModuleLayoutProps) {
   const { completeModule, isModuleCompleted, totalModules } = useProgress();
   const { t } = useLanguage();
   const completed = isModuleCompleted(moduleId);
@@ -39,23 +40,25 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
       <div className="section-padding py-16 max-w-4xl mx-auto space-y-16">
         {children}
 
-        <ScrollReveal>
-          <div className="flex justify-center pt-8 border-t border-border/30">
-            {completed ? (
-              <div className="flex items-center gap-3 text-primary">
-                <Check className="w-5 h-5" />
-                <span className="text-sm tracking-[0.2em] uppercase">{t.academy.module.completed}</span>
-              </div>
-            ) : (
-              <button
-                onClick={() => completeModule(moduleId)}
-                className="border border-primary/30 px-10 py-4 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold"
-              >
-                {t.academy.module.markComplete}
-              </button>
-            )}
-          </div>
-        </ScrollReveal>
+        {!hideCompletion && (
+          <ScrollReveal>
+            <div className="flex justify-center pt-8 border-t border-border/30">
+              {completed ? (
+                <div className="flex items-center gap-3 text-primary">
+                  <Check className="w-5 h-5" />
+                  <span className="text-sm tracking-[0.2em] uppercase">{t.academy.module.completed}</span>
+                </div>
+              ) : (
+                <button
+                  onClick={() => completeModule(moduleId)}
+                  className="border border-primary/30 px-10 py-4 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold"
+                >
+                  {t.academy.module.markComplete}
+                </button>
+              )}
+            </div>
+          </ScrollReveal>
+        )}
       </div>
     </div>
   );
