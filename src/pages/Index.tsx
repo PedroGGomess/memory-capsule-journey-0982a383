@@ -71,7 +71,7 @@ const Index = () => {
           image={hedonismImg}
           title={t.sections.hedonism.title}
           imagePosition="full"
-          lines={t.sections.hedonism.lines as string[]}
+          lines={[...t.sections.hedonism.lines]}
         />
 
         {/* Section 6 — Cinematic Storytelling */}
