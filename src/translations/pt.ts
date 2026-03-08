@@ -358,7 +358,9 @@ const pt = {
     resources: {
       internalUseNote: "Os recursos são apenas para uso interno. Por favor, não os distribuas fora da organização.",
       items: [
-        { title: "Brand Book", desc: "Diretrizes completas da marca, tom de voz e identidade visual", type: "PDF" },
+        { title: "Brand Book / Dossier", desc: "Diretrizes completas e dossier da marca The 100's", type: "PDF" },
+        { title: "O Conceito The 100's", desc: "Apresentação visual do conceito de Memory Capsule", type: "PDF" },
+        { title: "Resumo: O que é o The 100's", desc: "Documento resumo com a essência da marca", type: "Doc" },
         { title: "Fotografia de Produtos", desc: "Imagens de alta resolução da coleção para referência", type: "Galeria" },
         { title: "Vídeos de Formação", desc: "Guias visuais sobre conhecimento de produtos e storytelling", type: "Vídeo" },
         { title: "Guia de Prova", desc: "Como conduzir e narrar uma experiência de prova", type: "PDF" },
