@@ -32,6 +32,11 @@ const ModuleResources = () => {
   const { t, language } = useLanguage();
 
   const handleDownload = (title: string) => {
+    if (title === "Fotografia de Produtos" || title === "Product Photography") {
+      window.location.href = "/academy/module/products";
+      return;
+    }
+
     const url = downloadUrls[title];
     if (url) {
       const a = document.createElement("a");
