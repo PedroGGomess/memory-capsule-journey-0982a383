@@ -1,6 +1,6 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, QuizBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
-import douroImg from "@/assets/douro-valley.jpg";
+import douroImg from "@/assets/academy/douro-terraces.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useState } from "react";
 import { Search } from "lucide-react";

@@ -1,6 +1,7 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, QuizBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, QuizBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
-import storeImg from "@/assets/store-interior.jpg";
+import tastingImg from "@/assets/academy/tasting-ritual.jpg";
+import portWineImg from "@/assets/academy/port-wine-pour.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Wine, Clock, Eye, Droplets, Heart, MessageCircle } from "lucide-react";
 
@@ -176,7 +177,7 @@ const ModuleTastingGuide = () => {
       moduleNumber={9}
       title={isEN ? "Tasting Guide & Sales Ritual" : "Guia de Prova & Ritual de Vendas"}
       subtitle={isEN ? "The art of presenting The 100's — every word, every gesture matters." : "A arte de apresentar o The 100's — cada palavra, cada gesto conta."}
-      heroImage={storeImg}
+      heroImage={tastingImg}
     >
       <ContentBlock title={isEN ? "You Are the Experience" : "Tu És a Experiência"}>
         <p>{isEN
@@ -227,6 +228,8 @@ const ModuleTastingGuide = () => {
           );
         })}
       </div>
+
+      <ImageBlock src={portWineImg} alt={isEN ? "Port wine tasting" : "Prova de Vinho do Porto"} caption={isEN ? "The amber glow of aged Tawny — decades of patience in every drop" : "O brilho âmbar do Tawny envelhecido — décadas de paciência em cada gota"} />
 
       <ContentBlock title={isEN ? "The Tasting — Sensory Breakdown" : "A Prova — Análise Sensorial"}>
         <p>{isEN

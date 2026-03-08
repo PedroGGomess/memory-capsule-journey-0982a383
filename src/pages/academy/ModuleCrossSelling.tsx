@@ -1,6 +1,6 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, QuizBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
-import collectionImg from "@/assets/collection.jpg";
+import crossSellingImg from "@/assets/academy/cross-selling.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
 import { ShoppingBag, Gift, Users, TrendingUp, ArrowRight } from "lucide-react";
 
@@ -122,7 +122,7 @@ const ModuleCrossSelling = () => {
       moduleNumber={11}
       title={isEN ? "Cross-Selling & Upselling" : "Cross-Selling & Upselling"}
       subtitle={isEN ? "The art of suggesting more — without pushing." : "A arte de sugerir mais — sem forçar."}
-      heroImage={collectionImg}
+      heroImage={crossSellingImg}
     >
       <ContentBlock title={isEN ? "Sell the Story, Not the Product" : "Vende a História, Não o Produto"}>
         <p>{isEN
