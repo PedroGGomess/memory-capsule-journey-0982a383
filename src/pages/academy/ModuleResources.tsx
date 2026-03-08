@@ -16,7 +16,7 @@ const downloadUrls: Record<string, string | null> = {
   "Product Photography": null,
   "Training Videos": null,
   "Tasting Guide": null,
-  "FAQ Document": null,
+  "FAQ Document": "/downloads/FAQ_The100s.md",
   "Store Visual Standards": null,
   // PT titles
   "O Conceito The 100's": "/downloads/100s_conceito_final.pdf",
@@ -24,7 +24,7 @@ const downloadUrls: Record<string, string | null> = {
   "Fotografia de Produtos": null,
   "Vídeos de Formação": null,
   "Guia de Prova": null,
-  "Documento de FAQ": null,
+  "Documento de FAQ": "/downloads/FAQ_The100s.md",
   "Padrões Visuais da Loja": null,
 };
 
