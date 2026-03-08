@@ -8,7 +8,7 @@ import ScrollReveal from "./ScrollReveal";
 /* ── Module Layout ── */
 interface ModuleLayoutProps {
   moduleId: string;
-  moduleNumber: number;
+  moduleNumber?: number;
   title: string;
   subtitle: string;
   heroImage: string;
