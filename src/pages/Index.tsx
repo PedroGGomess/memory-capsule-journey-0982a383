@@ -47,7 +47,7 @@ const Index = () => {
           image={heroDropImg}
           title={t.sections.discovery.title}
           imagePosition="right"
-          lines={t.sections.discovery.lines as string[]}
+          lines={[...t.sections.discovery.lines]}
         />
 
         {/* Section 3 — Time */}
