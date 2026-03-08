@@ -7,8 +7,11 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, adminUser } = useAuth();
   if (!isAuthenticated) {
+    return <Navigate to="/gym-admin/login" replace />;
+  }
+  if (adminUser?.must_change_password) {
     return <Navigate to="/gym-admin/login" replace />;
   }
   return <>{children}</>;

@@ -6,64 +6,145 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Lock, ShieldCheck } from "lucide-react";
+import { Lock, ShieldCheck, KeyRound } from "lucide-react";
+import logoImg from "@/assets/Logo.png";
 
 const AdminLogin = () => {
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, adminUser, changePassword } = useAuth();
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Password change state
+  const [mustChangePassword, setMustChangePassword] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [changingPassword, setChangingPassword] = useState(false);
+
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && adminUser && !adminUser.must_change_password) {
       navigate("/gym-admin", { replace: true });
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, adminUser, navigate]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
-    setTimeout(() => {
-      const ok = login(username.trim(), password);
-      if (ok) {
-        navigate("/gym-admin", { replace: true });
+
+    const result = await login(email.trim(), password);
+    
+    if (result.success) {
+      if (result.mustChangePassword) {
+        setMustChangePassword(true);
       } else {
-        setError(t.admin.login.invalidCredentials);
+        navigate("/gym-admin", { replace: true });
       }
-      setLoading(false);
-    }, 300);
+    } else {
+      setError("Credenciais inválidas ou conta inativa.");
+    }
+    setLoading(false);
   };
+
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassword.length < 6) {
+      setError("A password deve ter pelo menos 6 caracteres.");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setError("As passwords não coincidem.");
+      return;
+    }
+    setChangingPassword(true);
+    setError("");
+
+    const ok = await changePassword(newPassword);
+    if (ok) {
+      navigate("/gym-admin", { replace: true });
+    } else {
+      setError("Erro ao alterar password. Tente novamente.");
+    }
+    setChangingPassword(false);
+  };
+
+  if (mustChangePassword) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background px-4">
+        <Card className="w-full max-w-sm shadow-lg">
+          <CardHeader className="text-center space-y-2">
+            <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <KeyRound className="w-6 h-6 text-primary" />
+            </div>
+            <CardTitle className="text-xl">Alterar Password</CardTitle>
+            <CardDescription>
+              Por questões de segurança, precisa de definir uma nova password.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleChangePassword} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="new-password">Nova Password</Label>
+                <Input
+                  id="new-password"
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                  placeholder="Mínimo 6 caracteres"
+                  autoFocus
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="confirm-password">Confirmar Password</Label>
+                <Input
+                  id="confirm-password"
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  placeholder="Repita a password"
+                />
+              </div>
+              {error && <p className="text-sm text-destructive">{error}</p>}
+              <Button type="submit" className="w-full" disabled={changingPassword}>
+                <Lock className="w-4 h-4 mr-2" />
+                {changingPassword ? "A guardar..." : "Definir Nova Password"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <Card className="w-full max-w-sm shadow-lg">
         <CardHeader className="text-center space-y-2">
-          <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-            <ShieldCheck className="w-6 h-6 text-primary" />
-          </div>
-          <CardTitle className="text-xl">{t.admin.login.title}</CardTitle>
-          <CardDescription>{t.admin.login.description}</CardDescription>
+          <img src={logoImg} alt="The 100's" className="w-16 h-16 object-contain mx-auto" />
+          <CardTitle className="text-xl">The100s Admin</CardTitle>
+          <CardDescription>Acesso ao painel de administração</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <Label htmlFor="username">{t.admin.login.username}</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
-                id="username"
-                type="text"
-                autoComplete="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                id="email"
+                type="email"
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder="admin"
+                placeholder="admin@the100s.com"
               />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="password">{t.admin.login.password}</Label>
+              <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -79,11 +160,11 @@ const AdminLogin = () => {
             )}
             <Button type="submit" className="w-full" disabled={loading}>
               <Lock className="w-4 h-4 mr-2" />
-              {loading ? t.admin.login.signingIn : t.admin.login.signIn}
+              {loading ? "A entrar..." : "Entrar"}
             </Button>
           </form>
           <p className="mt-4 text-center text-xs text-muted-foreground">
-            {t.admin.login.defaultCredentials} <span className="font-mono">admin / admin123</span>
+            Credenciais padrão: <span className="font-mono">admin@the100s.com / admin123</span>
           </p>
         </CardContent>
       </Card>
