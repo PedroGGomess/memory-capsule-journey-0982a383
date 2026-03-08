@@ -59,15 +59,14 @@ const ModuleProducts = () => {
     { name: "Subcoleções Adicionais (Planeadas)", desc: "Grandes Navegações (caravelas, bússolas), Engenharias (varandas, calçada), Lifestyle & Vida (sardinhas, pastéis de nata) e Botânica (oliveiras, videiras)." },
   ];
 
-  // Shared product photo arrays — replace with real product photos when available
   const productPhotos = [
-    [collectionImg, giftImg, bottleImg],        // Entry Gift
-    [bottleImg, collectionImg, storeImg],       // Cilindro de Cortiça com Cerâmica
-    [collectionImg, bottleImg, storeImg],       // Cilindro de Cortiça
-    [hourglassImg, collectionImg, storeImg],    // Cubo de Cortiça com Cerâmica
-    [storeImg, hourglassImg, collectionImg],    // Cubo de Cortiça
-    [hedonismImg, douroImg, hourglassImg],      // Madeira com Latão
-    [douroImg, hedonismImg, storeImg],          // Madeira de Carvalho com Latão
+    [entryGiftImg, garrafas2Img],                                // Entry Gift
+    [cilindro2t1, cilindro2t2, cilindro2t3],                     // Cilindro de Cortiça com Cerâmica
+    [cilindroCork1, cilindroCork2, cilindroCork3],               // Cilindro de Cortiça
+    [quadrado2t1, quadrado2t2, quadrado2t3],                     // Cubo de Cortiça com Cerâmica
+    [quadradoCork1, quadradoCork2, quadradoCork3],               // Cubo de Cortiça
+    [quadradoNogueira1, quadradoNogueira2, quadradoNogueira3],   // Madeira com Latão (Nogueira)
+    [quadradoCarvalho1, quadradoCarvalho2, quadradoCarvalho3],   // Madeira de Carvalho com Latão
   ];
 
   const productPortfolio = (isEN ? [
