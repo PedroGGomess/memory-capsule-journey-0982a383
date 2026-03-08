@@ -152,6 +152,26 @@ const Dashboard = () => {
       </div>
 
       <ScrollReveal delay={0.3}>
+        <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground/50 mt-12 mb-4 px-1">Ferramentas</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {tools.map((tool, i) => (
+            <Link key={tool.id} to={tool.path}>
+              <motion.div
+                className="group border border-border/30 p-5 flex items-center gap-4 transition-all duration-500 hover:border-primary/40 hover:bg-card"
+                whileHover={{ x: 4 }}
+              >
+                <div className="p-2.5 rounded-sm bg-secondary/50">
+                  <tool.icon className="w-4 h-4 text-muted-foreground" />
+                </div>
+                <h3 className="text-sm font-light text-foreground/80">{tool.title}</h3>
+                <ArrowRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary/60 transition-colors ml-auto shrink-0" />
+              </motion.div>
+            </Link>
+          ))}
+        </div>
+      </ScrollReveal>
+
+      <ScrollReveal delay={0.3}>
         <div className="text-center mt-20 py-12 border-t border-border/20">
           <p className="text-xl md:text-2xl font-light text-foreground/50 italic max-w-2xl mx-auto">
             {t.academy.dashboard.quote}
