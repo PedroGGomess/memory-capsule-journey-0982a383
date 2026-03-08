@@ -1,39 +1,66 @@
-import { useState } from "react";
-import { useGymAccess } from "@/contexts/GymAccessContext";
+import { useState, useEffect, useCallback } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
+  Dialog, DialogContent, DialogHeader, DialogTitle,
 } from "@/components/ui/dialog";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
-import { MessageSquare, CheckCircle, Search, Reply, Inbox } from "lucide-react";
+import { MessageSquare, CheckCircle, Search, Reply, Inbox, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Question {
+  id: string;
+  employee_name: string;
+  question: string;
+  module: string | null;
+  category: string | null;
+  created_at: string;
+  resolved: boolean;
+  reply: string | null;
+}
 
 const AdminQuestions = () => {
-  const { questions, replyToQuestion, resolveQuestion } = useGymAccess();
   const { t } = useLanguage();
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | "open" | "resolved">("all");
   const [replyTarget, setReplyTarget] = useState<string | null>(null);
   const [replyText, setReplyText] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  const fetchQuestions = useCallback(async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("employee_questions")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (!error && data) setQuestions(data as Question[]);
+    setLoading(false);
+  }, []);
+
+  useEffect(() => { fetchQuestions(); }, [fetchQuestions]);
+
+  // Realtime subscription
+  useEffect(() => {
+    const channel = supabase
+      .channel("employee_questions_changes")
+      .on("postgres_changes", { event: "*", schema: "public", table: "employee_questions" }, () => {
+        fetchQuestions();
+      })
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+  }, [fetchQuestions]);
 
   const filtered = questions.filter((q) => {
     const matchesSearch =
-      q.employeeName.toLowerCase().includes(search.toLowerCase()) ||
+      q.employee_name.toLowerCase().includes(search.toLowerCase()) ||
       q.question.toLowerCase().includes(search.toLowerCase()) ||
       (q.module || "").toLowerCase().includes(search.toLowerCase());
     const matchesFilter =
@@ -46,17 +73,29 @@ const AdminQuestions = () => {
   const openCount = questions.filter((q) => !q.resolved).length;
   const resolvedCount = questions.filter((q) => q.resolved).length;
 
-  const handleReply = () => {
+  const handleReply = async () => {
     if (!replyTarget || !replyText.trim()) return;
-    replyToQuestion(replyTarget, replyText.trim());
-    setReplyTarget(null);
-    setReplyText("");
-    toast.success(t.admin.questions.replySent);
+    const { error } = await supabase
+      .from("employee_questions")
+      .update({ reply: replyText.trim() })
+      .eq("id", replyTarget);
+    if (!error) {
+      setReplyTarget(null);
+      setReplyText("");
+      toast.success(t.admin.questions.replySent);
+      fetchQuestions();
+    }
   };
 
-  const handleResolve = (id: string) => {
-    resolveQuestion(id);
-    toast.success(t.admin.questions.markedResolved);
+  const handleResolve = async (id: string) => {
+    const { error } = await supabase
+      .from("employee_questions")
+      .update({ resolved: true })
+      .eq("id", id);
+    if (!error) {
+      toast.success(t.admin.questions.markedResolved);
+      fetchQuestions();
+    }
   };
 
   const formatDate = (iso: string) => {
@@ -73,13 +112,17 @@ const AdminQuestions = () => {
           <h2 className="text-2xl font-bold">{t.admin.questions.title}</h2>
           <p className="text-muted-foreground text-sm">{t.admin.questions.subtitle}</p>
         </div>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Inbox className="w-4 h-4" />
-          <span>{openCount} open</span>
+        <div className="flex items-center gap-3">
+          <Button variant="ghost" size="sm" onClick={fetchQuestions} disabled={loading}>
+            <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
+          </Button>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Inbox className="w-4 h-4" />
+            <span>{openCount} open</span>
+          </div>
         </div>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
         <Card>
           <CardContent className="flex items-center gap-4 pt-6">
@@ -116,7 +159,6 @@ const AdminQuestions = () => {
         </Card>
       </div>
 
-      {/* Filters + Search */}
       <Card>
         <CardHeader className="pb-3">
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
@@ -160,13 +202,13 @@ const AdminQuestions = () => {
               {filtered.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={6} className="text-center text-muted-foreground py-10">
-                    {questions.length === 0 ? "No questions yet." : "No results found."}
+                    {loading ? "Loading..." : questions.length === 0 ? "No questions yet." : "No results found."}
                   </TableCell>
                 </TableRow>
               ) : (
                 filtered.map((q) => (
                   <TableRow key={q.id}>
-                    <TableCell className="font-medium">{q.employeeName}</TableCell>
+                    <TableCell className="font-medium">{q.employee_name}</TableCell>
                     <TableCell className="max-w-xs">
                       <p className="text-sm truncate">{q.question}</p>
                       {q.reply && (
@@ -182,7 +224,7 @@ const AdminQuestions = () => {
                         <span className="text-muted-foreground text-xs">—</span>
                       )}
                     </TableCell>
-                    <TableCell className="text-muted-foreground text-sm">{formatDate(q.createdAt)}</TableCell>
+                    <TableCell className="text-muted-foreground text-sm">{formatDate(q.created_at)}</TableCell>
                     <TableCell>
                       {q.resolved ? (
                         <Badge variant="secondary" className="text-xs">Resolved</Badge>
@@ -192,24 +234,12 @@ const AdminQuestions = () => {
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end gap-1">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-7 text-xs gap-1"
-                          onClick={() => { setReplyTarget(q.id); setReplyText(""); }}
-                        >
-                          <Reply className="w-3 h-3" />
-                          Reply
+                        <Button variant="ghost" size="sm" className="h-7 text-xs gap-1" onClick={() => { setReplyTarget(q.id); setReplyText(""); }}>
+                          <Reply className="w-3 h-3" /> Reply
                         </Button>
                         {!q.resolved && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-7 text-xs text-green-600 hover:text-green-700"
-                            onClick={() => handleResolve(q.id)}
-                          >
-                            <CheckCircle className="w-3 h-3 mr-1" />
-                            Resolve
+                          <Button variant="ghost" size="sm" className="h-7 text-xs text-green-600 hover:text-green-700" onClick={() => handleResolve(q.id)}>
+                            <CheckCircle className="w-3 h-3 mr-1" /> Resolve
                           </Button>
                         )}
                       </div>
@@ -222,7 +252,6 @@ const AdminQuestions = () => {
         </CardContent>
       </Card>
 
-      {/* Reply Dialog */}
       <Dialog open={!!replyTarget} onOpenChange={(open) => !open && setReplyTarget(null)}>
         <DialogContent>
           <DialogHeader>
@@ -231,18 +260,13 @@ const AdminQuestions = () => {
           {replyingTo && (
             <div className="space-y-4">
               <div className="bg-muted/50 p-4 rounded-md space-y-1">
-                <p className="text-xs text-muted-foreground font-medium">{replyingTo.employeeName}</p>
+                <p className="text-xs text-muted-foreground font-medium">{replyingTo.employee_name}</p>
                 <p className="text-sm">{replyingTo.question}</p>
                 {replyingTo.module && (
                   <p className="text-xs text-primary/60 mt-1">Module: {replyingTo.module.replace(/-/g, " ")}</p>
                 )}
               </div>
-              <Textarea
-                placeholder="Write your reply…"
-                value={replyText}
-                onChange={(e) => setReplyText(e.target.value)}
-                rows={4}
-              />
+              <Textarea placeholder="Write your reply…" value={replyText} onChange={(e) => setReplyText(e.target.value)} rows={4} />
               <div className="flex justify-end gap-2">
                 <Button variant="ghost" onClick={() => setReplyTarget(null)}>Cancel</Button>
                 <Button onClick={handleReply} disabled={!replyText.trim()}>Send Reply</Button>
