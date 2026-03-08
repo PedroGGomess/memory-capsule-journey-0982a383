@@ -260,6 +260,9 @@ const AdminQuestions = () => {
                             <CheckCircle className="w-3 h-3 mr-1" /> Resolve
                           </Button>
                         )}
+                        <Button variant="ghost" size="sm" className="h-7 text-xs text-destructive hover:text-destructive" onClick={() => setDeleteTarget(q.id)}>
+                          <Trash2 className="w-3 h-3" />
+                        </Button>
                       </div>
                     </TableCell>
                   </TableRow>
