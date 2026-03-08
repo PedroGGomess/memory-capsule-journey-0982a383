@@ -55,7 +55,7 @@ const Index = () => {
           image={hourglassImg}
           title={t.sections.time.title}
           imagePosition="left"
-          lines={t.sections.time.lines as string[]}
+          lines={[...t.sections.time.lines]}
         />
 
         {/* Section 4 — Singularity */}
