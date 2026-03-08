@@ -3,6 +3,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AcademySidebar } from "@/components/AcademySidebar";
 import { ProgressProvider } from "@/contexts/ProgressContext";
 import { AIAssistantBubble } from "@/components/AIAssistantBubble";
+import { AcademyOnboardingTour } from "@/components/AcademyOnboardingTour";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const AcademyLayout = () => {
