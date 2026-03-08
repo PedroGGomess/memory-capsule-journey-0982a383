@@ -151,7 +151,7 @@ const ModuleVisualMerchandising = () => {
       moduleNumber={12}
       title={isEN ? "Visual Standards & Store Layout" : "Padrões Visuais & Layout da Loja"}
       subtitle={isEN ? "The immaculate aesthetic that defines The 100's." : "A estética imaculada que define o The 100's."}
-      heroImage={storeImg}
+      heroImage={vmImg}
     >
       <ContentBlock title={isEN ? "Every Detail Is Intentional" : "Cada Detalhe É Intencional"}>
         <p>{isEN
