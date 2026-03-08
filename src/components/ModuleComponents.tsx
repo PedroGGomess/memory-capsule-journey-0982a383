@@ -173,51 +173,144 @@ export function QuizBlock({ moduleId, questions }: { moduleId: string; questions
   };
 
   const allAnswered = answers.every(a => a !== null);
+  const score = questions.reduce((acc, q, i) => acc + (answers[i] === q.correct ? 1 : 0), 0);
+  const percentage = Math.round((score / questions.length) * 100);
 
   return (
     <ScrollReveal>
-      <div className="border border-border/50 p-8 space-y-8">
-        <p className="text-xs tracking-[0.3em] uppercase text-primary/60">{t.academy.module.quiz}</p>
-        {questions.map((q, qi) => (
-          <div key={qi} className="space-y-3">
-            <p className="text-foreground/90 font-light">{q.question}</p>
-            <div className="grid gap-2">
-              {q.options.map((opt, oi) => {
-                const selected = answers[qi] === oi;
-                const isCorrect = submitted && oi === q.correct;
-                const isWrong = submitted && selected && oi !== q.correct;
-                return (
-                  <button
-                    key={oi}
-                    onClick={() => handleSelect(qi, oi)}
-                    className={`text-left px-4 py-3 border text-sm font-light transition-all duration-300 ${
-                      isCorrect ? "border-primary/60 bg-primary/10 text-primary" :
-                      isWrong ? "border-destructive/40 bg-destructive/5 text-destructive" :
-                      selected ? "border-primary/40 bg-primary/5 text-foreground" :
-                      "border-border/30 text-foreground/60 hover:border-border"
-                    }`}
-                  >
-                    {opt}
-                  </button>
-                );
-              })}
-            </div>
+      <div className="relative border border-border/30 bg-secondary/5 backdrop-blur-xl p-8 md:p-12 overflow-hidden">
+        {/* Subtle background glow */}
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/5 rounded-full blur-[80px] pointer-events-none" />
+        
+        <div className="relative z-10 space-y-10">
+          <div className="flex items-center gap-3">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <p className="text-xs tracking-[0.3em] uppercase text-primary">{t.academy.module.quiz}</p>
           </div>
-        ))}
-        {!submitted && (
-          <button
-            onClick={handleSubmit}
-            disabled={!allAnswered}
-            className="border border-primary/30 px-8 py-3 text-sm tracking-[0.2em] uppercase text-primary transition-all duration-500 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
-          >
-            {t.academy.module.checkAnswer}
-          </button>
-        )}
-        {submitted && (
-          <p className="text-primary text-sm">
-            Score: {questions.reduce((acc, q, i) => acc + (answers[i] === q.correct ? 1 : 0), 0)}/{questions.length}
-          </p>
-        )}
+
+          {!submitted ? (
+            <div className="space-y-12">
+              {questions.map((q, qi) => (
+                <div key={qi} className="space-y-5">
+                  <p className="text-xl text-foreground/90 font-light leading-relaxed">
+                    <span className="text-primary/50 mr-3 text-sm">{qi + 1}.</span>
+                    {q.question}
+                  </p>
+                  <div className="grid gap-3">
+                    {q.options.map((opt, oi) => {
+                      const selected = answers[qi] === oi;
+                      return (
+                        <button
+                          key={oi}
+                          onClick={() => handleSelect(qi, oi)}
+                          className={`group relative text-left px-6 py-4 border text-sm font-light transition-all duration-500 overflow-hidden ${
+                            selected 
+                              ? "border-primary/50 bg-primary/10 text-primary" 
+                              : "border-border/30 bg-background/40 text-foreground/70 hover:border-primary/30 hover:bg-background/80"
+                          }`}
+                        >
+                          {selected && (
+                            <motion.div 
+                              layoutId={`quiz-selection-${qi}`}
+                              className="absolute left-0 top-0 bottom-0 w-1 bg-primary"
+                            />
+                          )}
+                          <div className="flex items-center gap-4">
+                            <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors duration-300 ${
+                              selected ? "border-primary" : "border-border/50 group-hover:border-primary/30"
+                            }`}>
+                              {selected && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                            </div>
+                            <span>{opt}</span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+              
+              <div className="pt-6 flex justify-center">
+                <button
+                  onClick={handleSubmit}
+                  disabled={!allAnswered}
+                  className="relative group border border-primary/30 px-12 py-4 text-sm tracking-[0.2em] uppercase text-primary transition-all duration-500 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed overflow-hidden"
+                >
+                  <span className="relative z-10">{t.academy.module.checkAnswer}</span>
+                  {!(!allAnswered) && (
+                    <div className="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+                  )}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="py-8"
+            >
+              <div className="text-center mb-12 space-y-4">
+                <div className="inline-flex items-center justify-center w-24 h-24 rounded-full border border-primary/20 bg-primary/5 mb-4">
+                  {percentage >= 80 ? (
+                    <Trophy className="w-10 h-10 text-primary" />
+                  ) : (
+                    <CheckCircle2 className="w-10 h-10 text-primary" />
+                  )}
+                </div>
+                <h3 className="text-3xl font-light text-primary">
+                  {percentage}% {t.academy.module.completed}
+                </h3>
+                <p className="text-foreground/60 font-light">
+                  {percentage >= 80 
+                    ? "Excelente resultado! Dominaste este módulo." 
+                    : "Bom esforço. Revê as respostas abaixo para consolidares o conhecimento."}
+                </p>
+              </div>
+
+              <div className="space-y-6 border-t border-border/30 pt-8">
+                {questions.map((q, qi) => {
+                  const isCorrect = answers[qi] === q.correct;
+                  return (
+                    <div key={qi} className={`p-6 border ${isCorrect ? "border-green-500/20 bg-green-500/5" : "border-red-500/20 bg-red-500/5"}`}>
+                      <div className="flex gap-4">
+                        <div className="mt-1">
+                          {isCorrect ? (
+                            <CheckCircle2 className="w-5 h-5 text-green-500" />
+                          ) : (
+                            <XCircle className="w-5 h-5 text-red-500" />
+                          )}
+                        </div>
+                        <div className="space-y-3 flex-1">
+                          <p className="text-foreground/90 font-light">{q.question}</p>
+                          <div className="space-y-2">
+                            {q.options.map((opt, oi) => {
+                              const selected = answers[qi] === oi;
+                              const isThisCorrect = oi === q.correct;
+                              
+                              if (!selected && !isThisCorrect) return null;
+                              
+                              return (
+                                <div key={oi} className={`flex items-center gap-3 text-sm px-4 py-2 ${
+                                  isThisCorrect ? "text-green-500/90" : "text-red-500/90"
+                                }`}>
+                                  {isThisCorrect ? <Check className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
+                                  <span className="font-light">{opt}</span>
+                                  {selected && isThisCorrect && <span className="text-xs ml-auto opacity-60">(Tua resposta)</span>}
+                                  {selected && !isThisCorrect && <span className="text-xs ml-auto opacity-60">(Tua resposta incorreta)</span>}
+                                  {!selected && isThisCorrect && <span className="text-xs ml-auto opacity-60">(Resposta correta)</span>}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          )}
+        </div>
       </div>
     </ScrollReveal>
   );
