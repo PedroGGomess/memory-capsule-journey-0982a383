@@ -5,6 +5,12 @@ import bottleImg from "@/assets/bottle-closeup.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
 import { ProductGallery } from "@/components/ProductGallery";
 
+// Second Life photos
+import difusorImg from "@/assets/second-life/difusor.png";
+import plantaImg from "@/assets/second-life/planta.png";
+import portaCoposImg from "@/assets/second-life/porta-copos.png";
+import velaImg from "@/assets/second-life/vela.png";
+
 // Product photos
 import entryGiftImg from "@/assets/produtos/entry-gift.jpg";
 import garrafas2Img from "@/assets/produtos/garrafas-2.jpg";
