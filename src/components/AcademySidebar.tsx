@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/sidebar";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
-  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut, Home
+  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut, Home, Key, BookMarked, Target, Image
 } from "lucide-react";
 import logoImg from "@/assets/Logo.png";
 
@@ -30,7 +30,11 @@ export function AcademySidebar() {
     { title: t.academy.nav.brandVoice, url: "/academy/module/brand-voice", icon: MessageCircle, id: "brand-voice", num: 6 },
     { title: t.academy.nav.customerExperience, url: "/academy/module/customer-experience", icon: Users, id: "customer-experience", num: 7 },
     { title: t.academy.nav.businessModel, url: "/academy/module/business-model", icon: BarChart3, id: "business-model", num: 8 },
-    { title: t.academy.nav.certification, url: "/academy/module/certification", icon: Award, id: "certification", num: 9 },
+    { title: t.academy.nav.tastingGuide, url: "/academy/module/tasting-guide", icon: Wine, id: "tasting-guide", num: 9 },
+    { title: t.academy.nav.glossary, url: "/academy/module/glossary", icon: BookMarked, id: "glossary", num: 10 },
+    { title: t.academy.nav.crossSelling, url: "/academy/module/cross-selling", icon: Target, id: "cross-selling", num: 11 },
+    { title: t.academy.nav.visualMerchandising, url: "/academy/module/visual-merchandising", icon: Image, id: "visual-merchandising", num: 12 },
+    { title: t.academy.nav.certification, url: "/academy/module/certification", icon: Award, id: "certification", num: 13 },
   ];
 
   const tools = [
