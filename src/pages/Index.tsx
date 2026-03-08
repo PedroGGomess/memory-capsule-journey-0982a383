@@ -8,6 +8,7 @@ import MemorySection from "@/components/MemorySection";
 import CollectionSection from "@/components/CollectionSection";
 import GiftsSection from "@/components/GiftsSection";
 import ScrollReveal from "@/components/ScrollReveal";
+import CinematicStorytellingSection from "@/components/CinematicStorytellingSection";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 import heroDropImg from "@/assets/hero-drop.jpg";
@@ -73,7 +74,10 @@ const Index = () => {
           lines={t.sections.hedonism.lines as string[]}
         />
 
-        {/* Section 6 — What is The 100's */}
+        {/* Section 6 — Cinematic Storytelling */}
+        <CinematicStorytellingSection />
+
+        {/* Section 7 — What is The 100's */}
         <section className="min-h-[60vh] flex items-center section-padding py-32">
           <div className="max-w-4xl mx-auto w-full">
             <ScrollReveal>
@@ -100,9 +104,72 @@ const Index = () => {
                   {t.brand.p3}
                 </p>
               </ScrollReveal>
+              <ScrollReveal delay={0.55}>
+                <p className="text-sm text-foreground/50 font-light mt-2">{t.brand.giftsLabel}</p>
+                <ul className="mt-3 space-y-1">
+                  {(t.brand.giftItems as string[]).map((item, i) => (
+                    <li key={i} className="text-sm text-foreground/50 font-light flex items-start gap-2">
+                      <span className="text-primary/40 mt-0.5">·</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </ScrollReveal>
             </div>
-            <ScrollReveal delay={0.55}>
-              <div className="mt-12 h-px w-16 bg-primary/20" />
+
+            {/* Sub-sections: Product, Collections, Mission */}
+            <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-12">
+              {/* Product */}
+              <ScrollReveal delay={0.1}>
+                <div>
+                  <p className="text-xs tracking-[0.35em] uppercase text-primary/50 mb-4">{t.brand.productTitle}</p>
+                  <p className="text-sm text-foreground/60 font-light leading-relaxed mb-4">{t.brand.productIntro}</p>
+                  <ul className="space-y-1.5">
+                    {(t.brand.productFeatures as string[]).map((f, i) => (
+                      <li key={i} className="text-xs text-foreground/40 font-light flex items-start gap-2">
+                        <span className="text-primary/30 mt-0.5">·</span>
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </ScrollReveal>
+
+              {/* Collections */}
+              <ScrollReveal delay={0.2}>
+                <div>
+                  <p className="text-xs tracking-[0.35em] uppercase text-primary/50 mb-4">{t.brand.collectionsTitle}</p>
+                  <p className="text-sm text-foreground/60 font-light leading-relaxed mb-4">{t.brand.collectionsIntro}</p>
+                  <ul className="space-y-3">
+                    {(t.brand.collections as { name: string; desc: string }[]).map((c, i) => (
+                      <li key={i}>
+                        <p className="text-xs text-foreground/60 font-light">{c.name}</p>
+                        <p className="text-xs text-foreground/30 font-light leading-relaxed">{c.desc}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </ScrollReveal>
+
+              {/* Mission */}
+              <ScrollReveal delay={0.3}>
+                <div>
+                  <p className="text-xs tracking-[0.35em] uppercase text-primary/50 mb-4">{t.brand.missionTitle}</p>
+                  <p className="text-sm text-foreground/60 font-light leading-relaxed mb-4">{t.brand.missionIntro}</p>
+                  <ul className="space-y-1.5">
+                    {(t.brand.missionItems as string[]).map((item, i) => (
+                      <li key={i} className="text-xs text-foreground/40 font-light flex items-start gap-2">
+                        <span className="text-primary/30 mt-0.5">·</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </ScrollReveal>
+            </div>
+
+            <ScrollReveal delay={0.4}>
+              <div className="mt-16 h-px w-16 bg-primary/20" />
               <p className="mt-6 text-xs tracking-[0.3em] uppercase text-muted-foreground/50">
                 {t.brand.tagline}
               </p>
