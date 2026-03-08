@@ -191,7 +191,7 @@ const AdminDashboard = () => {
           <h2 className="text-2xl font-bold">Gestão de Colaboradores</h2>
           <p className="text-muted-foreground text-sm">Gerir equipa e acessos à plataforma</p>
         </div>
-        <Button onClick={() => { setAcademyEnabled(false); setShowAdd(true); }}>
+        <Button onClick={() => { setAcademyEnabled(true); setNewEmployeeAcademyCode(generateUserAcademyCode()); setShowAdd(true); }}>
           <Plus className="w-4 h-4 mr-2" />
           Adicionar Colaborador
         </Button>
