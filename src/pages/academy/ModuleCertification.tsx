@@ -375,10 +375,11 @@ const ModuleCertification = () => {
         ) : (
           <ScrollReveal delay={0.2}>
             <div className="space-y-8">
-              <div className="border border-border/30 p-8">
-                <p className="text-sm text-muted-foreground font-light mb-4">{t.academy.certification.progress}</p>
-                <Progress value={pct} className="h-1 bg-secondary mb-3" />
-                <p className="text-xs text-muted-foreground/60">
+              <div className="relative border border-primary/20 bg-primary/5 backdrop-blur-md p-10 max-w-lg mx-auto rounded-sm">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-primary/40 blur-sm" />
+                <p className="text-sm text-primary/80 font-light mb-6 tracking-widest uppercase">{t.academy.certification.progress}</p>
+                <Progress value={pct} className="h-1.5 bg-secondary mb-4" />
+                <p className="text-xs tracking-widest text-muted-foreground">
                   {completedModules} {t.academy.certification.of} {totalModules} ({pct}%)
                 </p>
               </div>
