@@ -176,7 +176,13 @@ const ModuleCertification = () => {
   }));
 
   return (
-    <div className="min-h-screen flex items-center justify-center section-padding py-32 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center section-padding py-32 relative overflow-hidden bg-background">
+      {/* Premium Background Elements */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/[0.03] via-background to-background pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+      <div className="absolute top-0 right-0 w-[1px] h-full bg-gradient-to-b from-transparent via-primary/10 to-transparent" />
+
       {/* Celebration particles */}
       <AnimatePresence>
         {showCelebration && particles.map((p) => (
@@ -194,23 +200,31 @@ const ModuleCertification = () => {
         ))}
       </AnimatePresence>
 
-      {/* Ambient glow */}
+      {/* Ambient glow for certified state */}
       {certified && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 2 }}
-          className="absolute inset-0 pointer-events-none"
+          transition={{ duration: 3 }}
+          className="absolute inset-0 pointer-events-none overflow-hidden"
         >
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[100px]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-primary/10 blur-[60px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-primary/5 blur-[120px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-primary/10 blur-[80px]" />
         </motion.div>
       )}
 
-      <div className="max-w-2xl mx-auto text-center w-full relative z-10">
+      <div className="max-w-3xl mx-auto text-center w-full relative z-10">
         <ScrollReveal>
-          <p className="text-xs tracking-[0.4em] uppercase text-primary/60 mb-4">{t.academy.certification.moduleLabel}</p>
-          <h1 className="text-4xl md:text-6xl font-light text-gold-gradient mb-8">{t.academy.certification.title}</h1>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="inline-flex items-center gap-2 px-4 py-2 border border-primary/20 bg-primary/5 backdrop-blur-sm rounded-full mb-8"
+          >
+            <Sparkles className="w-4 h-4 text-primary" />
+            <p className="text-[10px] tracking-[0.3em] uppercase text-primary font-medium">{t.academy.certification.moduleLabel}</p>
+          </motion.div>
+          <h1 className="text-5xl md:text-7xl font-extralight text-gold-gradient mb-12 tracking-wide">{t.academy.certification.title}</h1>
         </ScrollReveal>
 
         {certified ? (
@@ -261,55 +275,91 @@ const ModuleCertification = () => {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.9, duration: 0.8 }}
-                  className="space-y-4 max-w-sm mx-auto"
+                  className="space-y-6 max-w-sm mx-auto bg-secondary/10 backdrop-blur-md border border-primary/20 p-8 rounded-sm mt-12"
                 >
-                  <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground/60">
-                    {language === "pt" ? "Insere o teu nome para o certificado" : "Enter your name for the certificate"}
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-primary/80">
+                    {language === "pt" ? "Personaliza o teu certificado" : "Personalize your certificate"}
                   </p>
-                  <input
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    placeholder={language === "pt" ? "O teu nome completo" : "Your full name"}
-                    className="w-full bg-secondary/30 border border-border/30 text-foreground p-4 text-sm font-light text-center focus:outline-none focus:border-primary/30 transition-colors placeholder:text-muted-foreground/30"
-                  />
+                  <div className="relative group">
+                    <input
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                      placeholder={language === "pt" ? "O teu nome completo" : "Your full name"}
+                      className="w-full bg-background/50 border border-primary/30 text-foreground p-5 text-base font-light text-center focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 placeholder:text-muted-foreground/30 relative z-10"
+                    />
+                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  </div>
                   <button
                     onClick={() => userName.trim() && setNameSubmitted(true)}
                     disabled={!userName.trim()}
-                    className="border border-primary/30 px-8 py-3 text-sm tracking-[0.2em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="w-full relative group border border-primary/40 px-8 py-4 text-sm tracking-[0.2em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold disabled:opacity-30 disabled:cursor-not-allowed overflow-hidden bg-background/50 backdrop-blur-sm"
                   >
-                    {language === "pt" ? "Confirmar" : "Confirm"}
+                    <span className="relative z-10">{language === "pt" ? "Gerar Certificado" : "Generate Certificate"}</span>
+                    <div className="absolute inset-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
                   </button>
                 </motion.div>
               ) : (
                 <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.6 }}
-                  className="space-y-6"
+                  initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="space-y-10"
                 >
-                  {/* Certificate preview card */}
-                  <div className="relative border border-primary/20 bg-background/80 backdrop-blur-sm p-8 max-w-md mx-auto">
-                    <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
-                    <div className="relative space-y-3">
-                      <p className="text-[9px] tracking-[0.4em] uppercase text-primary/50">CERTIFICATE OF COMPLETION</p>
-                      <p className="text-2xl font-light text-gold-gradient">The 100's</p>
-                      <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/50">ACADEMY</p>
-                      <div className="h-px w-16 mx-auto bg-primary/20 my-4" />
-                      <p className="text-lg font-light text-foreground/80">{userName}</p>
-                      <p className="text-xs text-muted-foreground/50">
-                        {new Date().toLocaleDateString(language === "pt" ? "pt-PT" : "en-US", { day: "numeric", month: "long", year: "numeric" })}
-                      </p>
+                  {/* Premium Certificate preview card */}
+                  <div className="relative bg-gradient-to-br from-[#1A1814] to-[#0A0908] p-1 max-w-xl mx-auto rounded-sm shadow-2xl shadow-primary/20">
+                    {/* Gold Foil Border */}
+                    <div className="absolute inset-0 border border-primary/40 rounded-sm pointer-events-none" />
+                    
+                    <div className="relative border border-primary/20 bg-[#0F0D0B] p-10 md:p-14 overflow-hidden">
+                      {/* Subtle grain overlay */}
+                      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay pointer-events-none" />
+                      
+                      {/* Corner Accents */}
+                      <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-primary/50" />
+                      <div className="absolute top-4 right-4 w-4 h-4 border-t border-r border-primary/50" />
+                      <div className="absolute bottom-4 left-4 w-4 h-4 border-b border-l border-primary/50" />
+                      <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-primary/50" />
+
+                      <div className="relative space-y-5 z-10">
+                        <div className="flex items-center justify-center gap-4 mb-2">
+                          <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/50" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary/70" />
+                          <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/50" />
+                        </div>
+                        
+                        <p className="text-[10px] tracking-[0.4em] uppercase text-primary/70 font-medium">Certificate of Completion</p>
+                        <h3 className="text-4xl font-serif font-light text-gold-gradient my-6">The 100's</h3>
+                        <p className="text-[11px] tracking-[0.5em] uppercase text-primary/40">Academy</p>
+                        
+                        <div className="h-px w-24 mx-auto bg-gradient-to-r from-transparent via-primary/40 to-transparent my-8" />
+                        
+                        <p className="text-sm text-foreground/50 font-light italic mb-2">This certifies that</p>
+                        <p className="text-3xl font-light text-foreground/90 tracking-wide pb-2 border-b border-primary/20 inline-block px-8">{userName}</p>
+                        
+                        <p className="text-xs text-foreground/40 font-light mt-8 max-w-xs mx-auto leading-relaxed">
+                          has successfully completed all modules, demonstrating mastery of brand story and experience.
+                        </p>
+                        
+                        <div className="mt-8 flex justify-center items-center gap-2 text-primary/40">
+                          <div className="w-1 h-1 rounded-full bg-primary/40" />
+                          <p className="text-[10px] tracking-widest">
+                            {new Date().toLocaleDateString(language === "pt" ? "pt-PT" : "en-US", { day: "numeric", month: "long", year: "numeric" })}
+                          </p>
+                          <div className="w-1 h-1 rounded-full bg-primary/40" />
+                        </div>
+                      </div>
                     </div>
                   </div>
 
                   <motion.button
                     onClick={generatePDF}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(180,140,60,0.2)" }}
                     whileTap={{ scale: 0.98 }}
-                    className="inline-flex items-center gap-3 border border-primary/30 px-10 py-4 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold"
+                    className="inline-flex items-center gap-3 border border-primary/40 bg-primary/5 px-12 py-5 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:bg-primary/10 hover:border-primary relative overflow-hidden group rounded-sm"
                   >
-                    <Download className="w-4 h-4" />
-                    {language === "pt" ? "Descarregar Certificado PDF" : "Download Certificate PDF"}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+                    <Download className="w-4 h-4 relative z-10" />
+                    <span className="relative z-10 font-medium">{language === "pt" ? "Descarregar Certificado (PDF)" : "Download PDF Certificate"}</span>
                   </motion.button>
                 </motion.div>
               )}
@@ -329,35 +379,45 @@ const ModuleCertification = () => {
         ) : (
           <ScrollReveal delay={0.2}>
             <div className="space-y-8">
-              <div className="border border-border/30 p-8">
-                <p className="text-sm text-muted-foreground font-light mb-4">{t.academy.certification.progress}</p>
-                <Progress value={pct} className="h-1 bg-secondary mb-3" />
-                <p className="text-xs text-muted-foreground/60">
+              <div className="relative border border-primary/20 bg-primary/5 backdrop-blur-md p-10 max-w-lg mx-auto rounded-sm">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-primary/40 blur-sm" />
+                <p className="text-sm text-primary/80 font-light mb-6 tracking-widest uppercase">{t.academy.certification.progress}</p>
+                <Progress value={pct} className="h-1.5 bg-secondary mb-4" />
+                <p className="text-xs tracking-widest text-muted-foreground">
                   {completedModules} {t.academy.certification.of} {totalModules} ({pct}%)
                 </p>
               </div>
 
               {otherModulesComplete ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="space-y-6"
-                >
-                  <p className="text-foreground/70 font-light">
-                    {t.academy.certification.congratulations}
-                  </p>
-                  <motion.button
-                    onClick={handleClaim}
-                    whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(180,140,60,0.3)" }}
-                    whileTap={{ scale: 0.95 }}
-                    className="border border-primary/30 px-10 py-4 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold"
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-8 bg-primary/5 backdrop-blur-md border border-primary/20 p-10 max-w-lg mx-auto mt-8 rounded-sm relative overflow-hidden group"
                   >
-                    <span className="flex items-center gap-3">
-                      <Sparkles className="w-4 h-4" />
-                      {t.academy.certification.claimButton}
-                    </span>
-                  </motion.button>
-                </motion.div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                    
+                    <div className="space-y-4 relative z-10">
+                      <Sparkles className="w-8 h-8 text-primary mx-auto mb-4" />
+                      <p className="text-xl text-foreground/90 font-light tracking-wide">
+                        {t.academy.certification.congratulations}
+                      </p>
+                      <p className="text-sm text-foreground/50 font-light">
+                        {language === "pt" ? "Concluíste toda a jornada e estás pronto(a) para obter o teu certificado oficial." : "You've completed the entire journey and are ready to claim your official certificate."}
+                      </p>
+                    </div>
+
+                    <motion.button
+                      onClick={handleClaim}
+                      whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(180,140,60,0.3)" }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-full relative overflow-hidden group border border-primary/40 bg-background/50 px-10 py-5 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:border-primary backdrop-blur-sm"
+                    >
+                      <div className="absolute inset-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+                      <span className="relative z-10 flex items-center justify-center gap-3 font-medium">
+                        {t.academy.certification.claimButton}
+                      </span>
+                    </motion.button>
+                  </motion.div>
               ) : (
                 <div className="space-y-4">
                   <p className="text-foreground/70 font-light">
