@@ -4,7 +4,7 @@ import pt from "@/translations/pt";
 
 export type Language = "en" | "pt";
 
-const translations = { en, pt } as const;
+const translations: Record<Language, typeof en> = { en, pt: pt as unknown as typeof en } as const;
 
 export type Translations = typeof en;
 

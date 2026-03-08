@@ -3,7 +3,7 @@ import ScrollReveal from "./ScrollReveal";
 interface StoryProps {
   image: string;
   title: string;
-  lines: string[];
+  lines: readonly string[];
   imagePosition?: "left" | "right" | "full";
   children?: React.ReactNode;
 }

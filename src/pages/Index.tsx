@@ -47,7 +47,7 @@ const Index = () => {
           image={heroDropImg}
           title={t.sections.discovery.title}
           imagePosition="right"
-          lines={t.sections.discovery.lines as string[]}
+          lines={[...t.sections.discovery.lines]}
         />
 
         {/* Section 3 — Time */}
@@ -55,7 +55,7 @@ const Index = () => {
           image={hourglassImg}
           title={t.sections.time.title}
           imagePosition="left"
-          lines={t.sections.time.lines as string[]}
+          lines={[...t.sections.time.lines]}
         />
 
         {/* Section 4 — Singularity */}
@@ -63,7 +63,7 @@ const Index = () => {
           image={bottleImg}
           title={t.sections.singularity.title}
           imagePosition="right"
-          lines={t.sections.singularity.lines as string[]}
+          lines={[...t.sections.singularity.lines]}
         />
 
         {/* Section 5 — Hedonism */}
@@ -71,7 +71,7 @@ const Index = () => {
           image={hedonismImg}
           title={t.sections.hedonism.title}
           imagePosition="full"
-          lines={t.sections.hedonism.lines as string[]}
+          lines={[...t.sections.hedonism.lines]}
         />
 
         {/* Section 6 — Cinematic Storytelling */}
@@ -107,7 +107,7 @@ const Index = () => {
               <ScrollReveal delay={0.55}>
                 <p className="text-sm text-foreground/50 font-light mt-2">{t.brand.giftsLabel}</p>
                 <ul className="mt-3 space-y-1">
-                  {(t.brand.giftItems as string[]).map((item, i) => (
+                  {[...t.brand.giftItems].map((item, i) => (
                     <li key={i} className="text-sm text-foreground/50 font-light flex items-start gap-2">
                       <span className="text-primary/40 mt-0.5">·</span>
                       <span>{item}</span>
@@ -125,7 +125,7 @@ const Index = () => {
                   <p className="text-xs tracking-[0.35em] uppercase text-primary/50 mb-4">{t.brand.productTitle}</p>
                   <p className="text-sm text-foreground/60 font-light leading-relaxed mb-4">{t.brand.productIntro}</p>
                   <ul className="space-y-1.5">
-                    {(t.brand.productFeatures as string[]).map((f, i) => (
+                    {[...t.brand.productFeatures].map((f, i) => (
                       <li key={i} className="text-xs text-foreground/40 font-light flex items-start gap-2">
                         <span className="text-primary/30 mt-0.5">·</span>
                         <span>{f}</span>
@@ -141,7 +141,7 @@ const Index = () => {
                   <p className="text-xs tracking-[0.35em] uppercase text-primary/50 mb-4">{t.brand.collectionsTitle}</p>
                   <p className="text-sm text-foreground/60 font-light leading-relaxed mb-4">{t.brand.collectionsIntro}</p>
                   <ul className="space-y-3">
-                    {(t.brand.collections as { name: string; desc: string }[]).map((c, i) => (
+                    {[...t.brand.collections].map((c, i) => (
                       <li key={i}>
                         <p className="text-xs text-foreground/60 font-light">{c.name}</p>
                         <p className="text-xs text-foreground/30 font-light leading-relaxed">{c.desc}</p>
@@ -157,7 +157,7 @@ const Index = () => {
                   <p className="text-xs tracking-[0.35em] uppercase text-primary/50 mb-4">{t.brand.missionTitle}</p>
                   <p className="text-sm text-foreground/60 font-light leading-relaxed mb-4">{t.brand.missionIntro}</p>
                   <ul className="space-y-1.5">
-                    {(t.brand.missionItems as string[]).map((item, i) => (
+                    {[...t.brand.missionItems].map((item, i) => (
                       <li key={i} className="text-xs text-foreground/40 font-light flex items-start gap-2">
                         <span className="text-primary/30 mt-0.5">·</span>
                         <span>{item}</span>
