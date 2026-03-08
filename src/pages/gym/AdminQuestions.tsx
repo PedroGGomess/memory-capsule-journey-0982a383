@@ -103,6 +103,19 @@ const AdminQuestions = () => {
     }
   };
 
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
+    const { error } = await supabase
+      .from("employee_questions")
+      .delete()
+      .eq("id", deleteTarget);
+    if (!error) {
+      setDeleteTarget(null);
+      toast.success("Questão eliminada.");
+      fetchQuestions();
+    }
+  };
+
   const formatDate = (iso: string) => {
     const d = new Date(iso);
     return d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
