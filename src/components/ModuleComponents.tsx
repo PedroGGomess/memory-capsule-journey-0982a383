@@ -13,9 +13,10 @@ interface ModuleLayoutProps {
   subtitle: string;
   heroImage: string;
   children: ReactNode;
+  hideCompletion?: boolean;
 }
 
-export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImage, children }: ModuleLayoutProps) {
+export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImage, children, hideCompletion }: ModuleLayoutProps) {
   const { completeModule, isModuleCompleted, totalModules } = useProgress();
   const { t } = useLanguage();
   const completed = isModuleCompleted(moduleId);
