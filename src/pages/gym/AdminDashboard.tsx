@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/table";
 import { Users, UserCheck, UserX, Copy, Pencil, Trash2, Plus, RefreshCw, Search, GraduationCap, CheckCircle, Clock, Mail } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 // ── Form ──────────────────────────────────────────────────────────────────
 
