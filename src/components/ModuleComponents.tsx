@@ -325,17 +325,28 @@ export function ReflectionBlock({ questions }: { questions: string[] }) {
   const { t } = useLanguage();
   return (
     <ScrollReveal>
-      <div className="border border-border/50 p-8 space-y-4">
-        <p className="text-xs tracking-[0.3em] uppercase text-primary/60">{t.academy.module.reflection}</p>
-        {questions.map((q, i) => (
-          <div key={i} className="space-y-2">
-            <p className="text-foreground/80 font-light italic">{q}</p>
-            <textarea
-              placeholder={t.academy.module.reflectionPlaceholder}
-              className="w-full min-h-[80px] bg-secondary/30 border border-border/30 text-foreground/70 p-4 text-sm font-light resize-none focus:outline-none focus:border-primary/30 transition-colors placeholder:text-muted-foreground/30"
-            />
-          </div>
-        ))}
+      <div className="relative border border-border/30 bg-secondary/5 backdrop-blur-xl p-8 md:p-12 my-12">
+        <div className="flex items-center gap-3 mb-10">
+          <PenTool className="w-5 h-5 text-primary" />
+          <p className="text-xs tracking-[0.3em] uppercase text-primary">{t.academy.module.reflection}</p>
+        </div>
+        <div className="space-y-10">
+          {questions.map((q, i) => (
+            <div key={i} className="space-y-4">
+              <p className="text-foreground/90 font-light text-lg leading-relaxed">
+                <span className="text-primary/50 mr-3 text-sm">{i + 1}.</span>
+                {q}
+              </p>
+              <div className="relative group">
+                <textarea
+                  placeholder={t.academy.module.reflectionPlaceholder}
+                  className="w-full min-h-[140px] bg-background/40 border border-border/30 text-foreground/80 p-5 text-base font-light resize-none focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground/30 relative z-10"
+                />
+                <div className="absolute inset-0 bg-primary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </ScrollReveal>
   );
