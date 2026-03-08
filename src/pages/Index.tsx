@@ -196,18 +196,12 @@ const Index = () => {
           <p className="text-xs text-muted-foreground/40 mb-8">
             {t.footer.tagline}
           </p>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
+          <div className="flex items-center justify-center">
             <Link
               to="/academy/login"
               className="inline-block border border-primary/30 px-10 py-4 text-sm tracking-[0.25em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold"
             >
               {t.footer.enterAcademy}
-            </Link>
-            <Link
-              to="/gym-admin/login"
-              className="inline-flex items-center gap-2 border border-border/30 px-8 py-4 text-sm tracking-[0.25em] uppercase text-muted-foreground/60 transition-all duration-500 hover:border-border/60 hover:text-muted-foreground"
-            >
-              {t.footer.adminDashboard}
             </Link>
           </div>
           <div className="mt-10 h-px w-16 mx-auto bg-primary/20" />
