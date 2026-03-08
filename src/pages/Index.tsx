@@ -211,9 +211,9 @@ const Index = () => {
             </Link>
           </div>
           <div className="mt-10 h-px w-16 mx-auto bg-primary/20" />
-          <p className="mt-8 text-xs text-muted-foreground/50">
+          <Link to="/gym-admin/login" className="mt-8 text-xs text-muted-foreground/30 hover:text-muted-foreground/50 transition-colors cursor-default inline-block">
             © {new Date().getFullYear()} The 100's. {t.footer.rights}
-          </p>
+          </Link>
         </footer>
       </motion.div>
       
