@@ -1,32 +1,39 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useProgress } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Progress } from "@/components/ui/progress";
+import { useRef } from "react";
 import logoImg from "@/assets/Logo.png";
+import welcomeVideo from "@/assets/welcome-video.mp4";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
-  Users, Sparkles, FolderOpen, Award, ArrowRight, Check, Bot, Play, BarChart3,
+  Users, Sparkles, FolderOpen, Award, ArrowRight, Check, Bot, BarChart3,
   ChevronRight, Gem
 } from "lucide-react";
+
+const ease = [0.16, 1, 0.3, 1] as const;
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.06, delayChildren: 0.05 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const } },
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
 };
 
 const Dashboard = () => {
   const { getCompletionPercentage, isModuleCompleted, completedModules, totalModules } = useProgress();
   const { t } = useLanguage();
   const pct = getCompletionPercentage();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.97]);
 
   const modules = [
     { id: "story", num: 1, title: t.academy.nav.story, icon: BookOpen, path: "/academy/module/story" },
@@ -41,9 +48,9 @@ const Dashboard = () => {
   ];
 
   const tools = [
-    { id: "ask-team", title: t.academy.nav.askTeam, desc: t.academy.dashboard.subtitle, icon: Sparkles, path: "/academy/module/ask-team" },
-    { id: "resources", title: t.academy.nav.resources, desc: t.academy.dashboard.subtitle, icon: FolderOpen, path: "/academy/module/resources" },
-    { id: "ai-assistant", title: t.academy.nav.aiAssistant, desc: t.academy.dashboard.subtitle, icon: Bot, path: "/academy/module/ai-assistant" },
+    { id: "ask-team", title: t.academy.nav.askTeam, icon: Sparkles, path: "/academy/module/ask-team" },
+    { id: "resources", title: t.academy.nav.resources, icon: FolderOpen, path: "/academy/module/resources" },
+    { id: "ai-assistant", title: t.academy.nav.aiAssistant, icon: Bot, path: "/academy/module/ai-assistant" },
   ];
 
   const nextModule = modules.find((m) => !isModuleCompleted(m.id));
@@ -55,205 +62,190 @@ const Dashboard = () => {
       initial="hidden"
       animate="visible"
     >
-      {/* ── Hero Section ── */}
-      <motion.section variants={itemVariants} className="relative overflow-hidden">
-        {/* Ambient glow */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/5 rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-primary/3 rounded-full blur-[100px]" />
-        </div>
-
-        <div className="relative px-6 md:px-12 lg:px-16 pt-12 pb-8 max-w-5xl mx-auto">
-          <div className="flex flex-col items-center text-center">
+      {/* ── Cinematic Hero with Video ── */}
+      <motion.section
+        ref={heroRef}
+        variants={itemVariants}
+        style={{ opacity: heroOpacity, scale: heroScale }}
+        className="relative overflow-hidden"
+      >
+        {/* Video Background */}
+        <div className="relative w-full" style={{ paddingTop: "45%" }}>
+          <video
+            src={welcomeVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          {/* Cinematic overlays */}
+          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/10 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-background/40" />
+          
+          {/* Hero content centered over video */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.7, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.6, type: "spring", stiffness: 120 }}
-              className="mb-6"
+              transition={{ delay: 0.3, duration: 0.8, type: "spring", stiffness: 80 }}
+              className="mb-5"
             >
-              <img src={logoImg} alt="The 100's" className="w-16 h-16 object-contain opacity-60" />
+              <div className="relative">
+                <div className="absolute inset-0 bg-primary/15 rounded-full blur-2xl scale-150" />
+                <img src={logoImg} alt="The 100's" className="w-20 h-20 object-contain relative z-10 drop-shadow-2xl" />
+              </div>
             </motion.div>
 
-            <p className="text-[9px] tracking-[0.5em] uppercase text-primary/50 mb-3">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.6, ease }}
+              className="text-[10px] tracking-[0.6em] uppercase text-primary/70 mb-3"
+            >
               {t.academy.dashboard.welcomeTo}
-            </p>
-            <h1 className="text-3xl md:text-5xl font-light text-gold-gradient mb-4 leading-tight">
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.7, ease }}
+              className="text-4xl md:text-6xl font-light text-gold-gradient mb-3 leading-tight text-center"
+            >
               {t.academy.dashboard.title}
-            </h1>
-            <p className="text-sm md:text-base text-muted-foreground/60 font-light max-w-lg leading-relaxed">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="text-sm md:text-base text-foreground/50 font-light max-w-md leading-relaxed text-center"
+            >
               {t.academy.dashboard.subtitle}
-            </p>
+            </motion.p>
           </div>
         </div>
       </motion.section>
 
-      <div className="px-6 md:px-12 lg:px-16 max-w-5xl mx-auto pb-20">
-        {/* ── Progress Card ── */}
-        <motion.section variants={itemVariants} className="mb-10">
-          <div className="relative border border-border/20 bg-card/30 backdrop-blur-sm overflow-hidden">
-            {/* Subtle gold line at top */}
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-
-            <div className="p-6 md:p-8">
-              <div className="flex items-center justify-between mb-5">
-                <div className="space-y-1">
-                  <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/40">
-                    {t.academy.dashboard.progressLabel}
-                  </p>
-                  {nextModule && pct < 100 && (
-                    <p className="text-xs text-muted-foreground/50">
-                      {t.academy.dashboard.nextLabel} <span className="text-foreground/60">{nextModule.title}</span>
-                    </p>
-                  )}
-                </div>
-                <div className="text-right">
-                  <p className="text-3xl font-light text-gold-gradient">{pct}%</p>
-                  <p className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 mt-0.5">
-                    {completedModules} {t.academy.dashboard.of} {totalModules}
-                  </p>
-                </div>
-              </div>
-
-              <div className="relative">
-                <Progress value={pct} className="h-1 bg-secondary/50" />
-                {/* Glow on progress */}
-                {pct > 0 && (
-                  <div
-                    className="absolute top-0 h-1 bg-primary/20 blur-sm"
-                    style={{ width: `${pct}%` }}
-                  />
-                )}
-              </div>
-
-              {pct === 100 && (
-                <motion.div
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-2 mt-4 text-primary/70"
-                >
-                  <Gem className="w-3.5 h-3.5" />
-                  <p className="text-xs font-light">{t.academy.dashboard.onboardingComplete}</p>
-                </motion.div>
-              )}
-            </div>
-          </div>
-        </motion.section>
-
-        {/* ── Continue CTA ── */}
-        {nextModule && pct < 100 && (
-          <motion.section variants={itemVariants} className="mb-10">
-            <Link to={nextModule.path}>
-              <motion.div
-                className="group relative border border-primary/15 bg-primary/[0.03] p-5 md:p-6 flex items-center gap-5 overflow-hidden"
-                whileHover={{ scale: 1.005 }}
-                whileTap={{ scale: 0.995 }}
-                transition={{ duration: 0.2 }}
-              >
-                {/* Hover glow */}
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                <div className="relative w-11 h-11 rounded-full bg-primary/10 ring-1 ring-primary/20 flex items-center justify-center shrink-0">
-                  <nextModule.icon className="w-5 h-5 text-primary" />
-                </div>
-                <div className="relative flex-1 min-w-0">
-                  <p className="text-[9px] tracking-[0.3em] uppercase text-primary/50 mb-1">
-                    {t.academy.dashboard.continueLabel}
-                  </p>
-                  <h3 className="text-sm md:text-base font-light text-foreground/90 truncate">
-                    {t.academy.dashboard.moduleLabel} {nextModule.num} — {nextModule.title}
-                  </h3>
-                </div>
-                <ArrowRight className="relative w-4 h-4 text-primary/30 group-hover:text-primary/70 group-hover:translate-x-1 transition-all duration-300 shrink-0" />
-              </motion.div>
-            </Link>
-          </motion.section>
-        )}
-
-        {/* ── Video Section ── */}
-        <motion.section variants={itemVariants} className="mb-12">
-          <div className="border border-border/15 bg-card/20 overflow-hidden">
-            <div className="relative" style={{ paddingTop: "50%" }}>
-              <div className="absolute inset-0 bg-gradient-to-b from-card/40 via-background/60 to-background/90 flex flex-col items-center justify-center gap-4">
-                <motion.div
-                  className="w-14 h-14 rounded-full border border-primary/20 flex items-center justify-center bg-primary/5 cursor-pointer"
-                  whileHover={{ scale: 1.1, borderColor: "hsl(43 72% 50% / 0.4)" }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Play className="w-5 h-5 text-primary/60 ml-0.5" />
-                </motion.div>
-                <div className="text-center px-4">
-                  <p className="text-xs font-light text-foreground/50 mb-1">{t.academy.dashboard.videoTitle}</p>
-                  <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground/25">
-                    {t.academy.dashboard.videoComingSoon}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="px-6 py-5 border-t border-border/10">
-              <p className="text-xs text-muted-foreground/50 font-light leading-relaxed line-clamp-2">
-                {t.academy.dashboard.videoDescription}
+      <div className="px-6 md:px-12 lg:px-16 max-w-5xl mx-auto pb-24">
+        {/* ── Progress Section — Apple style minimal ── */}
+        <motion.section variants={itemVariants} className="py-12">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div className="space-y-2">
+              <p className="text-[10px] tracking-[0.4em] uppercase text-muted-foreground/35">
+                {t.academy.dashboard.progressLabel}
               </p>
+              {nextModule && pct < 100 ? (
+                <p className="text-sm text-muted-foreground/50 font-light">
+                  {t.academy.dashboard.nextLabel}{" "}
+                  <span className="text-foreground/70">{nextModule.title}</span>
+                </p>
+              ) : pct === 100 ? (
+                <div className="flex items-center gap-2 text-primary/70">
+                  <Gem className="w-4 h-4" />
+                  <p className="text-sm font-light">{t.academy.dashboard.onboardingComplete}</p>
+                </div>
+              ) : null}
             </div>
+            <div className="flex items-end gap-1.5">
+              <span className="text-5xl md:text-6xl font-extralight text-gold-gradient leading-none">{pct}</span>
+              <span className="text-lg text-muted-foreground/30 font-light mb-1">%</span>
+            </div>
+          </div>
+
+          {/* Progress bar */}
+          <div className="mt-6 relative">
+            <div className="h-[2px] w-full bg-border/15 rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-gradient-to-r from-primary/80 via-primary to-primary/60 rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${pct}%` }}
+                transition={{ delay: 0.5, duration: 1.2, ease }}
+              />
+            </div>
+            {pct > 0 && (
+              <motion.div
+                className="absolute top-0 h-[2px] bg-primary/30 blur-sm rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${pct}%` }}
+                transition={{ delay: 0.5, duration: 1.2, ease }}
+              />
+            )}
+          </div>
+
+          <div className="mt-3 flex items-center justify-between">
+            <p className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/25">
+              {completedModules} / {totalModules} {t.academy.dashboard.moduleLabel}s
+            </p>
+            {nextModule && pct < 100 && (
+              <Link to={nextModule.path}>
+                <motion.span
+                  className="group inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] uppercase text-primary/50 hover:text-primary transition-colors duration-300"
+                  whileHover={{ x: 2 }}
+                >
+                  {t.academy.dashboard.continueLabel}
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-300" />
+                </motion.span>
+              </Link>
+            )}
           </div>
         </motion.section>
 
-        {/* ── Module Grid ── */}
-        <motion.section variants={itemVariants}>
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-px flex-1 bg-border/15" />
-            <p className="text-[9px] tracking-[0.4em] uppercase text-muted-foreground/30 shrink-0">
-              {t.academy.dashboard.moduleLabel}s
-            </p>
-            <div className="h-px flex-1 bg-border/15" />
-          </div>
+        {/* ── Divider ── */}
+        <div className="h-px bg-gradient-to-r from-transparent via-border/20 to-transparent" />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {modules.map((m, i) => {
+        {/* ── Module Grid — Apple product grid style ── */}
+        <motion.section variants={itemVariants} className="py-12">
+          <p className="text-[9px] tracking-[0.5em] uppercase text-muted-foreground/25 mb-8 text-center">
+            {t.academy.dashboard.moduleLabel}s
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[1px] bg-border/10">
+            {modules.map((m) => {
               const done = isModuleCompleted(m.id);
               const isNext = nextModule?.id === m.id;
               return (
-                <motion.div
-                  key={m.id}
-                  variants={itemVariants}
-                >
+                <motion.div key={m.id} variants={itemVariants}>
                   <Link to={m.path}>
                     <motion.div
-                      className={`group relative h-full border p-5 transition-all duration-500 ${
-                        done
-                          ? "border-primary/20 bg-primary/[0.03]"
-                          : isNext
-                          ? "border-primary/15 bg-card/30"
-                          : "border-border/15 bg-card/10 hover:bg-card/30"
-                      } hover:border-primary/30`}
-                      whileHover={{ y: -2 }}
-                      transition={{ duration: 0.25 }}
+                      className={`group relative bg-background p-6 md:p-7 flex flex-col gap-4 transition-all duration-500 h-full ${
+                        isNext ? "bg-primary/[0.02]" : ""
+                      }`}
+                      whileHover={{ backgroundColor: "hsl(43 72% 50% / 0.03)" }}
+                      transition={{ duration: 0.4 }}
                     >
-                      {/* Top accent for completed */}
-                      {done && (
-                        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-primary/40 via-primary/20 to-transparent" />
-                      )}
-
-                      <div className="flex items-start gap-3.5">
-                        <div className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${
-                          done ? "bg-primary/10 ring-1 ring-primary/20" : "bg-secondary/40"
+                      <div className="flex items-center justify-between">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${
+                          done
+                            ? "bg-primary/10 ring-1 ring-primary/25 shadow-[0_0_15px_-5px_hsl(var(--primary)/0.3)]"
+                            : "bg-muted/30 group-hover:bg-muted/50"
                         }`}>
                           {done ? (
                             <Check className="w-4 h-4 text-primary" />
                           ) : (
-                            <m.icon className="w-4 h-4 text-muted-foreground/50" />
+                            <m.icon className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground/60 transition-colors" />
                           )}
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/30 mb-1">
-                            {String(m.num).padStart(2, "0")}
-                          </p>
-                          <h3 className={`text-sm font-light leading-snug ${
-                            done ? "text-foreground/80" : "text-foreground/70"
-                          }`}>
-                            {m.title}
-                          </h3>
-                        </div>
-                        <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/15 group-hover:text-primary/40 transition-colors mt-0.5 shrink-0" />
+                        <span className="text-[9px] tracking-[0.1em] text-muted-foreground/20 font-light">
+                          {String(m.num).padStart(2, "0")}
+                        </span>
+                      </div>
+
+                      <div className="flex-1">
+                        <h3 className={`text-sm font-light leading-snug transition-colors duration-300 ${
+                          done ? "text-foreground/80" : "text-foreground/60 group-hover:text-foreground/80"
+                        }`}>
+                          {m.title}
+                        </h3>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        {done ? (
+                          <span className="text-[9px] tracking-[0.15em] uppercase text-primary/40">Concluído</span>
+                        ) : isNext ? (
+                          <span className="text-[9px] tracking-[0.15em] uppercase text-primary/50">Próximo</span>
+                        ) : (
+                          <span className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/20">—</span>
+                        )}
+                        <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/10 group-hover:text-primary/40 group-hover:translate-x-0.5 transition-all duration-300" />
                       </div>
                     </motion.div>
                   </Link>
@@ -263,47 +255,48 @@ const Dashboard = () => {
           </div>
         </motion.section>
 
-        {/* ── Tools ── */}
-        <motion.section variants={itemVariants} className="mt-12">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="h-px flex-1 bg-border/15" />
-            <p className="text-[9px] tracking-[0.4em] uppercase text-muted-foreground/30 shrink-0">
-              Ferramentas
-            </p>
-            <div className="h-px flex-1 bg-border/15" />
-          </div>
+        {/* ── Divider ── */}
+        <div className="h-px bg-gradient-to-r from-transparent via-border/20 to-transparent" />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {/* ── Tools — Minimal row style ── */}
+        <motion.section variants={itemVariants} className="py-12">
+          <p className="text-[9px] tracking-[0.5em] uppercase text-muted-foreground/25 mb-6 text-center">
+            Ferramentas
+          </p>
+
+          <div className="space-y-[1px]">
             {tools.map((tool) => (
               <Link key={tool.id} to={tool.path}>
                 <motion.div
-                  className="group border border-border/15 bg-card/10 p-4 flex items-center gap-3.5 hover:border-primary/20 hover:bg-card/25 transition-all duration-500"
-                  whileHover={{ y: -1 }}
-                  transition={{ duration: 0.2 }}
+                  className="group flex items-center gap-4 py-4 px-2 hover:bg-primary/[0.02] transition-all duration-500"
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.3, ease }}
                 >
-                  <div className="w-8 h-8 rounded-full bg-secondary/30 flex items-center justify-center shrink-0">
-                    <tool.icon className="w-3.5 h-3.5 text-muted-foreground/50" />
+                  <div className="w-9 h-9 rounded-full bg-muted/20 flex items-center justify-center group-hover:bg-muted/40 transition-colors duration-300">
+                    <tool.icon className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground/60 transition-colors" />
                   </div>
-                  <h3 className="text-xs font-light text-foreground/60 flex-1">{tool.title}</h3>
-                  <ChevronRight className="w-3 h-3 text-muted-foreground/15 group-hover:text-primary/30 transition-colors shrink-0" />
+                  <span className="text-sm font-light text-foreground/50 group-hover:text-foreground/70 transition-colors duration-300 flex-1">
+                    {tool.title}
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/10 group-hover:text-primary/40 transition-all duration-300" />
                 </motion.div>
               </Link>
             ))}
           </div>
         </motion.section>
 
-        {/* ── Quote ── */}
-        <motion.section variants={itemVariants} className="mt-20">
-          <div className="text-center py-10 border-t border-border/10">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="h-px w-10 bg-primary/15" />
-              <div className="w-1 h-1 rounded-full bg-primary/20" />
-              <div className="h-px w-10 bg-primary/15" />
+        {/* ── Quote — Apple-style minimal ── */}
+        <motion.section variants={itemVariants} className="pt-12 pb-8">
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="h-px w-16 bg-gradient-to-r from-transparent to-primary/15" />
+              <div className="w-1.5 h-1.5 rounded-full bg-primary/15" />
+              <div className="h-px w-16 bg-gradient-to-l from-transparent to-primary/15" />
             </div>
-            <p className="text-lg md:text-xl font-light text-foreground/30 italic max-w-md mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl font-extralight text-foreground/20 italic max-w-lg mx-auto leading-relaxed tracking-wide">
               {t.academy.dashboard.quote}
             </p>
-            <p className="text-[8px] tracking-[0.4em] uppercase text-muted-foreground/20 mt-4">
+            <p className="text-[8px] tracking-[0.5em] uppercase text-muted-foreground/15 mt-6">
               The 100's
             </p>
           </div>
