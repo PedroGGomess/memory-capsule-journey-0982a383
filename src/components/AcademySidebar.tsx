@@ -46,11 +46,11 @@ export function AcademySidebar() {
     <Sidebar collapsible="icon" className="border-r border-border/30">
       <SidebarContent className="bg-card pt-6">
         <div className="px-6 pb-6 border-b border-border/20 flex items-center gap-3">
-          <img src={logoImg} alt="The 100's" className="w-8 h-8 object-contain" />
+          <img src={logoImg} alt="The 100's" className="w-12 h-12 object-contain" />
           {!collapsed && (
             <div>
               <p className="text-lg font-light text-gold-gradient">The 100's</p>
-              <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mt-1">{t.academy.layout.academy}</p>
+              <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mt-1">Academy</p>
             </div>
           )}
         </div>
