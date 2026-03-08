@@ -40,7 +40,7 @@ const ModuleAskTeam = () => {
   return (
     <ModuleLayout
       moduleId="ask-team"
-      moduleNumber={9}
+      hideCompletion
       title={language === "pt" ? "Perguntar à Equipa" : "Ask the Team"}
       subtitle={language === "pt" ? "Perguntas, suporte e comunicação interna." : "Questions, support and internal communication."}
       heroImage={heroDropImg}

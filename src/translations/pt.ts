@@ -360,8 +360,8 @@ const pt = {
       items: [
         { title: "Brand Book / Dossier", desc: "Diretrizes completas e dossier da marca The 100's", type: "PDF" },
         { title: "O Conceito The 100's", desc: "Apresentação visual do conceito de Memory Capsule", type: "PDF" },
-        { title: "Resumo: O que é o The 100's", desc: "Documento resumo com a essência da marca", type: "Doc" },
-        { title: "Fotografia de Produtos", desc: "Imagens de alta resolução da coleção para referência", type: "Galeria" },
+        { title: "Resumo: O que é o The 100's", desc: "Documento resumo com a essência da marca", type: "PDF" },
+        { title: "Fotografia de Produtos", desc: "Ver a galeria completa de produtos na secção respetiva", type: "Galeria" },
         { title: "Vídeos de Formação", desc: "Guias visuais sobre conhecimento de produtos e storytelling", type: "Vídeo" },
         { title: "Guia de Prova", desc: "Como conduzir e narrar uma experiência de prova", type: "PDF" },
         { title: "Documento de FAQ", desc: "Respostas às perguntas mais comuns dos visitantes", type: "PDF" },

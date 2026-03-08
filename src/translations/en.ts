@@ -360,8 +360,8 @@ const en = {
       items: [
         { title: "Brand Book / Dossier", desc: "Complete brand guidelines and The 100's brand dossier", type: "PDF" },
         { title: "The 100's Concept", desc: "Visual presentation of the Memory Capsule concept", type: "PDF" },
-        { title: "Summary: What is The 100's", desc: "Summary document with the brand's essence", type: "Doc" },
-        { title: "Product Photography", desc: "High-resolution images of the collection for reference", type: "Gallery" },
+        { title: "Summary: What is The 100's", desc: "Summary document with the brand's essence", type: "PDF" },
+        { title: "Product Photography", desc: "View the complete product gallery in the respective section", type: "Gallery" },
         { title: "Training Videos", desc: "Visual guides on product knowledge and storytelling", type: "Video" },
         { title: "Tasting Guide", desc: "How to conduct and narrate a tasting experience", type: "PDF" },
         { title: "FAQ Document", desc: "Answers to the most common visitor questions", type: "PDF" },

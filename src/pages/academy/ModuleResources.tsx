@@ -32,6 +32,11 @@ const ModuleResources = () => {
   const { t, language } = useLanguage();
 
   const handleDownload = (title: string) => {
+    if (title === "Fotografia de Produtos" || title === "Product Photography") {
+      window.location.href = "/academy/module/products";
+      return;
+    }
+
     const url = downloadUrls[title];
     if (url) {
       const a = document.createElement("a");
@@ -54,7 +59,6 @@ const ModuleResources = () => {
     <ModuleLayout
       hideCompletion
       moduleId="resources"
-      moduleNumber={10}
       title={language === "pt" ? "Recursos" : "Resources"}
       subtitle={language === "pt" ? "A tua biblioteca da marca — tudo o que precisas num só lugar." : "Your brand library — everything you need in one place."}
       heroImage={douroImg}
