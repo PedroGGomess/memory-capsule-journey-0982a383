@@ -37,6 +37,7 @@ const AdminQuestions = () => {
   const [filter, setFilter] = useState<"all" | "open" | "resolved">("all");
   const [replyTarget, setReplyTarget] = useState<string | null>(null);
   const [replyText, setReplyText] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchQuestions = useCallback(async () => {
