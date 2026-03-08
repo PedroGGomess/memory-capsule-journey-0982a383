@@ -44,6 +44,7 @@ const ModuleCertification = () => {
 
   const handleClaim = () => {
     completeModule("certification");
+    markOnboardingComplete();
     setShowCelebration(true);
     setTimeout(() => setShowCelebration(false), 4000);
   };
