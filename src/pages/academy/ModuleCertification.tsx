@@ -275,23 +275,27 @@ const ModuleCertification = () => {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.9, duration: 0.8 }}
-                  className="space-y-4 max-w-sm mx-auto"
+                  className="space-y-6 max-w-sm mx-auto bg-secondary/10 backdrop-blur-md border border-primary/20 p-8 rounded-sm mt-12"
                 >
-                  <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground/60">
-                    {language === "pt" ? "Insere o teu nome para o certificado" : "Enter your name for the certificate"}
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-primary/80">
+                    {language === "pt" ? "Personaliza o teu certificado" : "Personalize your certificate"}
                   </p>
-                  <input
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    placeholder={language === "pt" ? "O teu nome completo" : "Your full name"}
-                    className="w-full bg-secondary/30 border border-border/30 text-foreground p-4 text-sm font-light text-center focus:outline-none focus:border-primary/30 transition-colors placeholder:text-muted-foreground/30"
-                  />
+                  <div className="relative group">
+                    <input
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                      placeholder={language === "pt" ? "O teu nome completo" : "Your full name"}
+                      className="w-full bg-background/50 border border-primary/30 text-foreground p-5 text-base font-light text-center focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-300 placeholder:text-muted-foreground/30 relative z-10"
+                    />
+                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  </div>
                   <button
                     onClick={() => userName.trim() && setNameSubmitted(true)}
                     disabled={!userName.trim()}
-                    className="border border-primary/30 px-8 py-3 text-sm tracking-[0.2em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="w-full relative group border border-primary/40 px-8 py-4 text-sm tracking-[0.2em] uppercase text-primary transition-all duration-500 hover:border-primary hover:glow-gold disabled:opacity-30 disabled:cursor-not-allowed overflow-hidden bg-background/50 backdrop-blur-sm"
                   >
-                    {language === "pt" ? "Confirmar" : "Confirm"}
+                    <span className="relative z-10">{language === "pt" ? "Gerar Certificado" : "Generate Certificate"}</span>
+                    <div className="absolute inset-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
                   </button>
                 </motion.div>
               ) : (
