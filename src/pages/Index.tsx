@@ -216,7 +216,7 @@ const Index = () => {
           </p>
         </footer>
       </motion.div>
-      <ChatBot />
+      
     </div>
   );
 };
