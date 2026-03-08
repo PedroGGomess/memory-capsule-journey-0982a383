@@ -2,30 +2,38 @@ import { useState } from "react";
 import { ModuleLayout, ContentBlock, ExpandableSection } from "@/components/ModuleComponents";
 import ScrollReveal from "@/components/ScrollReveal";
 import heroDropImg from "@/assets/hero-drop.jpg";
-import { useGymAccess } from "@/contexts/GymAccessContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocation } from "react-router-dom";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const ModuleAskTeam = () => {
   const [name, setName] = useState("");
   const [question, setQuestion] = useState("");
   const [category, setCategory] = useState("product");
   const [submitted, setSubmitted] = useState(false);
-  const { submitQuestion } = useGymAccess();
+  const [loading, setLoading] = useState(false);
   const { t, language } = useLanguage();
   const location = useLocation();
   const currentModule = location.pathname.split("/module/")[1] ?? "ask-team";
 
-  const handleSubmit = () => {
-    if (name.trim() && question.trim()) {
-      submitQuestion({
-        employeeName: name.trim(),
+  const handleSubmit = async () => {
+    if (!name.trim() || !question.trim()) return;
+    setLoading(true);
+    try {
+      const { error } = await supabase.from("employee_questions").insert({
+        employee_name: name.trim(),
         question: question.trim(),
         module: category !== "other" ? category : currentModule,
+        category,
       });
+      if (error) throw error;
       setSubmitted(true);
       toast.success(language === "pt" ? "Pergunta enviada com sucesso!" : "Question submitted to the team!");
+    } catch {
+      toast.error(language === "pt" ? "Erro ao enviar pergunta." : "Failed to submit question.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -101,10 +109,13 @@ const ModuleAskTeam = () => {
               />
               <button
                 onClick={handleSubmit}
-                disabled={!name.trim() || !question.trim()}
+                disabled={!name.trim() || !question.trim() || loading}
                 className="border border-primary/30 px-8 py-3 text-sm tracking-[0.2em] uppercase text-primary transition-all duration-500 hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
               >
-                {t.academy.askTeam.submitButton}
+                {loading
+                  ? (language === "pt" ? "A enviar..." : "Submitting...")
+                  : t.academy.askTeam.submitButton
+                }
               </button>
             </>
           ) : (
