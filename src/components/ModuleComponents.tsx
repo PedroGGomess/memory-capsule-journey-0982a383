@@ -291,7 +291,7 @@ export function QuizBlock({ moduleId, questions }: { moduleId: string; questions
                               
                               return (
                                 <div key={oi} className={`flex items-center gap-3 text-sm px-4 py-2 ${
-                                  isThisCorrect ? "text-green-500/90" : "text-red-500/90"
+                                  isThisCorrect ? "text-primary/90" : "text-destructive/90"
                                 }`}>
                                   {isThisCorrect ? <Check className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
                                   <span className="font-light">{opt}</span>
