@@ -26,7 +26,6 @@ const AcademyLayout = () => {
             </main>
           </div>
         </div>
-        <AIAssistantBubble />
         <AcademyOnboardingTour />
       </SidebarProvider>
     </ProgressProvider>
