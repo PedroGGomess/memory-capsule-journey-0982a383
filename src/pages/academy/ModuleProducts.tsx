@@ -257,10 +257,22 @@ const ModuleProducts = () => {
       </ContentBlock>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {secondLifeUses.map(use => (
-          <div key={use} className="border border-border/30 p-4 text-center">
-            <p className="text-sm text-primary/80 font-light">{use}</p>
-          </div>
+        {[
+          { label: secondLifeUses[0], img: velaImg },
+          { label: secondLifeUses[1], img: portaCoposImg },
+          { label: secondLifeUses[2], img: difusorImg },
+          { label: secondLifeUses[3], img: plantaImg },
+        ].map(item => (
+          <ScrollReveal key={item.label}>
+            <div className="border border-border/30 overflow-hidden group hover:border-primary/20 transition-all duration-500">
+              <div className="aspect-square overflow-hidden">
+                <img src={item.img} alt={item.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              </div>
+              <div className="p-4 text-center">
+                <p className="text-sm text-primary/80 font-light">{item.label}</p>
+              </div>
+            </div>
+          </ScrollReveal>
         ))}
       </div>
 

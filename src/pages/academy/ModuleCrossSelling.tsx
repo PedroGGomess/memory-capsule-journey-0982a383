@@ -1,6 +1,6 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, QuizBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
-import collectionImg from "@/assets/collection.jpg";
+import crossSellingImg from "@/assets/academy/cross-selling.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
 import { ShoppingBag, Gift, Users, TrendingUp, ArrowRight } from "lucide-react";
 

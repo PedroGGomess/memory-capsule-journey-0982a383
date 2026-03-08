@@ -1,5 +1,6 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, QuizBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
+import vmImg from "@/assets/academy/visual-merchandising.jpg";
 import storeImg from "@/assets/store-interior.jpg";
 import plantaMinus1 from "@/assets/planta-piso-minus1.jpg";
 import plantaPiso0 from "@/assets/planta-piso0.jpg";

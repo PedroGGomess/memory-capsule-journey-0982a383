@@ -1,6 +1,7 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, QuizBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, QuizBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
-import storeImg from "@/assets/store-interior.jpg";
+import tastingImg from "@/assets/academy/tasting-ritual.jpg";
+import portWineImg from "@/assets/academy/port-wine-pour.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Wine, Clock, Eye, Droplets, Heart, MessageCircle } from "lucide-react";
 
