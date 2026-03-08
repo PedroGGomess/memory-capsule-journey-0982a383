@@ -5,17 +5,22 @@ import { FileText, Image, Video, BookOpen, Download, ExternalLink } from "lucide
 import douroImg from "@/assets/douro-valley.jpg";
 import { toast } from "sonner";
 
-const iconMap = [FileText, Image, Video, BookOpen, FileText, Image];
+const iconMap = [FileText, FileText, FileText, Image, Video, BookOpen, FileText, Image];
 
-// Placeholder download URLs — replace with real Supabase Storage URLs when files are uploaded
+// Pre-defined local URLs for uploaded docs, and placeholders for the rest
 const downloadUrls: Record<string, string | null> = {
-  "Brand Book": null,
+  // EN titles
+  "Brand Book / Dossier": "/downloads/DOSSIER_FINAL-v2.pdf",
+  "The 100's Concept": "/downloads/100s_conceito_final.pdf",
+  "Summary: What is The 100's": "/downloads/O_Que_E_The_100s.md",
   "Product Photography": null,
   "Training Videos": null,
   "Tasting Guide": null,
   "FAQ Document": null,
   "Store Visual Standards": null,
   // PT titles
+  "O Conceito The 100's": "/downloads/100s_conceito_final.pdf",
+  "Resumo: O que é o The 100's": "/downloads/O_Que_E_The_100s.md",
   "Fotografia de Produtos": null,
   "Vídeos de Formação": null,
   "Guia de Prova": null,
