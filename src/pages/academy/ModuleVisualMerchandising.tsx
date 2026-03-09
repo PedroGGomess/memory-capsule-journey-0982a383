@@ -172,12 +172,63 @@ const ModuleVisualMerchandising = () => {
           : "A loja ocupa três níveis na esquina da Rua Sá da Bandeira com a Rua de Passos Manuel, Porto. Cada piso tem um propósito distinto na jornada do visitante."}</p>
       </ContentBlock>
 
-      {/* 3D Interactive Store Map */}
+      {/* 3D Interactive Store Map — Premium Section */}
       <ScrollReveal>
+        {/* Section header */}
+        <div className="flex items-center gap-4 mb-6">
+          <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, transparent, rgba(200,165,90,0.35))" }} />
+          <div
+            className="flex items-center gap-2.5 px-5 py-2.5"
+            style={{
+              border: "1px solid rgba(200,165,90,0.25)",
+              background: "rgba(200,165,90,0.05)",
+            }}
+          >
+            <span
+              className="w-1.5 h-1.5 rounded-full animate-pulse"
+              style={{ background: "#c8a55a", boxShadow: "0 0 6px rgba(200,165,90,0.7)" }}
+            />
+            <Layers className="w-3.5 h-3.5 text-primary/70" />
+            <span className="text-[10px] tracking-[0.3em] uppercase font-light text-primary/80">
+              {isEN ? "3D Interactive Store Map" : "Mapa 3D Interativo da Loja"}
+            </span>
+          </div>
+          <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, rgba(200,165,90,0.35), transparent)" }} />
+        </div>
+
         <Suspense fallback={
-          <div className="w-full h-[500px] border border-border/30 bg-card/30 flex items-center justify-center">
-            <div className="text-sm text-muted-foreground/50 tracking-wider uppercase animate-pulse">
-              {isEN ? "Loading 3D Map..." : "A carregar Mapa 3D..."}
+          <div
+            className="w-full flex flex-col items-center justify-center gap-4 overflow-hidden"
+            style={{
+              height: "clamp(480px, 60vh, 680px)",
+              background: "linear-gradient(160deg, #0c0b09, #0a0908)",
+              border: "1px solid rgba(200,165,90,0.15)",
+              boxShadow: "0 0 0 1px rgba(200,165,90,0.08)",
+            }}
+          >
+            {/* Skeleton floor plates */}
+            <div className="flex flex-col items-center gap-3 opacity-20">
+              {[0, 1, 2].map((i) => (
+                <div
+                  key={i}
+                  className="animate-pulse"
+                  style={{
+                    width: `${180 - i * 20}px`,
+                    height: 6,
+                    background: "rgba(200,165,90,0.5)",
+                    transform: `perspective(200px) rotateX(30deg) translateY(${i * 8}px)`,
+                  }}
+                />
+              ))}
+            </div>
+            <div className="flex items-center gap-2">
+              <span
+                className="w-1.5 h-1.5 rounded-full animate-pulse"
+                style={{ background: "#c8a55a" }}
+              />
+              <p className="text-[11px] tracking-[0.35em] uppercase animate-pulse" style={{ color: "rgba(200,165,90,0.5)" }}>
+                {isEN ? "Loading 3D Map…" : "A carregar Mapa 3D…"}
+              </p>
             </div>
           </div>
         }>

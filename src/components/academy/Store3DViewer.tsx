@@ -408,27 +408,98 @@ export default function Store3DViewer() {
   const [exploded, setExploded] = useState(true);
 
   const floors = useMemo(() => [
-    { id: -1, label: isEN ? "Floor -1" : "Piso -1", sub: isEN ? "Back of House" : "Bastidores" },
-    { id: 0, label: isEN ? "Floor 0" : "Piso 0", sub: isEN ? "Main Stage" : "Palco Principal" },
-    { id: 1, label: isEN ? "Floor 1" : "Piso 1", sub: isEN ? "Premium" : "Premium" },
+    {
+      id: -1,
+      label: isEN ? "Floor −1" : "Piso −1",
+      sub: isEN ? "Back of House" : "Bastidores",
+      color: "#6b9fff",
+      desc: isEN
+        ? "Storage · Interactive Boxes · Back Office · Staff"
+        : "Armazém · Boxes Interativas · Back Office · Staff",
+      stats: isEN ? ["1 350 products", "3 VIP boxes", "Safe room"] : ["1 350 produtos", "3 boxes VIP", "Área cofre"],
+    },
+    {
+      id: 0,
+      label: isEN ? "Floor 0" : "Piso 0",
+      sub: isEN ? "Main Stage" : "Palco Principal",
+      color: "#e8a040",
+      desc: isEN
+        ? "Entrance · Shop Windows · TRADITION · Interactive"
+        : "Entrada · Montras · TRADITION · Interativas",
+      stats: isEN ? ["2 entrances", "26.65 m² TRADITION", "2 shop windows"] : ["2 entradas", "26.65 m² TRADITION", "2 montras"],
+    },
+    {
+      id: 1,
+      label: isEN ? "Floor 1" : "Piso 1",
+      sub: isEN ? "Premium" : "Premium",
+      color: "#c8a55a",
+      desc: isEN
+        ? "Tastings · Cylinder Forest · Sales Counter · VIP"
+        : "Provas · Floresta Cilindros · Balcão · VIP",
+      stats: isEN ? ["22.56 m² tasting", "Cylinder Forest 8.9 m²", "100-year bottles"] : ["22.56 m² provas", "Floresta 8.9 m²", "Garrafas 100 anos"],
+    },
   ], [isEN]);
 
+  const activeFloorData = floors[activeFloor];
+
   return (
-    <div className="relative w-full border border-border/30 overflow-hidden" style={{ background: "#0a0908" }}>
+    <div
+      className="relative w-full overflow-hidden"
+      style={{
+        background: "linear-gradient(160deg, #0c0b09 0%, #0a0908 60%, #0d0b09 100%)",
+        boxShadow: "0 0 0 1px rgba(200,165,90,0.15), 0 0 40px rgba(200,165,90,0.04)",
+      }}
+    >
+      {/* Top accent line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, #c8a55a 30%, #c8a55a 70%, transparent)" }}
+      />
+
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-border/20 bg-card/40 backdrop-blur-sm">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-primary/10 rounded-sm">
-            <Layers className="w-4 h-4 text-primary" />
+      <div
+        className="relative flex items-center justify-between px-6 py-5 border-b"
+        style={{
+          borderColor: "rgba(200,165,90,0.12)",
+          background: "linear-gradient(90deg, rgba(200,165,90,0.06) 0%, transparent 70%)",
+        }}
+      >
+        {/* Left gold bar */}
+        <div
+          className="absolute left-0 top-0 bottom-0 w-0.5"
+          style={{ background: "linear-gradient(180deg, transparent, #c8a55a 40%, #c8a55a 60%, transparent)" }}
+        />
+
+        <div className="flex items-center gap-4">
+          <div
+            className="relative p-2.5"
+            style={{ border: "1px solid rgba(200,165,90,0.25)", background: "rgba(200,165,90,0.06)" }}
+          >
+            <Layers className="w-5 h-5 text-primary" />
+            {/* Pulsing live indicator */}
+            <span
+              className="absolute -top-1 -right-1 w-2 h-2 rounded-full animate-pulse"
+              style={{ background: "#c8a55a", boxShadow: "0 0 6px #c8a55a" }}
+            />
           </div>
           <div>
-            <p className="text-sm font-light text-primary tracking-wide uppercase">
-              {isEN ? "Interactive 3D Store Map" : "Mapa 3D Interativo da Loja"}
-            </p>
-            <p className="text-[11px] text-muted-foreground/50 mt-0.5">
-              {isEN
-                ? "Rotate · Zoom · Click floors to explore"
-                : "Roda · Zoom · Clica nos pisos para explorar"}
+            <div className="flex items-center gap-3 mb-1">
+              <p className="text-[11px] font-light text-primary tracking-[0.3em] uppercase">
+                {isEN ? "Interactive 3D Store Map" : "Mapa 3D Interativo da Loja"}
+              </p>
+              <span
+                className="px-1.5 py-0.5 text-[8px] tracking-[0.2em] uppercase"
+                style={{
+                  border: "1px solid rgba(200,165,90,0.30)",
+                  color: "rgba(200,165,90,0.7)",
+                  background: "rgba(200,165,90,0.06)",
+                }}
+              >
+                LIVE
+              </span>
+            </div>
+            <p className="text-[10px] tracking-[0.2em] uppercase" style={{ color: "rgba(255,255,255,0.25)" }}>
+              {isEN ? "Drag · Scroll to zoom · Click floor to focus" : "Arrastar · Scroll para zoom · Clicar para focar"}
             </p>
           </div>
         </div>
@@ -436,17 +507,23 @@ export default function Store3DViewer() {
         {/* Exploded view toggle */}
         <button
           onClick={() => setExploded(!exploded)}
-          className="flex items-center gap-2 text-[10px] tracking-wider uppercase border border-border/30 hover:border-primary/30 px-3 py-1.5 text-muted-foreground/60 hover:text-primary transition-colors"
+          className="flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase transition-all duration-300"
+          style={{
+            border: "1px solid rgba(200,165,90,0.20)",
+            color: exploded ? "rgba(200,165,90,0.8)" : "rgba(255,255,255,0.35)",
+            background: exploded ? "rgba(200,165,90,0.07)" : "transparent",
+            padding: "6px 14px",
+          }}
         >
           <Eye className="w-3 h-3" />
           {exploded
-            ? (isEN ? "Compact" : "Compacto")
-            : (isEN ? "Exploded" : "Expandido")}
+            ? (isEN ? "Compact View" : "Vista Compacta")
+            : (isEN ? "Exploded View" : "Vista Expandida")}
         </button>
       </div>
 
-      {/* Canvas */}
-      <div className="h-[550px] md:h-[650px] relative">
+      {/* Canvas area */}
+      <div className="relative" style={{ height: "clamp(480px, 60vh, 680px)" }}>
         <Canvas
           camera={{ position: [12, 10, 12], fov: 40 }}
           shadows
@@ -459,62 +536,208 @@ export default function Store3DViewer() {
           </Suspense>
         </Canvas>
 
-        {/* Floor selector */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-0.5 bg-background/80 backdrop-blur-md border border-border/30 p-1">
+        {/* Corner bracket decorations */}
+        {(["tl", "tr", "bl", "br"] as const).map((corner) => (
+          <div
+            key={corner}
+            className="absolute pointer-events-none"
+            style={{
+              top: corner.startsWith("t") ? 12 : undefined,
+              bottom: corner.startsWith("b") ? 12 : undefined,
+              left: corner.endsWith("l") ? 12 : undefined,
+              right: corner.endsWith("r") ? 12 : undefined,
+              width: 18,
+              height: 18,
+              borderTop: corner.startsWith("t") ? "1.5px solid rgba(200,165,90,0.5)" : undefined,
+              borderBottom: corner.startsWith("b") ? "1.5px solid rgba(200,165,90,0.5)" : undefined,
+              borderLeft: corner.endsWith("l") ? "1.5px solid rgba(200,165,90,0.5)" : undefined,
+              borderRight: corner.endsWith("r") ? "1.5px solid rgba(200,165,90,0.5)" : undefined,
+            }}
+          />
+        ))}
+
+        {/* Active floor info panel (top-left) */}
+        <div
+          className="absolute top-4 left-4 pointer-events-none"
+          style={{
+            background: "rgba(10,9,8,0.82)",
+            backdropFilter: "blur(12px)",
+            border: "1px solid rgba(200,165,90,0.18)",
+            padding: "14px 16px",
+            maxWidth: 220,
+            borderLeft: `3px solid ${activeFloorData.color}`,
+          }}
+        >
+          {/* Floor label row */}
+          <div className="flex items-center gap-2 mb-2">
+            <span
+              className="w-1.5 h-1.5 rounded-full animate-pulse"
+              style={{ background: activeFloorData.color }}
+            />
+            <p
+              className="text-[10px] tracking-[0.3em] uppercase font-light"
+              style={{ color: activeFloorData.color }}
+            >
+              {activeFloorData.label}
+            </p>
+          </div>
+
+          <p className="text-[9px] tracking-[0.12em] uppercase mb-2" style={{ color: "rgba(255,255,255,0.45)" }}>
+            {activeFloorData.sub}
+          </p>
+
+          <p className="text-[10px] leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
+            {activeFloorData.desc}
+          </p>
+
+          {/* Divider */}
+          <div className="mb-2" style={{ height: 1, background: "rgba(200,165,90,0.12)" }} />
+
+          {/* Stats */}
+          <div className="space-y-1">
+            {activeFloorData.stats.map((stat, si) => (
+              <div key={si} className="flex items-center gap-2">
+                <span className="w-0.5 h-0.5 rounded-full" style={{ background: activeFloorData.color, flexShrink: 0 }} />
+                <p className="text-[9px] tracking-wide" style={{ color: "rgba(255,255,255,0.30)" }}>{stat}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Floor selector (bottom centre) */}
+        <div
+          className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-stretch gap-px"
+          style={{
+            background: "rgba(10,9,8,0.88)",
+            backdropFilter: "blur(16px)",
+            border: "1px solid rgba(200,165,90,0.18)",
+            padding: "4px",
+          }}
+        >
           {floors.map((f, i) => (
             <button
               key={f.id}
               onClick={() => setActiveFloor(i)}
-              className={`relative px-5 py-2.5 text-[10px] tracking-widest uppercase font-light transition-all duration-500 ${
-                activeFloor === i
-                  ? "text-primary"
-                  : "text-muted-foreground/40 hover:text-muted-foreground/70"
-              }`}
+              className="relative flex flex-col items-center transition-all duration-500"
+              style={{
+                padding: "8px 20px",
+                background: activeFloor === i ? "rgba(200,165,90,0.10)" : "transparent",
+                borderLeft: activeFloor === i ? `2px solid ${f.color}` : "2px solid transparent",
+                minWidth: 80,
+              }}
             >
+              {/* Active indicator dot */}
               {activeFloor === i && (
-                <div className="absolute inset-0 bg-primary/8 border border-primary/20" />
+                <span
+                  className="absolute top-1.5 right-2 w-1.5 h-1.5 rounded-full animate-pulse"
+                  style={{ background: f.color }}
+                />
               )}
-              <span className="relative block font-normal">{f.label}</span>
-              <span className="relative block text-[8px] mt-0.5 opacity-50">{f.sub}</span>
+              <span
+                className="block text-[10px] tracking-[0.2em] uppercase font-light"
+                style={{ color: activeFloor === i ? f.color : "rgba(255,255,255,0.30)" }}
+              >
+                {f.label}
+              </span>
+              <span
+                className="block text-[8px] mt-0.5 tracking-wider"
+                style={{ color: activeFloor === i ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.18)" }}
+              >
+                {f.sub}
+              </span>
             </button>
           ))}
         </div>
 
-        {/* Floor navigation arrows */}
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2">
+        {/* Floor navigation arrows (right side) */}
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-1.5">
           <button
             onClick={() => setActiveFloor(Math.min(2, activeFloor + 1))}
             disabled={activeFloor === 2}
-            className="p-2 border border-border/30 bg-background/60 backdrop-blur-sm text-muted-foreground/50 hover:text-primary hover:border-primary/30 disabled:opacity-20 transition-all"
+            className="flex items-center justify-center transition-all duration-300 disabled:opacity-15"
+            style={{
+              width: 32,
+              height: 32,
+              border: "1px solid rgba(200,165,90,0.25)",
+              background: "rgba(10,9,8,0.80)",
+              backdropFilter: "blur(8px)",
+              color: activeFloor < 2 ? "rgba(200,165,90,0.8)" : undefined,
+            }}
           >
             <ChevronUp className="w-4 h-4" />
           </button>
-          <div className="text-[9px] text-center text-primary/60 tracking-widest uppercase py-1">
-            {floors[activeFloor]?.label}
+
+          {/* Progress pip track */}
+          <div className="flex flex-col items-center gap-1 py-1">
+            {floors.map((_, pi) => (
+              <button
+                key={pi}
+                onClick={() => setActiveFloor(pi)}
+                className="transition-all duration-300"
+                style={{
+                  width: activeFloor === pi ? 6 : 4,
+                  height: activeFloor === pi ? 6 : 4,
+                  borderRadius: "50%",
+                  background: activeFloor === pi ? floors[pi].color : "rgba(255,255,255,0.18)",
+                  boxShadow: activeFloor === pi ? `0 0 6px ${floors[pi].color}` : undefined,
+                }}
+              />
+            ))}
           </div>
+
           <button
             onClick={() => setActiveFloor(Math.max(0, activeFloor - 1))}
             disabled={activeFloor === 0}
-            className="p-2 border border-border/30 bg-background/60 backdrop-blur-sm text-muted-foreground/50 hover:text-primary hover:border-primary/30 disabled:opacity-20 transition-all"
+            className="flex items-center justify-center transition-all duration-300 disabled:opacity-15"
+            style={{
+              width: 32,
+              height: 32,
+              border: "1px solid rgba(200,165,90,0.25)",
+              background: "rgba(10,9,8,0.80)",
+              backdropFilter: "blur(8px)",
+              color: activeFloor > 0 ? "rgba(200,165,90,0.8)" : undefined,
+            }}
           >
             <ChevronDown className="w-4 h-4" />
           </button>
         </div>
+      </div>
 
-        {/* Active floor info panel */}
-        <div className="absolute top-4 left-4 bg-background/70 backdrop-blur-md border border-border/20 px-4 py-3 max-w-[200px]">
-          <p className="text-[10px] tracking-widest uppercase text-primary/80 mb-1">
-            {floors[activeFloor]?.label}
-          </p>
-          <p className="text-[10px] text-muted-foreground/50 leading-relaxed">
-            {activeFloor === 0
-              ? (isEN ? "Storage, interactive boxes, back office & staff area" : "Armazém, boxes interativas, back office & staff")
-              : activeFloor === 1
-              ? (isEN ? "Main entrance, product display, TRADITION zone" : "Entrada principal, exposição, zona TRADITION")
-              : (isEN ? "Tasting area, Cylinder Forest, sales counter, premium" : "Zona de provas, Floresta Cilindros, balcão, premium")}
-          </p>
+      {/* Footer status bar */}
+      <div
+        className="flex items-center justify-between px-6 py-3 border-t"
+        style={{
+          borderColor: "rgba(200,165,90,0.10)",
+          background: "rgba(200,165,90,0.03)",
+        }}
+      >
+        <div className="flex items-center gap-4">
+          <span className="text-[9px] tracking-[0.25em] uppercase" style={{ color: "rgba(200,165,90,0.40)" }}>
+            {isEN ? "3 floors · Porto" : "3 pisos · Porto"}
+          </span>
+          <span style={{ color: "rgba(200,165,90,0.15)" }}>·</span>
+          <span className="text-[9px] tracking-[0.2em] uppercase" style={{ color: "rgba(255,255,255,0.20)" }}>
+            {isEN
+              ? `${floors[activeFloor].stats.length} key areas active`
+              : `${floors[activeFloor].stats.length} áreas ativas`}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span
+            className="w-1.5 h-1.5 rounded-full animate-pulse"
+            style={{ background: "rgba(200,165,90,0.6)" }}
+          />
+          <span className="text-[9px] tracking-[0.2em] uppercase" style={{ color: "rgba(200,165,90,0.40)" }}>
+            {isEN ? "Real-time 3D" : "3D em tempo real"}
+          </span>
         </div>
       </div>
+
+      {/* Bottom accent line */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(200,165,90,0.25) 30%, rgba(200,165,90,0.25) 70%, transparent)" }}
+      />
     </div>
   );
 }
