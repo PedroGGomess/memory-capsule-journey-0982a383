@@ -39,7 +39,7 @@ function FloorPlate({
   // Memoised geometry to avoid per-render allocation
   const slabGeo = useMemo(() => new THREE.BoxGeometry(W, T, D), []);
   const planeGeo = useMemo(() => new THREE.PlaneGeometry(W * 0.93, D * 0.93), []);
-  const edgeGeo = useMemo(() => new THREE.EdgesGeometry(new THREE.BoxGeometry(W, T, D)), []);
+  const edgeGeo = useMemo(() => new THREE.EdgesGeometry(slabGeo), [slabGeo]);
   const glowGeo = useMemo(() => new THREE.BoxGeometry(W + 0.14, T + 0.08, D + 0.14), []);
   const hoverGeo = useMemo(() => new THREE.BoxGeometry(W + 0.08, T + 0.04, D + 0.08), []);
 
@@ -362,7 +362,7 @@ function Scene({ activeFloor, setActiveFloor, exploded }: {
         { label: isEN ? "Tasting 22.56m²" : "Provas 22.56m²", pos: [1.2, -1.6] as [number, number], color: "#c8a55a" },
         { label: isEN ? "Cylinder Forest" : "Floresta Cilindros", pos: [-2.0, 0.6] as [number, number], color: "#6bffc8" },
         { label: isEN ? "Sales Counter" : "Balcão", pos: [1.2, 0.2] as [number, number], color: "#e8a040" },
-        { label: isEN ? "Premium VIP" : "Premium VIP", pos: [2.2, 0.8] as [number, number], color: "#ff6b6b" },
+        { label: isEN ? "Premium VIP" : "VIP Premium", pos: [2.2, 0.8] as [number, number], color: "#ff6b6b" },
         { label: isEN ? "Second Life" : "Segunda Vida", pos: [-2.6, 1.8] as [number, number], color: "#c8a55a" },
       ],
     },
@@ -558,19 +558,12 @@ export default function Store3DViewer() {
           shadows
           dpr={[1, 1.5]}
           gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}
-          style={{ background: "linear-gradient(180deg, #0d0f14 0%, #0a0c10 100%)" }}
+          style={{ background: "#0d0f14" }}
         >
           <Suspense fallback={null}>
             <Scene activeFloor={activeFloor} setActiveFloor={setActiveFloor} exploded={exploded} />
           </Suspense>
         </Canvas>
-
-        {/* Loading overlay — shown until scene is ready */}
-        <div
-          id="canvas-loader"
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-          style={{ background: "#0a0c10", opacity: 0, transition: "opacity 0.8s", zIndex: 2 }}
-        />
 
         {/* Corner bracket decorations */}
         {(["tl", "tr", "bl", "br"] as const).map((corner) => (
