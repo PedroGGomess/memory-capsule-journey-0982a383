@@ -172,6 +172,19 @@ const ModuleVisualMerchandising = () => {
           : "A loja ocupa três níveis na esquina da Rua Sá da Bandeira com a Rua de Passos Manuel, Porto. Cada piso tem um propósito distinto na jornada do visitante."}</p>
       </ContentBlock>
 
+      {/* 3D Interactive Store Map */}
+      <ScrollReveal>
+        <Suspense fallback={
+          <div className="w-full h-[500px] border border-border/30 bg-card/30 flex items-center justify-center">
+            <div className="text-sm text-muted-foreground/50 tracking-wider uppercase animate-pulse">
+              {isEN ? "Loading 3D Map..." : "A carregar Mapa 3D..."}
+            </div>
+          </div>
+        }>
+          <Store3DViewer />
+        </Suspense>
+      </ScrollReveal>
+
       {floors.map((floor, fi) => (
         <ScrollReveal key={floor.name}>
           <div className="border border-border/30 overflow-hidden mb-8">
