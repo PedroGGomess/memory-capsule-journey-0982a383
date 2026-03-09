@@ -7,6 +7,9 @@ import plantaPiso0 from "@/assets/planta-piso0.jpg";
 import plantaPiso1 from "@/assets/planta-piso1.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
 import { MapPin, Layers, Eye, Lightbulb, Download } from "lucide-react";
+import { lazy, Suspense } from "react";
+
+const Store3DViewer = lazy(() => import("@/components/academy/Store3DViewer"));
 
 const ModuleVisualMerchandising = () => {
   const { language } = useLanguage();
@@ -168,6 +171,19 @@ const ModuleVisualMerchandising = () => {
           ? "The store occupies three levels on the corner of Rua Sá da Bandeira and Rua de Passos Manuel, Porto. Each floor has a distinct purpose in the visitor journey."
           : "A loja ocupa três níveis na esquina da Rua Sá da Bandeira com a Rua de Passos Manuel, Porto. Cada piso tem um propósito distinto na jornada do visitante."}</p>
       </ContentBlock>
+
+      {/* 3D Interactive Store Map */}
+      <ScrollReveal>
+        <Suspense fallback={
+          <div className="w-full h-[500px] border border-border/30 bg-card/30 flex items-center justify-center">
+            <div className="text-sm text-muted-foreground/50 tracking-wider uppercase animate-pulse">
+              {isEN ? "Loading 3D Map..." : "A carregar Mapa 3D..."}
+            </div>
+          </div>
+        }>
+          <Store3DViewer />
+        </Suspense>
+      </ScrollReveal>
 
       {floors.map((floor, fi) => (
         <ScrollReveal key={floor.name}>
