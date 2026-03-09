@@ -7,6 +7,9 @@ import plantaPiso0 from "@/assets/planta-piso0.jpg";
 import plantaPiso1 from "@/assets/planta-piso1.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
 import { MapPin, Layers, Eye, Lightbulb, Download } from "lucide-react";
+import { lazy, Suspense } from "react";
+
+const Store3DViewer = lazy(() => import("@/components/academy/Store3DViewer"));
 
 const ModuleVisualMerchandising = () => {
   const { language } = useLanguage();
