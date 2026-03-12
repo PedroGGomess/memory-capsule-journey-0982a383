@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useGymAccess, GymUser } from "@/contexts/GymAccessContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { EMPLOYEE_ROLES, getRoleLabel, type EmployeeRole } from "@/config/roles";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
