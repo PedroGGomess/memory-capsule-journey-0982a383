@@ -43,6 +43,7 @@ interface UserFormData {
   email: string;
   notes: string;
   onboardingComplete: boolean;
+  role: string;
 }
 
 interface UserFormProps {
@@ -58,6 +59,7 @@ const UserForm = ({ initial, onSubmit, onCancel, submitLabel }: UserFormProps) =
     email: initial?.email ?? "",
     notes: initial?.notes ?? "",
     onboardingComplete: initial?.onboardingComplete ?? false,
+    role: initial?.role ?? "store-employee",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -75,6 +77,19 @@ const UserForm = ({ initial, onSubmit, onCancel, submitLabel }: UserFormProps) =
       <div className="space-y-2">
         <Label className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/50">Email</Label>
         <Input type="email" value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} placeholder="joao@exemplo.com" className="bg-background/30 border-border/15 h-11 text-sm font-light" />
+      </div>
+      <div className="space-y-2">
+        <Label className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/50">Cargo / Função *</Label>
+        <Select value={form.role} onValueChange={(v) => setForm((f) => ({ ...f, role: v }))}>
+          <SelectTrigger className="bg-background/30 border-border/15 h-11 text-sm font-light">
+            <SelectValue placeholder="Selecionar cargo..." />
+          </SelectTrigger>
+          <SelectContent>
+            {EMPLOYEE_ROLES.map((r) => (
+              <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div className="space-y-2">
         <Label className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/50">Notas</Label>
