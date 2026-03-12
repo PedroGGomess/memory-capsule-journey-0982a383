@@ -7,6 +7,7 @@ interface AcademyAuthContextType {
   getAccessCode: () => string | null;
   generateAccessCode: () => string;
   deleteAccessCode: () => void;
+  getUserRole: () => string | undefined;
 }
 
 const AcademyAuthContext = createContext<AcademyAuthContextType | null>(null);
@@ -22,23 +23,25 @@ const generateCode = (): string => {
   return Array.from(randomValues, (v) => chars[v % chars.length]).join("");
 };
 
-function isValidPerUserAcademyCode(code: string): boolean {
+function findUserByCode(code: string): { academyCode?: string; role?: string } | undefined {
   try {
     const usersData = localStorage.getItem(USERS_KEY);
-    if (!usersData) return false;
-    const users: Array<{ academyCode?: string }> = JSON.parse(usersData);
-    return users.some((u) => u.academyCode && u.academyCode === code);
+    if (!usersData) return undefined;
+    const users: Array<{ academyCode?: string; role?: string }> = JSON.parse(usersData);
+    return users.find((u) => u.academyCode && u.academyCode === code);
   } catch {
-    return false;
+    return undefined;
   }
+}
+
+function isValidPerUserAcademyCode(code: string): boolean {
+  return !!findUserByCode(code);
 }
 
 const checkSession = (): boolean => {
   const session = localStorage.getItem(SESSION_KEY);
   if (!session) return false;
-  // Check per-user academy codes first
   if (isValidPerUserAcademyCode(session)) return true;
-  // Fallback: check global code
   const code = localStorage.getItem(CODE_KEY);
   return !!code && session === code;
 };
@@ -47,13 +50,11 @@ export function AcademyAuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => checkSession());
 
   const login = (code: string): boolean => {
-    // Check per-user academy codes first
     if (isValidPerUserAcademyCode(code)) {
       localStorage.setItem(SESSION_KEY, code);
       setIsAuthenticated(true);
       return true;
     }
-    // Fallback to global code
     const storedCode = localStorage.getItem(CODE_KEY);
     if (!storedCode || code !== storedCode) return false;
     localStorage.setItem(SESSION_KEY, code);
@@ -66,14 +67,11 @@ export function AcademyAuthProvider({ children }: { children: ReactNode }) {
     setIsAuthenticated(false);
   };
 
-  const getAccessCode = (): string | null => {
-    return localStorage.getItem(CODE_KEY);
-  };
+  const getAccessCode = (): string | null => localStorage.getItem(CODE_KEY);
 
   const generateAccessCode = (): string => {
     const newCode = generateCode();
     localStorage.setItem(CODE_KEY, newCode);
-    // Invalidate any existing session since code changed
     localStorage.removeItem(SESSION_KEY);
     setIsAuthenticated(false);
     return newCode;
@@ -85,9 +83,16 @@ export function AcademyAuthProvider({ children }: { children: ReactNode }) {
     setIsAuthenticated(false);
   };
 
+  const getUserRole = (): string | undefined => {
+    const session = localStorage.getItem(SESSION_KEY);
+    if (!session) return undefined;
+    const user = findUserByCode(session);
+    return user?.role;
+  };
+
   return (
     <AcademyAuthContext.Provider
-      value={{ isAuthenticated, login, logout, getAccessCode, generateAccessCode, deleteAccessCode }}
+      value={{ isAuthenticated, login, logout, getAccessCode, generateAccessCode, deleteAccessCode, getUserRole }}
     >
       {children}
     </AcademyAuthContext.Provider>

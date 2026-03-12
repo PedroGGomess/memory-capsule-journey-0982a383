@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode, useRef } from "react";
+import { getModulesForRole } from "@/config/roles";
 
 interface ModuleProgress {
   completed: boolean;
@@ -17,26 +18,38 @@ interface ProgressContextType {
   isModuleCompleted: (moduleId: string) => boolean;
   totalModules: number;
   completedModules: number;
+  userRole: string | undefined;
+  allowedModules: string[];
 }
 
 const ProgressContext = createContext<ProgressContextType | null>(null);
 
-const MODULES = [
-  "story", "philosophy", "products", "gift", "store",
-  "brand-voice", "customer-experience", "business-model",
-  "tasting-guide", "glossary", "cross-selling", "visual-merchandising",
-  "certification"
-];
-
 const SESSION_KEY = "the100s-academy-session";
+const USERS_KEY = "gym-users";
 
 function getProgressKey(): string {
   const sessionCode = localStorage.getItem(SESSION_KEY);
   return sessionCode ? `the100s-progress-${sessionCode}` : "the100s-progress";
 }
 
+function getUserRole(): string | undefined {
+  try {
+    const session = localStorage.getItem(SESSION_KEY);
+    if (!session) return undefined;
+    const usersData = localStorage.getItem(USERS_KEY);
+    if (!usersData) return undefined;
+    const users: Array<{ academyCode?: string; role?: string }> = JSON.parse(usersData);
+    const user = users.find((u) => u.academyCode && u.academyCode === session);
+    return user?.role;
+  } catch {
+    return undefined;
+  }
+}
+
 export function ProgressProvider({ children }: { children: ReactNode }) {
   const progressKey = useRef(getProgressKey()).current;
+  const role = getUserRole();
+  const allowedModules = getModulesForRole(role);
 
   const [progress, setProgress] = useState<ProgressState>(() => {
     const saved = localStorage.getItem(progressKey);
@@ -61,9 +74,9 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     }));
   };
 
-  const completedModules = MODULES.filter(m => progress[m]?.completed).length;
+  const completedModules = allowedModules.filter(m => progress[m]?.completed).length;
 
-  const getCompletionPercentage = () => Math.round((completedModules / MODULES.length) * 100);
+  const getCompletionPercentage = () => Math.round((completedModules / allowedModules.length) * 100);
 
   const isModuleCompleted = (moduleId: string) => !!progress[moduleId]?.completed;
 
@@ -71,7 +84,8 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     <ProgressContext.Provider value={{
       progress, completeModule, setQuizScore,
       getCompletionPercentage, isModuleCompleted,
-      totalModules: MODULES.length, completedModules
+      totalModules: allowedModules.length, completedModules,
+      userRole: role, allowedModules
     }}>
       {children}
     </ProgressContext.Provider>
