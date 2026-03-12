@@ -296,6 +296,7 @@ const AdminDashboard = () => {
             <TableHeader>
               <TableRow className="border-border/10 hover:bg-transparent">
                 <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Colaborador</TableHead>
+                <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Cargo</TableHead>
                 <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Código Academy</TableHead>
                 <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Onboarding</TableHead>
                 <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Estado</TableHead>
@@ -305,7 +306,7 @@ const AdminDashboard = () => {
             <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center text-muted-foreground/30 py-16 text-sm font-light">
+                  <TableCell colSpan={6} className="text-center text-muted-foreground/30 py-16 text-sm font-light">
                     {users.length === 0 ? "Sem colaboradores. Adicione o primeiro!" : "Sem resultados."}
                   </TableCell>
                 </TableRow>
