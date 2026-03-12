@@ -172,6 +172,7 @@ const AdminDashboard = () => {
       email: data.email,
       accessCode: generateAccessCode(),
       academyCode: code,
+      role: data.role,
       notes: data.notes,
       onboardingComplete: data.onboardingComplete,
       active: true,
