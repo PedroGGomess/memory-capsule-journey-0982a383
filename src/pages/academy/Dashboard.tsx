@@ -2,13 +2,14 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useProgress } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getRoleLabel } from "@/config/roles";
 import { useRef } from "react";
 import logoImg from "@/assets/Logo.png";
 import welcomeVideo from "@/assets/welcome-video.mp4";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
   Users, Sparkles, FolderOpen, Award, ArrowRight, Check, Bot, BarChart3,
-  ChevronRight, Gem
+  ChevronRight, Gem, BookMarked, Target, Image
 } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -26,26 +27,39 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
 };
 
+const ALL_MODULES = [
+  { id: "story", num: 1, icon: BookOpen, navKey: "story" as const },
+  { id: "philosophy", num: 2, icon: Compass, navKey: "philosophy" as const },
+  { id: "products", num: 3, icon: Wine, navKey: "products" as const },
+  { id: "gift", num: 4, icon: Gift, navKey: "gift" as const },
+  { id: "store", num: 5, icon: Store, navKey: "store" as const },
+  { id: "brand-voice", num: 6, icon: MessageCircle, navKey: "brandVoice" as const },
+  { id: "customer-experience", num: 7, icon: Users, navKey: "customerExperience" as const },
+  { id: "business-model", num: 8, icon: BarChart3, navKey: "businessModel" as const },
+  { id: "tasting-guide", num: 9, icon: Wine, navKey: "tastingGuide" as const },
+  { id: "glossary", num: 10, icon: BookMarked, navKey: "glossary" as const },
+  { id: "cross-selling", num: 11, icon: Target, navKey: "crossSelling" as const },
+  { id: "visual-merchandising", num: 12, icon: Image, navKey: "visualMerchandising" as const },
+  { id: "certification", num: 13, icon: Award, navKey: "certification" as const },
+];
+
 const Dashboard = () => {
-  const { getCompletionPercentage, isModuleCompleted, completedModules, totalModules } = useProgress();
-  const { t } = useLanguage();
+  const { getCompletionPercentage, isModuleCompleted, completedModules, totalModules, allowedModules, userRole } = useProgress();
+  const { t, language } = useLanguage();
   const pct = getCompletionPercentage();
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.97]);
 
-  const modules = [
-    { id: "story", num: 1, title: t.academy.nav.story, icon: BookOpen, path: "/academy/module/story" },
-    { id: "philosophy", num: 2, title: t.academy.nav.philosophy, icon: Compass, path: "/academy/module/philosophy" },
-    { id: "products", num: 3, title: t.academy.nav.products, icon: Wine, path: "/academy/module/products" },
-    { id: "gift", num: 4, title: t.academy.nav.gift, icon: Gift, path: "/academy/module/gift" },
-    { id: "store", num: 5, title: t.academy.nav.store, icon: Store, path: "/academy/module/store" },
-    { id: "brand-voice", num: 6, title: t.academy.nav.brandVoice, icon: MessageCircle, path: "/academy/module/brand-voice" },
-    { id: "customer-experience", num: 7, title: t.academy.nav.customerExperience, icon: Users, path: "/academy/module/customer-experience" },
-    { id: "business-model", num: 8, title: t.academy.nav.businessModel, icon: BarChart3, path: "/academy/module/business-model" },
-    { id: "certification", num: 9, title: t.academy.nav.certification, icon: Award, path: "/academy/module/certification" },
-  ];
+  const modules = ALL_MODULES
+    .filter((m) => allowedModules.includes(m.id))
+    .map((m, i) => ({
+      ...m,
+      num: i + 1,
+      title: t.academy.nav[m.navKey] || m.id,
+      path: m.id === "certification" ? "/academy/module/certification" : `/academy/module/${m.id}`,
+    }));
 
   const tools = [
     { id: "ask-team", title: t.academy.nav.askTeam, icon: Sparkles, path: "/academy/module/ask-team" },
@@ -54,6 +68,7 @@ const Dashboard = () => {
   ];
 
   const nextModule = modules.find((m) => !isModuleCompleted(m.id));
+  const roleLabel = getRoleLabel(userRole, language as "pt" | "en");
 
   return (
     <motion.div
@@ -69,7 +84,6 @@ const Dashboard = () => {
         style={{ opacity: heroOpacity, scale: heroScale }}
         className="relative overflow-hidden"
       >
-        {/* Video Background */}
         <div className="relative w-full" style={{ paddingTop: "45%" }}>
           <video
             src={welcomeVideo}
@@ -79,11 +93,9 @@ const Dashboard = () => {
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
           />
-          {/* Cinematic overlays */}
           <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/10 to-background" />
           <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-background/40" />
           
-          {/* Hero content centered over video */}
           <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
             <motion.div
               initial={{ scale: 0.7, opacity: 0 }}
@@ -121,12 +133,22 @@ const Dashboard = () => {
             >
               {t.academy.dashboard.subtitle}
             </motion.p>
+            {userRole && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, duration: 0.6 }}
+                className="mt-4 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20"
+              >
+                <span className="text-[10px] tracking-[0.25em] uppercase text-primary/70">{roleLabel}</span>
+              </motion.div>
+            )}
           </div>
         </div>
       </motion.section>
 
       <div className="px-6 md:px-12 lg:px-16 max-w-5xl mx-auto pb-24">
-        {/* ── Progress Section — Apple style minimal ── */}
+        {/* ── Progress Section ── */}
         <motion.section variants={itemVariants} className="py-12">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="space-y-2">
@@ -151,7 +173,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Progress bar */}
           <div className="mt-6 relative">
             <div className="h-[2px] w-full bg-border/15 rounded-full overflow-hidden">
               <motion.div
@@ -189,10 +210,9 @@ const Dashboard = () => {
           </div>
         </motion.section>
 
-        {/* ── Divider ── */}
         <div className="h-px bg-gradient-to-r from-transparent via-border/20 to-transparent" />
 
-        {/* ── Module Grid — Apple product grid style ── */}
+        {/* ── Module Grid ── */}
         <motion.section variants={itemVariants} className="py-12">
           <p className="text-[9px] tracking-[0.5em] uppercase text-muted-foreground/25 mb-8 text-center">
             {t.academy.dashboard.moduleLabel}s
@@ -255,10 +275,9 @@ const Dashboard = () => {
           </div>
         </motion.section>
 
-        {/* ── Divider ── */}
         <div className="h-px bg-gradient-to-r from-transparent via-border/20 to-transparent" />
 
-        {/* ── Tools — Minimal row style ── */}
+        {/* ── Tools ── */}
         <motion.section variants={itemVariants} className="py-12">
           <p className="text-[9px] tracking-[0.5em] uppercase text-muted-foreground/25 mb-6 text-center">
             Ferramentas
@@ -285,7 +304,7 @@ const Dashboard = () => {
           </div>
         </motion.section>
 
-        {/* ── Quote — Apple-style minimal ── */}
+        {/* ── Quote ── */}
         <motion.section variants={itemVariants} className="pt-12 pb-8">
           <div className="text-center">
             <div className="flex items-center justify-center gap-4 mb-8">

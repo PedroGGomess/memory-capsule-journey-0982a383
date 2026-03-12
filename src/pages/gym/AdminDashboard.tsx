@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useGymAccess, GymUser } from "@/contexts/GymAccessContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { EMPLOYEE_ROLES, getRoleLabel, type EmployeeRole } from "@/config/roles";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -42,6 +43,7 @@ interface UserFormData {
   email: string;
   notes: string;
   onboardingComplete: boolean;
+  role: string;
 }
 
 interface UserFormProps {
@@ -57,6 +59,7 @@ const UserForm = ({ initial, onSubmit, onCancel, submitLabel }: UserFormProps) =
     email: initial?.email ?? "",
     notes: initial?.notes ?? "",
     onboardingComplete: initial?.onboardingComplete ?? false,
+    role: initial?.role ?? "store-employee",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -74,6 +77,19 @@ const UserForm = ({ initial, onSubmit, onCancel, submitLabel }: UserFormProps) =
       <div className="space-y-2">
         <Label className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/50">Email</Label>
         <Input type="email" value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} placeholder="joao@exemplo.com" className="bg-background/30 border-border/15 h-11 text-sm font-light" />
+      </div>
+      <div className="space-y-2">
+        <Label className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/50">Cargo / Função *</Label>
+        <Select value={form.role} onValueChange={(v) => setForm((f) => ({ ...f, role: v }))}>
+          <SelectTrigger className="bg-background/30 border-border/15 h-11 text-sm font-light">
+            <SelectValue placeholder="Selecionar cargo..." />
+          </SelectTrigger>
+          <SelectContent>
+            {EMPLOYEE_ROLES.map((r) => (
+              <SelectItem key={r.value} value={r.value}>{r.label}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <div className="space-y-2">
         <Label className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/50">Notas</Label>
@@ -156,6 +172,7 @@ const AdminDashboard = () => {
       email: data.email,
       accessCode: generateAccessCode(),
       academyCode: code,
+      role: data.role,
       notes: data.notes,
       onboardingComplete: data.onboardingComplete,
       active: true,
@@ -172,7 +189,7 @@ const AdminDashboard = () => {
 
   const handleEdit = (data: UserFormData) => {
     if (!editUser) return;
-    updateUser(editUser.id, { name: data.name, email: data.email, notes: data.notes, onboardingComplete: data.onboardingComplete, academyCode: editAcademyCode });
+    updateUser(editUser.id, { name: data.name, email: data.email, notes: data.notes, onboardingComplete: data.onboardingComplete, role: data.role, academyCode: editAcademyCode });
     setEditUser(null);
     toast.success("Colaborador atualizado!");
   };
@@ -279,6 +296,7 @@ const AdminDashboard = () => {
             <TableHeader>
               <TableRow className="border-border/10 hover:bg-transparent">
                 <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Colaborador</TableHead>
+                <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Cargo</TableHead>
                 <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Código Academy</TableHead>
                 <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Onboarding</TableHead>
                 <TableHead className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/30 font-light">Estado</TableHead>
@@ -288,7 +306,7 @@ const AdminDashboard = () => {
             <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center text-muted-foreground/30 py-16 text-sm font-light">
+                  <TableCell colSpan={6} className="text-center text-muted-foreground/30 py-16 text-sm font-light">
                     {users.length === 0 ? "Sem colaboradores. Adicione o primeiro!" : "Sem resultados."}
                   </TableCell>
                 </TableRow>
@@ -305,6 +323,11 @@ const AdminDashboard = () => {
                           <p className="text-[10px] text-muted-foreground/30">{user.email || "—"}</p>
                         </div>
                       </div>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="outline" className="text-[9px] tracking-[0.1em] border-border/15 text-muted-foreground/50 font-light">
+                        {getRoleLabel(user.role)}
+                      </Badge>
                     </TableCell>
                     <TableCell>
                       {user.academyCode ? (

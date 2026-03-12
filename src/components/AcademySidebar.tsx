@@ -3,39 +3,49 @@ import { NavLink } from "@/components/NavLink";
 import { useProgress } from "@/contexts/ProgressContext";
 import { useAcademyAuth } from "@/contexts/AcademyAuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getRoleLabel } from "@/config/roles";
 import {
   Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent,
   SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar
 } from "@/components/ui/sidebar";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
-  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut, Home, Key, BookMarked, Target, Image
+  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut, Home, BookMarked, Target, Image
 } from "lucide-react";
 import logoImg from "@/assets/Logo.png";
+
+const ALL_CORE_MODULES = [
+  { id: "story", icon: BookOpen, navKey: "story" as const },
+  { id: "philosophy", icon: Compass, navKey: "philosophy" as const },
+  { id: "products", icon: Wine, navKey: "products" as const },
+  { id: "gift", icon: Gift, navKey: "gift" as const },
+  { id: "store", icon: Store, navKey: "store" as const },
+  { id: "brand-voice", icon: MessageCircle, navKey: "brandVoice" as const },
+  { id: "customer-experience", icon: Users, navKey: "customerExperience" as const },
+  { id: "business-model", icon: BarChart3, navKey: "businessModel" as const },
+  { id: "tasting-guide", icon: Wine, navKey: "tastingGuide" as const },
+  { id: "glossary", icon: BookMarked, navKey: "glossary" as const },
+  { id: "cross-selling", icon: Target, navKey: "crossSelling" as const },
+  { id: "visual-merchandising", icon: Image, navKey: "visualMerchandising" as const },
+  { id: "certification", icon: Award, navKey: "certification" as const },
+];
 
 export function AcademySidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
-  const { isModuleCompleted } = useProgress();
+  const { isModuleCompleted, allowedModules, userRole } = useProgress();
   const { logout } = useAcademyAuth();
   const navigate = useNavigate();
   const { t, language, setLanguage } = useLanguage();
 
-  const coreModules = [
-    { title: t.academy.nav.story, url: "/academy/module/story", icon: BookOpen, id: "story", num: 1 },
-    { title: t.academy.nav.philosophy, url: "/academy/module/philosophy", icon: Compass, id: "philosophy", num: 2 },
-    { title: t.academy.nav.products, url: "/academy/module/products", icon: Wine, id: "products", num: 3 },
-    { title: t.academy.nav.gift, url: "/academy/module/gift", icon: Gift, id: "gift", num: 4 },
-    { title: t.academy.nav.store, url: "/academy/module/store", icon: Store, id: "store", num: 5 },
-    { title: t.academy.nav.brandVoice, url: "/academy/module/brand-voice", icon: MessageCircle, id: "brand-voice", num: 6 },
-    { title: t.academy.nav.customerExperience, url: "/academy/module/customer-experience", icon: Users, id: "customer-experience", num: 7 },
-    { title: t.academy.nav.businessModel, url: "/academy/module/business-model", icon: BarChart3, id: "business-model", num: 8 },
-    { title: t.academy.nav.tastingGuide, url: "/academy/module/tasting-guide", icon: Wine, id: "tasting-guide", num: 9 },
-    { title: t.academy.nav.glossary, url: "/academy/module/glossary", icon: BookMarked, id: "glossary", num: 10 },
-    { title: t.academy.nav.crossSelling, url: "/academy/module/cross-selling", icon: Target, id: "cross-selling", num: 11 },
-    { title: t.academy.nav.visualMerchandising, url: "/academy/module/visual-merchandising", icon: Image, id: "visual-merchandising", num: 12 },
-    { title: t.academy.nav.certification, url: "/academy/module/certification", icon: Award, id: "certification", num: 13 },
-  ];
+  const coreModules = ALL_CORE_MODULES
+    .filter((m) => allowedModules.includes(m.id))
+    .map((m, i) => ({
+      ...m,
+      num: i + 1,
+      title: t.academy.nav[m.navKey] || m.id,
+      url: `/academy/module/${m.id}`,
+    }));
 
   const tools = [
     { title: t.academy.nav.askTeam, url: "/academy/module/ask-team", icon: Sparkles, id: "ask-team" },
@@ -48,12 +58,13 @@ export function AcademySidebar() {
     navigate("/academy/login");
   };
 
+  const roleLabel = getRoleLabel(userRole, language as "pt" | "en");
+
   return (
     <Sidebar collapsible="icon" className="border-r border-border/10">
       <SidebarContent className="bg-gradient-to-b from-card via-card to-background pt-0">
         {/* Brand Header */}
         <div className="px-5 py-6 border-b border-border/10 relative overflow-hidden">
-          {/* Ambient glow */}
           <div className="absolute -top-10 -left-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
           <div className="flex items-center gap-3 relative z-10">
             <div className="relative">
@@ -67,6 +78,13 @@ export function AcademySidebar() {
               </div>
             )}
           </div>
+          {!collapsed && userRole && (
+            <div className="mt-3 relative z-10">
+              <span className="text-[9px] tracking-[0.2em] uppercase text-primary/50 bg-primary/5 px-2.5 py-1 rounded-full border border-primary/10">
+                {roleLabel}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Dashboard Link */}

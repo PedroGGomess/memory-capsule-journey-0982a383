@@ -6,6 +6,7 @@ export interface GymUser {
   email: string;
   accessCode: string;
   academyCode?: string;
+  role?: string;
   active: boolean;
   createdAt: string;
   notes?: string;
