@@ -189,7 +189,7 @@ const AdminDashboard = () => {
 
   const handleEdit = (data: UserFormData) => {
     if (!editUser) return;
-    updateUser(editUser.id, { name: data.name, email: data.email, notes: data.notes, onboardingComplete: data.onboardingComplete, academyCode: editAcademyCode });
+    updateUser(editUser.id, { name: data.name, email: data.email, notes: data.notes, onboardingComplete: data.onboardingComplete, role: data.role, academyCode: editAcademyCode });
     setEditUser(null);
     toast.success("Colaborador atualizado!");
   };
