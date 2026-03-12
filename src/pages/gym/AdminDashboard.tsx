@@ -325,6 +325,11 @@ const AdminDashboard = () => {
                       </div>
                     </TableCell>
                     <TableCell>
+                      <Badge variant="outline" className="text-[9px] tracking-[0.1em] border-border/15 text-muted-foreground/50 font-light">
+                        {getRoleLabel(user.role)}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
                       {user.academyCode ? (
                         <div className="flex items-center gap-1.5">
                           <code className="text-[10px] bg-muted/30 px-2 py-1 rounded font-mono tracking-wider text-foreground/50">{user.academyCode}</code>
