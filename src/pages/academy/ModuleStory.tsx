@@ -1,6 +1,9 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import douroValleyImg from "@/assets/douro-valley.jpg";
+import heroDropImg from "@/assets/hero-drop.jpg";
+
+const douroImg = douroValleyImg;
 
 const ModuleStory = () => {
   const { language } = useLanguage();

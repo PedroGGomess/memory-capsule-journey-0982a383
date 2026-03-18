@@ -3,6 +3,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import hourglassImg from "@/assets/hourglass.jpg";
 import bottleImg from "@/assets/bottle-closeup.jpg";
 import hedonismImg from "@/assets/hedonism.jpg";
+import heroDropImg from "@/assets/hero-drop.jpg";
 
 const ModulePhilosophy = () => {
   const { language } = useLanguage();
