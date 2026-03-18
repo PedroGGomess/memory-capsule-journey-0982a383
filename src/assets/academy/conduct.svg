@@ -1,0 +1,67 @@
+<svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5F0E8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E8DFD0;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="mirrorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4C5A9;stop-opacity:0.4" />
+      <stop offset="50%" style="stop-color:#C4A265;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#B8956A;stop-opacity:0.2" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#bgGradient)"/>
+
+  <!-- Subtle corner accents -->
+  <circle cx="100" cy="520" r="50" fill="#B8956A" opacity="0.06"/>
+  <circle cx="1100" cy="100" r="45" fill="#C4A265" opacity="0.08"/>
+
+  <!-- Mirror frame - elegant and minimal -->
+  <rect x="400" y="100" width="400" height="450" fill="none" stroke="#8B7D6B" stroke-width="12" rx="8"/>
+
+  <!-- Mirror reflection gradient background -->
+  <defs>
+    <filter id="mirrorShine">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+    </filter>
+  </defs>
+  <rect x="410" y="110" width="380" height="430" fill="url(#mirrorGradient)" rx="4" filter="url(#mirrorShine)"/>
+
+  <!-- Mirror shine effect - horizontal bands suggesting reflection -->
+  <rect x="410" y="120" width="380" height="60" fill="white" opacity="0.08" rx="4"/>
+  <rect x="410" y="200" width="380" height="40" fill="white" opacity="0.04" rx="4"/>
+
+  <!-- Elegant silhouette figure in mirror - well-dressed, composed -->
+  <!-- Head -->
+  <ellipse cx="600" cy="180" rx="28" ry="35" fill="#2C2520" opacity="0.75"/>
+
+  <!-- Neck -->
+  <rect x="590" y="210" width="20" height="15" fill="#2C2520" opacity="0.75"/>
+
+  <!-- Upper body - suit jacket suggestion -->
+  <path d="M 550 225 L 570 220 L 595 225 L 605 225 L 630 220 L 650 225 Q 650 240 620 250 L 580 250 Q 550 240 550 225 Z"
+        fill="#2C2520" opacity="0.8"/>
+
+  <!-- Jacket lapels - refined detail -->
+  <path d="M 595 225 L 585 280 L 600 290" fill="none" stroke="#8B7D6B" stroke-width="3" opacity="0.5" stroke-linecap="round"/>
+  <path d="M 605 225 L 615 280 L 600 290" fill="none" stroke="#8B7D6B" stroke-width="3" opacity="0.5" stroke-linecap="round"/>
+
+  <!-- Waist and lower body - elegant stance -->
+  <path d="M 570 250 Q 560 300 565 350 Q 580 340 585 360 L 585 400"
+        fill="none" stroke="#2C2520" stroke-width="14" opacity="0.7" stroke-linecap="round"/>
+  <path d="M 630 250 Q 640 300 635 350 Q 620 340 615 360 L 615 400"
+        fill="none" stroke="#2C2520" stroke-width="14" opacity="0.7" stroke-linecap="round"/>
+
+  <!-- Arms - relaxed but composed posture -->
+  <ellipse cx="540" cy="260" rx="12" ry="50" fill="#2C2520" opacity="0.7" transform="rotate(-25 540 260)"/>
+  <ellipse cx="660" cy="260" rx="12" ry="50" fill="#2C2520" opacity="0.7" transform="rotate(25 660 260)"/>
+
+  <!-- Accent line - mirror frame detail suggesting self-reflection -->
+  <line x1="420" y1="310" x2="780" y2="310" stroke="#C4A265" stroke-width="2" opacity="0.3"/>
+
+  <!-- Soft horizontal lines in background suggesting confidence/stability -->
+  <line x1="450" y1="500" x2="750" y2="500" stroke="#B8956A" stroke-width="1.5" opacity="0.15"/>
+  <line x1="460" y1="520" x2="740" y2="520" stroke="#C4A265" stroke-width="1.5" opacity="0.12"/>
+</svg>

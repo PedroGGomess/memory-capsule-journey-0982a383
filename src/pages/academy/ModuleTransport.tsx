@@ -2,6 +2,7 @@ import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, 
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Plane, AlertCircle } from "lucide-react";
+import transportImg from "@/assets/academy/transport-rules.svg";
 
 const ModuleTransport = () => {
   const { language } = useLanguage();
@@ -37,7 +38,7 @@ const ModuleTransport = () => {
       moduleNumber={15}
       title={isEN ? "Transport Rules & Solutions" : "Regras de Transporte & Soluções"}
       subtitle={isEN ? "Know the regulations. Master the solutions. Never let logistics stop a sale." : "Conhece as regulações. Domina as soluções. Nunca deixa a logística parar uma venda."}
-      heroImage="/placeholder.svg"
+      heroImage={transportImg}
     >
       <ContentBlock title={isEN ? "The TSA/IATA Liquid Rule" : "A Regra de Líquidos TSA/IATA"}>
         <p>{isEN

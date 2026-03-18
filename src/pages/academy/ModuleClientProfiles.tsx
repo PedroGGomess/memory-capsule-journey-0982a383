@@ -2,6 +2,7 @@ import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, 
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Users } from "lucide-react";
+import clientProfilesImg from "@/assets/academy/client-profiles.svg";
 
 const ModuleClientProfiles = () => {
   const { language } = useLanguage();
@@ -129,7 +130,7 @@ const ModuleClientProfiles = () => {
       moduleNumber={12}
       title={isEN ? "Client Profiles & Personas" : "Perfis de Cliente & Personas"}
       subtitle={isEN ? "Know your customers. Understand their needs. Deliver the right experience." : "Conhece os teus clientes. Compreende as suas necessidades. Entrega a experiência certa."}
-      heroImage="/placeholder.svg"
+      heroImage={clientProfilesImg}
     >
       <ContentBlock title={isEN ? "Why Client Profiles Matter" : "Por que os Perfis de Cliente Importam"}>
         <p>{isEN

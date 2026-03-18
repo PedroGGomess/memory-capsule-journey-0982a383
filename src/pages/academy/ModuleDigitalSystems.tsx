@@ -2,6 +2,7 @@ import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, 
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Monitor, Smartphone, MessageSquare, Database, ShoppingCart } from "lucide-react";
+import digitalSystemsImg from "@/assets/academy/digital-systems.svg";
 
 const ModuleDigitalSystems = () => {
   const { language } = useLanguage();
@@ -89,7 +90,7 @@ const ModuleDigitalSystems = () => {
       moduleNumber={16}
       title={isEN ? "Digital Systems & Tools" : "Digital & Sistemas"}
       subtitle={isEN ? "Technology enables better service. Learn the tools, master the workflow." : "Tecnologia permite melhor serviço. Aprende as ferramentas, domina o fluxo."}
-      heroImage="/placeholder.svg"
+      heroImage={digitalSystemsImg}
     >
       <ContentBlock title={isEN ? "Technology in the Premium Experience" : "Tecnologia na Experiência Premium"}>
         <p>{isEN

@@ -1,0 +1,90 @@
+<svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5F0E8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E8DFD0;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="screenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4C5A9;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#B8956A;stop-opacity:0.2" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#bgGradient)"/>
+
+  <!-- Decorative corners -->
+  <circle cx="130" cy="500" r="50" fill="#B8956A" opacity="0.06"/>
+  <circle cx="1070" cy="100" r="45" fill="#C4A265" opacity="0.07"/>
+
+  <!-- Tablet/screen frame -->
+  <rect x="350" y="120" width="500" height="360" fill="#F5F0E8" stroke="#8B7D6B" stroke-width="8" rx="12"/>
+
+  <!-- Screen display area -->
+  <rect x="370" y="140" width="460" height="320" fill="url(#screenGradient)" rx="8"/>
+
+  <!-- Screen border highlight -->
+  <rect x="370" y="140" width="460" height="320" fill="none" stroke="#C4A265" stroke-width="1" opacity="0.3" rx="8"/>
+
+  <!-- Interface elements - data/grid visualization -->
+  <!-- Top navigation bar -->
+  <rect x="385" y="160" width="430" height="20" fill="#C4A265" opacity="0.4" rx="3"/>
+
+  <!-- Grid of data points - suggesting information/analytics -->
+  <!-- Row 1 -->
+  <circle cx="410" cy="210" r="6" fill="#B8956A" opacity="0.6"/>
+  <circle cx="460" cy="210" r="6" fill="#C4A265" opacity="0.55"/>
+  <circle cx="510" cy="210" r="6" fill="#B8956A" opacity="0.5"/>
+  <circle cx="560" cy="210" r="6" fill="#C4A265" opacity="0.5"/>
+
+  <!-- Row 2 -->
+  <circle cx="410" cy="250" r="6" fill="#C4A265" opacity="0.55"/>
+  <circle cx="460" cy="250" r="6" fill="#B8956A" opacity="0.6"/>
+  <circle cx="510" cy="250" r="6" fill="#C4A265" opacity="0.55"/>
+  <circle cx="560" cy="250" r="6" fill="#B8956A" opacity="0.5"/>
+
+  <!-- Row 3 -->
+  <circle cx="410" cy="290" r="6" fill="#B8956A" opacity="0.5"/>
+  <circle cx="460" cy="290" r="6" fill="#C4A265" opacity="0.5"/>
+  <circle cx="510" cy="290" r="6" fill="#B8956A" opacity="0.55"/>
+  <circle cx="560" cy="290" r="6" fill="#C4A265" opacity="0.6"/>
+
+  <!-- Row 4 -->
+  <circle cx="410" cy="330" r="6" fill="#C4A265" opacity="0.5"/>
+  <circle cx="460" cy="330" r="6" fill="#B8956A" opacity="0.5"/>
+  <circle cx="510" cy="330" r="6" fill="#C4A265" opacity="0.55"/>
+  <circle cx="560" cy="330" r="6" fill="#B8956A" opacity="0.55"/>
+
+  <!-- Connecting lines between data points - network/system suggestion -->
+  <line x1="416" y1="210" x2="454" y2="210" stroke="#C4A265" stroke-width="1" opacity="0.25"/>
+  <line x1="466" y1="210" x2="504" y2="210" stroke="#C4A265" stroke-width="1" opacity="0.25"/>
+  <line x1="516" y1="210" x2="554" y2="210" stroke="#C4A265" stroke-width="1" opacity="0.25"/>
+
+  <line x1="410" y1="216" x2="410" y2="244" stroke="#B8956A" stroke-width="1" opacity="0.2"/>
+  <line x1="460" y1="216" x2="460" y2="244" stroke="#B8956A" stroke-width="1" opacity="0.2"/>
+  <line x1="510" y1="216" x2="510" y2="244" stroke="#B8956A" stroke-width="1" opacity="0.2"/>
+
+  <!-- Status indicators/buttons -->
+  <rect x="385" y="360" width="15" height="15" fill="#B8956A" opacity="0.5" rx="2"/>
+  <rect x="410" y="360" width="15" height="15" fill="#C4A265" opacity="0.45" rx="2"/>
+  <rect x="435" y="360" width="15" height="15" fill="#B8956A" opacity="0.4" rx="2"/>
+  <rect x="460" y="360" width="15" height="15" fill="#C4A265" opacity="0.5" rx="2"/>
+
+  <!-- Home button area at bottom -->
+  <rect x="530" y="432" width="40" height="8" fill="#8B7D6B" opacity="0.3" rx="4"/>
+
+  <!-- Subtle hand icon suggestion - interaction -->
+  <g opacity="0.4" transform="translate(750, 280)">
+    <!-- Finger pointing at screen -->
+    <ellipse cx="0" cy="-20" rx="5" ry="15" fill="#B8956A"/>
+    <ellipse cx="-15" cy="0" rx="5" ry="18" fill="#B8956A"/>
+    <ellipse cx="-8" cy="20" rx="5" ry="16" fill="#B8956A"/>
+    <ellipse cx="8" cy="20" rx="5" ry="16" fill="#B8956A"/>
+    <ellipse cx="15" cy="0" rx="5" ry="18" fill="#B8956A"/>
+  </g>
+
+  <!-- Cursor/pointer lines -->
+  <line x1="880" y1="240" x2="920" y2="200" stroke="#C4A265" stroke-width="2.5" opacity="0.3" stroke-linecap="round"/>
+  <line x1="920" y1="200" x2="930" y2="230" stroke="#C4A265" stroke-width="2.5" opacity="0.3" stroke-linecap="round"/>
+  <line x1="930" y1="230" x2="900" y2="250" stroke="#C4A265" stroke-width="2.5" opacity="0.3" stroke-linecap="round"/>
+</svg>

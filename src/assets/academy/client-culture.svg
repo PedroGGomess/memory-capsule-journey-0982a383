@@ -1,0 +1,60 @@
+<svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5F0E8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E8DFD0;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="heartGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#C4A265;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#C4A265;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#bgGradient)"/>
+
+  <!-- Subtle decorative elements -->
+  <circle cx="150" cy="100" r="45" fill="#B8956A" opacity="0.05"/>
+  <circle cx="1050" cy="500" r="60" fill="#C4A265" opacity="0.06"/>
+
+  <!-- Central glow circle -->
+  <circle cx="600" cy="300" r="200" fill="url(#heartGlow)"/>
+
+  <!-- Heart shape formed by elegant curved lines -->
+  <!-- Left lobe of heart -->
+  <path d="M 550 250 C 520 230 480 230 480 270 C 480 300 510 340 550 380 L 600 330 C 540 290 530 280 550 250 Z"
+        fill="none" stroke="#C4A265" stroke-width="8" opacity="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Right lobe of heart -->
+  <path d="M 650 250 C 680 230 720 230 720 270 C 720 300 690 340 650 380 L 600 330 C 660 290 670 280 650 250 Z"
+        fill="none" stroke="#B8956A" stroke-width="8" opacity="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Bottom point of heart with elegant taper -->
+  <path d="M 600 330 Q 590 410 600 450 Q 610 410 600 330 Z"
+        fill="none" stroke="#8B7D6B" stroke-width="6" opacity="0.6" stroke-linecap="round"/>
+
+  <!-- Decorative concentric rings suggesting ripples/care radiating out -->
+  <circle cx="600" cy="300" r="160" fill="none" stroke="#C4A265" stroke-width="1" opacity="0.15"/>
+  <circle cx="600" cy="300" r="180" fill="none" stroke="#B8956A" stroke-width="1" opacity="0.12"/>
+  <circle cx="600" cy="300" r="200" fill="none" stroke="#C4A265" stroke-width="1" opacity="0.1"/>
+
+  <!-- Smaller decorative elements - stars/sparkles suggesting enchantment -->
+  <g opacity="0.5">
+    <!-- Star 1 -->
+    <path d="M 420 200 L 428 220 L 450 228 L 432 240 L 438 262 L 420 250 L 402 262 L 408 240 L 390 228 L 412 220 Z" fill="#B8956A"/>
+
+    <!-- Star 2 -->
+    <path d="M 780 180 L 786 198 L 806 204 L 790 216 L 795 236 L 780 226 L 765 236 L 770 216 L 754 204 L 774 198 Z" fill="#C4A265"/>
+
+    <!-- Star 3 -->
+    <path d="M 700 420 L 705 435 L 722 440 L 710 448 L 714 465 L 700 457 L 686 465 L 690 448 L 678 440 L 695 435 Z" fill="#B8956A"/>
+
+    <!-- Star 4 -->
+    <path d="M 480 420 L 486 437 L 504 443 L 489 454 L 493 472 L 480 462 L 467 472 L 471 454 L 456 443 L 474 437 Z" fill="#C4A265"/>
+  </g>
+
+  <!-- Fine line details suggesting care and connection -->
+  <line x1="480" y1="240" x2="520" y2="220" stroke="#D4C5A9" stroke-width="2" opacity="0.4" stroke-linecap="round"/>
+  <line x1="720" y1="240" x2="680" y2="220" stroke="#D4C5A9" stroke-width="2" opacity="0.4" stroke-linecap="round"/>
+  <line x1="600" y1="380" x2="600" y2="430" stroke="#D4C5A9" stroke-width="2" opacity="0.4" stroke-linecap="round"/>
+</svg>

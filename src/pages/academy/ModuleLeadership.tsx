@@ -1,7 +1,7 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
-import storeImg from "@/assets/store-interior.jpg";
+import leadershipImg from "@/assets/academy/leadership.svg";
 import { Users, Target, TrendingUp, MessageCircle, BarChart3, Zap, Award, Lightbulb } from "lucide-react";
 
 const ModuleLeadership = () => {
@@ -14,7 +14,7 @@ const ModuleLeadership = () => {
       moduleNumber={21}
       title={isEN ? "Leadership & Team Management" : "Liderança e Gestão de Equipa"}
       subtitle={isEN ? "How to inspire, develop and lead your team to excellence." : "Como inspirar, desenvolver e liderar a tua equipa para a excelência."}
-      heroImage={storeImg}
+      heroImage={leadershipImg}
     >
       <ContentBlock title={isEN ? "What It Means to Lead at The 100's" : "O Que Significa Liderar no The 100's"}>
         <p>

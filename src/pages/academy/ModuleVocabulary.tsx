@@ -2,6 +2,7 @@ import { ModuleLayout, ContentBlock, KeyTakeaway, QuizBlock, ReflectionBlock } f
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Languages } from "lucide-react";
+import vocabularyImg from "@/assets/academy/vocabulary.svg";
 
 const ModuleVocabulary = () => {
   const { language } = useLanguage();
@@ -95,7 +96,7 @@ const ModuleVocabulary = () => {
       moduleNumber={18}
       title={isEN ? "Bilingual Vocabulary Guide" : "Vocabulário PT/EN"}
       subtitle={isEN ? "Master key phrases in Portuguese and English for seamless customer interactions." : "Domina frases-chave em Português e Inglês para interações perfeitas com clientes."}
-      heroImage="/placeholder.svg"
+      heroImage={vocabularyImg}
     >
       <ContentBlock title={isEN ? "Why Bilingual Service Matters" : "Por Que o Serviço Bilíngue Importa"}>
         <p>{isEN

@@ -1,6 +1,7 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
+import conductImg from "@/assets/academy/conduct.svg";
 
 const ModuleConduct = () => {
   const { language } = useLanguage();
@@ -36,7 +37,7 @@ const ModuleConduct = () => {
       moduleNumber={14}
       title={isEN ? "Conduct & Image" : "Conduta e Imagem"}
       subtitle={isEN ? "You are the brand. Your presentation matters." : "Tu és a marca. A tua apresentação importa."}
-      heroImage="/placeholder.svg"
+      heroImage={conductImg}
     >
       <ContentBlock title={isEN ? "First Impressions Last" : "Primeiras Impressões Duram"}>
         <p>{isEN

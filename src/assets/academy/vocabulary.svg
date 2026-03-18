@@ -1,0 +1,75 @@
+<svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5F0E8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E8DFD0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#bgGradient)"/>
+
+  <!-- Decorative elements -->
+  <circle cx="100" cy="120" r="45" fill="#B8956A" opacity="0.06"/>
+  <circle cx="1100" cy="480" r="50" fill="#C4A265" opacity="0.07"/>
+
+  <!-- Left speech bubble - English -->
+  <defs>
+    <filter id="bubbleShadow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+    </filter>
+  </defs>
+
+  <!-- Left bubble body -->
+  <path d="M 250 150 Q 200 150 200 200 L 200 320 Q 200 370 250 370 L 420 370 Q 470 370 470 320 L 470 200 Q 470 150 420 150 Z"
+        fill="none" stroke="#C4A265" stroke-width="3" opacity="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Left bubble pointer -->
+  <path d="M 220 370 L 150 420 L 200 390 Z" fill="none" stroke="#C4A265" stroke-width="3" opacity="0.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Left bubble text lines - English -->
+  <line x1="220" y1="190" x2="450" y2="190" stroke="#B8956A" stroke-width="2.5" opacity="0.6" stroke-linecap="round"/>
+  <line x1="220" y1="220" x2="420" y2="220" stroke="#B8956A" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+  <line x1="220" y1="245" x2="430" y2="245" stroke="#B8956A" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+  <line x1="220" y1="270" x2="410" y2="270" stroke="#B8956A" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
+  <line x1="220" y1="295" x2="400" y2="295" stroke="#B8956A" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
+  <line x1="220" y1="330" x2="380" y2="330" stroke="#B8956A" stroke-width="2" opacity="0.4" stroke-linecap="round"/>
+
+  <!-- Right speech bubble - Portuguese -->
+  <!-- Right bubble body -->
+  <path d="M 730 180 Q 680 180 680 230 L 680 350 Q 680 400 730 400 L 900 400 Q 950 400 950 350 L 950 230 Q 950 180 900 180 Z"
+        fill="none" stroke="#B8956A" stroke-width="3" opacity="0.75" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Right bubble pointer -->
+  <path d="M 950 400 L 1020 450 L 970 420 Z" fill="none" stroke="#B8956A" stroke-width="3" opacity="0.65" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Right bubble text lines - Portuguese -->
+  <line x1="700" y1="220" x2="930" y2="220" stroke="#8B7D6B" stroke-width="2.5" opacity="0.65" stroke-linecap="round"/>
+  <line x1="700" y1="250" x2="900" y2="250" stroke="#8B7D6B" stroke-width="2" opacity="0.55" stroke-linecap="round"/>
+  <line x1="700" y1="275" x2="910" y2="275" stroke="#8B7D6B" stroke-width="2" opacity="0.55" stroke-linecap="round"/>
+  <line x1="700" y1="300" x2="890" y2="300" stroke="#8B7D6B" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+  <line x1="700" y1="325" x2="880" y2="325" stroke="#8B7D6B" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+  <line x1="700" y1="360" x2="860" y2="360" stroke="#8B7D6B" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
+
+  <!-- Open book at bottom - suggesting bilingual resources -->
+  <!-- Book spine -->
+  <rect x="570" y="460" width="60" height="80" fill="#8B7D6B" opacity="0.4"/>
+
+  <!-- Left page -->
+  <rect x="500" y="460" width="70" height="80" fill="none" stroke="#C4A265" stroke-width="2.5" opacity="0.6" stroke-linejoin="round"/>
+  <!-- Left page text lines -->
+  <line x1="520" y1="485" x2="560" y2="485" stroke="#B8956A" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+  <line x1="520" y1="505" x2="565" y2="505" stroke="#B8956A" stroke-width="1.5" opacity="0.35" stroke-linecap="round"/>
+  <line x1="520" y1="525" x2="560" y2="525" stroke="#B8956A" stroke-width="1.5" opacity="0.35" stroke-linecap="round"/>
+
+  <!-- Right page -->
+  <rect x="630" y="460" width="70" height="80" fill="none" stroke="#B8956A" stroke-width="2.5" opacity="0.65" stroke-linejoin="round"/>
+  <!-- Right page text lines -->
+  <line x1="650" y1="485" x2="690" y2="485" stroke="#8B7D6B" stroke-width="1.5" opacity="0.45" stroke-linecap="round"/>
+  <line x1="650" y1="505" x2="695" y2="505" stroke="#8B7D6B" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+  <line x1="650" y1="525" x2="690" y2="525" stroke="#8B7D6B" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+
+  <!-- Connecting line between bubbles and book - suggesting language bridge -->
+  <path d="M 470 320 Q 550 380 600 460" fill="none" stroke="#D4C5A9" stroke-width="2" opacity="0.2" stroke-linecap="round"/>
+  <path d="M 680 350 Q 640 400 600 460" fill="none" stroke="#D4C5A9" stroke-width="2" opacity="0.2" stroke-linecap="round"/>
+</svg>

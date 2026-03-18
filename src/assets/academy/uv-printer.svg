@@ -1,0 +1,91 @@
+<svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5F0E8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E8DFD0;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="bottleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4C5A9;stop-opacity:0.5" />
+      <stop offset="50%" style="stop-color:#C4A265;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#B8956A;stop-opacity:0.5" />
+    </linearGradient>
+    <radialGradient id="lightBeam" cx="50%" cy="0%" r="50%">
+      <stop offset="0%" style="stop-color:#C4A265;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#C4A265;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#bgGradient)"/>
+
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="45" fill="#B8956A" opacity="0.06"/>
+  <circle cx="1100" cy="500" r="50" fill="#C4A265" opacity="0.07"/>
+
+  <!-- Light beam/personalization beam - center focus -->
+  <ellipse cx="600" cy="200" rx="120" ry="160" fill="url(#lightBeam)"/>
+
+  <!-- Beam rays - suggesting focused light/creation -->
+  <path d="M 600 50 Q 580 150 600 300" fill="none" stroke="#C4A265" stroke-width="8" opacity="0.4" stroke-linecap="round"/>
+  <path d="M 600 50 Q 620 150 600 300" fill="none" stroke="#B8956A" stroke-width="8" opacity="0.35" stroke-linecap="round"/>
+  <path d="M 600 50 Q 560 120 570 300" fill="none" stroke="#C4A265" stroke-width="6" opacity="0.3" stroke-linecap="round"/>
+  <path d="M 600 50 Q 640 120 630 300" fill="none" stroke="#B8956A" stroke-width="6" opacity="0.25" stroke-linecap="round"/>
+
+  <!-- Wine bottle silhouette - elegant vessel -->
+  <!-- Bottle top/cork -->
+  <rect x="570" y="280" width="60" height="12" fill="#8B7D6B" opacity="0.6" rx="2"/>
+  <rect x="575" y="272" width="50" height="10" fill="#D4C5A9" opacity="0.4" rx="1"/>
+
+  <!-- Neck of bottle -->
+  <path d="M 580 292 Q 575 310 575 340 L 625 340 Q 625 310 620 292 Z" fill="url(#bottleGradient)" opacity="0.8"/>
+
+  <!-- Main body of bottle -->
+  <path d="M 575 340 Q 560 380 560 440 Q 560 480 580 500 L 620 500 Q 640 480 640 440 Q 640 380 625 340 Z" fill="url(#bottleGradient)" opacity="0.85"/>
+
+  <!-- Bottle highlight/shine -->
+  <ellipse cx="575" cy="400" rx="8" ry="40" fill="#D4C5A9" opacity="0.25"/>
+
+  <!-- Engraved/personalized pattern on bottle - suggesting the mark of creation -->
+  <!-- Diamond pattern -->
+  <g opacity="0.4">
+    <line x1="585" y1="350" x2="600" y2="370" stroke="#8B7D6B" stroke-width="1.5"/>
+    <line x1="600" y1="370" x2="615" y2="350" stroke="#8B7D6B" stroke-width="1.5"/>
+    <line x1="615" y1="350" x2="600" y2="330" stroke="#8B7D6B" stroke-width="1.5"/>
+    <line x1="600" y1="330" x2="585" y2="350" stroke="#8B7D6B" stroke-width="1.5"/>
+  </g>
+
+  <!-- More patterns -->
+  <g opacity="0.35">
+    <line x1="585" y1="390" x2="600" y2="410" stroke="#8B7D6B" stroke-width="1.5"/>
+    <line x1="600" y1="410" x2="615" y2="390" stroke="#8B7D6B" stroke-width="1.5"/>
+    <line x1="615" y1="390" x2="600" y2="370" stroke="#8B7D6B" stroke-width="1.5"/>
+    <line x1="600" y1="370" x2="585" y2="390" stroke="#8B7D6B" stroke-width="1.5"/>
+  </g>
+
+  <g opacity="0.3">
+    <line x1="585" y1="430" x2="600" y2="450" stroke="#8B7D6B" stroke-width="1.5"/>
+    <line x1="600" y1="450" x2="615" y2="430" stroke="#8B7D6B" stroke-width="1.5"/>
+    <line x1="615" y1="430" x2="600" y2="410" stroke="#8B7D6B" stroke-width="1.5"/>
+    <line x1="600" y1="410" x2="585" y2="430" stroke="#8B7D6B" stroke-width="1.5"/>
+  </g>
+
+  <!-- Printer element - side view suggestion -->
+  <g opacity="0.5" transform="translate(800, 300)">
+    <!-- Printer head -->
+    <rect x="0" y="-20" width="80" height="40" fill="none" stroke="#B8956A" stroke-width="3" rx="4"/>
+    <!-- Nozzles -->
+    <circle cx="15" cy="0" r="3" fill="#C4A265"/>
+    <circle cx="35" cy="0" r="3" fill="#C4A265"/>
+    <circle cx="55" cy="0" r="3" fill="#C4A265"/>
+    <circle cx="75" cy="0" r="3" fill="#C4A265"/>
+  </g>
+
+  <!-- Emission lines from printer toward bottle - the personalization moment -->
+  <path d="M 790 300 Q 720 300 650 350" fill="none" stroke="#C4A265" stroke-width="3" opacity="0.35" stroke-linecap="round"/>
+  <path d="M 790 310 Q 720 310 650 360" fill="none" stroke="#B8956A" stroke-width="2.5" opacity="0.3" stroke-linecap="round"/>
+  <path d="M 790 320 Q 720 320 650 370" fill="none" stroke="#C4A265" stroke-width="2" opacity="0.25" stroke-linecap="round"/>
+
+  <!-- Bottom decorative element - moment of creation -->
+  <circle cx="600" cy="530" r="30" fill="none" stroke="#C4A265" stroke-width="2" opacity="0.25"/>
+  <circle cx="600" cy="530" r="40" fill="none" stroke="#B8956A" stroke-width="1.5" opacity="0.15"/>
+</svg>

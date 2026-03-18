@@ -2,6 +2,7 @@ import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, 
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Heart, TrendingUp, Gift, Users, MessageCircle, Target } from "lucide-react";
+import clientCultureImg from "@/assets/academy/client-culture.svg";
 
 const ModuleClientCulture = () => {
   const { language } = useLanguage();
@@ -77,7 +78,7 @@ const ModuleClientCulture = () => {
       moduleNumber={13}
       title={isEN ? "Client Culture" : "Cultura de Cliente"}
       subtitle={isEN ? "Build relationships that turn buyers into advocates." : "Constrói relacionamentos que transformam compradores em embaixadores."}
-      heroImage="/placeholder.svg"
+      heroImage={clientCultureImg}
     >
       <ContentBlock title={isEN ? "Beyond the Transaction" : "Além da Transação"}>
         <p>{isEN

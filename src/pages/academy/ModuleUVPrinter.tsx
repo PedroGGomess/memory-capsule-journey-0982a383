@@ -2,6 +2,7 @@ import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, 
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Printer, Zap } from "lucide-react";
+import uvPrinterImg from "@/assets/academy/uv-printer.svg";
 
 const ModuleUVPrinter = () => {
   const { language } = useLanguage();
@@ -51,7 +52,7 @@ const ModuleUVPrinter = () => {
       moduleNumber={17}
       title={isEN ? "UV Personalization Technology" : "Impressora UV"}
       subtitle={isEN ? "Transform a product into a personal memory. Master the technology, perfect the ceremony." : "Transforma um produto numa memória pessoal. Domina a tecnologia, perfecciona a cerimónia."}
-      heroImage="/placeholder.svg"
+      heroImage={uvPrinterImg}
     >
       <ContentBlock title={isEN ? "What is UV Personalization?" : "O que é Personalização UV?"}>
         <p>{isEN

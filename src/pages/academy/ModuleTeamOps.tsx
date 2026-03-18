@@ -1,7 +1,7 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
-import storeImg from "@/assets/store-interior.jpg";
+import teamOpsImg from "@/assets/academy/team-ops.svg";
 import { Clock, Users, Target, Zap, MessageCircle, TrendingUp, CheckSquare, Lightbulb } from "lucide-react";
 
 const ModuleTeamOps = () => {
@@ -14,7 +14,7 @@ const ModuleTeamOps = () => {
       moduleNumber={22}
       title={isEN ? "Team Operations & Performance" : "Operações de Equipa e Desempenho"}
       subtitle={isEN ? "Master shift coordination, coaching and KPI management to drive team excellence." : "Domina coordenação de turnos, coaching e gestão de KPIs para impulsionar excelência de equipa."}
-      heroImage={storeImg}
+      heroImage={teamOpsImg}
     >
       <ContentBlock title={isEN ? "Your Role as Team Leader" : "O Teu Papel como Team Leader"}>
         <p>
