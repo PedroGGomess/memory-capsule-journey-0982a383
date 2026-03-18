@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export interface GymUser {
   id: string;
@@ -54,12 +55,63 @@ const GymAccessContext = createContext<GymAccessContextType | null>(null);
 const USERS_KEY = "gym-users";
 const LOGS_KEY = "gym-access-logs";
 const QUESTIONS_KEY = "the100s-questions";
+const SYNC_COMPLETE_KEY = "gym-users-synced-to-supabase";
 
 function generateCode(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   const segment = (len: number) =>
     Array.from({ length: len }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
   return `${segment(3)}-${segment(4)}-${segment(4)}`;
+}
+
+// Sync a gym user to Supabase academy_employees table
+async function syncUserToSupabase(user: GymUser, action: "insert" | "update" | "delete") {
+  try {
+    if (action === "insert" && user.academyCode) {
+      const { error } = await supabase.from("academy_employees").insert({
+        name: user.name,
+        email: user.email,
+        access_code: user.academyCode,
+        role: user.role || "store-employee",
+        is_active: user.active,
+      });
+      if (error) console.error("Supabase insert error:", error);
+    } else if (action === "update" && user.academyCode) {
+      const { error } = await supabase
+        .from("academy_employees")
+        .update({
+          name: user.name,
+          email: user.email,
+          role: user.role || "store-employee",
+          is_active: user.active,
+        })
+        .eq("access_code", user.academyCode);
+      if (error) console.error("Supabase update error:", error);
+    } else if (action === "delete" && user.academyCode) {
+      const { error } = await supabase
+        .from("academy_employees")
+        .delete()
+        .eq("access_code", user.academyCode);
+      if (error) console.error("Supabase delete error:", error);
+    }
+  } catch (err) {
+    console.error("Error syncing to Supabase:", err);
+  }
+}
+
+// One-time migration: sync all existing localStorage users to Supabase
+async function migrateExistingUsersToSupabase(users: GymUser[]) {
+  if (localStorage.getItem(SYNC_COMPLETE_KEY)) {
+    return; // Already migrated
+  }
+
+  for (const user of users) {
+    if (user.academyCode) {
+      await syncUserToSupabase(user, "insert");
+    }
+  }
+
+  localStorage.setItem(SYNC_COMPLETE_KEY, "true");
 }
 
 export function GymAccessProvider({ children }: { children: ReactNode }) {
@@ -90,6 +142,11 @@ export function GymAccessProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(QUESTIONS_KEY, JSON.stringify(questions));
   }, [questions]);
 
+  // One-time migration on mount
+  useEffect(() => {
+    migrateExistingUsersToSupabase(users);
+  }, []);
+
   const generateAccessCode = (): string => {
     let code: string;
     const existingCodes = users.map((u) => u.accessCode);
@@ -118,29 +175,48 @@ export function GymAccessProvider({ children }: { children: ReactNode }) {
       createdAt: new Date().toISOString(),
     };
     setUsers((prev) => [...prev, newUser]);
+    // Sync to Supabase if academyCode is present
+    if (newUser.academyCode) {
+      syncUserToSupabase(newUser, "insert");
+    }
     return newUser;
   };
 
   const updateUser = (id: string, data: Partial<Omit<GymUser, "id" | "createdAt">>): boolean => {
     let found = false;
+    let updatedUser: GymUser | null = null;
     setUsers((prev) =>
       prev.map((u) => {
         if (u.id === id) {
           found = true;
-          return { ...u, ...data };
+          updatedUser = { ...u, ...data };
+          return updatedUser;
         }
         return u;
       })
     );
+    // Sync to Supabase if academyCode is present
+    if (found && updatedUser && updatedUser.academyCode) {
+      syncUserToSupabase(updatedUser, "update");
+    }
     return found;
   };
 
   const deleteUser = (id: string): boolean => {
     let found = false;
+    let deletedUser: GymUser | null = null;
     setUsers((prev) => prev.filter((u) => {
-      if (u.id === id) { found = true; return false; }
+      if (u.id === id) {
+        found = true;
+        deletedUser = u;
+        return false;
+      }
       return true;
     }));
+    // Sync to Supabase if academyCode is present
+    if (found && deletedUser && deletedUser.academyCode) {
+      syncUserToSupabase(deletedUser, "delete");
+    }
     return found;
   };
 
