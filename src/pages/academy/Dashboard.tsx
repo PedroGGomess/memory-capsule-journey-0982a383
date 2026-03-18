@@ -5,11 +5,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { getRoleLabel } from "@/config/roles";
 import { useRef } from "react";
 import logoImg from "@/assets/Logo.png";
-import welcomeVideo from "@/assets/welcome-video.mp4";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
   Users, Sparkles, FolderOpen, Award, ArrowRight, Check, Bot, BarChart3,
-  ChevronRight, Gem, BookMarked, Target, Image
+  ChevronRight, Gem, BookMarked, Target, Image, Heart, Shield, Plane, Languages, Monitor, Printer, Lock
 } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -40,23 +39,25 @@ const ALL_MODULES = [
   { id: "glossary", num: 10, icon: BookMarked, navKey: "glossary" as const },
   { id: "cross-selling", num: 11, icon: Target, navKey: "crossSelling" as const },
   { id: "visual-merchandising", num: 12, icon: Image, navKey: "visualMerchandising" as const },
-  { id: "certification", num: 13, icon: Award, navKey: "certification" as const },
+  { id: "client-profiles", num: 13, icon: Users, navKey: "clientProfiles" as const },
+  { id: "client-culture", num: 14, icon: Heart, navKey: "clientCulture" as const },
+  { id: "conduct", num: 15, icon: Shield, navKey: "conduct" as const },
+  { id: "transport-rules", num: 16, icon: Plane, navKey: "transportRules" as const },
+  { id: "vocabulary", num: 17, icon: Languages, navKey: "vocabulary" as const },
+  { id: "digital-systems", num: 18, icon: Monitor, navKey: "digitalSystems" as const },
+  { id: "uv-printer", num: 19, icon: Printer, navKey: "uvPrinter" as const },
+  { id: "certification", num: 20, icon: Award, navKey: "certification" as const },
 ];
 
 const Dashboard = () => {
-  const { getCompletionPercentage, isModuleCompleted, completedModules, totalModules, allowedModules, userRole } = useProgress();
+  const { getCompletionPercentage, isModuleCompleted, completedModules, totalModules, allowedModules, userRole, progress } = useProgress();
   const { t, language } = useLanguage();
   const pct = getCompletionPercentage();
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.97]);
 
   const modules = ALL_MODULES
     .filter((m) => allowedModules.includes(m.id))
-    .map((m, i) => ({
+    .map((m) => ({
       ...m,
-      num: i + 1,
       title: t.academy.nav[m.navKey] || m.id,
       path: m.id === "certification" ? "/academy/module/certification" : `/academy/module/${m.id}`,
     }));
@@ -70,74 +71,86 @@ const Dashboard = () => {
   const nextModule = modules.find((m) => !isModuleCompleted(m.id));
   const roleLabel = getRoleLabel(userRole, language as "pt" | "en");
 
+  // Separate certification module from others
+  const regularModules = modules.filter((m) => m.id !== "certification");
+  const certificationModule = modules.find((m) => m.id === "certification");
+
+  // Calculate evaluation stats
+  const modulesWithScores = regularModules.filter((m) => progress[m.id]?.quizScore !== undefined);
+  const modulesPassed = modulesWithScores.filter((m) => (progress[m.id]?.quizScore || 0) >= 80).length;
+  const averageScore = modulesWithScores.length > 0
+    ? Math.round(modulesWithScores.reduce((sum, m) => sum + (progress[m.id]?.quizScore || 0), 0) / modulesWithScores.length)
+    : 0;
+
+  // Helper to get score color
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return "text-green-600";
+    if (score >= 60) return "text-yellow-600";
+    return "text-red-600";
+  };
+
+  const getScoreBgColor = (score: number) => {
+    if (score >= 80) return "bg-green-50";
+    if (score >= 60) return "bg-yellow-50";
+    return "bg-red-50";
+  };
+
   return (
     <motion.div
-      className="min-h-screen"
+      className="min-h-screen bg-gradient-to-b from-background via-background to-background"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      {/* ── Elegant Hero with Video ── */}
+      {/* ── Hero/Welcome Section ── */}
       <motion.section
-        ref={heroRef}
         variants={itemVariants}
-        style={{ opacity: heroOpacity, scale: heroScale }}
-        className="relative overflow-hidden"
+        className="relative overflow-hidden py-16 md:py-24 px-6 md:px-12 lg:px-16"
       >
-        <div className="relative w-full" style={{ paddingTop: "45%" }}>
-          <video
-            src={welcomeVideo}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-15"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/15 via-transparent to-background/15" />
-          
-          <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col items-center text-center">
             <motion.div
               initial={{ scale: 0.7, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.8, type: "spring", stiffness: 80 }}
-              className="mb-5"
+              transition={{ delay: 0.2, duration: 0.8, type: "spring", stiffness: 80 }}
+              className="mb-6"
             >
-              <div className="relative">
-                <img src={logoImg} alt="The 100's" className="w-20 h-20 object-contain" />
-              </div>
+              <img src={logoImg} alt="The 100's" className="w-16 h-16 object-contain" />
             </motion.div>
 
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6, ease }}
-              className="text-[10px] tracking-[0.6em] uppercase text-primary/70 mb-3"
+              transition={{ delay: 0.3, duration: 0.6, ease }}
+              className="text-[10px] tracking-[0.6em] uppercase text-primary/60 mb-3"
             >
               {t.academy.dashboard.welcomeTo}
             </motion.p>
+
             <motion.h1
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.7, ease }}
-              className="text-4xl md:text-6xl font-light text-gold-gradient mb-3 leading-tight text-center"
+              transition={{ delay: 0.4, duration: 0.7, ease }}
+              className="text-3xl md:text-5xl font-light text-gold-gradient mb-4 leading-tight"
             >
               {t.academy.dashboard.title}
             </motion.h1>
+
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="text-sm md:text-base text-foreground/50 font-light max-w-md leading-relaxed text-center"
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="text-sm md:text-base text-foreground/50 font-light max-w-xl leading-relaxed"
             >
               {t.academy.dashboard.subtitle}
             </motion.p>
+
             {userRole && (
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1, duration: 0.6 }}
-                className="mt-4 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20"
+                transition={{ delay: 0.6, duration: 0.6 }}
+                className="mt-6 px-4 py-1.5 rounded-full bg-primary/8 border border-primary/25"
               >
                 <span className="text-[10px] tracking-[0.25em] uppercase text-primary/70">{roleLabel}</span>
               </motion.div>
@@ -147,156 +160,278 @@ const Dashboard = () => {
       </motion.section>
 
       <div className="px-6 md:px-12 lg:px-16 max-w-5xl mx-auto pb-24">
-        {/* ── Progress Section ── */}
-        <motion.section variants={itemVariants} className="py-12">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="space-y-2">
-              <p className="text-[10px] tracking-[0.4em] uppercase text-muted-foreground/35">
-                {t.academy.dashboard.progressLabel}
-              </p>
-              {nextModule && pct < 100 ? (
-                <p className="text-sm text-muted-foreground/50 font-light">
-                  {t.academy.dashboard.nextLabel}{" "}
-                  <span className="text-foreground/70">{nextModule.title}</span>
+        {/* ── Progress Overview ── */}
+        <motion.section variants={itemVariants} className="mb-16">
+          <div className="bg-card border border-border/30 rounded-lg p-8 shadow-sm">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-8">
+              <div className="space-y-1 flex-1">
+                <p className="text-[9px] tracking-[0.4em] uppercase text-muted-foreground/50">
+                  {t.academy.dashboard.progressLabel}
                 </p>
-              ) : pct === 100 ? (
-                <div className="flex items-center gap-2 text-primary/70">
-                  <Gem className="w-4 h-4" />
-                  <p className="text-sm font-light">{t.academy.dashboard.onboardingComplete}</p>
-                </div>
-              ) : null}
-            </div>
-            <div className="flex items-end gap-1.5">
-              <span className="text-5xl md:text-6xl font-extralight text-gold-gradient leading-none">{pct}</span>
-              <span className="text-lg text-muted-foreground/30 font-light mb-1">%</span>
-            </div>
-          </div>
+                {nextModule && pct < 100 ? (
+                  <p className="text-sm text-foreground/60 font-light">
+                    {t.academy.dashboard.nextLabel} <span className="text-foreground/80 font-normal">{nextModule.title}</span>
+                  </p>
+                ) : pct === 100 ? (
+                  <div className="flex items-center gap-2 text-primary/80">
+                    <Gem className="w-4 h-4" />
+                    <p className="text-sm font-light">{t.academy.dashboard.onboardingComplete}</p>
+                  </div>
+                ) : null}
+              </div>
 
-          <div className="mt-6 relative">
-            <div className="h-[2px] w-full bg-border/15 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-gradient-to-r from-primary/80 via-primary to-primary/60 rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${pct}%` }}
-                transition={{ delay: 0.5, duration: 1.2, ease }}
-              />
+              <div className="flex items-end gap-2">
+                <span className="text-5xl md:text-6xl font-extralight text-gold-gradient leading-none">{pct}</span>
+                <span className="text-base text-muted-foreground/40 font-light mb-2">%</span>
+              </div>
             </div>
-            {pct > 0 && (
-              <motion.div
-                className="absolute top-0 h-[2px] bg-primary/30 blur-sm rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${pct}%` }}
-                transition={{ delay: 0.5, duration: 1.2, ease }}
-              />
-            )}
-          </div>
 
-          <div className="mt-3 flex items-center justify-between">
-            <p className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/25">
-              {completedModules} / {totalModules} {t.academy.dashboard.moduleLabel}s
-            </p>
-            {nextModule && pct < 100 && (
-              <Link to={nextModule.path}>
-                <motion.span
-                  className="group inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] uppercase text-primary/50 hover:text-primary transition-colors duration-300"
-                  whileHover={{ x: 2 }}
-                >
-                  {t.academy.dashboard.continueLabel}
-                  <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-300" />
-                </motion.span>
-              </Link>
-            )}
+            {/* Progress Bar */}
+            <div className="space-y-3">
+              <div className="h-1.5 w-full bg-border/20 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-primary/70 via-primary to-primary/60 rounded-full"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${pct}%` }}
+                  transition={{ delay: 0.5, duration: 1.2, ease }}
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <p className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/40">
+                  {completedModules} / {totalModules} {t.academy.dashboard.moduleLabel.toLowerCase()}s
+                </p>
+              </div>
+            </div>
           </div>
         </motion.section>
 
-        <div className="h-px bg-gradient-to-r from-transparent via-border/20 to-transparent" />
-
         {/* ── Module Grid ── */}
-        <motion.section variants={itemVariants} className="py-12">
-          <p className="text-[9px] tracking-[0.5em] uppercase text-muted-foreground/25 mb-8 text-center">
-            {t.academy.dashboard.moduleLabel}s
-          </p>
+        <motion.section variants={itemVariants} className="mb-16">
+          <div className="mb-8">
+            <h2 className="text-[9px] tracking-[0.5em] uppercase text-muted-foreground/50 text-center">
+              {t.academy.dashboard.moduleLabel.toLowerCase()}s
+            </h2>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {modules.map((m) => {
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {regularModules.map((m) => {
               const done = isModuleCompleted(m.id);
               const isNext = nextModule?.id === m.id;
+              const score = progress[m.id]?.quizScore;
+
               return (
                 <motion.div key={m.id} variants={itemVariants}>
                   <Link to={m.path}>
                     <motion.div
-                      className={`group relative bg-card border border-border/30 p-6 md:p-7 flex flex-col gap-4 transition-all duration-500 h-full ${
+                      className={`group relative bg-card border border-border/30 rounded-lg p-6 flex flex-col gap-4 transition-all duration-500 h-full hover:border-primary/40 ${
                         isNext ? "border-primary/35 bg-primary/4" : ""
                       }`}
-                      whileHover={{ borderColor: "hsl(32 35% 56% / 0.35)", boxShadow: "0 4px 12px rgba(50, 35, 20, 0.04)" }}
-                      transition={{ duration: 0.4 }}
+                      whileHover={{ y: -2, boxShadow: "0 8px 16px rgba(50, 35, 20, 0.06)" }}
+                      transition={{ duration: 0.3 }}
                     >
-                      <div className="flex items-center justify-between">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${
-                          done
-                            ? "bg-primary/10 border border-primary/30"
-                            : "bg-muted border border-border/40 group-hover:bg-primary/8 group-hover:border-primary/20"
-                        }`}>
-                          {done ? (
-                            <Check className="w-4 h-4 text-primary" />
-                          ) : (
-                            <m.icon className="w-4 h-4 text-muted-foreground/50 group-hover:text-primary transition-colors" />
-                          )}
+                      {/* Module Number Badge */}
+                      <div className="flex items-start justify-between">
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/10 border border-primary/25 flex-shrink-0">
+                          <span className="text-[10px] font-medium text-primary">{String(m.num).padStart(2, "0")}</span>
                         </div>
-                        <span className="text-[9px] tracking-[0.1em] text-muted-foreground/20 font-light">
-                          {String(m.num).padStart(2, "0")}
-                        </span>
+                        {done && (
+                          <div className="text-primary/60">
+                            <Check className="w-4 h-4" />
+                          </div>
+                        )}
                       </div>
 
+                      {/* Icon */}
+                      <div className="flex justify-center py-2">
+                        <m.icon className={`w-6 h-6 transition-colors duration-300 ${
+                          done ? "text-primary/70" : "text-muted-foreground/50 group-hover:text-primary"
+                        }`} />
+                      </div>
+
+                      {/* Title */}
                       <div className="flex-1">
-                        <h3 className={`text-sm font-light leading-snug transition-colors duration-300 ${
-                          done ? "text-foreground" : "text-foreground/70 group-hover:text-foreground/85"
+                        <h3 className={`text-sm font-light text-center leading-snug transition-colors duration-300 ${
+                          done ? "text-foreground" : "text-foreground/70 group-hover:text-foreground"
                         }`}>
                           {m.title}
                         </h3>
                       </div>
 
-                      <div className="flex items-center justify-between">
+                      {/* Status Indicator */}
+                      <div className="text-center">
                         {done ? (
-                          <span className="text-[9px] tracking-[0.15em] uppercase text-primary/40">Concluído</span>
+                          score !== undefined ? (
+                            <span className={`text-[10px] font-medium tracking-[0.1em] ${getScoreColor(score)}`}>
+                              {score}%
+                            </span>
+                          ) : (
+                            <span className="text-[10px] tracking-[0.1em] uppercase text-primary/60 font-light">
+                              ✓ {t.academy.dashboard.completed.toLowerCase()}
+                            </span>
+                          )
                         ) : isNext ? (
-                          <span className="text-[9px] tracking-[0.15em] uppercase text-primary/50">Próximo</span>
+                          <span className="text-[9px] tracking-[0.15em] uppercase text-primary/60 font-light">
+                            {language === "pt" ? "Próximo" : "Next"}
+                          </span>
                         ) : (
-                          <span className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/20">—</span>
+                          <span className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/30">—</span>
                         )}
-                        <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/10 group-hover:text-primary/40 group-hover:translate-x-0.5 transition-all duration-300" />
                       </div>
                     </motion.div>
                   </Link>
                 </motion.div>
               );
             })}
+
+            {/* Certification Card - Always Last and Special */}
+            {certificationModule && (
+              <motion.div key="cert" variants={itemVariants}>
+                <Link to={certificationModule.path}>
+                  <motion.div
+                    className={`group relative bg-card border-2 border-primary/30 rounded-lg p-6 flex flex-col gap-4 transition-all duration-500 h-full ${
+                      pct === 100 ? "hover:border-primary/60" : "opacity-60 cursor-not-allowed"
+                    }`}
+                    whileHover={pct === 100 ? { y: -2, boxShadow: "0 8px 16px rgba(50, 35, 20, 0.08)" } : {}}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {/* Module Number Badge */}
+                    <div className="flex items-start justify-between">
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/15 border border-primary/30 flex-shrink-0">
+                        <span className="text-[10px] font-medium text-primary">{String(certificationModule.num).padStart(2, "0")}</span>
+                      </div>
+                      {pct === 100 ? (
+                        <div className="text-primary/70">
+                          <Check className="w-4 h-4" />
+                        </div>
+                      ) : (
+                        <Lock className="w-4 h-4 text-muted-foreground/40" />
+                      )}
+                    </div>
+
+                    {/* Icon */}
+                    <div className="flex justify-center py-2">
+                      <certificationModule.icon className={`w-6 h-6 transition-colors duration-300 ${
+                        pct === 100 ? "text-primary/70" : "text-muted-foreground/30"
+                      }`} />
+                    </div>
+
+                    {/* Title */}
+                    <div className="flex-1">
+                      <h3 className={`text-sm font-light text-center leading-snug transition-colors duration-300 ${
+                        pct === 100 ? "text-foreground" : "text-foreground/50"
+                      }`}>
+                        {certificationModule.title}
+                      </h3>
+                    </div>
+
+                    {/* Status Indicator */}
+                    <div className="text-center">
+                      {pct === 100 ? (
+                        <span className="text-[10px] tracking-[0.1em] uppercase text-primary/60 font-light">
+                          {language === "pt" ? "Desbloqueado" : "Unlocked"}
+                        </span>
+                      ) : (
+                        <span className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/30">{language === "pt" ? "Bloqueado" : "Locked"}</span>
+                      )}
+                    </div>
+                  </motion.div>
+                </Link>
+              </motion.div>
+            )}
           </div>
         </motion.section>
 
-        <div className="h-px bg-gradient-to-r from-transparent via-border/20 to-transparent" />
+        {/* ── Evaluations Section ── */}
+        <motion.section variants={itemVariants} className="mb-16">
+          <div className="bg-card border border-border/30 rounded-lg p-8 shadow-sm">
+            <h2 className="text-lg font-light text-foreground mb-8 flex items-center gap-3">
+              <div className="w-1 h-6 bg-primary/60 rounded-full" />
+              {t.academy.dashboard.evaluationsTitle}
+            </h2>
 
-        {/* ── Tools ── */}
-        <motion.section variants={itemVariants} className="py-12">
-          <p className="text-[9px] tracking-[0.5em] uppercase text-muted-foreground/25 mb-6 text-center">
-            Ferramentas
-          </p>
+            {modulesWithScores.length > 0 ? (
+              <div className="space-y-6">
+                {/* Summary Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                  <div className="bg-background/30 rounded-lg p-4">
+                    <p className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/60 mb-2">
+                      {t.academy.dashboard.averageScore}
+                    </p>
+                    <p className="text-3xl font-light text-gold-gradient">{averageScore}%</p>
+                  </div>
+                  <div className="bg-background/30 rounded-lg p-4">
+                    <p className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/60 mb-2">
+                      {t.academy.dashboard.modulesPassed}
+                    </p>
+                    <p className="text-3xl font-light text-foreground/70">{modulesPassed}/{modulesWithScores.length}</p>
+                  </div>
+                  <div className="bg-background/30 rounded-lg p-4">
+                    <p className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/60 mb-2">
+                      {language === "pt" ? "Taxa de Aprovação" : "Pass Rate"}
+                    </p>
+                    <p className="text-3xl font-light text-foreground/70">
+                      {modulesWithScores.length > 0 ? Math.round((modulesPassed / modulesWithScores.length) * 100) : 0}%
+                    </p>
+                  </div>
+                </div>
 
-          <div className="space-y-[1px]">
-            {tools.map((tool) => (
+                {/* Scores List */}
+                <div className="space-y-3">
+                  <p className="text-[9px] tracking-[0.3em] uppercase text-muted-foreground/50 mb-4">
+                    {language === "pt" ? "Detalhes por módulo" : "Module details"}
+                  </p>
+                  {modulesWithScores.map((m) => {
+                    const score = progress[m.id]?.quizScore || 0;
+                    const isPassed = score >= 80;
+                    return (
+                      <div key={m.id} className={`flex items-center justify-between p-4 rounded-lg ${getScoreBgColor(score)} transition-colors duration-300`}>
+                        <div className="flex items-center gap-3 flex-1">
+                          <span className="text-[10px] font-medium text-muted-foreground/70 w-6 text-center">{m.num.toString().padStart(2, "0")}</span>
+                          <span className="text-sm font-light text-foreground/80 flex-1">{m.title}</span>
+                        </div>
+                        <span className={`text-sm font-medium ${getScoreColor(score)}`}>
+                          {score}% {isPassed ? "✓" : ""}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-sm text-foreground/60 font-light">
+                  {t.academy.dashboard.completionMessage}
+                </p>
+              </div>
+            )}
+          </div>
+        </motion.section>
+
+        {/* ── Tools Section ── */}
+        <motion.section variants={itemVariants} className="mb-16">
+          <div className="mb-8">
+            <h2 className="text-[9px] tracking-[0.5em] uppercase text-muted-foreground/50 text-center">
+              {language === "pt" ? "ferramentas" : "tools"}
+            </h2>
+          </div>
+
+          <div className="bg-card border border-border/30 rounded-lg overflow-hidden">
+            {tools.map((tool, idx) => (
               <Link key={tool.id} to={tool.path}>
                 <motion.div
-                  className="group flex items-center gap-4 py-4 px-2 hover:bg-primary/[0.02] transition-all duration-500"
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.3, ease }}
+                  className={`group flex items-center gap-4 px-6 py-5 hover:bg-primary/4 transition-all duration-300 ${
+                    idx !== tools.length - 1 ? "border-b border-border/20" : ""
+                  }`}
+                  whileHover={{ x: 2 }}
                 >
-                  <div className="w-9 h-9 rounded-full bg-muted/20 flex items-center justify-center group-hover:bg-muted/40 transition-colors duration-300">
-                    <tool.icon className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground/60 transition-colors" />
+                  <div className="w-10 h-10 rounded-full bg-muted/30 flex items-center justify-center group-hover:bg-primary/15 transition-colors duration-300">
+                    <tool.icon className="w-4 h-4 text-muted-foreground/50 group-hover:text-primary transition-colors" />
                   </div>
-                  <span className="text-sm font-light text-foreground/50 group-hover:text-foreground/70 transition-colors duration-300 flex-1">
+                  <span className="text-sm font-light text-foreground/60 group-hover:text-foreground/80 transition-colors duration-300 flex-1">
                     {tool.title}
                   </span>
-                  <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/10 group-hover:text-primary/40 transition-all duration-300" />
+                  <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/20 group-hover:text-primary/60 transition-all duration-300" />
                 </motion.div>
               </Link>
             ))}
@@ -304,17 +439,17 @@ const Dashboard = () => {
         </motion.section>
 
         {/* ── Quote ── */}
-        <motion.section variants={itemVariants} className="pt-12 pb-8">
+        <motion.section variants={itemVariants} className="py-12">
           <div className="text-center">
             <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="h-px w-16 bg-gradient-to-r from-transparent to-primary/15" />
-              <div className="w-1.5 h-1.5 rounded-full bg-primary/15" />
-              <div className="h-px w-16 bg-gradient-to-l from-transparent to-primary/15" />
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/20" />
+              <div className="w-1.5 h-1.5 rounded-full bg-primary/20" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/20" />
             </div>
-            <p className="text-xl md:text-2xl font-extralight text-foreground/20 italic max-w-lg mx-auto leading-relaxed tracking-wide">
+            <p className="text-lg md:text-xl font-light text-foreground/40 italic max-w-lg mx-auto leading-relaxed tracking-wide">
               {t.academy.dashboard.quote}
             </p>
-            <p className="text-[8px] tracking-[0.5em] uppercase text-muted-foreground/15 mt-6">
+            <p className="text-[8px] tracking-[0.5em] uppercase text-muted-foreground/25 mt-6">
               The 100's
             </p>
           </div>

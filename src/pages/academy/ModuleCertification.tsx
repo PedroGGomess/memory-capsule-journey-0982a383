@@ -410,8 +410,6 @@ const ModuleCertification = () => {
                       </p>
                     </div>
 
-                    </div>
-
                     <motion.button
                       onClick={handleClaim}
                       whileHover={{ scale: 1.02 }}
