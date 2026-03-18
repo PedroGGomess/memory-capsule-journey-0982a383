@@ -32,6 +32,13 @@ const ModuleAskTeam = lazy(() => import("./pages/academy/ModuleAskTeam"));
 const ModuleResources = lazy(() => import("./pages/academy/ModuleResources"));
 const ModuleCertification = lazy(() => import("./pages/academy/ModuleCertification"));
 const ModuleAIAssistant = lazy(() => import("./pages/academy/ModuleAIAssistant"));
+const ModuleClientProfiles = lazy(() => import("./pages/academy/ModuleClientProfiles"));
+const ModuleClientCulture = lazy(() => import("./pages/academy/ModuleClientCulture"));
+const ModuleConduct = lazy(() => import("./pages/academy/ModuleConduct"));
+const ModuleTransport = lazy(() => import("./pages/academy/ModuleTransport"));
+const ModuleDigitalSystems = lazy(() => import("./pages/academy/ModuleDigitalSystems"));
+const ModuleUVPrinter = lazy(() => import("./pages/academy/ModuleUVPrinter"));
+const ModuleVocabulary = lazy(() => import("./pages/academy/ModuleVocabulary"));
 const AcademyLogin = lazy(() => import("./pages/academy/AcademyLogin"));
 
 const AdminLogin = lazy(() => import("./pages/gym/AdminLogin"));
@@ -94,6 +101,13 @@ const App = () => (
                     <Route path="module/resources" element={<ModuleResources />} />
                     <Route path="module/certification" element={<ModuleCertification />} />
                     <Route path="module/ai-assistant" element={<ModuleAIAssistant />} />
+                    <Route path="module/client-profiles" element={<ModuleClientProfiles />} />
+                    <Route path="module/client-culture" element={<ModuleClientCulture />} />
+                    <Route path="module/conduct" element={<ModuleConduct />} />
+                    <Route path="module/transport-rules" element={<ModuleTransport />} />
+                    <Route path="module/digital-systems" element={<ModuleDigitalSystems />} />
+                    <Route path="module/uv-printer" element={<ModuleUVPrinter />} />
+                    <Route path="module/vocabulary" element={<ModuleVocabulary />} />
                   </Route>
 
                   {/* Public gym access terminal */}

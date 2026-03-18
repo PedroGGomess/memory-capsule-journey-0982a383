@@ -20,6 +20,8 @@ const ROLE_MODULES: Record<EmployeeRole, string[]> = {
     ...BASE_MODULES,
     "gift", "store", "customer-experience",
     "tasting-guide", "glossary", "cross-selling",
+    "client-profiles", "client-culture", "conduct", "transport-rules", "vocabulary",
+    "digital-systems", "uv-printer",
     "certification",
   ],
   "team-leader": [
@@ -27,6 +29,8 @@ const ROLE_MODULES: Record<EmployeeRole, string[]> = {
     "gift", "store", "customer-experience",
     "tasting-guide", "glossary", "cross-selling",
     "business-model", "visual-merchandising",
+    "client-profiles", "client-culture", "conduct", "transport-rules", "vocabulary",
+    "digital-systems", "uv-printer",
     "certification",
   ],
   "store-manager": [
@@ -34,16 +38,20 @@ const ROLE_MODULES: Record<EmployeeRole, string[]> = {
     "gift", "store", "customer-experience",
     "business-model", "tasting-guide", "glossary",
     "cross-selling", "visual-merchandising",
+    "client-profiles", "client-culture", "conduct", "transport-rules", "vocabulary",
+    "digital-systems", "uv-printer",
     "certification",
   ],
   "internal-it": [
     ...BASE_MODULES,
     "business-model",
+    "digital-systems",
     "certification",
   ],
   "hr": [
     ...BASE_MODULES,
     "customer-experience", "business-model",
+    "client-profiles", "client-culture", "conduct",
     "certification",
   ],
   "marketing": [
@@ -51,6 +59,7 @@ const ROLE_MODULES: Record<EmployeeRole, string[]> = {
     "gift", "customer-experience",
     "cross-selling", "visual-merchandising",
     "business-model",
+    "client-profiles", "client-culture", "vocabulary",
     "certification",
   ],
 };
@@ -62,6 +71,8 @@ export function getModulesForRole(role?: EmployeeRole | string): string[] {
       "story", "philosophy", "products", "gift", "store",
       "brand-voice", "customer-experience", "business-model",
       "tasting-guide", "glossary", "cross-selling", "visual-merchandising",
+      "client-profiles", "client-culture", "conduct", "transport-rules", "vocabulary",
+      "digital-systems", "uv-printer",
       "certification",
     ];
   }

@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/sidebar";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
-  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut, Home, BookMarked, Target, Image
+  Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut, Home, BookMarked, Target, Image,
+  Heart, Shield, Plane, Languages, Monitor, Printer
 } from "lucide-react";
 import logoImg from "@/assets/Logo.png";
 
@@ -27,6 +28,13 @@ const ALL_CORE_MODULES = [
   { id: "glossary", icon: BookMarked, navKey: "glossary" as const },
   { id: "cross-selling", icon: Target, navKey: "crossSelling" as const },
   { id: "visual-merchandising", icon: Image, navKey: "visualMerchandising" as const },
+  { id: "client-profiles", icon: Users, navKey: "clientProfiles" as const },
+  { id: "client-culture", icon: Heart, navKey: "clientCulture" as const },
+  { id: "conduct", icon: Shield, navKey: "conduct" as const },
+  { id: "transport-rules", icon: Plane, navKey: "transportRules" as const },
+  { id: "vocabulary", icon: Languages, navKey: "vocabulary" as const },
+  { id: "digital-systems", icon: Monitor, navKey: "digitalSystems" as const },
+  { id: "uv-printer", icon: Printer, navKey: "uvPrinter" as const },
   { id: "certification", icon: Award, navKey: "certification" as const },
 ];
 
