@@ -12,8 +12,14 @@ interface ProgressState {
   [moduleId: string]: ModuleProgress;
 }
 
+interface StreakData {
+  streakDays: number;
+  lastActivityDate: string | null;
+}
+
 interface ProgressContextType {
   progress: ProgressState;
+  streak: StreakData;
   completeModule: (moduleId: string) => void;
   setQuizScore: (moduleId: string, score: number) => void;
   getCompletionPercentage: () => number;
@@ -33,10 +39,16 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   const allowedModules = getModulesForRole(role);
 
   const progressKey = useRef(user ? `the100s-progress-${user.accessCode}` : "the100s-progress").current;
+  const streakKey = useRef(user ? `the100s-streak-${user.accessCode}` : "the100s-streak").current;
 
   const [progress, setProgress] = useState<ProgressState>(() => {
     const saved = localStorage.getItem(progressKey);
     return saved ? JSON.parse(saved) : {};
+  });
+
+  const [streak, setStreak] = useState<StreakData>(() => {
+    const saved = localStorage.getItem(streakKey);
+    return saved ? JSON.parse(saved) : { streakDays: 0, lastActivityDate: null };
   });
 
   const [isSyncing, setIsSyncing] = useState(false);
@@ -80,8 +92,10 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
           .eq("id", userId);
 
         localStorage.setItem(progressKey, JSON.stringify(progress));
+        localStorage.setItem(streakKey, JSON.stringify(streak));
       } catch {
         localStorage.setItem(progressKey, JSON.stringify(progress));
+        localStorage.setItem(streakKey, JSON.stringify(streak));
       } finally {
         setIsSyncing(false);
       }
@@ -89,13 +103,33 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
 
     const timer = setTimeout(saveToSupabase, 1000);
     return () => clearTimeout(timer);
-  }, [progress, userId, progressKey, isSyncing]);
+  }, [progress, streak, userId, progressKey, streakKey, isSyncing]);
+
+  const updateStreak = () => {
+    const today = new Date().toISOString().split("T")[0];
+    setStreak(prev => {
+      if (prev.lastActivityDate === today) {
+        return prev;
+      }
+
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toISOString().split("T")[0];
+
+      const isConsecutiveDay = prev.lastActivityDate === yesterdayStr;
+      return {
+        streakDays: isConsecutiveDay ? prev.streakDays + 1 : 1,
+        lastActivityDate: today
+      };
+    });
+  };
 
   const completeModule = (moduleId: string) => {
     setProgress(prev => ({
       ...prev,
       [moduleId]: { ...prev[moduleId], completed: true }
     }));
+    updateStreak();
   };
 
   const setQuizScore = (moduleId: string, score: number) => {
@@ -103,6 +137,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       ...prev,
       [moduleId]: { ...prev[moduleId], quizScore: score }
     }));
+    updateStreak();
   };
 
   const completedModules = allowedModules.filter(m => progress[m]?.completed).length;
@@ -113,7 +148,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
 
   return (
     <ProgressContext.Provider value={{
-      progress, completeModule, setQuizScore,
+      progress, streak, completeModule, setQuizScore,
       getCompletionPercentage, isModuleCompleted,
       totalModules: allowedModules.length, completedModules,
       userRole: role, allowedModules

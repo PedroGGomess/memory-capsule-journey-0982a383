@@ -1,6 +1,6 @@
-import { ReactNode, useState, useMemo } from "react";
+import { ReactNode, useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, CheckCircle2, XCircle, Trophy, Sparkles, Bookmark, PenTool } from "lucide-react";
+import { Check, ChevronDown, CheckCircle2, XCircle, Trophy, Sparkles, Bookmark, PenTool, Star } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useProgress } from "@/contexts/ProgressContext";
 import ScrollReveal from "./ScrollReveal";
@@ -23,7 +23,22 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
   const { completeModule, isModuleCompleted, totalModules } = useProgress();
   const { t, language } = useLanguage();
   const [showSuccess, setShowSuccess] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
   const completed = isModuleCompleted(moduleId);
+
+  const bookmarksKey = "the100s-bookmarks";
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem(bookmarksKey) || "[]");
+    setBookmarked(saved.includes(moduleId));
+  }, [moduleId]);
+
+  const toggleBookmark = () => {
+    const saved = JSON.parse(localStorage.getItem(bookmarksKey) || "[]");
+    const updated = bookmarked ? saved.filter((id: string) => id !== moduleId) : [...saved, moduleId];
+    localStorage.setItem(bookmarksKey, JSON.stringify(updated));
+    setBookmarked(!bookmarked);
+  };
 
   // Auto-determine next module if not provided
   const nextModule = useMemo(() => {
@@ -48,6 +63,17 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
       <div className="relative h-[50vh] flex items-end overflow-hidden border-b border-border">
         <img src={heroImage} alt={title} className="absolute inset-0 w-full h-full object-cover opacity-5" />
         <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
+        <button
+          onClick={toggleBookmark}
+          className="absolute top-6 right-6 z-20 p-3 rounded-full border border-primary/30 text-primary/60 hover:text-primary hover:border-primary transition-all duration-200"
+          title={language === "pt" ? (bookmarked ? "Remover marcador" : "Adicionar marcador") : (bookmarked ? "Remove bookmark" : "Add bookmark")}
+        >
+          {bookmarked ? (
+            <Star className="w-5 h-5 fill-primary text-primary" />
+          ) : (
+            <Star className="w-5 h-5" />
+          )}
+        </button>
         <div className="relative z-10 section-padding pb-12 w-full max-w-5xl mx-auto">
           <ScrollReveal>
             {moduleNumber && (

@@ -4,13 +4,46 @@ import { useProgress } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAcademyAuth } from "@/contexts/AcademyAuthContext";
 import { getRoleLabel } from "@/config/roles";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import logoImg from "@/assets/Logo.png";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
   Users, Sparkles, FolderOpen, Award, ArrowRight, Check, Bot, BarChart3,
-  ChevronRight, Gem, BookMarked, Target, Image, Heart, Shield, Plane, Languages, Monitor, Printer, Lock, Briefcase, ClipboardList
+  ChevronRight, Gem, BookMarked, Target, Image, Heart, Shield, Plane, Languages, Monitor, Printer, Lock, Briefcase, ClipboardList, Lightbulb, Flame, Star
 } from "lucide-react";
+
+const DAILY_TIPS = [
+  { pt: "Nunca digas 'posso ajudar?' — diz 'bem-vindo à nossa cápsula do tempo'.", en: "Never say 'can I help?' — say 'welcome to our time capsule'." },
+  { pt: "O upsell começa com uma história, não com um preço.", en: "Upselling starts with a story, not a price." },
+  { pt: "Cada garrafa de 100ml carrega 400 anos de história — lembra-te disso a cada venda.", en: "Every 100ml bottle carries 400 years of history — remember this with every sale." },
+  { pt: "O turista americano quer impacto. O europeu quer autenticidade. Adapta a tua abordagem.", en: "The American tourist wants impact. The European wants authenticity. Adapt your approach." },
+  { pt: "A personalização UV transforma uma compra numa memória — torna isto um momento especial.", en: "UV personalization transforms a purchase into a memory — make it a special moment." },
+  { pt: "O silêncio é uma ferramenta de venda. Deixa o produto falar.", en: "Silence is a sales tool. Let the product speak." },
+  { pt: "Quando um cliente hesita no preço, fala do tempo: 'Este Tawny envelheceu 30 anos para este momento.'", en: "When a client hesitates on price, talk about time: 'This Tawny aged 30 years for this moment.'" },
+  { pt: "Pergunta sempre: 'Para quem é este presente?' — abre a porta ao upsell.", en: "Always ask: 'Who is this gift for?' — it opens the door to upselling." },
+  { pt: "O conceito Second Life é o teu melhor argumento: 'Esta embalagem torna-se um objeto de decoração.'", en: "The Second Life concept is your best argument: 'This packaging becomes a décor piece.'" },
+  { pt: "Memoriza 3 palavras em cada idioma: 'obrigado', 'bem-vindo', 'memória'. Faz toda a diferença.", en: "Memorize 3 words in each language: 'thank you', 'welcome', 'memory'. It makes all the difference." },
+  { pt: "Não vendemos vinho. Vendemos tempo engarrafado.", en: "We don't sell wine. We sell bottled time." },
+  { pt: "Um sorriso vale mais que qualquer desconto.", en: "A smile is worth more than any discount." },
+  { pt: "O cruzeirista tem pouco tempo — apresenta 2-3 opções, não 10.", en: "The cruise passenger has little time — present 2-3 options, not 10." },
+  { pt: "Toca nos materiais quando apresentas: cortiça, cerâmica, madeira. O tato vende.", en: "Touch the materials when presenting: cork, ceramic, wood. Touch sells." },
+  { pt: "Oferece sempre uma prova. Mesmo quem 'só está a ver' pode comprar depois de provar.", en: "Always offer a tasting. Even someone 'just looking' may buy after tasting." },
+  { pt: "O packaging é 50% da venda. Apresenta o embrulho como uma cerimónia.", en: "Packaging is 50% of the sale. Present the wrapping as a ceremony." },
+  { pt: "Conhece os 5 pilares de cor: Descoberta, Tempo, Singularidade, Hedonismo, Memória.", en: "Know the 5 brand pillars: Discovery, Time, Singularity, Hedonism, Memory." },
+  { pt: "Pede reviews no Google Maps de forma natural: 'Partilhe a sua experiência com outros viajantes.'", en: "Ask for Google Maps reviews naturally: 'Share your experience with other travelers.'" },
+  { pt: "O Tax Free é um argumento forte para turistas fora da UE — menciona sempre.", en: "Tax Free is a strong argument for non-EU tourists — always mention it." },
+  { pt: "Regra dos 45°: os produtos devem estar sempre inclinados a 45° na montra.", en: "The 45° rule: products should always be angled at 45° in the display." },
+  { pt: "Aprende a ler o cliente em 30 segundos: postura, vestuário, companhia — isto diz tudo.", en: "Learn to read the customer in 30 seconds: posture, clothing, company — this tells all." },
+  { pt: "Raridade vende. 'Apenas 3 em stock' > 'em promoção'.", en: "Scarcity sells. 'Only 3 in stock' > 'on sale'." },
+  { pt: "A porta de vidro devem brilhar — é a primeira impressão.", en: "Glass doors should shine — it's the first impression." },
+  { pt: "O cliente que entra aos olhos do vendedor sente-se bem-vindo. Faz contacto visual.", en: "The customer who meets the seller's eyes feels welcomed. Make eye contact." },
+  { pt: "Nunca termines a conversa com 'desconto'. Termina com 'esta história'.", en: "Never end the conversation with 'discount'. End with 'this story'." },
+  { pt: "Se o cliente quer menos, oferece melhor. Não reduz valor, aumenta significado.", en: "If the customer wants less, offer better. Don't reduce value, increase meaning." },
+  { pt: "Um cliente feliz é um embaixador. Uma resenha no Google vale mais que publicidade.", en: "A happy customer is an ambassador. A Google review is worth more than advertising." },
+  { pt: "A personalização é um serviço premium — cobra por ela sem desculpas.", en: "Personalization is a premium service — charge for it without excuses." },
+  { pt: "Conta a história do vinho: origem, idade, mestre produtor. Isto é propriedade intelectual.", en: "Tell the story of the wine: origin, age, master producer. This is intellectual property." },
+  { pt: "Cada visitante é uma oportunidade. Sem pressa, sem pressão. Apenas presença.", en: "Every visitor is an opportunity. No rush, no pressure. Just presence." },
+];
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -52,11 +85,36 @@ const ALL_MODULES = [
   { id: "certification", num: 22, icon: Award, navKey: "certification" as const, category: "certification" },
 ];
 
+const getDailyTip = () => {
+  const today = new Date();
+  const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
+  return DAILY_TIPS[dayOfYear % DAILY_TIPS.length];
+};
+
 const Dashboard = () => {
-  const { getCompletionPercentage, isModuleCompleted, completedModules, totalModules, allowedModules, userRole, progress } = useProgress();
+  const { getCompletionPercentage, isModuleCompleted, completedModules, totalModules, allowedModules, userRole, progress, streak } = useProgress();
   const { t, language } = useLanguage();
   const { user } = useAcademyAuth();
   const pct = getCompletionPercentage();
+  const dailyTip = getDailyTip();
+
+  // Streak milestone message
+  const getStreakMessage = () => {
+    if (streak.streakDays === 0) return null;
+    if (streak.streakDays === 7) return language === "pt" ? "🎉 Uma semana completa!" : "🎉 One week complete!";
+    if (streak.streakDays === 14) return language === "pt" ? "🌟 Duas semanas seguidas!" : "🌟 Two weeks in a row!";
+    if (streak.streakDays === 30) return language === "pt" ? "👑 Um mês perfeito!" : "👑 A perfect month!";
+    return null;
+  };
+
+  // Get bookmarked modules
+  const [bookmarkedModuleIds, setBookmarkedModuleIds] = useState<string[]>([]);
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("the100s-bookmarks") || "[]");
+    setBookmarkedModuleIds(saved);
+  }, []);
+
+  const bookmarkedModules = modules.filter(m => bookmarkedModuleIds.includes(m.id));
 
   // Get motivational quote based on progress
   const getMotivationalQuote = () => {
@@ -239,6 +297,51 @@ const Dashboard = () => {
           </div>
         </motion.section>
 
+        {/* ── Daily Tip Card ── */}
+        <motion.section variants={itemVariants} className="mb-16">
+          <div className="border-l-4 border-l-primary/60 bg-card border border-border border-l-4 border-l-primary/60 p-8">
+            <div className="flex items-start gap-4">
+              <Lightbulb className="w-5 h-5 text-primary/70 shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p className="text-[10px] tracking-[0.3em] uppercase text-primary/60 mb-3 font-light">
+                  {language === "pt" ? "Dica do Dia" : "Tip of the Day"}
+                </p>
+                <p className="text-base text-foreground/80 font-light italic leading-relaxed">
+                  {language === "pt" ? dailyTip.pt : dailyTip.en}
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* ── Learning Streak ── */}
+        {streak.streakDays > 0 && (
+          <motion.section variants={itemVariants} className="mb-16">
+            <div className="bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 p-8">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <Flame className="w-6 h-6 text-primary" />
+                  <div>
+                    <p className="text-[10px] tracking-[0.3em] uppercase text-primary/60 mb-1 font-light">
+                      {language === "pt" ? "Sequência Ativa" : "Active Streak"}
+                    </p>
+                    <p className="text-3xl font-light text-primary">{streak.streakDays} {language === "pt" ? "dias consecutivos" : "consecutive days"}</p>
+                  </div>
+                </div>
+                {getStreakMessage() && (
+                  <motion.p
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-lg font-light text-primary"
+                  >
+                    {getStreakMessage()}
+                  </motion.p>
+                )}
+              </div>
+            </div>
+          </motion.section>
+        )}
+
         {/* ── Continue Where You Left Off ── */}
         {nextModule && pct < 100 && (
           <motion.section variants={itemVariants} className="mb-16">
@@ -292,6 +395,76 @@ const Dashboard = () => {
                   {language === "pt" ? "Iniciar →" : "Start →"}
                 </Link>
               )}
+            </div>
+          </motion.section>
+        )}
+
+        {/* ── Saved Modules (Bookmarks) ── */}
+        {bookmarkedModules.length > 0 && (
+          <motion.section variants={itemVariants} className="mb-16">
+            <div className="mb-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1 h-6 bg-gradient-to-b from-primary/60 to-primary/20 rounded-full" />
+                <h2 className="text-lg font-light text-foreground/90 tracking-wide">{language === "pt" ? "Guardados" : "Saved"}</h2>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
+                {bookmarkedModules.map((m) => {
+                  const done = isModuleCompleted(m.id);
+                  const score = progress[m.id]?.quizScore;
+
+                  return (
+                    <motion.div key={m.id} variants={itemVariants}>
+                      <Link to={m.path}>
+                        <motion.div
+                          className="group relative bg-card border border-primary/20 p-6 flex flex-col gap-4 transition-all duration-500 h-full hover:border-primary/40"
+                          whileHover={{ y: -2, boxShadow: "0 8px 16px rgba(50, 35, 20, 0.06)" }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/10 border border-primary/25 flex-shrink-0">
+                              <span className="text-[10px] font-medium text-primary">{String(m.num).padStart(2, "0")}</span>
+                            </div>
+                            <Star className="w-4 h-4 fill-primary/60 text-primary/60" />
+                          </div>
+
+                          <div className="flex justify-center py-2">
+                            <m.icon className={`w-6 h-6 transition-colors duration-300 ${
+                              done ? "text-primary/70" : "text-muted-foreground/50 group-hover:text-primary"
+                            }`} />
+                          </div>
+
+                          <div className="flex-1">
+                            <h3 className={`text-sm font-light text-center leading-snug transition-colors duration-300 ${
+                              done ? "text-foreground" : "text-foreground/70 group-hover:text-foreground"
+                            }`}>
+                              {m.title}
+                            </h3>
+                          </div>
+
+                          <div className="text-center">
+                            {done ? (
+                              score !== undefined ? (
+                                <span className={`text-[10px] font-medium tracking-[0.1em] ${
+                                  score >= 80 ? "text-green-400" : score >= 60 ? "text-yellow-400" : "text-red-400"
+                                }`}>
+                                  {score}%
+                                </span>
+                              ) : (
+                                <span className="text-[10px] tracking-[0.1em] uppercase text-primary/60 font-light">
+                                  ✓ {t.academy.dashboard.completed.toLowerCase()}
+                                </span>
+                              )
+                            ) : (
+                              <span className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/30">—</span>
+                            )}
+                          </div>
+                        </motion.div>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
           </motion.section>
         )}

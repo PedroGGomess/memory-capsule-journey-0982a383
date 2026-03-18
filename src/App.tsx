@@ -18,6 +18,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 
 const Dashboard = lazy(() => import("./pages/academy/Dashboard"));
 const Profile = lazy(() => import("./pages/academy/Profile"));
+const CheatSheet = lazy(() => import("./pages/academy/CheatSheet"));
 const ModuleStory = lazy(() => import("./pages/academy/ModuleStory"));
 const ModulePhilosophy = lazy(() => import("./pages/academy/ModulePhilosophy"));
 const ModuleProducts = lazy(() => import("./pages/academy/ModuleProducts"));
@@ -94,6 +95,7 @@ const App = () => (
                   >
                     <Route index element={<Dashboard />} />
                     <Route path="profile" element={<Profile />} />
+                    <Route path="cheat-sheet" element={<CheatSheet />} />
                     <Route path="module/story" element={<ModuleStory />} />
                     <Route path="module/philosophy" element={<ModulePhilosophy />} />
                     <Route path="module/products" element={<ModuleProducts />} />
