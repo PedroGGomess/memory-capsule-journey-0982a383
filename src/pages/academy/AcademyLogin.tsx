@@ -37,9 +37,12 @@ const AcademyLogin = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-6 relative overflow-hidden">
+      {/* Subtle paper texture background */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.015] mix-blend-overlay pointer-events-none" />
+
       {/* Minimal background effects */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-primary/[0.05] blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-primary/[0.03] blur-[120px]" />
       </div>
 
       <motion.div
@@ -107,11 +110,12 @@ const AcademyLogin = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.7, ease }}
         >
-          <div className="border border-border/30 bg-card p-10">
-            <p className="text-[9px] tracking-[0.4em] uppercase text-muted-foreground/30 text-center mb-8">
+          <div className="border border-border/30 bg-card p-10 relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+            <p className="text-[9px] tracking-[0.4em] uppercase text-muted-foreground/35 text-center mb-8">
               {t.academy.login.portalLabel}
             </p>
-            
+
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="space-y-4">
                 <label
@@ -129,7 +133,7 @@ const AcademyLogin = () => {
                     setError("");
                   }}
                   placeholder="· · · · · · · ·"
-                  className="font-mono tracking-[0.5em] text-center bg-background border-border/40 focus:border-primary/50 focus:bg-background text-foreground/80 placeholder:text-muted-foreground/30 h-14 text-lg transition-all duration-500"
+                  className="font-mono tracking-[0.5em] text-center bg-background border-border/40 focus:border-primary/40 focus:bg-background focus:ring-1 focus:ring-primary/15 text-foreground/80 placeholder:text-muted-foreground/30 h-14 text-lg transition-all duration-500"
                   autoComplete="off"
                   autoFocus
                 />
@@ -148,7 +152,7 @@ const AcademyLogin = () => {
               <Button
                 type="submit"
                 disabled={!code.trim()}
-                className="w-full border border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/40 tracking-[0.3em] uppercase text-[10px] font-light transition-all duration-500 h-14 disabled:opacity-30"
+                className="w-full border border-primary/30 bg-primary/3 text-primary hover:bg-primary/8 hover:border-primary/40 tracking-[0.3em] uppercase text-[10px] font-light transition-all duration-500 h-14 disabled:opacity-30"
               >
                 {t.academy.login.enterButton}
               </Button>

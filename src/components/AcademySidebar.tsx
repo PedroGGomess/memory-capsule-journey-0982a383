@@ -69,24 +69,24 @@ export function AcademySidebar() {
   const roleLabel = getRoleLabel(userRole, language as "pt" | "en");
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-border/20">
-      <SidebarContent className="bg-card pt-0">
-        {/* Brand Header */}
-        <div className="px-5 py-6 border-b border-border/15 relative overflow-hidden">
+    <Sidebar collapsible="icon" className="border-r border-sidebar-border/30 bg-sidebar">
+      <SidebarContent className="bg-sidebar pt-0">
+        {/* Brand Header - Clean, elegant */}
+        <div className="px-5 py-6 border-b border-sidebar-border/40 relative overflow-hidden">
           <div className="flex items-center gap-3 relative z-10">
             <div className="relative">
               <img src={logoImg} alt="The 100's" className="w-11 h-11 object-contain" />
             </div>
             {!collapsed && (
               <div>
-                <p className="text-base font-medium text-foreground tracking-wide">The 100's</p>
-                <p className="text-[9px] tracking-[0.35em] uppercase text-muted-foreground/50 mt-0.5">Academy</p>
+                <p className="text-base font-light text-sidebar-foreground tracking-widest">The 100's</p>
+                <p className="text-[9px] tracking-[0.35em] uppercase text-sidebar-foreground/50 mt-0.5">Academy</p>
               </div>
             )}
           </div>
           {!collapsed && userRole && (
             <div className="mt-3 relative z-10">
-              <span className="text-[9px] tracking-[0.2em] uppercase text-primary bg-primary/8 px-2.5 py-1 rounded-full border border-primary/20">
+              <span className="text-[9px] tracking-[0.2em] uppercase text-sidebar-primary bg-sidebar-primary/15 px-2.5 py-1 rounded-sm border border-sidebar-primary/30">
                 {roleLabel}
               </span>
             </div>
@@ -101,11 +101,11 @@ export function AcademySidebar() {
                 <NavLink
                   to="/academy"
                   end
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm font-light text-muted-foreground/60 hover:text-foreground rounded-md hover:bg-primary/8 transition-all duration-300 border-l-2 border-transparent"
-                  activeClassName="text-foreground bg-primary/8 border-l-2 border-primary"
+                  className="flex items-center gap-3 px-4 py-2.5 text-sm font-light text-sidebar-foreground/70 hover:text-sidebar-foreground rounded-sm hover:bg-sidebar-accent/30 transition-all duration-300 border-l-2 border-transparent"
+                  activeClassName="text-sidebar-primary bg-sidebar-accent/40 border-l-2 border-sidebar-primary"
                 >
                   <LayoutDashboard className="w-4 h-4 shrink-0" />
-                  {!collapsed && <span className="tracking-wide">Dashboard</span>}
+                  {!collapsed && <span className="tracking-wider">Dashboard</span>}
                 </NavLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -115,7 +115,7 @@ export function AcademySidebar() {
         {/* Core Modules */}
         <SidebarGroup className="px-2">
           {!collapsed && (
-            <SidebarGroupLabel className="text-[9px] tracking-[0.35em] uppercase text-muted-foreground/40 px-4 mb-1">
+            <SidebarGroupLabel className="text-[9px] tracking-[0.35em] uppercase text-sidebar-foreground/40 px-4 mb-1">
               {t.academy.layout.navigation}
             </SidebarGroupLabel>
           )}
@@ -129,15 +129,15 @@ export function AcademySidebar() {
                       <NavLink
                         to={item.url}
                         end
-                        className="group flex items-center gap-3 px-4 py-2 text-sm font-light text-muted-foreground/60 hover:text-foreground rounded-md hover:bg-primary/8 transition-all duration-300 border-l-2 border-transparent"
-                        activeClassName="text-foreground bg-primary/8 border-l-2 border-primary"
+                        className="group flex items-center gap-3 px-4 py-2 text-sm font-light text-sidebar-foreground/70 hover:text-sidebar-foreground rounded-sm hover:bg-sidebar-accent/30 transition-all duration-300 border-l-2 border-transparent"
+                        activeClassName="text-sidebar-primary bg-sidebar-accent/40 border-l-2 border-sidebar-primary"
                       >
                         {!collapsed ? (
                           <span className={`
                             w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-medium shrink-0 transition-all duration-300
                             ${completed
-                              ? 'bg-primary/15 text-primary'
-                              : 'bg-muted text-muted-foreground/40 group-hover:bg-primary/10 group-hover:text-primary/70'}
+                              ? 'bg-sidebar-primary/25 text-sidebar-primary'
+                              : 'bg-sidebar-accent/20 text-sidebar-foreground/40 group-hover:bg-sidebar-primary/20 group-hover:text-sidebar-primary'}
                           `}>
                             {completed ? <Check className="w-3 h-3" /> : item.num}
                           </span>
@@ -145,7 +145,7 @@ export function AcademySidebar() {
                           <item.icon className="w-4 h-4 shrink-0" />
                         )}
                         {!collapsed && (
-                          <span className="flex-1 tracking-wide truncate">{item.title}</span>
+                          <span className="flex-1 tracking-wider truncate">{item.title}</span>
                         )}
                       </NavLink>
                     </SidebarMenuButton>
@@ -159,7 +159,7 @@ export function AcademySidebar() {
         {/* Tools Section */}
         <SidebarGroup className="px-2 mt-1">
           {!collapsed && (
-            <SidebarGroupLabel className="text-[9px] tracking-[0.35em] uppercase text-muted-foreground/40 px-4 mb-1">
+            <SidebarGroupLabel className="text-[9px] tracking-[0.35em] uppercase text-sidebar-foreground/40 px-4 mb-1">
               Ferramentas
             </SidebarGroupLabel>
           )}
@@ -171,11 +171,11 @@ export function AcademySidebar() {
                     <NavLink
                       to={item.url}
                       end
-                      className="flex items-center gap-3 px-4 py-2 text-sm font-light text-muted-foreground/60 hover:text-foreground rounded-md hover:bg-primary/8 transition-all duration-300 border-l-2 border-transparent"
-                      activeClassName="text-foreground bg-primary/8 border-l-2 border-primary"
+                      className="flex items-center gap-3 px-4 py-2 text-sm font-light text-sidebar-foreground/70 hover:text-sidebar-foreground rounded-sm hover:bg-sidebar-accent/30 transition-all duration-300 border-l-2 border-transparent"
+                      activeClassName="text-sidebar-primary bg-sidebar-accent/40 border-l-2 border-sidebar-primary"
                     >
-                      <item.icon className="w-4 h-4 shrink-0 opacity-60" />
-                      {!collapsed && <span className="tracking-wide">{item.title}</span>}
+                      <item.icon className="w-4 h-4 shrink-0 opacity-70" />
+                      {!collapsed && <span className="tracking-wider">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -185,25 +185,25 @@ export function AcademySidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="bg-card border-t border-border/15 p-3">
+      <SidebarFooter className="bg-sidebar border-t border-sidebar-border/40 p-3">
         {!collapsed && (
           <div className="flex items-center justify-center gap-0.5 px-4 py-2 mb-1">
             <button
               onClick={() => setLanguage("en")}
-              className={`px-3 py-1.5 rounded-md text-[10px] tracking-[0.2em] uppercase transition-all duration-300 ${
+              className={`px-3 py-1.5 rounded-sm text-[10px] tracking-[0.2em] uppercase transition-all duration-300 ${
                 language === "en"
-                  ? "text-primary bg-primary/10 border border-primary/20"
-                  : "text-muted-foreground/40 hover:text-muted-foreground/60 hover:bg-muted/40"
+                  ? "text-sidebar-primary bg-sidebar-primary/20 border border-sidebar-primary/40"
+                  : "text-sidebar-foreground/40 hover:text-sidebar-foreground/60 hover:bg-sidebar-accent/30"
               }`}
             >
               EN
             </button>
             <button
               onClick={() => setLanguage("pt")}
-              className={`px-3 py-1.5 rounded-md text-[10px] tracking-[0.2em] uppercase transition-all duration-300 ${
+              className={`px-3 py-1.5 rounded-sm text-[10px] tracking-[0.2em] uppercase transition-all duration-300 ${
                 language === "pt"
-                  ? "text-primary bg-primary/10 border border-primary/20"
-                  : "text-muted-foreground/40 hover:text-muted-foreground/60 hover:bg-muted/40"
+                  ? "text-sidebar-primary bg-sidebar-primary/20 border border-sidebar-primary/40"
+                  : "text-sidebar-foreground/40 hover:text-sidebar-foreground/60 hover:bg-sidebar-accent/30"
               }`}
             >
               PT
@@ -212,17 +212,17 @@ export function AcademySidebar() {
         )}
         <button
           onClick={() => navigate("/")}
-          className="flex w-full items-center gap-3 rounded-md px-4 py-2.5 text-sm font-light text-muted-foreground/60 hover:text-foreground hover:bg-primary/8 transition-all duration-300 group"
+          className="flex w-full items-center gap-3 rounded-sm px-4 py-2.5 text-sm font-light text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/30 transition-all duration-300 group"
         >
-          <Home className="w-4 h-4 shrink-0 group-hover:text-primary transition-colors duration-300" />
-          {!collapsed && <span className="tracking-wide">Página Inicial</span>}
+          <Home className="w-4 h-4 shrink-0 group-hover:text-sidebar-primary transition-colors duration-300" />
+          {!collapsed && <span className="tracking-wider">Página Inicial</span>}
         </button>
         <button
           onClick={handleLogout}
-          className="flex w-full items-center gap-3 rounded-md px-4 py-2.5 text-sm font-light text-muted-foreground/60 hover:text-foreground hover:bg-primary/8 transition-all duration-300 group"
+          className="flex w-full items-center gap-3 rounded-sm px-4 py-2.5 text-sm font-light text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/30 transition-all duration-300 group"
         >
-          <LogOut className="w-4 h-4 shrink-0 group-hover:text-primary transition-colors duration-300" />
-          {!collapsed && <span className="tracking-wide">{t.academy.layout.signOut}</span>}
+          <LogOut className="w-4 h-4 shrink-0 group-hover:text-sidebar-primary transition-colors duration-300" />
+          {!collapsed && <span className="tracking-wider">{t.academy.layout.signOut}</span>}
         </button>
       </SidebarFooter>
     </Sidebar>

@@ -91,10 +91,10 @@ const Dashboard = () => {
             muted
             loop
             playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-20"
+            className="absolute inset-0 w-full h-full object-cover opacity-15"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/20 via-transparent to-background/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/15 via-transparent to-background/15" />
           
           <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
             <motion.div
@@ -226,9 +226,9 @@ const Dashboard = () => {
                   <Link to={m.path}>
                     <motion.div
                       className={`group relative bg-card border border-border/30 p-6 md:p-7 flex flex-col gap-4 transition-all duration-500 h-full ${
-                        isNext ? "border-primary/40 bg-primary/5" : ""
+                        isNext ? "border-primary/35 bg-primary/4" : ""
                       }`}
-                      whileHover={{ borderColor: "hsl(38 55% 48% / 0.4)", boxShadow: "0 2px 8px rgba(38, 55, 48, 0.06)" }}
+                      whileHover={{ borderColor: "hsl(32 35% 56% / 0.35)", boxShadow: "0 4px 12px rgba(50, 35, 20, 0.04)" }}
                       transition={{ duration: 0.4 }}
                     >
                       <div className="flex items-center justify-between">

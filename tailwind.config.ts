@@ -105,7 +105,7 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-up": "fade-up 1s ease-out forwards",
         "fade-in": "fade-in 1.5s ease-out forwards",
-        "gold-shimmer": "gold-shimmer 4s ease-in-out infinite",
+        "gold-shimmer": "gold-shimmer 6s ease-in-out infinite",
         "slow-pulse": "slow-pulse 5s ease-in-out infinite",
       },
     },

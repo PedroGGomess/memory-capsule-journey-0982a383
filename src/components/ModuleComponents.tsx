@@ -24,8 +24,8 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
   return (
     <div className="min-h-screen">
       <div className="relative h-[50vh] flex items-end overflow-hidden">
-        <img src={heroImage} alt={title} className="absolute inset-0 w-full h-full object-cover opacity-15" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+        <img src={heroImage} alt={title} className="absolute inset-0 w-full h-full object-cover opacity-12" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/85 to-transparent" />
         <div className="relative z-10 section-padding pb-12 w-full max-w-5xl mx-auto">
           <ScrollReveal>
             {moduleNumber && (
@@ -83,8 +83,8 @@ export function KeyTakeaway({ items }: { items: string[] }) {
   const { t } = useLanguage();
   return (
     <ScrollReveal>
-      <div className="relative border border-primary/20 bg-primary/5 p-8 md:p-10 my-12">
-        <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
+      <div className="relative border border-primary/20 bg-card p-8 md:p-10 my-12">
+        <div className="absolute top-0 left-0 w-1 h-full bg-primary/70" />
         <div className="flex items-center gap-3 mb-8">
           <Bookmark className="w-5 h-5 text-primary" />
           <p className="text-xs tracking-[0.3em] uppercase text-primary font-medium">{t.academy.module.keyTakeaways}</p>
@@ -124,7 +124,7 @@ export function ExpandableSection({ title, children }: { title: string; children
   const [open, setOpen] = useState(false);
   return (
     <ScrollReveal>
-      <div className={`border border-primary/20 bg-card transition-all duration-500 overflow-hidden ${open ? 'my-6 border-primary/30 bg-primary/5' : 'my-4 hover:border-primary/30 hover:bg-primary/5'}`}>
+      <div className={`border border-primary/20 bg-card transition-all duration-500 overflow-hidden ${open ? 'my-6 border-primary/25 bg-primary/3' : 'my-4 hover:border-primary/25 hover:bg-primary/3'}`}>
         <button
           onClick={() => setOpen(!open)}
           className="w-full flex items-center justify-between p-6 text-left relative group"
@@ -193,7 +193,7 @@ export function QuizBlock({ moduleId, questions }: { moduleId: string; questions
     <ScrollReveal>
       <div className="relative border border-primary/20 bg-card p-8 md:p-12 overflow-hidden">
         {/* Subtle background glow */}
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/3 rounded-full blur-[80px] pointer-events-none" />
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/2 rounded-full blur-[80px] pointer-events-none" />
         
         <div className="relative z-10 space-y-10">
           <div className="flex items-center gap-3">
@@ -334,12 +334,14 @@ export function ReflectionBlock({ questions }: { questions: string[] }) {
   const { t } = useLanguage();
   return (
     <ScrollReveal>
-      <div className="relative border border-primary/20 bg-card p-8 md:p-12 my-12">
-        <div className="flex items-center gap-3 mb-10">
-          <PenTool className="w-5 h-5 text-primary" />
-          <p className="text-xs tracking-[0.3em] uppercase text-primary">{t.academy.module.reflection}</p>
-        </div>
-        <div className="space-y-10">
+      <div className="relative border border-primary/20 bg-card p-8 md:p-12 my-12 overflow-hidden">
+        <div className="absolute top-0 left-0 -ml-20 -mt-20 w-40 h-40 bg-primary/2 rounded-full blur-[60px] pointer-events-none" />
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-10">
+            <PenTool className="w-5 h-5 text-primary" />
+            <p className="text-xs tracking-[0.3em] uppercase text-primary">{t.academy.module.reflection}</p>
+          </div>
+          <div className="space-y-10">
           {questions.map((q, i) => (
             <div key={i} className="space-y-4">
               <p className="text-foreground/90 font-light text-lg leading-relaxed">
@@ -349,12 +351,13 @@ export function ReflectionBlock({ questions }: { questions: string[] }) {
               <div className="relative group">
                 <textarea
                   placeholder={t.academy.module.reflectionPlaceholder}
-                  className="w-full min-h-[140px] bg-background border border-border/40 text-foreground/80 p-5 text-base font-light resize-none focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground/40 relative z-10"
+                  className="w-full min-h-[140px] bg-background border border-border/40 text-foreground/80 p-5 text-base font-light resize-none focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/15 transition-all duration-300 placeholder:text-muted-foreground/35 relative z-10"
                 />
-                <div className="absolute inset-0 bg-primary/3 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute inset-0 bg-primary/2 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
               </div>
             </div>
           ))}
+          </div>
         </div>
       </div>
     </ScrollReveal>

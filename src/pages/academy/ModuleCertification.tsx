@@ -177,9 +177,9 @@ const ModuleCertification = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center section-padding py-32 relative overflow-hidden bg-background">
-      {/* Minimal Background Elements */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay pointer-events-none" />
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/[0.03] via-background to-background pointer-events-none" />
+      {/* Subtle paper texture background */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.015] mix-blend-overlay pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/[0.02] via-background to-background pointer-events-none" />
 
       {/* Celebration particles */}
       <AnimatePresence>
@@ -273,11 +273,13 @@ const ModuleCertification = () => {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.9, duration: 0.8 }}
-                  className="space-y-6 max-w-sm mx-auto bg-card border border-primary/20 p-8 rounded-sm mt-12"
+                  className="space-y-6 max-w-sm mx-auto bg-card border border-primary/20 p-8 rounded-sm mt-12 relative overflow-hidden"
                 >
-                  <p className="text-[11px] tracking-[0.2em] uppercase text-primary/80">
-                    {language === "pt" ? "Personaliza o teu certificado" : "Personalize your certificate"}
-                  </p>
+                  <div className="absolute top-0 left-0 -ml-12 -mt-12 w-32 h-32 bg-primary/2 rounded-full blur-[50px] pointer-events-none" />
+                  <div className="relative z-10">
+                    <p className="text-[11px] tracking-[0.2em] uppercase text-primary/75">
+                      {language === "pt" ? "Personaliza o teu certificado" : "Personalize your certificate"}
+                    </p>
                   <div className="relative group">
                     <input
                       value={userName}
@@ -287,14 +289,15 @@ const ModuleCertification = () => {
                     />
                     <div className="absolute inset-0 bg-primary/3 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
                   </div>
-                  <button
-                    onClick={() => userName.trim() && setNameSubmitted(true)}
-                    disabled={!userName.trim()}
-                    className="w-full relative group border border-primary/30 px-8 py-4 text-sm tracking-[0.2em] uppercase text-primary transition-all duration-500 hover:border-primary/50 hover:bg-primary/5 disabled:opacity-30 disabled:cursor-not-allowed overflow-hidden"
-                  >
-                    <span className="relative z-10">{language === "pt" ? "Gerar Certificado" : "Generate Certificate"}</span>
-                    <div className="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
-                  </button>
+                    <button
+                      onClick={() => userName.trim() && setNameSubmitted(true)}
+                      disabled={!userName.trim()}
+                      className="w-full relative group border border-primary/30 px-8 py-4 text-sm tracking-[0.2em] uppercase text-primary transition-all duration-500 hover:border-primary/50 hover:bg-primary/5 disabled:opacity-30 disabled:cursor-not-allowed overflow-hidden"
+                    >
+                      <span className="relative z-10">{language === "pt" ? "Gerar Certificado" : "Generate Certificate"}</span>
+                      <div className="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+                    </button>
+                  </div>
                 </motion.div>
               ) : (
                 <motion.div
@@ -377,23 +380,27 @@ const ModuleCertification = () => {
         ) : (
           <ScrollReveal delay={0.2}>
             <div className="space-y-8">
-              <div className="relative border border-primary/20 bg-card p-10 max-w-lg mx-auto rounded-sm">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-primary/20" />
-                <p className="text-sm text-primary/80 font-light mb-6 tracking-widest uppercase">{t.academy.certification.progress}</p>
-                <Progress value={pct} className="h-1.5 bg-secondary mb-4" />
-                <p className="text-xs tracking-widest text-muted-foreground">
-                  {completedModules} {t.academy.certification.of} {totalModules} ({pct}%)
-                </p>
+              <div className="relative border border-primary/20 bg-card p-10 max-w-lg mx-auto rounded-sm overflow-hidden">
+                <div className="absolute top-0 left-0 -ml-10 -mt-10 w-24 h-24 bg-primary/2 rounded-full blur-[40px] pointer-events-none" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+                <div className="relative z-10">
+                  <p className="text-sm text-primary/75 font-light mb-6 tracking-widest uppercase">{t.academy.certification.progress}</p>
+                  <Progress value={pct} className="h-1.5 bg-secondary mb-4" />
+                  <p className="text-xs tracking-widest text-muted-foreground">
+                    {completedModules} {t.academy.certification.of} {totalModules} ({pct}%)
+                  </p>
+                </div>
               </div>
 
               {otherModulesComplete ? (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="space-y-8 bg-card border border-primary/20 p-10 max-w-lg mx-auto mt-8 rounded-sm relative overflow-hidden group hover:border-primary/30 transition-all duration-300"
+                    className="space-y-8 bg-card border border-primary/20 p-10 max-w-lg mx-auto mt-8 rounded-sm relative overflow-hidden group hover:border-primary/25 transition-all duration-300"
                   >
+                    <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-primary/2 rounded-full blur-[60px] pointer-events-none" />
 
-                    <div className="space-y-4">
+                    <div className="space-y-4 relative z-10">
                       <Sparkles className="w-8 h-8 text-primary mx-auto mb-4" />
                       <p className="text-xl text-foreground/90 font-light tracking-wide">
                         {t.academy.certification.congratulations}
@@ -401,6 +408,8 @@ const ModuleCertification = () => {
                       <p className="text-sm text-foreground/50 font-light">
                         {language === "pt" ? "Concluíste toda a jornada e estás pronto(a) para obter o teu certificado oficial." : "You've completed the entire journey and are ready to claim your official certificate."}
                       </p>
+                    </div>
+
                     </div>
 
                     <motion.button
