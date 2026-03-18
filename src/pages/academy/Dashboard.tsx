@@ -114,8 +114,6 @@ const Dashboard = () => {
     setBookmarkedModuleIds(saved);
   }, []);
 
-  const bookmarkedModules = modules.filter(m => bookmarkedModuleIds.includes(m.id));
-
   // Get motivational quote based on progress
   const getMotivationalQuote = () => {
     if (pct === 0) {
@@ -159,6 +157,7 @@ const Dashboard = () => {
     { id: "ai-assistant", title: t.academy.nav.aiAssistant, icon: Bot, path: "/academy/module/ai-assistant" },
   ];
 
+  const bookmarkedModules = modules.filter(m => bookmarkedModuleIds.includes(m.id));
   const nextModule = modules.find((m) => !isModuleCompleted(m.id));
   const roleLabel = getRoleLabel(userRole, language as "pt" | "en");
 
