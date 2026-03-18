@@ -148,7 +148,7 @@ const Dashboard = () => {
               transition={{ delay: 0.2, duration: 0.8, type: "spring", stiffness: 80 }}
               className="mb-6"
             >
-              <img src={logoImg} alt="The 100's" className="w-16 h-16 object-contain" />
+              <img src={logoImg} alt="The 100's" className="w-12 h-12 object-contain" />
             </motion.div>
 
             <motion.p
@@ -311,7 +311,7 @@ const Dashboard = () => {
                         <motion.div key={m.id} variants={itemVariants}>
                           <Link to={m.path}>
                             <motion.div
-                              className={`group relative bg-card border border-border/30 rounded-lg p-6 flex flex-col gap-4 transition-all duration-500 h-full hover:border-primary/40 ${
+                              className={`group relative bg-card border border-border/30 p-6 flex flex-col gap-4 transition-all duration-500 h-full hover:border-primary/40 ${
                                 isNext ? "border-primary/35 bg-primary/4" : ""
                               }`}
                               whileHover={{ y: -2, boxShadow: "0 8px 16px rgba(50, 35, 20, 0.06)" }}
@@ -388,7 +388,7 @@ const Dashboard = () => {
 
               <Link to={certificationModule.path}>
                 <motion.div
-                  className={`group relative bg-card border-2 border-primary/30 rounded-lg p-6 flex flex-col gap-4 transition-all duration-500 w-full sm:w-fit ${
+                  className={`group relative bg-card border-2 border-primary/30 p-6 flex flex-col gap-4 transition-all duration-500 w-full sm:w-fit ${
                     pct === 100 ? "hover:border-primary/60" : "opacity-60 cursor-not-allowed"
                   }`}
                   whileHover={pct === 100 ? { y: -2, boxShadow: "0 8px 16px rgba(50, 35, 20, 0.08)" } : {}}
@@ -442,7 +442,7 @@ const Dashboard = () => {
 
         {/* ── Evaluations Section ── */}
         <motion.section variants={itemVariants} className="mb-16">
-          <div className="bg-card border border-border/30 rounded-lg p-8 shadow-sm">
+          <div className="bg-card border border-border/30 p-8 shadow-sm">
             <h2 className="text-lg font-light text-foreground mb-8 flex items-center gap-3">
               <div className="w-1 h-6 bg-primary/60 rounded-full" />
               {t.academy.dashboard.evaluationsTitle}
@@ -452,19 +452,19 @@ const Dashboard = () => {
               <div className="space-y-6">
                 {/* Summary Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-                  <div className="bg-background/30 rounded-lg p-4">
+                  <div className="bg-background/30 p-4">
                     <p className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/60 mb-2">
                       {t.academy.dashboard.averageScore}
                     </p>
                     <p className="text-3xl font-light text-gold-gradient">{averageScore}%</p>
                   </div>
-                  <div className="bg-background/30 rounded-lg p-4">
+                  <div className="bg-background/30 p-4">
                     <p className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/60 mb-2">
                       {t.academy.dashboard.modulesPassed}
                     </p>
                     <p className="text-3xl font-light text-foreground/70">{modulesPassed}/{modulesWithScores.length}</p>
                   </div>
-                  <div className="bg-background/30 rounded-lg p-4">
+                  <div className="bg-background/30 p-4">
                     <p className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/60 mb-2">
                       {language === "pt" ? "Taxa de Aprovação" : "Pass Rate"}
                     </p>
@@ -483,7 +483,7 @@ const Dashboard = () => {
                     const score = progress[m.id]?.quizScore || 0;
                     const isPassed = score >= 80;
                     return (
-                      <div key={m.id} className={`flex items-center justify-between p-4 rounded-lg ${getScoreBgColor(score)} transition-colors duration-300`}>
+                      <div key={m.id} className={`flex items-center justify-between p-4 ${getScoreBgColor(score)} transition-colors duration-300`}>
                         <div className="flex items-center gap-3 flex-1">
                           <span className="text-[10px] font-medium text-muted-foreground/70 w-6 text-center">{m.num.toString().padStart(2, "0")}</span>
                           <span className="text-sm font-light text-foreground/80 flex-1">{m.title}</span>
@@ -514,7 +514,7 @@ const Dashboard = () => {
             </h2>
           </div>
 
-          <div className="bg-card border border-border/30 rounded-lg overflow-hidden">
+          <div className="bg-card border border-border/30 overflow-hidden">
             {tools.map((tool, idx) => (
               <Link key={tool.id} to={tool.path}>
                 <motion.div

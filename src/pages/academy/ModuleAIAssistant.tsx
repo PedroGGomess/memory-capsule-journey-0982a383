@@ -87,14 +87,23 @@ async function streamChat({
 
 const ModuleAIAssistant = () => {
   const { completeModule } = useProgress();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const [messages, setMessages] = useState<Msg[]>([
     { role: "assistant", content: t.academy.aiAssistant.welcomeMessage },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  // Suggestion prompts
+  const suggestions = [
+    language === "pt" ? "Pergunta-me sobre os nossos vinhos" : "Ask me about our wines",
+    language === "pt" ? "Como fazer upsell para turistas?" : "How to upsell to tourists?",
+    language === "pt" ? "Explica-me o conceito Memory Capsule" : "Explain the Memory Capsule concept",
+    language === "pt" ? "Ajuda-me com um cliente que não fala português" : "Help me with a customer who doesn't speak Portuguese",
+  ];
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -103,14 +112,15 @@ const ModuleAIAssistant = () => {
   const formatTime = () =>
     new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
-  const send = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const text = input.trim();
-    if (!text || loading) return;
+  const send = async (e: React.FormEvent, text?: string) => {
+    if (e instanceof Event) e.preventDefault();
+    const messageText = (text || input).trim();
+    if (!messageText || loading) return;
 
-    const userMsg: Msg = { role: "user", content: text };
+    const userMsg: Msg = { role: "user", content: messageText };
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
+    setError(null);
     setLoading(true);
 
     let assistantSoFar = "";
@@ -141,12 +151,20 @@ const ModuleAIAssistant = () => {
           // ai-assistant is a tool, not a trackable module
         },
         onError: (msg) => {
-          setMessages((prev) => [...prev, { role: "assistant", content: `⚠️ ${msg}` }]);
+          const errorMsg = language === "pt"
+            ? "⚠️ Não conseguimos conectar ao assistente. Tenta de novo mais tarde ou contacta o apoio."
+            : "⚠️ We couldn't connect to the assistant. Please try again later or contact support.";
+          setMessages((prev) => [...prev, { role: "assistant", content: errorMsg }]);
+          setError(msg);
           setLoading(false);
         },
       });
-    } catch {
-      setMessages((prev) => [...prev, { role: "assistant", content: "⚠️ Something went wrong. Please try again." }]);
+    } catch (err) {
+      const errorMsg = language === "pt"
+        ? "⚠️ Algo correu mal. Tenta novamente."
+        : "⚠️ Something went wrong. Please try again.";
+      setMessages((prev) => [...prev, { role: "assistant", content: errorMsg }]);
+      setError(String(err));
       setLoading(false);
     }
   };
@@ -165,6 +183,29 @@ const ModuleAIAssistant = () => {
       <Card className="flex-1 flex flex-col overflow-hidden border-border/30 bg-card/20">
         <ScrollArea className="flex-1 p-5">
           <div className="space-y-5 pr-2">
+            {/* Initial suggestions - shown only when no user messages */}
+            {messages.length === 1 && messages[0].role === "assistant" && (
+              <div className="space-y-3 py-4">
+                <p className="text-xs text-muted-foreground/60 tracking-[0.15em] uppercase">
+                  {language === "pt" ? "Sugestões para começar:" : "Suggestions to get started:"}
+                </p>
+                <div className="space-y-2">
+                  {suggestions.map((suggestion, i) => (
+                    <button
+                      key={i}
+                      onClick={(e) => {
+                        send(e, suggestion);
+                      }}
+                      disabled={loading}
+                      className="w-full text-left px-4 py-3 border border-border/30 hover:border-primary/30 bg-secondary/20 hover:bg-primary/5 transition-all text-sm font-light text-foreground/70 hover:text-foreground/90"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {messages.map((msg, i) => (
               <div
                 key={i}
@@ -222,6 +263,16 @@ const ModuleAIAssistant = () => {
                     <span className="w-1.5 h-1.5 rounded-full bg-primary/30 animate-bounce [animation-delay:300ms]" />
                   </div>
                 </div>
+              </div>
+            )}
+
+            {error && (
+              <div className="p-4 border border-red-500/30 bg-red-950/20 text-red-400/80 text-sm rounded-sm">
+                <p className="font-light">
+                  {language === "pt"
+                    ? "Houve um erro ao conectar. Tenta novamente."
+                    : "There was an error connecting. Please try again."}
+                </p>
               </div>
             )}
 

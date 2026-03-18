@@ -32,6 +32,25 @@ const downloadUrls: Record<string, string | null> = {
 const ModuleResources = () => {
   const { t, language } = useLanguage();
 
+  // Categorized resources
+  const resourcesByCategory = {
+    documents: [
+      { title: language === "pt" ? "Dossier da Marca" : "Brand Book", desc: language === "pt" ? "Livro da marca com guidelines completos" : "Brand guidelines and visual standards" },
+      { title: language === "pt" ? "O Conceito The 100's" : "The 100's Concept", desc: language === "pt" ? "Documento completo do conceito" : "Complete concept documentation" },
+      { title: language === "pt" ? "FAQ - Perguntas Frequentes" : "FAQ Document", desc: language === "pt" ? "Respostas às perguntas mais comuns" : "Answers to frequently asked questions" },
+    ],
+    guides: [
+      { title: language === "pt" ? "Guia de Prova" : "Tasting Guide", desc: language === "pt" ? "Como conduzir provas sensoriais" : "How to conduct tastings" },
+      { title: language === "pt" ? "Padrões da Loja" : "Store Standards", desc: language === "pt" ? "Normas visuais e operacionais" : "Visual and operational standards" },
+      { title: language === "pt" ? "Técnicas de Venda" : "Sales Techniques", desc: language === "pt" ? "Como fazer upsell e técnicas de persuasão" : "Upselling and persuasion techniques" },
+    ],
+    tools: [
+      { title: language === "pt" ? "Catálogo de Produtos" : "Product Catalogue", desc: language === "pt" ? "Todos os produtos e variantes" : "All products and variants" },
+      { title: language === "pt" ? "Lista de Preços" : "Price List", desc: language === "pt" ? "Preços atualizados e margens" : "Current pricing and margins" },
+      { title: language === "pt" ? "Modelos de Checklist" : "Checklist Templates", desc: language === "pt" ? "Templates para operações diárias" : "Daily operations templates" },
+    ],
+  };
+
   const generatePremiumPDF = (type: "faq" | "resumo") => {
     toast.info(language === "pt" ? "A gerar documento PDF premium..." : "Generating premium PDF document...", { duration: 3000 });
     
@@ -184,39 +203,99 @@ Mensagem à entrada da loja:
         }</p>
       </ContentBlock>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {t.academy.resources.items.map((r, i) => {
-          const Icon = iconMap[i] ?? FileText;
-          const hasFile = !!downloadUrls[r.title];
-          return (
-            <ScrollReveal key={r.title} delay={i * 0.05}>
-              <div
-                onClick={() => handleDownload(r.title)}
-                className="border border-border/30 p-6 hover:border-primary/30 transition-all duration-500 group cursor-pointer"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="p-2.5 bg-secondary/50 rounded-sm group-hover:bg-primary/10 transition-colors">
-                    <Icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-sm font-light text-foreground/90">{r.title}</h3>
-                      <span className="text-[9px] tracking-wider uppercase text-muted-foreground/50 border border-border/30 px-1.5 py-0.5">{r.type}</span>
+      {/* Documentos / Documents Section */}
+      <div className="space-y-6">
+        <div>
+          <h2 className="text-lg font-light text-foreground/90 mb-4 flex items-center gap-3">
+            <FileText className="w-4 h-4 text-primary" />
+            {language === "pt" ? "Documentos" : "Documents"}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {resourcesByCategory.documents.map((r, i) => (
+              <ScrollReveal key={r.title} delay={i * 0.05}>
+                <div
+                  onClick={() => handleDownload(r.title)}
+                  className="border border-border/30 p-6 hover:border-primary/30 transition-all duration-500 group cursor-pointer"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="p-2.5 bg-secondary/50 group-hover:bg-primary/10 transition-colors">
+                      <FileText className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                     </div>
-                    <p className="text-xs text-muted-foreground/60">{r.desc}</p>
-                  </div>
-                  <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {hasFile ? (
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-sm font-light text-foreground/90">{r.title}</h3>
+                      <p className="text-xs text-muted-foreground/60 mt-1">{r.desc}</p>
+                    </div>
+                    <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <Download className="w-4 h-4 text-primary" />
-                    ) : (
-                      <ExternalLink className="w-4 h-4 text-muted-foreground/40" />
-                    )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </ScrollReveal>
-          );
-        })}
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+
+        {/* Guias / Guides Section */}
+        <div>
+          <h2 className="text-lg font-light text-foreground/90 mb-4 flex items-center gap-3">
+            <BookOpen className="w-4 h-4 text-primary" />
+            {language === "pt" ? "Guias" : "Guides"}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {resourcesByCategory.guides.map((r, i) => (
+              <ScrollReveal key={r.title} delay={i * 0.05}>
+                <div
+                  onClick={() => handleDownload(r.title)}
+                  className="border border-border/30 p-6 hover:border-primary/30 transition-all duration-500 group cursor-pointer"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="p-2.5 bg-secondary/50 group-hover:bg-primary/10 transition-colors">
+                      <BookOpen className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-sm font-light text-foreground/90">{r.title}</h3>
+                      <p className="text-xs text-muted-foreground/60 mt-1">{r.desc}</p>
+                    </div>
+                    <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <Download className="w-4 h-4 text-primary" />
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+
+        {/* Ferramentas / Tools Section */}
+        <div>
+          <h2 className="text-lg font-light text-foreground/90 mb-4 flex items-center gap-3">
+            <FileText className="w-4 h-4 text-primary" />
+            {language === "pt" ? "Ferramentas" : "Tools"}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {resourcesByCategory.tools.map((r, i) => (
+              <ScrollReveal key={r.title} delay={i * 0.05}>
+                <div
+                  onClick={() => handleDownload(r.title)}
+                  className="border border-border/30 p-6 hover:border-primary/30 transition-all duration-500 group cursor-pointer"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="p-2.5 bg-secondary/50 group-hover:bg-primary/10 transition-colors">
+                      <FileText className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-sm font-light text-foreground/90">{r.title}</h3>
+                      <p className="text-xs text-muted-foreground/60 mt-1">{r.desc}</p>
+                    </div>
+                    <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <Download className="w-4 h-4 text-primary" />
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
       </div>
 
       <ContentBlock>

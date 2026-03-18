@@ -94,40 +94,55 @@ export function AcademyOnboardingTour() {
                     animate={{ opacity: [0.2, 0.5, 0.2] }}
                     transition={{ duration: 3, repeat: Infinity }}
                   />
-                  <img src={logoImg} alt="The 100's" className="w-28 h-28 object-contain relative" />
+                  <img src={logoImg} alt="The 100's" className="w-20 h-20 object-contain relative" />
                 </motion.div>
 
-                <div className="space-y-3">
-                  <motion.p
-                    className="text-[9px] tracking-[0.5em] uppercase text-primary/50"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4 }}
+                <div className="space-y-6">
+                  <motion.div className="space-y-3">
+                    <motion.p
+                      className="text-[9px] tracking-[0.5em] uppercase text-primary/50"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.4 }}
+                    >
+                      Bem-vindo / Welcome
+                    </motion.p>
+                    <motion.h1
+                      className="text-4xl md:text-5xl font-light text-gold-gradient"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5, duration: 0.6 }}
+                    >
+                      The 100's Academy
+                    </motion.h1>
+                  </motion.div>
+
+                  {/* Welcome Video */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.6, duration: 0.6 }}
+                    className="w-full max-w-sm mx-auto"
                   >
-                    Bem-vindo à / Welcome to
-                  </motion.p>
-                  <motion.h1
-                    className="text-4xl md:text-5xl font-light text-gold-gradient"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
-                  >
-                    The 100's Academy
-                  </motion.h1>
-                  <motion.div className="space-y-4 pt-4">
+                    <video
+                      src="/src/assets/welcome-video.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      className="w-full h-auto border border-primary/30"
+                      style={{ aspectRatio: "16 / 9" }}
+                    />
+                  </motion.div>
+
+                  <motion.div className="space-y-3 pt-2">
                     <p className="text-sm text-muted-foreground/60 font-light max-w-sm mx-auto leading-relaxed">
                       Bem-vindo à The 100's Academy
                     </p>
                     <p className="text-sm text-muted-foreground/60 font-light max-w-sm mx-auto leading-relaxed">
                       Welcome to The 100's Academy
                     </p>
-                  </motion.div>
-                  <motion.div className="space-y-4 pt-4">
-                    <p className="text-sm text-muted-foreground/60 font-light max-w-sm mx-auto leading-relaxed">
-                      A tua jornada pelo mundo do tempo, memória e legado começa aqui. Vamos preparar-te para seres um verdadeiro guardião do tempo.
-                    </p>
-                    <p className="text-sm text-muted-foreground/60 font-light max-w-sm mx-auto leading-relaxed">
-                      Your journey through the world of time, memory and legacy starts here. We'll prepare you to be a true guardian of time.
+                    <p className="text-xs text-muted-foreground/50 font-light max-w-sm mx-auto leading-relaxed italic">
+                      Assiste a esta mensagem de boas-vindas antes de começares. / Watch this welcome message before you begin.
                     </p>
                   </motion.div>
                 </div>
@@ -147,12 +162,12 @@ export function AcademyOnboardingTour() {
                   onClick={() => setPhase("learning-areas")}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1 }}
+                  transition={{ delay: 1.2 }}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   className="inline-flex items-center gap-3 border border-primary/30 px-8 py-3 text-xs tracking-[0.25em] uppercase text-primary hover:border-primary hover:bg-primary/5 transition-all duration-500"
                 >
-                  Descobrir → / Discover →
+                  Continuar → / Continue →
                   <ArrowRight className="w-4 h-4" />
                 </motion.button>
 

@@ -52,30 +52,38 @@ const ModuleAskTeam = () => {
         }</p>
       </ContentBlock>
 
-      <ExpandableSection title={language === "pt" ? "Perguntas Frequentes" : "Frequently Asked Questions"}>
-        <p className="font-medium text-foreground/80 mb-2">
-          {language === "pt"
-            ? "O que fazer se um cliente perguntar sobre as castas?"
-            : "What if a customer asks about the grape varieties?"
-          }
-        </p>
+      <ExpandableSection title={language === "pt" ? "Como funciona a personalização UV?" : "How does UV personalization work?"}>
         <p>{language === "pt"
-          ? "O Vinho do Porto é tipicamente produzido a partir de uma mistura de castas indígenas portuguesas, incluindo Touriga Nacional, Touriga Franca, Tinta Roriz, Tinta Barroca e Tinto Cão."
-          : "Port wine is typically made from a blend of indigenous Portuguese grape varieties including Touriga Nacional, Touriga Franca, Tinta Roriz, Tinta Barroca and Tinto Cão."
+          ? "A impressora UV permite personalizar garrafas com nomes, datas ou mensagens. O processo é rápido (2-3 minutos) e cria um efeito permanente. Sempre oferece como uma opção premium para tornar a compra única e memorável para o cliente."
+          : "Our UV printer allows personalizing bottles with names, dates, or messages. The process is fast (2-3 minutes) and creates a permanent effect. Always offer it as a premium option to make the purchase unique and memorable for the customer."
         }</p>
       </ExpandableSection>
 
-      <ExpandableSection title={language === "pt" ? "Como descrevo o processo de envelhecimento?" : "How do I describe the aging process?"}>
+      <ExpandableSection title={language === "pt" ? "Quais são os tipos de Vinho do Porto que vendemos?" : "What types of Port wine do we sell?"}>
         <p>{language === "pt"
-          ? "O Vinho do Porto Tawny envelhece em barris de madeira (pipas), desenvolvendo gradualmente a sua cor âmbar característica e sabores complexos. O contacto com a madeira e a oxidação controlada criam camadas de caramelo, frutos secos, frutas secas e especiarias."
-          : "Tawny Port ages in wooden barrels (pipes), gradually developing its characteristic amber color and complex flavors. The contact with wood and controlled oxidation creates layers of caramel, nuts, dried fruits and spice."
+          ? "Vendemos principalmente Tawny Port (envelhecido em barril), disponível em categorias: Young/Ruby Essentials, 10 Anos (Signature), 30 Anos (Legacy), 50 Anos (The Icon), e 100 Anos (The Hundred). Também temos Vinho do Porto Branco e Azeite Premium. Cada categoria representa um valor diferente e uma história única."
+          : "We primarily sell Tawny Port (barrel-aged), available in categories: Young/Ruby Essentials, 10 Years (Signature), 30 Years (Legacy), 50 Years (The Icon), and 100 Years (The Hundred). We also offer White Port and Premium Olive Oil. Each category represents a different value and unique story."
         }</p>
       </ExpandableSection>
 
-      <ExpandableSection title={language === "pt" ? "Posso oferecer provas?" : "Can I offer tastings?"}>
+      <ExpandableSection title={language === "pt" ? "Como faço Tax Free para turistas?" : "How do I process Tax Free for tourists?"}>
         <p>{language === "pt"
-          ? "Sim, as provas são uma parte central da experiência. Apresenta-as sempre como uma jornada, não apenas uma amostra. Guia o visitante pelas cores, aromas e sabores, ligando cada elemento à história da marca."
-          : "Yes, tastings are a core part of the experience. Always present them as a journey, not just a sample. Guide the visitor through the colors, aromas and flavors, connecting each element to the brand story."
+          ? "Para turistas não-residentes na UE: peça o passaporte, valida a compra no sistema de Tax Free (Global Blue ou afiliado), imprime os formulários e carimbas antes da saída do aeroporto. O cliente recebe reembolso por email ou no próprio aeroporto. Sempre confirma que a compra é elegível (mínimo geralmente €25)."
+          : "For non-EU residents: ask for passport, validate the purchase in the Tax Free system (Global Blue or affiliate), print forms and stamp them before airport departure. The customer receives refund by email or at the airport. Always confirm the purchase is eligible (minimum usually €25)."
+        }</p>
+      </ExpandableSection>
+
+      <ExpandableSection title={language === "pt" ? "O que é o conceito 'Second Life'?" : "What is the 'Second Life' concept?"}>
+        <p>{language === "pt"
+          ? "Após consumir o vinho, a garrafa pode ter uma 'segunda vida': servir como suporte para velas, difusor de aromas, porta-joias ou peça decorativa. Isto é parte da nossa história de sustentabilidade e luxo. Sempre menciona isto ao cliente — transforma a compra numa lembrança permanente da experiência."
+          : "After drinking the wine, the bottle can have a 'second life': serve as a candle holder, aroma diffuser, jewelry stand, or decorative piece. This is part of our sustainability and luxury story. Always mention this to the customer — it transforms the purchase into a permanent reminder of the experience."
+        }</p>
+      </ExpandableSection>
+
+      <ExpandableSection title={language === "pt" ? "Como usar o POS WinMax4?" : "How to use the WinMax4 POS?"}>
+        <p>{language === "pt"
+          ? "O WinMax4 é o nosso sistema de Point of Sale. Teclado numérico para inserir quantidades, ecrã tátil para selecionar produtos, e botão de pagamento no final. Sempre confirma a quantidade de itens, o desconto (se aplicável), e o método de pagamento. Contacta o gerente se houver problemas."
+          : "WinMax4 is our Point of Sale system. Use the numeric keypad to enter quantities, touch screen to select products, and payment button at the end. Always confirm the number of items, discount (if applicable), and payment method. Contact the manager if there are issues."
         }</p>
       </ExpandableSection>
 
