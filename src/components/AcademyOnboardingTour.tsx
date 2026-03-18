@@ -6,6 +6,7 @@ import {
   Monitor, Briefcase, ClipboardList, Award, MessageCircle, Gift, Store, BarChart3
 } from "lucide-react";
 import logoImg from "@/assets/Logo.png";
+import welcomeVideo from "@/assets/welcome-video.mp4";
 import bottleCloseup from "@/assets/bottle-closeup.jpg";
 import crossSellingImg from "@/assets/academy/cross-selling.jpg";
 import hedonismImg from "@/assets/hedonism.jpg";
@@ -22,7 +23,9 @@ export function AcademyOnboardingTour() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const seen = localStorage.getItem(TOUR_SEEN_KEY);
+    // Show tour on every new session (login), not just first time ever
+    const sessionKey = "the100s-tour-seen-session";
+    const seen = sessionStorage.getItem(sessionKey);
     if (!seen) {
       const timer = setTimeout(() => setVisible(true), 600);
       return () => clearTimeout(timer);
@@ -30,13 +33,13 @@ export function AcademyOnboardingTour() {
   }, []);
 
   const finish = () => {
-    localStorage.setItem(TOUR_SEEN_KEY, "true");
+    sessionStorage.setItem("the100s-tour-seen-session", "true");
     setVisible(false);
     navigate("/academy");
   };
 
   const skip = () => {
-    localStorage.setItem(TOUR_SEEN_KEY, "true");
+    sessionStorage.setItem("the100s-tour-seen-session", "true");
     setVisible(false);
   };
 
@@ -125,10 +128,11 @@ export function AcademyOnboardingTour() {
                     className="w-full max-w-sm mx-auto"
                   >
                     <video
-                      src="/src/assets/welcome-video.mp4"
+                      src={welcomeVideo}
                       autoPlay
                       muted
                       loop
+                      playsInline
                       className="w-full h-auto border border-primary/30"
                       style={{ aspectRatio: "16 / 9" }}
                     />
