@@ -6,6 +6,11 @@ import {
   Monitor, Briefcase, ClipboardList, Award, MessageCircle, Gift, Store, BarChart3
 } from "lucide-react";
 import logoImg from "@/assets/Logo.png";
+import bottleCloseup from "@/assets/bottle-closeup.jpg";
+import crossSellingImg from "@/assets/academy/cross-selling.jpg";
+import hedonismImg from "@/assets/hedonism.jpg";
+import digitalSystemsImg from "@/assets/academy/digital-systems.svg";
+import badgeImg from "@/assets/badge.png";
 
 const TOUR_SEEN_KEY = "the100s-tour-seen";
 
@@ -203,11 +208,11 @@ export function AcademyOnboardingTour() {
                 {/* Learning Areas */}
                 <div className="space-y-3">
                   {[
-                    { icon: Wine, pt: "A Marca & Produto", en: "Brand & Product", desc: "História, filosofia, gamas, materiais" },
-                    { icon: Target, pt: "A Arte de Vender", en: "Sales Mastery", desc: "Perfis de cliente, técnicas de venda, cross-selling" },
-                    { icon: Users, pt: "A Experiência", en: "The Experience", desc: "Jornada do cliente, encantamento, cultura de serviço" },
-                    { icon: Monitor, pt: "Operações & Digital", en: "Operations & Digital", desc: "POS, CRM, sistemas, impressora UV" },
-                    { icon: Shield, pt: "Excelência", en: "Excellence", desc: "Conduta, vocabulário, transporte, certificação" },
+                    { icon: Wine, image: bottleCloseup, pt: "A Marca & Produto", en: "Brand & Product", desc: "História, filosofia, gamas, materiais" },
+                    { icon: Target, image: crossSellingImg, pt: "A Arte de Vender", en: "Sales Mastery", desc: "Perfis de cliente, técnicas de venda, cross-selling" },
+                    { icon: Users, image: hedonismImg, pt: "A Experiência", en: "The Experience", desc: "Jornada do cliente, encantamento, cultura de serviço" },
+                    { icon: Monitor, image: digitalSystemsImg, pt: "Operações & Digital", en: "Operations & Digital", desc: "POS, CRM, sistemas, impressora UV" },
+                    { icon: Shield, image: badgeImg, pt: "Excelência", en: "Excellence", desc: "Conduta, vocabulário, transporte, certificação" },
                   ].map((area, i) => {
                     const Icon = area.icon;
                     return (
@@ -218,8 +223,11 @@ export function AcademyOnboardingTour() {
                         transition={{ delay: 0.5 + i * 0.1, duration: 0.4 }}
                         className="flex items-start gap-4 px-5 py-3 rounded-sm bg-secondary/30 border border-border/30"
                       >
-                        <div className="p-2 bg-primary/15 rounded-sm shrink-0 mt-1">
-                          <Icon className="w-4 h-4 text-primary" />
+                        <div className="flex items-center gap-3 shrink-0">
+                          <div className="p-2 bg-primary/15 rounded-sm">
+                            <Icon className="w-4 h-4 text-primary" />
+                          </div>
+                          <img src={area.image} alt={area.en} className="w-10 h-10 object-cover rounded-sm" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-light text-foreground/90">

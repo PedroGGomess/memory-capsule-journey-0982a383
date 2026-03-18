@@ -1,10 +1,10 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, CheckCircle2, XCircle, Trophy, Sparkles, Bookmark, PenTool } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useProgress } from "@/contexts/ProgressContext";
-import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "./ScrollReveal";
+import { getNextModule } from "@/config/moduleOrder";
 
 /* ── Module Layout ── */
 interface ModuleLayoutProps {
@@ -24,6 +24,17 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
   const { t, language } = useLanguage();
   const [showSuccess, setShowSuccess] = useState(false);
   const completed = isModuleCompleted(moduleId);
+
+  // Auto-determine next module if not provided
+  const nextModule = useMemo(() => {
+    if (nextModuleId && nextModuleTitle) {
+      return { id: nextModuleId, title: nextModuleTitle };
+    }
+    const auto = getNextModule(moduleId);
+    if (!auto) return null;
+    // Get the translated title from the translations
+    return { id: auto.id, title: t.academy.nav[auto.navKey as keyof typeof t.academy.nav] || auto.id };
+  }, [moduleId, nextModuleId, nextModuleTitle, t]);
 
   const handleComplete = () => {
     completeModule(moduleId);
@@ -68,14 +79,14 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
                     <span className="text-xs tracking-[0.2em] uppercase">{t.academy.module.completed}</span>
                   </motion.div>
 
-                  {nextModuleId && nextModuleTitle && (
+                  {nextModule && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2, duration: 0.6 }}
                     >
                       <a
-                        href={`/academy/module/${nextModuleId}`}
+                        href={`/academy/module/${nextModule.id}`}
                         className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors border-b border-primary/30 hover:border-primary/60 pb-1"
                       >
                         <span className="tracking-[0.15em] uppercase">{language === "pt" ? "Próximo módulo" : "Next module"} →</span>
