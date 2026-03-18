@@ -1,6 +1,6 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
-import hedonismImg from "@/assets/hedonism.jpg";
+import bottleCloseupImg from "@/assets/bottle-closeup.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const ModuleBrandVoice = () => {
@@ -53,7 +53,7 @@ const ModuleBrandVoice = () => {
       moduleNumber={6}
       title={isEN ? "Brand Voice & Identity" : "Voz e Identidade da Marca"}
       subtitle={isEN ? "The tone, the words, the feeling — and the visual language behind it all." : "O tom, as palavras, o sentimento — e a linguagem visual por detrás de tudo."}
-      heroImage={hedonismImg}
+      heroImage={bottleCloseupImg}
     >
       <ContentBlock title={isEN ? "Four Communication Principles" : "Quatro Princípios de Comunicação"}>
         <p>{isEN

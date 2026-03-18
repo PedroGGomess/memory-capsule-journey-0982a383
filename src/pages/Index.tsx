@@ -9,6 +9,10 @@ import { useTheme } from "@/contexts/ThemeContext";
 import collectionImg from "@/assets/collection.jpg";
 import giftPackagingImg from "@/assets/gift-packaging.jpg";
 import storeInteriorImg from "@/assets/store-interior.jpg";
+import cylinderCorkImg from "@/assets/produtos/cilindro-cork-1.jpg";
+import cubeCorkImg from "@/assets/produtos/quadrado-cork-1.jpg";
+import cubeOakImg from "@/assets/produtos/quadrado-carvalho-1.jpg";
+import cubeWalnutImg from "@/assets/produtos/quadrado-nogueira-1.jpg";
 
 const Index = () => {
   const conceptRef = useRef<HTMLDivElement>(null);
@@ -256,6 +260,90 @@ const Index = () => {
               className="w-full h-auto rounded-sm order-1 md:order-2"
             />
           </ScrollReveal>
+        </div>
+      </motion.section>
+
+      {/* Section 4.5 — Product Grid */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="py-20"
+      >
+        <div className="max-w-7xl mx-auto w-full px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {/* Cylinder Cork */}
+            <ScrollReveal>
+              <motion.div
+                className="flex flex-col items-center"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img
+                  src={cylinderCorkImg}
+                  alt="Cork Cylinder"
+                  className="w-full h-auto rounded-sm mb-4"
+                />
+                <p className="text-xs tracking-[0.15em] uppercase text-foreground/60 text-center font-light">
+                  {language === "pt" ? "Cilindro Cortiça" : "Cork Cylinder"}
+                </p>
+              </motion.div>
+            </ScrollReveal>
+
+            {/* Cube Cork */}
+            <ScrollReveal delay={0.1}>
+              <motion.div
+                className="flex flex-col items-center"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img
+                  src={cubeCorkImg}
+                  alt="Cork Cube"
+                  className="w-full h-auto rounded-sm mb-4"
+                />
+                <p className="text-xs tracking-[0.15em] uppercase text-foreground/60 text-center font-light">
+                  {language === "pt" ? "Cubo Cortiça" : "Cork Cube"}
+                </p>
+              </motion.div>
+            </ScrollReveal>
+
+            {/* Cube Oak */}
+            <ScrollReveal delay={0.2}>
+              <motion.div
+                className="flex flex-col items-center"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img
+                  src={cubeOakImg}
+                  alt="Oak Wood Cube"
+                  className="w-full h-auto rounded-sm mb-4"
+                />
+                <p className="text-xs tracking-[0.15em] uppercase text-foreground/60 text-center font-light">
+                  {language === "pt" ? "Cubo Carvalho" : "Oak Wood Cube"}
+                </p>
+              </motion.div>
+            </ScrollReveal>
+
+            {/* Cube Walnut */}
+            <ScrollReveal delay={0.3}>
+              <motion.div
+                className="flex flex-col items-center"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img
+                  src={cubeWalnutImg}
+                  alt="Walnut Wood Cube"
+                  className="w-full h-auto rounded-sm mb-4"
+                />
+                <p className="text-xs tracking-[0.15em] uppercase text-foreground/60 text-center font-light">
+                  {language === "pt" ? "Cubo Nogueira" : "Walnut Wood Cube"}
+                </p>
+              </motion.div>
+            </ScrollReveal>
+          </div>
         </div>
       </motion.section>
 

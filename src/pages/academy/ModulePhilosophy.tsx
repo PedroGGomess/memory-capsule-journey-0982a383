@@ -1,7 +1,6 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import hourglassImg from "@/assets/hourglass.jpg";
-import heroDropImg from "@/assets/hero-drop.jpg";
 import bottleImg from "@/assets/bottle-closeup.jpg";
 import hedonismImg from "@/assets/hedonism.jpg";
 

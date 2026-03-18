@@ -1,6 +1,6 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ReflectionBlock, QuizBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
-import storeImg from "@/assets/store-interior.jpg";
+import hedonismImg from "@/assets/hedonism.jpg";
 
 const ModuleCustomerExperience = () => {
   const { language } = useLanguage();
@@ -22,7 +22,7 @@ const ModuleCustomerExperience = () => {
       moduleNumber={7}
       title={isEN ? "The Customer Experience" : "A Experiência do Cliente"}
       subtitle={isEN ? "Every interaction is part of the story." : "Cada interação é parte da história."}
-      heroImage={storeImg}
+      heroImage={hedonismImg}
     >
       <ContentBlock title={isEN ? "You Are a Storyteller" : "És um Contador de Histórias"}>
         <p>{isEN

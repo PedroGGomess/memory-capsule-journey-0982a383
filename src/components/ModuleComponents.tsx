@@ -1,6 +1,7 @@
 import { ReactNode, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, CheckCircle2, XCircle, Trophy, Sparkles, Bookmark, PenTool } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { useProgress } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "./ScrollReveal";
@@ -14,12 +15,22 @@ interface ModuleLayoutProps {
   heroImage: string;
   children: ReactNode;
   hideCompletion?: boolean;
+  nextModuleId?: string;
+  nextModuleTitle?: string;
 }
 
-export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImage, children, hideCompletion }: ModuleLayoutProps) {
+export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImage, children, hideCompletion, nextModuleId, nextModuleTitle }: ModuleLayoutProps) {
   const { completeModule, isModuleCompleted, totalModules } = useProgress();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const [showSuccess, setShowSuccess] = useState(false);
   const completed = isModuleCompleted(moduleId);
+
+  const handleComplete = () => {
+    completeModule(moduleId);
+    setShowSuccess(true);
+    // Hide success animation after 2 seconds
+    setTimeout(() => setShowSuccess(false), 2000);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -44,19 +55,68 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
 
         {!hideCompletion && (
           <ScrollReveal>
-            <div className="flex justify-center pt-8 border-t border-border">
+            <div className="flex flex-col items-center gap-6 pt-8 border-t border-border">
               {completed ? (
-                <div className="flex items-center gap-3 text-primary">
-                  <Check className="w-5 h-5" />
-                  <span className="text-xs tracking-[0.2em] uppercase">{t.academy.module.completed}</span>
-                </div>
+                <>
+                  <motion.div
+                    initial={showSuccess ? { scale: 0, opacity: 0 } : { scale: 1, opacity: 1 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                    className="flex items-center gap-3 text-primary"
+                  >
+                    <Check className="w-5 h-5" />
+                    <span className="text-xs tracking-[0.2em] uppercase">{t.academy.module.completed}</span>
+                  </motion.div>
+
+                  {nextModuleId && nextModuleTitle && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2, duration: 0.6 }}
+                    >
+                      <a
+                        href={`/academy/module/${nextModuleId}`}
+                        className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors border-b border-primary/30 hover:border-primary/60 pb-1"
+                      >
+                        <span className="tracking-[0.15em] uppercase">{language === "pt" ? "Próximo módulo" : "Next module"} →</span>
+                      </a>
+                    </motion.div>
+                  )}
+                </>
               ) : (
                 <button
-                  onClick={() => completeModule(moduleId)}
+                  onClick={handleComplete}
                   className="border border-primary px-10 py-3 text-xs tracking-[0.2em] uppercase text-primary hover:bg-primary hover:text-background transition-all duration-200"
                 >
                   {t.academy.module.markComplete}
                 </button>
+              )}
+
+              {showSuccess && completed && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.4 }}
+                  className="fixed inset-0 flex items-center justify-center pointer-events-none"
+                >
+                  <motion.div
+                    animate={{ opacity: [1, 0] }}
+                    transition={{ duration: 1.5, delay: 0.3 }}
+                    className="flex items-center justify-center"
+                  >
+                    <div className="w-16 h-16 border-2 border-primary/40 rounded-full flex items-center justify-center">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 200 }}
+                        className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center"
+                      >
+                        <CheckCircle2 className="w-8 h-8 text-primary" />
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                </motion.div>
               )}
             </div>
           </ScrollReveal>

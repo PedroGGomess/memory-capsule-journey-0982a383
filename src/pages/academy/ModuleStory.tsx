@@ -1,7 +1,6 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
-import heroDropImg from "@/assets/hero-drop.jpg";
-import douroImg from "@/assets/douro-valley.jpg";
+import douroValleyImg from "@/assets/douro-valley.jpg";
 
 const ModuleStory = () => {
   const { language } = useLanguage();
@@ -27,7 +26,7 @@ const ModuleStory = () => {
       moduleNumber={1}
       title={isEN ? "The Story of The 100's" : "A História do The 100's"}
       subtitle={isEN ? "Origin, concept, and 400 years of Port wine heritage." : "Origem, conceito e 400 anos de herança de Vinho do Porto."}
-      heroImage={douroImg}
+      heroImage={douroValleyImg}
     >
       <ContentBlock title={isEN ? "The Origin" : "A Origem"}>
         <p>{isEN

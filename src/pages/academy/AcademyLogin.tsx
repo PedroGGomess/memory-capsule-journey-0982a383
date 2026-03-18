@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 import logoImg from "@/assets/Logo.png";
+import bottleCloseupImg from "@/assets/bottle-closeup.jpg";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -63,8 +64,18 @@ const AcademyLogin = () => {
         )}
       </button>
 
+      {/* Background image (desktop only) */}
+      <div className="hidden md:block absolute inset-y-0 left-0 w-1/2 overflow-hidden">
+        <img
+          src={bottleCloseupImg}
+          alt="The 100's"
+          className="w-full h-full object-cover opacity-40"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
+      </div>
+
       <motion.div
-        className="w-full max-w-md relative z-10"
+        className="w-full max-w-md relative z-10 md:ml-auto md:mr-16"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}

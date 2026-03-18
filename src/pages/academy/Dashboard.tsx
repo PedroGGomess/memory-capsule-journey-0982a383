@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useProgress } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAcademyAuth } from "@/contexts/AcademyAuthContext";
 import { getRoleLabel } from "@/config/roles";
 import { useRef } from "react";
 import logoImg from "@/assets/Logo.png";
@@ -54,7 +55,37 @@ const ALL_MODULES = [
 const Dashboard = () => {
   const { getCompletionPercentage, isModuleCompleted, completedModules, totalModules, allowedModules, userRole, progress } = useProgress();
   const { t, language } = useLanguage();
+  const { user } = useAcademyAuth();
   const pct = getCompletionPercentage();
+
+  // Get motivational quote based on progress
+  const getMotivationalQuote = () => {
+    if (pct === 0) {
+      return language === "pt"
+        ? "A tua jornada pelo mundo do tempo começa aqui."
+        : "Your journey through the world of time begins here.";
+    } else if (pct < 25) {
+      return language === "pt"
+        ? "A tua jornada pelo mundo do tempo começa aqui."
+        : "Your journey through the world of time begins here.";
+    } else if (pct < 50) {
+      return language === "pt"
+        ? "Cada módulo é uma cápsula de conhecimento."
+        : "Every module is a capsule of knowledge.";
+    } else if (pct < 75) {
+      return language === "pt"
+        ? "Estás a tornar-te um verdadeiro guardião do tempo."
+        : "You're becoming a true guardian of time.";
+    } else if (pct < 100) {
+      return language === "pt"
+        ? "Quase lá — o teu legado The 100's está quase completo."
+        : "Almost there — your The 100's legacy is nearly complete.";
+    } else {
+      return language === "pt"
+        ? "Parabéns — és oficialmente um guardião do tempo."
+        : "Congratulations — you're officially a guardian of time.";
+    }
+  };
 
   const modules = ALL_MODULES
     .filter((m) => allowedModules.includes(m.id))
@@ -126,7 +157,7 @@ const Dashboard = () => {
               transition={{ delay: 0.3, duration: 0.6, ease }}
               className="text-[10px] tracking-[0.6em] uppercase text-primary/60 mb-3"
             >
-              {t.academy.dashboard.welcomeTo}
+              {language === "pt" ? "Bem-vindo" : "Welcome"}{user?.name ? "," : ""}
             </motion.p>
 
             <motion.h1
@@ -135,16 +166,16 @@ const Dashboard = () => {
               transition={{ delay: 0.4, duration: 0.7, ease }}
               className="text-5xl md:text-6xl font-light text-primary mb-4 leading-tight"
             >
-              {t.academy.dashboard.title}
+              {user?.name ? user.name : t.academy.dashboard.title}
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-sm md:text-base text-foreground/50 font-light max-w-xl leading-relaxed"
+              className="text-sm md:text-base text-foreground/50 font-light max-w-xl leading-relaxed italic"
             >
-              {t.academy.dashboard.subtitle}
+              {getMotivationalQuote()}
             </motion.p>
 
             {userRole && (

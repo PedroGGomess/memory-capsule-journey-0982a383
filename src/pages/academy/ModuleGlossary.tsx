@@ -1,6 +1,6 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, QuizBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
-import douroImg from "@/assets/academy/douro-terraces.jpg";
+import portWineImg from "@/assets/academy/port-wine-pour.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useState } from "react";
 import { Search } from "lucide-react";
@@ -93,7 +93,7 @@ const ModuleGlossary = () => {
       moduleNumber={10}
       title={isEN ? "Port Wine Glossary" : "Glossário do Vinho do Porto"}
       subtitle={isEN ? "Every term you need to speak with authority." : "Todos os termos de que precisas para falar com autoridade."}
-      heroImage={douroImg}
+      heroImage={portWineImg}
     >
       <ContentBlock title={isEN ? "Your Language Is Your Credibility" : "A Tua Linguagem É a Tua Credibilidade"}>
         <p>{isEN

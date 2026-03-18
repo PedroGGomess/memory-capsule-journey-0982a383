@@ -1,7 +1,7 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
-import storeImg from "@/assets/store-interior.jpg";
+import heroDrop from "@/assets/hero-drop.jpg";
 import { QrCode, Smartphone, TrendingUp, Globe, Store, ShoppingCart, User } from "lucide-react";
 
 const ModuleBusinessModel = () => {
@@ -13,7 +13,7 @@ const ModuleBusinessModel = () => {
     moduleNumber={8}
     title={isEN ? "Business Model & Digital Strategy" : "Modelo de Negócio e Estratégia Digital"}
     subtitle={isEN ? "How The 100's operates, grows and captures lasting relationships." : "Como o The 100's opera, cresce e cria relações duradouras."}
-    heroImage={storeImg}
+    heroImage={heroDrop}
   >
     <ContentBlock title={isEN ? "What We Do" : "O Que Fazemos"}>
       <p>{isEN

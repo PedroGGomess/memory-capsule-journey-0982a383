@@ -98,8 +98,25 @@ export function AcademySidebar() {
           )}
         </div>
 
+        {/* Progress Indicator */}
+        {!collapsed && (
+          <div className="px-4 py-4">
+            <div className="space-y-2">
+              <div className="h-0.5 w-full bg-sidebar-border overflow-hidden">
+                <div
+                  className="h-full bg-sidebar-primary transition-all duration-500"
+                  style={{ width: `${useProgress().getCompletionPercentage()}%` }}
+                />
+              </div>
+              <p className="text-[9px] tracking-[0.15em] uppercase text-sidebar-foreground/40 font-light">
+                {useProgress().completedModules} / {useProgress().totalModules} {language === "en" ? "modules" : "módulos"}
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Dashboard Link */}
-        <div className="px-2 pt-4 pb-1">
+        <div className="px-2 pt-2 pb-1">
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
