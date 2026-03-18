@@ -43,6 +43,8 @@ const ModuleUVPrinter = lazy(() => import("./pages/academy/ModuleUVPrinter"));
 const ModuleVocabulary = lazy(() => import("./pages/academy/ModuleVocabulary"));
 const ModuleLeadership = lazy(() => import("./pages/academy/ModuleLeadership"));
 const ModuleTeamOps = lazy(() => import("./pages/academy/ModuleTeamOps"));
+const PresentialTraining = lazy(() => import("./pages/academy/PresentialTraining"));
+const TeamView = lazy(() => import("./pages/academy/TeamView"));
 const AcademyLogin = lazy(() => import("./pages/academy/AcademyLogin"));
 const AdminEmployees = lazy(() => import("./pages/academy/AdminEmployees"));
 
@@ -117,6 +119,8 @@ const App = () => (
                     <Route path="module/vocabulary" element={<ModuleVocabulary />} />
                     <Route path="module/leadership" element={<ModuleLeadership />} />
                     <Route path="module/team-ops" element={<ModuleTeamOps />} />
+                    <Route path="presential-training" element={<PresentialTraining />} />
+                    <Route path="team" element={<TeamView />} />
                     <Route path="admin/employees" element={<AdminEmployees />} />
                   </Route>
 

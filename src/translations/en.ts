@@ -291,6 +291,8 @@ const en = {
       askTeam: "Ask the Team",
       resources: "Resources",
       aiAssistant: "AI Assistant",
+      presentialTraining: "In-Person Training",
+      myTeam: "My Team",
       certification: "Certification",
     },
     dashboard: {

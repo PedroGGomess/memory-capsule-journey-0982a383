@@ -13,7 +13,7 @@ import {
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
   Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut, Home, BookMarked, Target, Image,
-  Heart, Shield, Plane, Languages, Monitor, Printer, Briefcase, ClipboardList, User
+  Heart, Shield, Plane, Languages, Monitor, Printer, Briefcase, ClipboardList, User, Calendar
 } from "lucide-react";
 import logoImg from "@/assets/Logo.png";
 
@@ -62,10 +62,15 @@ export function AcademySidebar() {
 
   const tools = [
     { title: language === "en" ? "Profile" : "Perfil", url: "/academy/profile", icon: User, id: "profile" },
+    { title: language === "en" ? "In-Person Training" : "Formação Presencial", url: "/academy/presential-training", icon: Calendar, id: "presential-training" },
     { title: t.academy.nav.askTeam, url: "/academy/module/ask-team", icon: Sparkles, id: "ask-team" },
     { title: t.academy.nav.resources, url: "/academy/module/resources", icon: FolderOpen, id: "resources" },
     { title: t.academy.nav.aiAssistant, url: "/academy/module/ai-assistant", icon: Bot, id: "ai-assistant" },
   ];
+
+  const managerTools = (userRole === "store-manager" || userRole === "team-leader") ? [
+    { title: language === "en" ? "My Team" : "A Minha Equipa", url: "/academy/team", icon: Users, id: "my-team" },
+  ] : [];
 
   const handleLogout = () => {
     logout();
@@ -206,6 +211,36 @@ export function AcademySidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {/* Manager Tools Section - only for store-manager and team-leader */}
+        {(userRole === "store-manager" || userRole === "team-leader") && managerTools.length > 0 && (
+          <SidebarGroup className="px-2 mt-1">
+            {!collapsed && (
+              <SidebarGroupLabel className="text-[9px] tracking-[0.35em] uppercase text-sidebar-foreground/40 px-4 mb-2">
+                {language === "en" ? "MANAGEMENT" : "GESTÃO"}
+              </SidebarGroupLabel>
+            )}
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {managerTools.map((item) => (
+                  <SidebarMenuItem key={item.id}>
+                    <SidebarMenuButton asChild>
+                      <NavLink
+                        to={item.url}
+                        end
+                        className="flex items-center gap-3 px-4 py-2 text-sm font-light text-sidebar-foreground/70 hover:text-sidebar-primary transition-colors duration-200 border-l-2 border-transparent"
+                        activeClassName="text-sidebar-primary border-l-2 border-sidebar-primary"
+                      >
+                        <item.icon className="w-4 h-4 shrink-0 opacity-70" />
+                        {!collapsed && <span className="tracking-wider text-xs">{item.title}</span>}
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
 
         {/* Admin Section - only for store-manager and hr */}
         {(userRole === "store-manager" || userRole === "hr") && (

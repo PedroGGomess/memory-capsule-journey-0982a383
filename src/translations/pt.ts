@@ -291,6 +291,8 @@ const pt = {
       askTeam: "Perguntar à Equipa",
       resources: "Recursos",
       aiAssistant: "Assistente IA",
+      presentialTraining: "Formação Presencial",
+      myTeam: "A Minha Equipa",
       certification: "Certificação",
     },
     dashboard: {
