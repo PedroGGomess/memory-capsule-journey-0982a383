@@ -17,11 +17,11 @@ const GymAdminLayout = () => {
   };
 
   const navItems = [
-    { to: "/gym-admin", end: true, icon: LayoutDashboard, label: t.admin.layout.dashboard },
-    { to: "/gym-admin/analytics", end: false, icon: BarChart2, label: t.admin.layout.analytics },
-    { to: "/gym-admin/questions", end: false, icon: MessageSquare, label: t.admin.layout.questionsInbox },
-    { to: "/gym-admin/logs", end: false, icon: History, label: t.admin.layout.accessLogs },
-    { to: "/gym-admin/admins", end: false, icon: UserPlus, label: "Admins" },
+    { to: "/gym-admin", end: true, icon: LayoutDashboard, label: language === "pt" ? "Painel" : "Dashboard" },
+    { to: "/gym-admin/analytics", end: false, icon: BarChart2, label: language === "pt" ? "Análises" : "Analytics" },
+    { to: "/gym-admin/questions", end: false, icon: MessageSquare, label: language === "pt" ? "Caixa de Perguntas" : "Question Inbox" },
+    { to: "/gym-admin/logs", end: false, icon: History, label: language === "pt" ? "Registos de Acesso" : "Access Logs" },
+    { to: "/gym-admin/admins", end: false, icon: UserPlus, label: language === "pt" ? "Admins" : "Admins" },
   ];
 
   return (
