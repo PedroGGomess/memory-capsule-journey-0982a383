@@ -14,6 +14,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { GymAccessProvider } from "./contexts/GymAccessContext";
 import { AcademyAuthProvider } from "./contexts/AcademyAuthContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 const Dashboard = lazy(() => import("./pages/academy/Dashboard"));
 const ModuleStory = lazy(() => import("./pages/academy/ModuleStory"));
@@ -71,7 +72,8 @@ const App = () => (
           <AcademyAuthProvider>
             <GymAccessProvider>
               <LanguageProvider>
-              <Suspense fallback={<Loading />}>
+                <ThemeProvider>
+                  <Suspense fallback={<Loading />}>
                 <Routes>
                   <Route path="/" element={<Index />} />
 
@@ -140,7 +142,8 @@ const App = () => (
 
                   <Route path="*" element={<NotFound />} />
                 </Routes>
-              </Suspense>
+                  </Suspense>
+                </ThemeProvider>
               </LanguageProvider>
             </GymAccessProvider>
           </AcademyAuthProvider>

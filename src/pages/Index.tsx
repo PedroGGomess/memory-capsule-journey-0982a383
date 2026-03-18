@@ -1,9 +1,10 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Sun, Moon } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 
 import collectionImg from "@/assets/collection.jpg";
 import giftPackagingImg from "@/assets/gift-packaging.jpg";
@@ -12,6 +13,7 @@ import storeInteriorImg from "@/assets/store-interior.jpg";
 const Index = () => {
   const conceptRef = useRef<HTMLDivElement>(null);
   const { t, language, setLanguage } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
 
   const handleScroll = () => {
     conceptRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -28,28 +30,39 @@ const Index = () => {
   return (
     <div className="bg-background min-h-screen overflow-hidden">
       {/* Navigation Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/10">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
         <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="text-lg tracking-[0.2em] font-light text-gold-gradient"
+            className="text-lg tracking-[0.2em] font-light text-primary"
           >
             THE 100'S
           </motion.div>
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-6">
+            <button
+              onClick={toggleTheme}
+              className="text-foreground/70 hover:text-primary transition-colors duration-200"
+              title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {theme === "dark" ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
+            </button>
             <button
               onClick={() => setLanguage(language === "en" ? "pt" : "en")}
-              className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-primary transition-colors"
+              className="text-xs tracking-[0.15em] uppercase text-foreground/70 hover:text-primary transition-colors"
             >
-              {language === "en" ? "PT" : "EN"} | {language === "en" ? "EN" : "PT"}
+              {language === "en" ? "PT" : "EN"}
             </button>
             <Link
               to="/academy/login"
-              className="text-xs tracking-[0.15em] uppercase text-primary hover:text-primary/80 transition-colors"
+              className="text-xs tracking-[0.15em] uppercase text-primary hover:text-primary/80 transition-colors border border-primary px-3 py-1.5"
             >
-              {language === "pt" ? "ENTRAR NA ACADEMIA" : "ENTER ACADEMY"}
+              {language === "pt" ? "ACADEMIA" : "ACADEMY"}
             </Link>
           </div>
         </nav>

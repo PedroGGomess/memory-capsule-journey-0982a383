@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAcademyAuth } from "@/contexts/AcademyAuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
+import { Sun, Moon } from "lucide-react";
 import logoImg from "@/assets/Logo.png";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -12,7 +14,8 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const AcademyLogin = () => {
   const { isAuthenticated, login, isLoading: authLoading } = useAcademyAuth();
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -47,13 +50,18 @@ const AcademyLogin = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-6 relative overflow-hidden">
-      {/* Subtle warm texture background */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay pointer-events-none" />
-
-      {/* Warm ambient glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-primary/[0.08] blur-[120px]" />
-      </div>
+      {/* Theme toggle - top right */}
+      <button
+        onClick={toggleTheme}
+        className="fixed top-6 right-6 text-foreground/70 hover:text-primary transition-colors duration-200 z-50"
+        title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+      >
+        {theme === "dark" ? (
+          <Sun className="w-5 h-5" />
+        ) : (
+          <Moon className="w-5 h-5" />
+        )}
+      </button>
 
       <motion.div
         className="w-full max-w-md relative z-10"
@@ -74,63 +82,38 @@ const AcademyLogin = () => {
         </motion.div>
 
         {/* Title section */}
-        <div className="text-center mb-10">
-          <motion.p
-            className="text-[9px] tracking-[0.6em] uppercase text-primary/40 mb-4"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6, ease }}
-          >
-            {t.academy.login.tagline}
-          </motion.p>
+        <div className="text-center mb-12">
           <motion.h1
-            className="text-4xl md:text-5xl font-extralight text-gold-gradient mb-3 tracking-wide"
+            className="text-5xl md:text-6xl font-light text-primary mb-2 tracking-tight"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.7, ease }}
+            transition={{ delay: 0.2, duration: 0.7, ease }}
           >
             {t.academy.login.title}
           </motion.h1>
           <motion.p
-            className="text-[10px] text-muted-foreground/40 font-light tracking-[0.4em] uppercase"
+            className="text-sm text-foreground/60 font-light tracking-[0.2em] uppercase"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
           >
             {t.academy.login.subtitle}
           </motion.p>
         </div>
-
-        {/* Decorative divider */}
-        <motion.div
-          className="flex items-center justify-center mb-10"
-          initial={{ opacity: 0, scaleX: 0 }}
-          animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ delay: 0.5, duration: 0.6, ease }}
-        >
-          <div className="h-px w-20 bg-gradient-to-r from-transparent to-primary/20" />
-          <div className="mx-4 w-1.5 h-1.5 rounded-full bg-primary/20" />
-          <div className="h-px w-20 bg-gradient-to-l from-transparent to-primary/20" />
-        </motion.div>
 
         {/* Login card */}
         <motion.div
           className="relative"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.7, ease }}
+          transition={{ delay: 0.4, duration: 0.7, ease }}
         >
-          <div className="border border-border/30 bg-card p-10 relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-            <p className="text-[9px] tracking-[0.4em] uppercase text-muted-foreground/35 text-center mb-8">
-              {t.academy.login.portalLabel}
-            </p>
-
-            <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="space-y-4">
+          <div className="border border-border bg-card p-10">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-3">
                 <label
                   htmlFor="code"
-                  className="block text-[9px] tracking-[0.3em] uppercase text-muted-foreground/40 text-center"
+                  className="block text-xs tracking-[0.2em] uppercase text-foreground/60 text-center font-light"
                 >
                   {t.academy.login.codeLabel}
                 </label>
@@ -142,8 +125,8 @@ const AcademyLogin = () => {
                     setCode(e.target.value);
                     setError("");
                   }}
-                  placeholder="· · · · · · · ·"
-                  className="font-mono tracking-[0.5em] text-center bg-secondary border-border/50 focus:border-primary/60 focus:bg-secondary focus:ring-1 focus:ring-primary/25 text-foreground/80 placeholder:text-muted-foreground/35 h-14 text-lg transition-all duration-500"
+                  placeholder="CODE"
+                  className="font-light tracking-wider text-center bg-background border border-border focus:border-primary text-foreground placeholder:text-foreground/40 h-12 text-base transition-colors duration-200"
                   autoComplete="off"
                   autoFocus
                 />
@@ -151,7 +134,7 @@ const AcademyLogin = () => {
 
               {error && (
                 <motion.p
-                  className="text-xs text-destructive/80 text-center font-light"
+                  className="text-xs text-destructive text-center font-light"
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
@@ -162,7 +145,7 @@ const AcademyLogin = () => {
               <Button
                 type="submit"
                 disabled={!code.trim() || isLoading}
-                className="w-full border border-primary/40 bg-primary/8 text-primary hover:bg-primary/12 hover:border-primary/60 tracking-[0.3em] uppercase text-[10px] font-light transition-all duration-500 h-14 disabled:opacity-30"
+                className="w-full border border-primary text-primary hover:bg-primary hover:text-background tracking-[0.2em] uppercase text-xs font-light transition-all duration-200 h-12 disabled:opacity-50"
               >
                 {isLoading ? (
                   <span className="animate-pulse">{t.academy.login.enterButton}</span>
@@ -174,30 +157,18 @@ const AcademyLogin = () => {
           </div>
         </motion.div>
 
-        {/* Hint text */}
-        <motion.p
-          className="text-center text-[9px] text-muted-foreground/25 mt-10 font-light tracking-wider leading-relaxed"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-        >
-          {t.academy.login.codeHint}
-        </motion.p>
-
         {/* Return link */}
         <motion.div
           className="text-center mt-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.6 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
         >
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-[9px] tracking-[0.3em] uppercase text-muted-foreground/20 hover:text-muted-foreground/50 transition-colors duration-500"
+            className="text-xs tracking-[0.2em] uppercase text-foreground/50 hover:text-primary transition-colors duration-200 font-light"
           >
-            <span className="w-4 h-px bg-current" />
             {t.academy.login.returnLink}
-            <span className="w-4 h-px bg-current" />
           </Link>
         </motion.div>
 

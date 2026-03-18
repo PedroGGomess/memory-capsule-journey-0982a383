@@ -5,58 +5,74 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    /* Dark warm walnut wood palette - wine cellar aesthetic */
-    --background: 20 18% 10%;          /* Deep warm walnut */
-    --foreground: 35 25% 88%;          /* Warm ivory text */
+  /* DEFAULT: Dark Mode */
+  :root, .dark {
+    --background: 0 0% 4%;              /* Near black */
+    --foreground: 0 0% 92%;             /* Near white */
+    --card: 0 0% 7%;                    /* Very dark card */
+    --card-foreground: 0 0% 92%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 92%;
+    --primary: 38 50% 55%;              /* Gold */
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 80%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 55%;
+    --accent: 38 30% 12%;
+    --accent-foreground: 38 50% 65%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 95%;
+    --border: 0 0% 15%;                 /* Dark border */
+    --input: 0 0% 12%;
+    --ring: 38 50% 55%;
+    --gold-light: 38 55% 65%;
+    --gold-default: 38 50% 55%;
+    --gold-dark: 38 40% 40%;
+    --sidebar-background: 0 0% 3%;      /* Darkest */
+    --sidebar-foreground: 0 0% 80%;
+    --sidebar-primary: 38 55% 60%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 0 0% 8%;
+    --sidebar-accent-foreground: 38 50% 65%;
+    --sidebar-border: 0 0% 12%;
+    --sidebar-ring: 38 55% 60%;
+    --radius: 0px;                      /* Apple = sharp corners */
+  }
 
-    /* Cards - slightly lighter warm brown panel */
-    --card: 20 16% 15%;                /* Lighter wood panel */
-    --card-foreground: 35 25% 88%;
-
-    --popover: 20 16% 15%;
-    --popover-foreground: 35 25% 88%;
-
-    /* Primary - Warm burnished gold (candlelight) */
-    --primary: 35 45% 58%;             /* Warm gold accent */
-    --primary-foreground: 20 18% 8%;   /* Dark on gold */
-
-    /* Secondary - Warm dark secondary */
-    --secondary: 20 12% 20%;
-    --secondary-foreground: 35 20% 75%;
-
-    /* Muted - muted dark warm tones */
-    --muted: 20 10% 18%;
-    --muted-foreground: 25 12% 55%;    /* Medium warm gray */
-
-    /* Accent - warm dark accent */
-    --accent: 30 20% 18%;
-    --accent-foreground: 35 40% 65%;   /* Gold-ish text */
-
-    --destructive: 0 55% 50%;
-    --destructive-foreground: 35 25% 90%;
-
-    /* Border - subtle warm dark borders */
-    --border: 20 12% 22%;
-    --input: 20 12% 20%;
-    --ring: 35 45% 58%;
-
-    --radius: 0.5rem;
-
-    /* Gold variations - warm candlelight tones */
-    --gold-light: 35 50% 68%;
-    --gold-default: 35 45% 58%;
-    --gold-dark: 35 35% 42%;
-
-    /* Sidebar - darkest element (like old leather) */
-    --sidebar-background: 20 20% 7%;   /* Darkest - leather tone */
-    --sidebar-foreground: 35 20% 75%;  /* Warm light text */
-    --sidebar-primary: 35 50% 62%;     /* Gold on very dark */
-    --sidebar-primary-foreground: 20 20% 7%;
-    --sidebar-accent: 20 15% 12%;      /* Slightly lighter dark */
-    --sidebar-accent-foreground: 35 40% 70%;
-    --sidebar-border: 20 12% 15%;
-    --sidebar-ring: 35 50% 62%;
+  /* Light Mode */
+  .light {
+    --background: 0 0% 98%;             /* Near white */
+    --foreground: 0 0% 8%;              /* Near black text */
+    --card: 0 0% 100%;                  /* Pure white card */
+    --card-foreground: 0 0% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
+    --primary: 38 50% 45%;              /* Slightly darker gold for light bg */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 25%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 38 20% 94%;
+    --accent-foreground: 38 50% 35%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 88%;                 /* Light border */
+    --input: 0 0% 92%;
+    --ring: 38 50% 45%;
+    --gold-light: 38 45% 60%;
+    --gold-default: 38 50% 45%;
+    --gold-dark: 38 40% 35%;
+    --sidebar-background: 0 0% 100%;    /* White sidebar */
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 38 50% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 38 50% 35%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 38 50% 45%;
+    --radius: 0px;
   }
 }
 
@@ -77,17 +93,15 @@
 @layer utilities {
   .text-gold-gradient {
     @apply bg-clip-text text-transparent;
-    /* Warm, candlelit gold gradient */
-    background-image: linear-gradient(135deg, hsl(35 50% 68%), hsl(35 45% 58%), hsl(35 35% 42%));
+    background-image: linear-gradient(135deg, hsl(var(--gold-light)), hsl(var(--gold-default)), hsl(var(--gold-dark)));
   }
 
   .border-gold-gradient {
-    border-image: linear-gradient(135deg, hsl(35 50% 68%), hsl(35 45% 58%)) 1;
+    border-image: linear-gradient(135deg, hsl(var(--gold-light)), hsl(var(--gold-default))) 1;
   }
 
   .glow-gold {
-    /* Subtle warm gold glow - like candlelight */
-    box-shadow: 0 0 12px -4px hsl(35 45% 58% / 0.15);
+    box-shadow: 0 0 12px -4px hsl(var(--primary) / 0.15);
   }
 
   .section-padding {
@@ -95,20 +109,23 @@
   }
 }
 
-/* Custom scrollbar - thin, warm-toned, dark */
+/* Custom scrollbar - thin, gold-toned, adapts to theme */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(20 18% 10%);
+  background: hsl(var(--background));
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(35 45% 58% / 0.25);
-  border-radius: 2px;
+  background: hsl(var(--primary) / 0.4);
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.6);
 }
 
-/* Selection color - warm gold tint on dark */
+/* Selection color - gold tint, theme-aware */
 ::selection {
-  background: hsl(35 45% 58% / 0.25);
-  color: hsl(35 25% 88%);
+  background: hsl(var(--primary) / 0.25);
+  color: hsl(var(--foreground));
 }

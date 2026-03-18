@@ -133,7 +133,7 @@ const Dashboard = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.7, ease }}
-              className="text-3xl md:text-5xl font-light text-gold-gradient mb-4 leading-tight"
+              className="text-5xl md:text-6xl font-light text-primary mb-4 leading-tight"
             >
               {t.academy.dashboard.title}
             </motion.h1>
@@ -152,9 +152,9 @@ const Dashboard = () => {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.6 }}
-                className="mt-6 px-4 py-1.5 rounded-full bg-primary/8 border border-primary/25"
+                className="mt-6 px-4 py-1.5 bg-transparent border border-primary"
               >
-                <span className="text-[10px] tracking-[0.25em] uppercase text-primary/70">{roleLabel}</span>
+                <span className="text-[10px] tracking-[0.2em] uppercase text-primary font-light">{roleLabel}</span>
               </motion.div>
             )}
           </div>
@@ -164,10 +164,10 @@ const Dashboard = () => {
       <div className="px-6 md:px-12 lg:px-16 max-w-5xl mx-auto pb-24">
         {/* ── Progress Overview ── */}
         <motion.section variants={itemVariants} className="mb-16">
-          <div className="bg-card border border-border/30 rounded-lg p-8 shadow-sm">
+          <div className="bg-card border border-border p-8">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-8">
               <div className="space-y-1 flex-1">
-                <p className="text-[9px] tracking-[0.4em] uppercase text-muted-foreground/50">
+                <p className="text-xs tracking-[0.2em] uppercase text-foreground/50 font-light">
                   {t.academy.dashboard.progressLabel}
                 </p>
                 {nextModule && pct < 100 ? (
@@ -183,16 +183,16 @@ const Dashboard = () => {
               </div>
 
               <div className="flex items-end gap-2">
-                <span className="text-5xl md:text-6xl font-extralight text-gold-gradient leading-none">{pct}</span>
-                <span className="text-base text-muted-foreground/40 font-light mb-2">%</span>
+                <span className="text-5xl md:text-6xl font-light text-primary leading-none">{pct}</span>
+                <span className="text-base text-foreground/40 font-light mb-2">%</span>
               </div>
             </div>
 
             {/* Progress Bar */}
-            <div className="space-y-3">
-              <div className="h-1.5 w-full bg-border/20 rounded-full overflow-hidden">
+            <div className="space-y-3 border-t border-border pt-6">
+              <div className="h-1 w-full bg-border overflow-hidden">
                 <motion.div
-                  className="h-full bg-gradient-to-r from-primary/70 via-primary to-primary/60 rounded-full"
+                  className="h-full bg-primary"
                   initial={{ width: 0 }}
                   animate={{ width: `${pct}%` }}
                   transition={{ delay: 0.5, duration: 1.2, ease }}
@@ -200,7 +200,7 @@ const Dashboard = () => {
               </div>
 
               <div className="flex items-center justify-between">
-                <p className="text-[9px] tracking-[0.2em] uppercase text-muted-foreground/40">
+                <p className="text-xs tracking-[0.2em] uppercase text-foreground/50 font-light">
                   {completedModules} / {totalModules} {t.academy.dashboard.moduleLabel.toLowerCase()}s
                 </p>
               </div>
@@ -213,7 +213,7 @@ const Dashboard = () => {
           <motion.section variants={itemVariants} className="mb-16">
             <Link to={nextModule.path}>
               <motion.div
-                className="bg-gradient-to-r from-primary/8 to-primary/4 border border-primary/25 rounded-lg p-8 transition-all duration-500 hover:border-primary/40 hover:shadow-lg"
+                className="bg-background border border-primary p-8 transition-all duration-200 hover:border-primary"
                 whileHover={{ y: -2 }}
               >
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
