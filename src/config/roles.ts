@@ -31,6 +31,7 @@ const ROLE_MODULES: Record<EmployeeRole, string[]> = {
     "business-model", "visual-merchandising",
     "client-profiles", "client-culture", "conduct", "transport-rules", "vocabulary",
     "digital-systems", "uv-printer",
+    "team-ops",
     "certification",
   ],
   "store-manager": [
@@ -40,6 +41,7 @@ const ROLE_MODULES: Record<EmployeeRole, string[]> = {
     "cross-selling", "visual-merchandising",
     "client-profiles", "client-culture", "conduct", "transport-rules", "vocabulary",
     "digital-systems", "uv-printer",
+    "leadership", "team-ops",
     "certification",
   ],
   "internal-it": [

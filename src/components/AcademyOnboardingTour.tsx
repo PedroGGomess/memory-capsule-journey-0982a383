@@ -2,39 +2,18 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Bot, BookOpen, Compass, Wine, Gift, Store, MessageCircle,
-  Users, BarChart3, Award, Sparkles, ArrowRight, X
+  BookOpen, Compass, Target, Sparkles, ArrowRight, X, Wine, Users, Shield,
+  Monitor, Briefcase, ClipboardList, Award, MessageCircle, Gift, Store, BarChart3
 } from "lucide-react";
 import logoImg from "@/assets/Logo.png";
 
 const TOUR_SEEN_KEY = "the100s-tour-seen";
 
-interface TourStep {
-  icon: React.ElementType;
-  label: string;
-  description: string;
-  path: string;
-  accent?: boolean;
-}
-
-const steps: TourStep[] = [
-  { icon: BookOpen, label: "A Nossa História", description: "A origem, a missão e o que nos torna únicos.", path: "/academy/module/story" },
-  { icon: Compass, label: "Filosofia", description: "Os valores que guiam cada decisão.", path: "/academy/module/philosophy" },
-  { icon: Wine, label: "Produtos", description: "A coleção e a experiência por trás de cada rótulo.", path: "/academy/module/products" },
-  { icon: Gift, label: "Conceito de Presente", description: "Transformar cada garrafa numa experiência.", path: "/academy/module/gift" },
-  { icon: Store, label: "Experiência em Loja", description: "As 6 zonas da jornada do cliente.", path: "/academy/module/store" },
-  { icon: MessageCircle, label: "Voz da Marca", description: "O tom e o estilo The 100's.", path: "/academy/module/brand-voice" },
-  { icon: Users, label: "Experiência do Cliente", description: "Criar conexões autênticas.", path: "/academy/module/customer-experience" },
-  { icon: BarChart3, label: "Modelo de Negócio", description: "Estratégia e visão do negócio.", path: "/academy/module/business-model" },
-  { icon: Award, label: "Certificação", description: "O teu certificado oficial The 100's.", path: "/academy/module/certification", accent: true },
-];
-
-type Phase = "welcome" | "modules" | "assistant";
+type Phase = "welcome" | "learning-areas" | "how-it-works";
 
 export function AcademyOnboardingTour() {
   const [visible, setVisible] = useState(false);
   const [phase, setPhase] = useState<Phase>("welcome");
-  const [highlightIndex, setHighlightIndex] = useState(-1);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,26 +24,10 @@ export function AcademyOnboardingTour() {
     }
   }, []);
 
-  // Animate module highlights one by one
-  useEffect(() => {
-    if (phase !== "modules") return;
-    setHighlightIndex(-1);
-    const timer = setTimeout(() => {
-      let i = 0;
-      const interval = setInterval(() => {
-        setHighlightIndex(i);
-        i++;
-        if (i >= steps.length) clearInterval(interval);
-      }, 180);
-      return () => clearInterval(interval);
-    }, 400);
-    return () => clearTimeout(timer);
-  }, [phase]);
-
   const finish = () => {
     localStorage.setItem(TOUR_SEEN_KEY, "true");
     setVisible(false);
-    navigate("/academy/module/ai-assistant");
+    navigate("/academy");
   };
 
   const skip = () => {
@@ -102,7 +65,7 @@ export function AcademyOnboardingTour() {
         </button>
 
         {/* Content container */}
-        <div className="relative z-10 w-full max-w-xl mx-4">
+        <div className="relative z-10 w-full max-w-2xl mx-4">
           <AnimatePresence mode="wait">
             {/* ── PHASE 1: Welcome ── */}
             {phase === "welcome" && (
@@ -136,7 +99,7 @@ export function AcademyOnboardingTour() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
                   >
-                    Bem-vindo à
+                    Bem-vindo à / Welcome to
                   </motion.p>
                   <motion.h1
                     className="text-4xl md:text-5xl font-light text-gold-gradient"
@@ -146,14 +109,22 @@ export function AcademyOnboardingTour() {
                   >
                     The 100's Academy
                   </motion.h1>
-                  <motion.p
-                    className="text-sm text-muted-foreground/60 font-light max-w-sm mx-auto leading-relaxed"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.7 }}
-                  >
-                    A tua jornada de formação começa aqui. Vou mostrar-te tudo o que vais encontrar.
-                  </motion.p>
+                  <motion.div className="space-y-4 pt-4">
+                    <p className="text-sm text-muted-foreground/60 font-light max-w-sm mx-auto leading-relaxed">
+                      Bem-vindo à The 100's Academy
+                    </p>
+                    <p className="text-sm text-muted-foreground/60 font-light max-w-sm mx-auto leading-relaxed">
+                      Welcome to The 100's Academy
+                    </p>
+                  </motion.div>
+                  <motion.div className="space-y-4 pt-4">
+                    <p className="text-sm text-muted-foreground/60 font-light max-w-sm mx-auto leading-relaxed">
+                      A tua jornada pelo mundo do tempo, memória e legado começa aqui. Vamos preparar-te para seres um verdadeiro guardião do tempo.
+                    </p>
+                    <p className="text-sm text-muted-foreground/60 font-light max-w-sm mx-auto leading-relaxed">
+                      Your journey through the world of time, memory and legacy starts here. We'll prepare you to be a true guardian of time.
+                    </p>
+                  </motion.div>
                 </div>
 
                 <motion.div
@@ -168,7 +139,7 @@ export function AcademyOnboardingTour() {
                 </motion.div>
 
                 <motion.button
-                  onClick={() => setPhase("modules")}
+                  onClick={() => setPhase("learning-areas")}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1 }}
@@ -176,7 +147,7 @@ export function AcademyOnboardingTour() {
                   whileTap={{ scale: 0.97 }}
                   className="inline-flex items-center gap-3 border border-primary/30 px-8 py-3 text-xs tracking-[0.25em] uppercase text-primary hover:border-primary hover:bg-primary/5 transition-all duration-500"
                 >
-                  Descobrir
+                  Descobrir → / Discover →
                   <ArrowRight className="w-4 h-4" />
                 </motion.button>
 
@@ -187,15 +158,15 @@ export function AcademyOnboardingTour() {
                   transition={{ delay: 1.2 }}
                   className="block mx-auto text-[10px] text-muted-foreground/25 hover:text-muted-foreground/50 transition-colors tracking-[0.15em] uppercase"
                 >
-                  Saltar tour
+                  Skip / Saltar
                 </motion.button>
               </motion.div>
             )}
 
-            {/* ── PHASE 2: All modules at once ── */}
-            {phase === "modules" && (
+            {/* ── PHASE 2: Learning Areas ── */}
+            {phase === "learning-areas" && (
               <motion.div
-                key="modules"
+                key="learning-areas"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -209,7 +180,7 @@ export function AcademyOnboardingTour() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.2 }}
                   >
-                    A tua formação
+                    O que vais aprender / What you'll learn
                   </motion.p>
                   <motion.h2
                     className="text-2xl font-light text-foreground/90"
@@ -217,52 +188,47 @@ export function AcademyOnboardingTour() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
                   >
-                    9 módulos para dominares
+                    Áreas de Aprendizagem / Learning Areas
                   </motion.h2>
+                  <motion.p
+                    className="text-xs text-muted-foreground/60 font-light max-w-lg mx-auto pt-3"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    Os módulos são adaptados ao teu cargo — só vês o que é relevante para ti. / Modules are adapted to your role — you only see what's relevant to you.
+                  </motion.p>
                 </div>
 
-                {/* Module list */}
-                <div className="space-y-1">
-                  {steps.map((s, i) => {
-                    const Icon = s.icon;
-                    const revealed = i <= highlightIndex;
+                {/* Learning Areas */}
+                <div className="space-y-3">
+                  {[
+                    { icon: Wine, pt: "A Marca & Produto", en: "Brand & Product", desc: "História, filosofia, gamas, materiais" },
+                    { icon: Target, pt: "A Arte de Vender", en: "Sales Mastery", desc: "Perfis de cliente, técnicas de venda, cross-selling" },
+                    { icon: Users, pt: "A Experiência", en: "The Experience", desc: "Jornada do cliente, encantamento, cultura de serviço" },
+                    { icon: Monitor, pt: "Operações & Digital", en: "Operations & Digital", desc: "POS, CRM, sistemas, impressora UV" },
+                    { icon: Shield, pt: "Excelência", en: "Excellence", desc: "Conduta, vocabulário, transporte, certificação" },
+                  ].map((area, i) => {
+                    const Icon = area.icon;
                     return (
                       <motion.div
                         key={i}
                         initial={{ opacity: 0, x: -20 }}
-                        animate={{
-                          opacity: revealed ? 1 : 0.15,
-                          x: revealed ? 0 : -10,
-                        }}
-                        transition={{ duration: 0.35, ease: "easeOut" }}
-                        className={`flex items-center gap-4 px-5 py-3 rounded-sm transition-colors duration-300 ${
-                          revealed && s.accent ? "bg-primary/5 border border-primary/15" : revealed ? "bg-card/50" : ""
-                        }`}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.5 + i * 0.1, duration: 0.4 }}
+                        className="flex items-start gap-4 px-5 py-3 rounded-sm bg-card/50 border border-border/20"
                       >
-                        <div className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300 ${
-                          revealed ? (s.accent ? "bg-primary/15" : "bg-secondary/60") : "bg-secondary/20"
-                        }`}>
-                          <Icon className={`w-4 h-4 transition-colors duration-300 ${
-                            revealed ? (s.accent ? "text-primary" : "text-foreground/60") : "text-foreground/20"
-                          }`} />
+                        <div className="p-2 bg-primary/10 rounded-sm shrink-0 mt-1">
+                          <Icon className="w-4 h-4 text-primary" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className={`text-sm font-light transition-colors duration-300 ${
-                            revealed ? "text-foreground/90" : "text-foreground/20"
-                          }`}>
-                            {s.label}
+                          <p className="text-sm font-light text-foreground/90">
+                            {area.pt} / {area.en}
                           </p>
-                          <p className={`text-xs font-light transition-colors duration-300 truncate ${
-                            revealed ? "text-muted-foreground/60" : "text-muted-foreground/15"
-                          }`}>
-                            {s.description}
+                          <p className="text-xs font-light text-muted-foreground/60 mt-1">
+                            {area.desc}
                           </p>
                         </div>
-                        <span className={`text-[9px] tracking-[0.2em] uppercase shrink-0 transition-colors duration-300 ${
-                          revealed ? "text-primary/40" : "text-primary/10"
-                        }`}>
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
                       </motion.div>
                     );
                   })}
@@ -270,80 +236,93 @@ export function AcademyOnboardingTour() {
 
                 {/* Continue */}
                 <motion.div
-                  className="flex items-center justify-between pt-2"
+                  className="flex items-center justify-between pt-4"
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: highlightIndex >= steps.length - 1 ? 1 : 0 }}
-                  transition={{ duration: 0.5 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.1, duration: 0.5 }}
                 >
                   <button
                     onClick={skip}
                     className="text-[10px] text-muted-foreground/30 hover:text-muted-foreground/60 transition-colors tracking-[0.15em] uppercase"
                   >
-                    Saltar
+                    Skip / Saltar
                   </button>
                   <motion.button
-                    onClick={() => setPhase("assistant")}
+                    onClick={() => setPhase("how-it-works")}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     className="inline-flex items-center gap-2 border border-primary/30 px-6 py-2.5 text-[10px] tracking-[0.25em] uppercase text-primary hover:border-primary hover:bg-primary/5 transition-all duration-500"
                   >
-                    Continuar
+                    Continuar / Continue
                     <ArrowRight className="w-3.5 h-3.5" />
                   </motion.button>
                 </motion.div>
               </motion.div>
             )}
 
-            {/* ── PHASE 3: AI Assistant ── */}
-            {phase === "assistant" && (
+            {/* ── PHASE 3: How It Works ── */}
+            {phase === "how-it-works" && (
               <motion.div
-                key="assistant"
+                key="how-it-works"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="text-center space-y-8"
+                className="space-y-8"
               >
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.2, type: "spring", stiffness: 150 }}
-                  className="relative inline-block"
-                >
-                  <motion.div
-                    className="absolute inset-0 rounded-full bg-primary/10 blur-2xl scale-[2]"
-                    animate={{ opacity: [0.2, 0.5, 0.2], scale: [1.8, 2.2, 1.8] }}
-                    transition={{ duration: 4, repeat: Infinity }}
-                  />
-                  <div className="w-20 h-20 rounded-full bg-primary/10 ring-1 ring-primary/20 flex items-center justify-center relative">
-                    <Bot className="w-9 h-9 text-primary" />
-                  </div>
-                </motion.div>
-
-                <div className="space-y-3">
-                  <motion.h2
-                    className="text-3xl font-light text-gold-gradient"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    Estou aqui para ti
-                  </motion.h2>
+                <div className="text-center space-y-2">
                   <motion.p
-                    className="text-sm text-muted-foreground/60 font-light max-w-sm mx-auto leading-relaxed"
+                    className="text-[9px] tracking-[0.4em] uppercase text-primary/40"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.6 }}
+                    transition={{ delay: 0.2 }}
                   >
-                    Sempre que tiveres dúvidas ou precisares de ajuda, encontra-me na secção <strong className="text-foreground/70">Assistente IA</strong>. Estou sempre disponível.
+                    Como funciona / How it works
                   </motion.p>
+                  <motion.h2
+                    className="text-2xl font-light text-foreground/90"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    O Teu Percurso / Your Journey
+                  </motion.h2>
+                </div>
+
+                {/* Steps */}
+                <div className="space-y-3">
+                  {[
+                    { num: "1", pt: "Completa os módulos ao teu ritmo", en: "Complete modules at your own pace" },
+                    { num: "2", pt: "Responde aos quizzes (mínimo 80%)", en: "Answer quizzes (minimum 80%)" },
+                    { num: "3", pt: "Obtém a tua Certificação The 100's", en: "Get your The 100's Certification" },
+                  ].map((step, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5 + i * 0.15, duration: 0.4 }}
+                      className="flex items-start gap-4 px-5 py-4 rounded-sm bg-card/50 border border-border/20"
+                    >
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/15 border border-primary/30 shrink-0 font-light text-primary text-sm">
+                        {step.num}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-light text-foreground/90">
+                          {step.pt}
+                        </p>
+                        <p className="text-sm font-light text-foreground/70 mt-1">
+                          {step.en}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
 
                 <motion.div
                   className="flex items-center justify-center gap-2"
                   initial={{ opacity: 0, scaleX: 0 }}
                   animate={{ opacity: 1, scaleX: 1 }}
-                  transition={{ delay: 0.7 }}
+                  transition={{ delay: 1, duration: 0.5 }}
                 >
                   <div className="h-px w-12 bg-primary/20" />
                   <Sparkles className="w-3 h-3 text-primary/30" />
@@ -354,22 +333,22 @@ export function AcademyOnboardingTour() {
                   onClick={finish}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9 }}
+                  transition={{ delay: 1.2 }}
                   whileHover={{ scale: 1.03, boxShadow: "0 0 30px -8px rgba(180,140,60,0.3)" }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-3 border border-primary/40 px-10 py-3.5 text-xs tracking-[0.25em] uppercase text-primary hover:border-primary hover:bg-primary/5 transition-all duration-500"
+                  className="w-full inline-flex items-center justify-center gap-3 border border-primary/40 px-10 py-3.5 text-xs tracking-[0.25em] uppercase text-primary hover:border-primary hover:bg-primary/5 transition-all duration-500"
                 >
                   <Sparkles className="w-4 h-4" />
-                  Começar a jornada
+                  Começar → / Start →
                 </motion.button>
 
                 <motion.p
-                  className="text-[9px] text-muted-foreground/20 tracking-[0.2em] uppercase"
+                  className="text-[9px] text-muted-foreground/20 tracking-[0.2em] uppercase text-center"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 1.2 }}
+                  transition={{ delay: 1.5 }}
                 >
-                  Boa sorte!
+                  Boa sorte! / Good luck!
                 </motion.p>
               </motion.div>
             )}

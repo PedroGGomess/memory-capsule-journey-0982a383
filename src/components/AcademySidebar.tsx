@@ -11,7 +11,7 @@ import {
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
   Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut, Home, BookMarked, Target, Image,
-  Heart, Shield, Plane, Languages, Monitor, Printer
+  Heart, Shield, Plane, Languages, Monitor, Printer, Briefcase, ClipboardList
 } from "lucide-react";
 import logoImg from "@/assets/Logo.png";
 
@@ -35,6 +35,8 @@ const ALL_CORE_MODULES = [
   { id: "vocabulary", icon: Languages, navKey: "vocabulary" as const },
   { id: "digital-systems", icon: Monitor, navKey: "digitalSystems" as const },
   { id: "uv-printer", icon: Printer, navKey: "uvPrinter" as const },
+  { id: "leadership", icon: Briefcase, navKey: "leadership" as const },
+  { id: "team-ops", icon: ClipboardList, navKey: "teamOps" as const },
   { id: "certification", icon: Award, navKey: "certification" as const },
 ];
 
@@ -183,6 +185,38 @@ export function AcademySidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {/* Admin Section - only for store-manager and hr */}
+        {(userRole === "store-manager" || userRole === "hr") && (
+          <SidebarGroup className="px-2 mt-1">
+            {!collapsed && (
+              <SidebarGroupLabel className="text-[9px] tracking-[0.35em] uppercase text-sidebar-foreground/40 px-4 mb-1">
+                {language === "en" ? "Admin" : "Admin"}
+              </SidebarGroupLabel>
+            )}
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <NavLink
+                      to="/academy/admin/employees"
+                      end
+                      className="flex items-center gap-3 px-4 py-2 text-sm font-light text-sidebar-foreground/70 hover:text-sidebar-foreground rounded-sm hover:bg-sidebar-accent/30 transition-all duration-300 border-l-2 border-transparent"
+                      activeClassName="text-sidebar-primary bg-sidebar-accent/40 border-l-2 border-sidebar-primary"
+                    >
+                      <Users className="w-4 h-4 shrink-0 opacity-70" />
+                      {!collapsed && (
+                        <span className="tracking-wider">
+                          {language === "en" ? "Team Management" : "Gestão de Equipa"}
+                        </span>
+                      )}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
 
       <SidebarFooter className="bg-sidebar border-t border-sidebar-border/40 p-3">

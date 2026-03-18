@@ -39,7 +39,10 @@ const ModuleTransport = lazy(() => import("./pages/academy/ModuleTransport"));
 const ModuleDigitalSystems = lazy(() => import("./pages/academy/ModuleDigitalSystems"));
 const ModuleUVPrinter = lazy(() => import("./pages/academy/ModuleUVPrinter"));
 const ModuleVocabulary = lazy(() => import("./pages/academy/ModuleVocabulary"));
+const ModuleLeadership = lazy(() => import("./pages/academy/ModuleLeadership"));
+const ModuleTeamOps = lazy(() => import("./pages/academy/ModuleTeamOps"));
 const AcademyLogin = lazy(() => import("./pages/academy/AcademyLogin"));
+const AdminEmployees = lazy(() => import("./pages/academy/AdminEmployees"));
 
 const AdminLogin = lazy(() => import("./pages/gym/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/gym/AdminDashboard"));
@@ -108,6 +111,9 @@ const App = () => (
                     <Route path="module/digital-systems" element={<ModuleDigitalSystems />} />
                     <Route path="module/uv-printer" element={<ModuleUVPrinter />} />
                     <Route path="module/vocabulary" element={<ModuleVocabulary />} />
+                    <Route path="module/leadership" element={<ModuleLeadership />} />
+                    <Route path="module/team-ops" element={<ModuleTeamOps />} />
+                    <Route path="admin/employees" element={<AdminEmployees />} />
                   </Route>
 
                   {/* Public gym access terminal */}

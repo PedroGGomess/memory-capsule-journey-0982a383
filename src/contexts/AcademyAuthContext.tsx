@@ -1,98 +1,143 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Tables } from "@/integrations/supabase/types";
+
+export interface AcademyUser {
+  id: string;
+  name: string;
+  email?: string;
+  role: string;
+  accessCode: string;
+}
 
 interface AcademyAuthContextType {
+  user: AcademyUser | null;
   isAuthenticated: boolean;
-  login: (code: string) => boolean;
+  isLoading: boolean;
+  login: (code: string) => Promise<boolean>;
   logout: () => void;
-  getAccessCode: () => string | null;
-  generateAccessCode: () => string;
-  deleteAccessCode: () => void;
   getUserRole: () => string | undefined;
 }
 
 const AcademyAuthContext = createContext<AcademyAuthContextType | null>(null);
 
-const CODE_KEY = "the100s-academy-code";
 const SESSION_KEY = "the100s-academy-session";
-const USERS_KEY = "gym-users";
+const USER_CACHE_KEY = "the100s-user-cache";
 
-const generateCode = (): string => {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  const randomValues = new Uint32Array(8);
-  crypto.getRandomValues(randomValues);
-  return Array.from(randomValues, (v) => chars[v % chars.length]).join("");
-};
-
-function findUserByCode(code: string): { academyCode?: string; role?: string } | undefined {
+function getCachedUser(): AcademyUser | null {
   try {
-    const usersData = localStorage.getItem(USERS_KEY);
-    if (!usersData) return undefined;
-    const users: Array<{ academyCode?: string; role?: string }> = JSON.parse(usersData);
-    return users.find((u) => u.academyCode && u.academyCode === code);
+    const cached = localStorage.getItem(USER_CACHE_KEY);
+    return cached ? JSON.parse(cached) : null;
   } catch {
-    return undefined;
+    return null;
   }
 }
 
-function isValidPerUserAcademyCode(code: string): boolean {
-  return !!findUserByCode(code);
+function setCachedUser(user: AcademyUser | null) {
+  if (user) {
+    localStorage.setItem(USER_CACHE_KEY, JSON.stringify(user));
+    localStorage.setItem(SESSION_KEY, user.accessCode);
+  } else {
+    localStorage.removeItem(USER_CACHE_KEY);
+    localStorage.removeItem(SESSION_KEY);
+  }
 }
 
-const checkSession = (): boolean => {
-  const session = localStorage.getItem(SESSION_KEY);
-  if (!session) return false;
-  if (isValidPerUserAcademyCode(session)) return true;
-  const code = localStorage.getItem(CODE_KEY);
-  return !!code && session === code;
-};
-
 export function AcademyAuthProvider({ children }: { children: ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => checkSession());
+  const [user, setUser] = useState<AcademyUser | null>(getCachedUser());
+  const [isLoading, setIsLoading] = useState(true);
 
-  const login = (code: string): boolean => {
-    if (isValidPerUserAcademyCode(code)) {
-      localStorage.setItem(SESSION_KEY, code);
-      setIsAuthenticated(true);
+  useEffect(() => {
+    const checkSession = async () => {
+      const cached = getCachedUser();
+      if (cached) {
+        setUser(cached);
+        setIsLoading(false);
+        return;
+      }
+
+      const sessionCode = localStorage.getItem(SESSION_KEY);
+      if (sessionCode) {
+        try {
+          const { data, error } = await supabase
+            .from("academy_employees")
+            .select("*")
+            .eq("access_code", sessionCode)
+            .single();
+
+          if (!error && data) {
+            const academyUser: AcademyUser = {
+              id: data.id,
+              name: data.name,
+              email: data.email || undefined,
+              role: data.role,
+              accessCode: data.access_code,
+            };
+            setUser(academyUser);
+            setCachedUser(academyUser);
+          } else {
+            localStorage.removeItem(SESSION_KEY);
+            setCachedUser(null);
+          }
+        } catch {
+          const cached = getCachedUser();
+          if (cached) {
+            setUser(cached);
+          }
+        }
+      }
+      setIsLoading(false);
+    };
+
+    checkSession();
+  }, []);
+
+  const login = async (code: string): Promise<boolean> => {
+    try {
+      const { data, error } = await supabase
+        .from("academy_employees")
+        .select("*")
+        .eq("access_code", code)
+        .eq("is_active", true)
+        .single();
+
+      if (error || !data) {
+        return false;
+      }
+
+      const academyUser: AcademyUser = {
+        id: data.id,
+        name: data.name,
+        email: data.email || undefined,
+        role: data.role,
+        accessCode: data.access_code,
+      };
+
+      await supabase
+        .from("academy_employees")
+        .update({ last_login: new Date().toISOString() })
+        .eq("id", data.id);
+
+      setUser(academyUser);
+      setCachedUser(academyUser);
       return true;
+    } catch {
+      return false;
     }
-    const storedCode = localStorage.getItem(CODE_KEY);
-    if (!storedCode || code !== storedCode) return false;
-    localStorage.setItem(SESSION_KEY, code);
-    setIsAuthenticated(true);
-    return true;
   };
 
   const logout = () => {
-    localStorage.removeItem(SESSION_KEY);
-    setIsAuthenticated(false);
-  };
-
-  const getAccessCode = (): string | null => localStorage.getItem(CODE_KEY);
-
-  const generateAccessCode = (): string => {
-    const newCode = generateCode();
-    localStorage.setItem(CODE_KEY, newCode);
-    localStorage.removeItem(SESSION_KEY);
-    setIsAuthenticated(false);
-    return newCode;
-  };
-
-  const deleteAccessCode = () => {
-    localStorage.removeItem(CODE_KEY);
-    localStorage.removeItem(SESSION_KEY);
-    setIsAuthenticated(false);
+    setUser(null);
+    setCachedUser(null);
   };
 
   const getUserRole = (): string | undefined => {
-    const session = localStorage.getItem(SESSION_KEY);
-    if (!session) return undefined;
-    const user = findUserByCode(session);
     return user?.role;
   };
 
   return (
     <AcademyAuthContext.Provider
-      value={{ isAuthenticated, login, logout, getAccessCode, generateAccessCode, deleteAccessCode, getUserRole }}
+      value={{ user, isAuthenticated: !!user, isLoading, login, logout, getUserRole }}
     >
       {children}
     </AcademyAuthContext.Provider>

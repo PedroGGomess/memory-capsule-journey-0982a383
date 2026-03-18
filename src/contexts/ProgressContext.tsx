@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode, useRef } from "react";
 import { getModulesForRole } from "@/config/roles";
+import { useAcademyAuth } from "./AcademyAuthContext";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ModuleProgress {
   completed: boolean;
@@ -24,41 +26,70 @@ interface ProgressContextType {
 
 const ProgressContext = createContext<ProgressContextType | null>(null);
 
-const SESSION_KEY = "the100s-academy-session";
-const USERS_KEY = "gym-users";
-
-function getProgressKey(): string {
-  const sessionCode = localStorage.getItem(SESSION_KEY);
-  return sessionCode ? `the100s-progress-${sessionCode}` : "the100s-progress";
-}
-
-function getUserRole(): string | undefined {
-  try {
-    const session = localStorage.getItem(SESSION_KEY);
-    if (!session) return undefined;
-    const usersData = localStorage.getItem(USERS_KEY);
-    if (!usersData) return undefined;
-    const users: Array<{ academyCode?: string; role?: string }> = JSON.parse(usersData);
-    const user = users.find((u) => u.academyCode && u.academyCode === session);
-    return user?.role;
-  } catch {
-    return undefined;
-  }
-}
-
 export function ProgressProvider({ children }: { children: ReactNode }) {
-  const progressKey = useRef(getProgressKey()).current;
-  const role = getUserRole();
+  const { user } = useAcademyAuth();
+  const role = user?.role;
+  const userId = user?.id;
   const allowedModules = getModulesForRole(role);
+
+  const progressKey = useRef(user ? `the100s-progress-${user.accessCode}` : "the100s-progress").current;
 
   const [progress, setProgress] = useState<ProgressState>(() => {
     const saved = localStorage.getItem(progressKey);
     return saved ? JSON.parse(saved) : {};
   });
 
+  const [isSyncing, setIsSyncing] = useState(false);
+
   useEffect(() => {
-    localStorage.setItem(progressKey, JSON.stringify(progress));
-  }, [progress, progressKey]);
+    const loadFromSupabase = async () => {
+      if (!userId) return;
+
+      try {
+        const { data, error } = await supabase
+          .from("academy_employees")
+          .select("progress, quiz_scores")
+          .eq("id", userId)
+          .single();
+
+        if (!error && data) {
+          const progressData = (data.progress as ProgressState) || {};
+          setProgress(progressData);
+          localStorage.setItem(progressKey, JSON.stringify(progressData));
+        }
+      } catch {
+        const saved = localStorage.getItem(progressKey);
+        if (saved) {
+          setProgress(JSON.parse(saved));
+        }
+      }
+    };
+
+    loadFromSupabase();
+  }, [userId, progressKey]);
+
+  useEffect(() => {
+    const saveToSupabase = async () => {
+      if (!userId || isSyncing) return;
+
+      setIsSyncing(true);
+      try {
+        await supabase
+          .from("academy_employees")
+          .update({ progress })
+          .eq("id", userId);
+
+        localStorage.setItem(progressKey, JSON.stringify(progress));
+      } catch {
+        localStorage.setItem(progressKey, JSON.stringify(progress));
+      } finally {
+        setIsSyncing(false);
+      }
+    };
+
+    const timer = setTimeout(saveToSupabase, 1000);
+    return () => clearTimeout(timer);
+  }, [progress, userId, progressKey, isSyncing]);
 
   const completeModule = (moduleId: string) => {
     setProgress(prev => ({

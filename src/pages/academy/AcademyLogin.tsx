@@ -10,28 +10,38 @@ import logoImg from "@/assets/Logo.png";
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const AcademyLogin = () => {
-  const { isAuthenticated, login } = useAcademyAuth();
+  const { isAuthenticated, login, isLoading: authLoading } = useAcademyAuth();
   const navigate = useNavigate();
   const { t } = useLanguage();
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && !authLoading) {
       navigate("/academy", { replace: true });
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, authLoading, navigate]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const trimmed = code.trim().toUpperCase();
     if (!trimmed) return;
-    const success = login(trimmed);
-    if (success) {
-      navigate("/academy", { replace: true });
-    } else {
+
+    setIsLoading(true);
+    try {
+      const success = await login(trimmed);
+      if (success) {
+        navigate("/academy", { replace: true });
+      } else {
+        setError(t.academy.login.invalidCode);
+        setCode("");
+      }
+    } catch (err) {
       setError(t.academy.login.invalidCode);
       setCode("");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -151,10 +161,14 @@ const AcademyLogin = () => {
 
               <Button
                 type="submit"
-                disabled={!code.trim()}
+                disabled={!code.trim() || isLoading}
                 className="w-full border border-primary/30 bg-primary/3 text-primary hover:bg-primary/8 hover:border-primary/40 tracking-[0.3em] uppercase text-[10px] font-light transition-all duration-500 h-14 disabled:opacity-30"
               >
-                {t.academy.login.enterButton}
+                {isLoading ? (
+                  <span className="animate-pulse">{t.academy.login.enterButton}</span>
+                ) : (
+                  t.academy.login.enterButton
+                )}
               </Button>
             </form>
           </div>

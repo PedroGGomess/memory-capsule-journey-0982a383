@@ -8,7 +8,7 @@ import logoImg from "@/assets/Logo.png";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
   Users, Sparkles, FolderOpen, Award, ArrowRight, Check, Bot, BarChart3,
-  ChevronRight, Gem, BookMarked, Target, Image, Heart, Shield, Plane, Languages, Monitor, Printer, Lock
+  ChevronRight, Gem, BookMarked, Target, Image, Heart, Shield, Plane, Languages, Monitor, Printer, Lock, Briefcase, ClipboardList
 } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -27,26 +27,28 @@ const itemVariants = {
 };
 
 const ALL_MODULES = [
-  { id: "story", num: 1, icon: BookOpen, navKey: "story" as const },
-  { id: "philosophy", num: 2, icon: Compass, navKey: "philosophy" as const },
-  { id: "products", num: 3, icon: Wine, navKey: "products" as const },
-  { id: "gift", num: 4, icon: Gift, navKey: "gift" as const },
-  { id: "store", num: 5, icon: Store, navKey: "store" as const },
-  { id: "brand-voice", num: 6, icon: MessageCircle, navKey: "brandVoice" as const },
-  { id: "customer-experience", num: 7, icon: Users, navKey: "customerExperience" as const },
-  { id: "business-model", num: 8, icon: BarChart3, navKey: "businessModel" as const },
-  { id: "tasting-guide", num: 9, icon: Wine, navKey: "tastingGuide" as const },
-  { id: "glossary", num: 10, icon: BookMarked, navKey: "glossary" as const },
-  { id: "cross-selling", num: 11, icon: Target, navKey: "crossSelling" as const },
-  { id: "visual-merchandising", num: 12, icon: Image, navKey: "visualMerchandising" as const },
-  { id: "client-profiles", num: 13, icon: Users, navKey: "clientProfiles" as const },
-  { id: "client-culture", num: 14, icon: Heart, navKey: "clientCulture" as const },
-  { id: "conduct", num: 15, icon: Shield, navKey: "conduct" as const },
-  { id: "transport-rules", num: 16, icon: Plane, navKey: "transportRules" as const },
-  { id: "vocabulary", num: 17, icon: Languages, navKey: "vocabulary" as const },
-  { id: "digital-systems", num: 18, icon: Monitor, navKey: "digitalSystems" as const },
-  { id: "uv-printer", num: 19, icon: Printer, navKey: "uvPrinter" as const },
-  { id: "certification", num: 20, icon: Award, navKey: "certification" as const },
+  { id: "story", num: 1, icon: BookOpen, navKey: "story" as const, category: "product" },
+  { id: "philosophy", num: 2, icon: Compass, navKey: "philosophy" as const, category: "product" },
+  { id: "products", num: 3, icon: Wine, navKey: "products" as const, category: "product" },
+  { id: "gift", num: 4, icon: Gift, navKey: "gift" as const, category: "product" },
+  { id: "store", num: 5, icon: Store, navKey: "store" as const, category: "sales" },
+  { id: "brand-voice", num: 6, icon: MessageCircle, navKey: "brandVoice" as const, category: "knowledge" },
+  { id: "customer-experience", num: 7, icon: Users, navKey: "customerExperience" as const, category: "sales" },
+  { id: "business-model", num: 8, icon: BarChart3, navKey: "businessModel" as const, category: "operations" },
+  { id: "tasting-guide", num: 9, icon: Wine, navKey: "tastingGuide" as const, category: "sales" },
+  { id: "glossary", num: 10, icon: BookMarked, navKey: "glossary" as const, category: "knowledge" },
+  { id: "cross-selling", num: 11, icon: Target, navKey: "crossSelling" as const, category: "sales" },
+  { id: "visual-merchandising", num: 12, icon: Image, navKey: "visualMerchandising" as const, category: "operations" },
+  { id: "client-profiles", num: 13, icon: Users, navKey: "clientProfiles" as const, category: "sales" },
+  { id: "client-culture", num: 14, icon: Heart, navKey: "clientCulture" as const, category: "sales" },
+  { id: "conduct", num: 15, icon: Shield, navKey: "conduct" as const, category: "knowledge" },
+  { id: "transport-rules", num: 16, icon: Plane, navKey: "transportRules" as const, category: "knowledge" },
+  { id: "vocabulary", num: 17, icon: Languages, navKey: "vocabulary" as const, category: "knowledge" },
+  { id: "digital-systems", num: 18, icon: Monitor, navKey: "digitalSystems" as const, category: "operations" },
+  { id: "uv-printer", num: 19, icon: Printer, navKey: "uvPrinter" as const, category: "operations" },
+  { id: "leadership", num: 20, icon: Briefcase, navKey: "leadership" as const, category: "leadership" },
+  { id: "team-ops", num: 21, icon: ClipboardList, navKey: "teamOps" as const, category: "leadership" },
+  { id: "certification", num: 22, icon: Award, navKey: "certification" as const, category: "certification" },
 ];
 
 const Dashboard = () => {
@@ -206,140 +208,205 @@ const Dashboard = () => {
           </div>
         </motion.section>
 
-        {/* ── Module Grid ── */}
-        <motion.section variants={itemVariants} className="mb-16">
-          <div className="mb-8">
-            <h2 className="text-[9px] tracking-[0.5em] uppercase text-muted-foreground/50 text-center">
-              {t.academy.dashboard.moduleLabel.toLowerCase()}s
-            </h2>
-          </div>
+        {/* ── Continue Where You Left Off ── */}
+        {nextModule && pct < 100 && (
+          <motion.section variants={itemVariants} className="mb-16">
+            <Link to={nextModule.path}>
+              <motion.div
+                className="bg-gradient-to-r from-primary/8 to-primary/4 border border-primary/25 rounded-lg p-8 transition-all duration-500 hover:border-primary/40 hover:shadow-lg"
+                whileHover={{ y: -2 }}
+              >
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-3 h-3 rounded-full bg-primary/60" />
+                      <p className="text-[9px] tracking-[0.3em] uppercase text-primary/60">
+                        {language === "pt" ? "Continua de onde ficaste" : "Continue where you left off"}
+                      </p>
+                    </div>
+                    <h3 className="text-2xl font-light text-foreground mb-2">{nextModule.title}</h3>
+                    <p className="text-sm text-foreground/60 font-light max-w-lg">
+                      {language === "pt" ? "Retoma o teu progresso e completa este módulo para avançar na tua jornada." : "Pick up where you left off and complete this module to progress on your journey."}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3 text-primary hover:text-primary/80 transition-colors shrink-0">
+                    <span className="text-sm tracking-[0.2em] uppercase font-light">
+                      {language === "pt" ? "Continuar →" : "Continue →"}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            </Link>
+          </motion.section>
+        )}
 
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {regularModules.map((m) => {
-              const done = isModuleCompleted(m.id);
-              const isNext = nextModule?.id === m.id;
-              const score = progress[m.id]?.quizScore;
+        {/* ── Module Sections by Category ── */}
+        <motion.section variants={itemVariants} className="mb-16">
+          {/* Define category labels */}
+          {(() => {
+            const categoryLabels = {
+              product: { pt: "Marca & Produto", en: "Brand & Product" },
+              sales: { pt: "Vendas & Cliente", en: "Sales & Customer" },
+              operations: { pt: "Loja & Operações", en: "Store & Operations" },
+              knowledge: { pt: "Conhecimento", en: "Knowledge" },
+              leadership: { pt: "Liderança", en: "Leadership" },
+              certification: { pt: "Certificação", en: "Certification" },
+            };
+
+            const categories = ["product", "sales", "operations", "knowledge", "leadership", "certification"] as const;
+
+            return categories.map((category) => {
+              const modulesByCategory = regularModules.filter((m) => m.category === category);
+              if (modulesByCategory.length === 0) return null;
+
+              const categoryLabel = categoryLabels[category][language === "pt" ? "pt" : "en"];
 
               return (
-                <motion.div key={m.id} variants={itemVariants}>
-                  <Link to={m.path}>
-                    <motion.div
-                      className={`group relative bg-card border border-border/30 rounded-lg p-6 flex flex-col gap-4 transition-all duration-500 h-full hover:border-primary/40 ${
-                        isNext ? "border-primary/35 bg-primary/4" : ""
-                      }`}
-                      whileHover={{ y: -2, boxShadow: "0 8px 16px rgba(50, 35, 20, 0.06)" }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {/* Module Number Badge */}
-                      <div className="flex items-start justify-between">
-                        <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/10 border border-primary/25 flex-shrink-0">
-                          <span className="text-[10px] font-medium text-primary">{String(m.num).padStart(2, "0")}</span>
-                        </div>
-                        {done && (
-                          <div className="text-primary/60">
-                            <Check className="w-4 h-4" />
-                          </div>
-                        )}
-                      </div>
+                <div key={category} className="mb-12">
+                  {/* Category Header */}
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-1 h-6 bg-gradient-to-b from-primary/60 to-primary/20 rounded-full" />
+                    <h2 className="text-lg font-light text-foreground/90 tracking-wide">{categoryLabel}</h2>
+                  </div>
 
-                      {/* Icon */}
-                      <div className="flex justify-center py-2">
-                        <m.icon className={`w-6 h-6 transition-colors duration-300 ${
-                          done ? "text-primary/70" : "text-muted-foreground/50 group-hover:text-primary"
-                        }`} />
-                      </div>
+                  {/* Module Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {modulesByCategory.map((m) => {
+                      const done = isModuleCompleted(m.id);
+                      const isNext = nextModule?.id === m.id;
+                      const score = progress[m.id]?.quizScore;
 
-                      {/* Title */}
-                      <div className="flex-1">
-                        <h3 className={`text-sm font-light text-center leading-snug transition-colors duration-300 ${
-                          done ? "text-foreground" : "text-foreground/70 group-hover:text-foreground"
-                        }`}>
-                          {m.title}
-                        </h3>
-                      </div>
+                      return (
+                        <motion.div key={m.id} variants={itemVariants}>
+                          <Link to={m.path}>
+                            <motion.div
+                              className={`group relative bg-card border border-border/30 rounded-lg p-6 flex flex-col gap-4 transition-all duration-500 h-full hover:border-primary/40 ${
+                                isNext ? "border-primary/35 bg-primary/4" : ""
+                              }`}
+                              whileHover={{ y: -2, boxShadow: "0 8px 16px rgba(50, 35, 20, 0.06)" }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              {/* Module Number Badge */}
+                              <div className="flex items-start justify-between">
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/10 border border-primary/25 flex-shrink-0">
+                                  <span className="text-[10px] font-medium text-primary">{String(m.num).padStart(2, "0")}</span>
+                                </div>
+                                {done && (
+                                  <div className="text-primary/60">
+                                    <Check className="w-4 h-4" />
+                                  </div>
+                                )}
+                              </div>
 
-                      {/* Status Indicator */}
-                      <div className="text-center">
-                        {done ? (
-                          score !== undefined ? (
-                            <span className={`text-[10px] font-medium tracking-[0.1em] ${getScoreColor(score)}`}>
-                              {score}%
-                            </span>
-                          ) : (
-                            <span className="text-[10px] tracking-[0.1em] uppercase text-primary/60 font-light">
-                              ✓ {t.academy.dashboard.completed.toLowerCase()}
-                            </span>
-                          )
-                        ) : isNext ? (
-                          <span className="text-[9px] tracking-[0.15em] uppercase text-primary/60 font-light">
-                            {language === "pt" ? "Próximo" : "Next"}
-                          </span>
-                        ) : (
-                          <span className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/30">—</span>
-                        )}
-                      </div>
-                    </motion.div>
-                  </Link>
-                </motion.div>
+                              {/* Icon */}
+                              <div className="flex justify-center py-2">
+                                <m.icon className={`w-6 h-6 transition-colors duration-300 ${
+                                  done ? "text-primary/70" : "text-muted-foreground/50 group-hover:text-primary"
+                                }`} />
+                              </div>
+
+                              {/* Title */}
+                              <div className="flex-1">
+                                <h3 className={`text-sm font-light text-center leading-snug transition-colors duration-300 ${
+                                  done ? "text-foreground" : "text-foreground/70 group-hover:text-foreground"
+                                }`}>
+                                  {m.title}
+                                </h3>
+                              </div>
+
+                              {/* Status Indicator */}
+                              <div className="text-center">
+                                {done ? (
+                                  score !== undefined ? (
+                                    <span className={`text-[10px] font-medium tracking-[0.1em] ${getScoreColor(score)}`}>
+                                      {score}%
+                                    </span>
+                                  ) : (
+                                    <span className="text-[10px] tracking-[0.1em] uppercase text-primary/60 font-light">
+                                      ✓ {t.academy.dashboard.completed.toLowerCase()}
+                                    </span>
+                                  )
+                                ) : isNext ? (
+                                  <span className="text-[9px] tracking-[0.15em] uppercase text-primary/60 font-light">
+                                    {language === "pt" ? "Próximo" : "Next"}
+                                  </span>
+                                ) : (
+                                  <span className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/30">—</span>
+                                )}
+                              </div>
+                            </motion.div>
+                          </Link>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </div>
               );
-            })}
+            });
+          })()}
 
-            {/* Certification Card - Always Last and Special */}
-            {certificationModule && (
-              <motion.div key="cert" variants={itemVariants}>
-                <Link to={certificationModule.path}>
-                  <motion.div
-                    className={`group relative bg-card border-2 border-primary/30 rounded-lg p-6 flex flex-col gap-4 transition-all duration-500 h-full ${
-                      pct === 100 ? "hover:border-primary/60" : "opacity-60 cursor-not-allowed"
-                    }`}
-                    whileHover={pct === 100 ? { y: -2, boxShadow: "0 8px 16px rgba(50, 35, 20, 0.08)" } : {}}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {/* Module Number Badge */}
-                    <div className="flex items-start justify-between">
-                      <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/15 border border-primary/30 flex-shrink-0">
-                        <span className="text-[10px] font-medium text-primary">{String(certificationModule.num).padStart(2, "0")}</span>
+          {/* Certification Card - Always Last and Special */}
+          {certificationModule && (
+            <div className="mt-16 pt-8 border-t border-border/20">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1 h-6 bg-gradient-to-b from-primary/60 to-primary/20 rounded-full" />
+                <h2 className="text-lg font-light text-foreground/90 tracking-wide">
+                  {language === "pt" ? "Certificação" : "Certification"}
+                </h2>
+              </div>
+
+              <Link to={certificationModule.path}>
+                <motion.div
+                  className={`group relative bg-card border-2 border-primary/30 rounded-lg p-6 flex flex-col gap-4 transition-all duration-500 w-full sm:w-fit ${
+                    pct === 100 ? "hover:border-primary/60" : "opacity-60 cursor-not-allowed"
+                  }`}
+                  whileHover={pct === 100 ? { y: -2, boxShadow: "0 8px 16px rgba(50, 35, 20, 0.08)" } : {}}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Module Number Badge */}
+                  <div className="flex items-start justify-between">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/15 border border-primary/30 flex-shrink-0">
+                      <span className="text-[10px] font-medium text-primary">{String(certificationModule.num).padStart(2, "0")}</span>
+                    </div>
+                    {pct === 100 ? (
+                      <div className="text-primary/70">
+                        <Check className="w-4 h-4" />
                       </div>
-                      {pct === 100 ? (
-                        <div className="text-primary/70">
-                          <Check className="w-4 h-4" />
-                        </div>
-                      ) : (
-                        <Lock className="w-4 h-4 text-muted-foreground/40" />
-                      )}
-                    </div>
+                    ) : (
+                      <Lock className="w-4 h-4 text-muted-foreground/40" />
+                    )}
+                  </div>
 
-                    {/* Icon */}
-                    <div className="flex justify-center py-2">
-                      <certificationModule.icon className={`w-6 h-6 transition-colors duration-300 ${
-                        pct === 100 ? "text-primary/70" : "text-muted-foreground/30"
-                      }`} />
-                    </div>
+                  {/* Icon */}
+                  <div className="flex justify-center py-2">
+                    <certificationModule.icon className={`w-6 h-6 transition-colors duration-300 ${
+                      pct === 100 ? "text-primary/70" : "text-muted-foreground/30"
+                    }`} />
+                  </div>
 
-                    {/* Title */}
-                    <div className="flex-1">
-                      <h3 className={`text-sm font-light text-center leading-snug transition-colors duration-300 ${
-                        pct === 100 ? "text-foreground" : "text-foreground/50"
-                      }`}>
-                        {certificationModule.title}
-                      </h3>
-                    </div>
+                  {/* Title */}
+                  <div className="flex-1">
+                    <h3 className={`text-sm font-light text-center leading-snug transition-colors duration-300 ${
+                      pct === 100 ? "text-foreground" : "text-foreground/50"
+                    }`}>
+                      {certificationModule.title}
+                    </h3>
+                  </div>
 
-                    {/* Status Indicator */}
-                    <div className="text-center">
-                      {pct === 100 ? (
-                        <span className="text-[10px] tracking-[0.1em] uppercase text-primary/60 font-light">
-                          {language === "pt" ? "Desbloqueado" : "Unlocked"}
-                        </span>
-                      ) : (
-                        <span className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/30">{language === "pt" ? "Bloqueado" : "Locked"}</span>
-                      )}
-                    </div>
-                  </motion.div>
-                </Link>
-              </motion.div>
-            )}
-          </div>
+                  {/* Status Indicator */}
+                  <div className="text-center">
+                    {pct === 100 ? (
+                      <span className="text-[10px] tracking-[0.1em] uppercase text-primary/60 font-light">
+                        {language === "pt" ? "Desbloqueado" : "Unlocked"}
+                      </span>
+                    ) : (
+                      <span className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/30">{language === "pt" ? "Bloqueado" : "Locked"}</span>
+                    )}
+                  </div>
+                </motion.div>
+              </Link>
+            </div>
+          )}
         </motion.section>
 
         {/* ── Evaluations Section ── */}

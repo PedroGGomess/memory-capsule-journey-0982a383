@@ -286,6 +286,8 @@ const en = {
       vocabulary: "Vocabulary PT/EN",
       digitalSystems: "Digital & Systems",
       uvPrinter: "UV Printer",
+      leadership: "Leadership & Management",
+      teamOps: "Team Operations",
       askTeam: "Ask the Team",
       resources: "Resources",
       aiAssistant: "AI Assistant",

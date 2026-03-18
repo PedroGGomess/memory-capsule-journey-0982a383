@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      academy_employees: {
+        Row: {
+          id: string
+          name: string
+          email: string | null
+          role: string
+          access_code: string
+          is_active: boolean
+          created_at: string
+          last_login: string | null
+          progress: Json
+          quiz_scores: Json
+        }
+        Insert: {
+          id?: string
+          name: string
+          email?: string | null
+          role?: string
+          access_code: string
+          is_active?: boolean
+          created_at?: string
+          last_login?: string | null
+          progress?: Json
+          quiz_scores?: Json
+        }
+        Update: {
+          id?: string
+          name?: string
+          email?: string | null
+          role?: string
+          access_code?: string
+          is_active?: boolean
+          created_at?: string
+          last_login?: string | null
+          progress?: Json
+          quiz_scores?: Json
+        }
+        Relationships: []
+      }
       admin_users: {
         Row: {
           created_at: string
