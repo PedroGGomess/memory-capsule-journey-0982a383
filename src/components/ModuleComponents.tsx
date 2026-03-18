@@ -33,6 +33,11 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
     setBookmarked(saved.includes(moduleId));
   }, [moduleId]);
 
+  // Save last visited module on mount
+  useEffect(() => {
+    localStorage.setItem("the100s-last-module", JSON.stringify({ id: moduleId, title }));
+  }, [moduleId, title]);
+
   const toggleBookmark = () => {
     const saved = JSON.parse(localStorage.getItem(bookmarksKey) || "[]");
     const updated = bookmarked ? saved.filter((id: string) => id !== moduleId) : [...saved, moduleId];

@@ -16,7 +16,6 @@ import {
   Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut, Home, BookMarked, Target, Image,
   Heart, Shield, Plane, Languages, Monitor, Printer, Briefcase, ClipboardList, User, Calendar, Zap
 } from "lucide-react";
-import logoImg from "@/assets/Logo.png";
 
 const ALL_CORE_MODULES = [
   { id: "story", icon: BookOpen, navKey: "story" as const },
@@ -57,6 +56,20 @@ export function AcademySidebar() {
   const needsRetry = (moduleId: string) => {
     const score = progress[moduleId]?.quizScore;
     return score !== undefined && score < 80;
+  };
+
+  // Helper to get module completion indicator
+  const getModuleIndicator = (moduleId: string, moduleNum: number) => {
+    const completed = isModuleCompleted(moduleId);
+    const retry = needsRetry(moduleId);
+
+    if (completed) {
+      return <Check className="w-3 h-3 text-sidebar-primary" />;
+    } else if (retry) {
+      return <span className="text-[10px] font-medium text-yellow-500">{moduleNum}</span>;
+    } else {
+      return <span className="text-[10px] font-medium text-sidebar-foreground/40">{moduleNum}</span>;
+    }
   };
 
   // Count team members below 50% progress
@@ -108,13 +121,14 @@ export function AcademySidebar() {
         {/* Brand Header - Clean, minimal */}
         <div className="px-5 py-6 border-b border-sidebar-border relative overflow-hidden">
           <div className="flex items-center gap-3 relative z-10">
-            <div className="relative">
-              <img src={logoImg} alt="The 100's" className="w-11 h-11 object-contain" />
-            </div>
-            {!collapsed && (
+            {!collapsed ? (
               <div>
-                <p className="text-base font-light text-sidebar-foreground tracking-widest">THE 100'S</p>
-                <p className="text-[9px] tracking-[0.35em] uppercase text-sidebar-foreground/50 mt-0.5">ACADEMY</p>
+                <p className="text-primary font-serif text-lg tracking-[0.15em] font-light">THE 100'S</p>
+                <p className="text-[9px] tracking-[0.4em] uppercase text-sidebar-foreground/40 mt-0.5">ACADEMY</p>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center w-11 h-11">
+                <p className="text-primary font-serif text-sm tracking-widest font-light">100</p>
               </div>
             )}
           </div>
@@ -213,9 +227,9 @@ export function AcademySidebar() {
                               w-5 h-5 flex items-center justify-center text-[10px] font-medium shrink-0 transition-colors duration-200
                               ${completed
                                 ? 'text-sidebar-primary'
-                                : 'text-sidebar-foreground/40 group-hover:text-sidebar-primary'}
+                                : retryNeeded ? 'text-yellow-500' : 'text-sidebar-foreground/40 group-hover:text-sidebar-primary'}
                             `}>
-                              {completed ? <Check className="w-3 h-3" /> : item.num}
+                              {getModuleIndicator(item.id, item.num)}
                             </span>
                           ) : (
                             <item.icon className="w-4 h-4 shrink-0" />

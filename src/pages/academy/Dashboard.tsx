@@ -91,12 +91,24 @@ const getDailyTip = () => {
   return DAILY_TIPS[dayOfYear % DAILY_TIPS.length];
 };
 
+const getTimeBasedGreeting = (language: string) => {
+  const hour = new Date().getHours();
+  if (hour < 12) {
+    return language === "pt" ? "Bom dia," : "Good morning,";
+  } else if (hour < 18) {
+    return language === "pt" ? "Boa tarde," : "Good afternoon,";
+  } else {
+    return language === "pt" ? "Boa noite," : "Good evening,";
+  }
+};
+
 const Dashboard = () => {
   const { getCompletionPercentage, isModuleCompleted, completedModules, totalModules, allowedModules, userRole, progress, streak } = useProgress();
   const { t, language } = useLanguage();
   const { user } = useAcademyAuth();
   const pct = getCompletionPercentage();
   const dailyTip = getDailyTip();
+  const timeBasedGreeting = getTimeBasedGreeting(language);
 
   // Streak milestone message
   const getStreakMessage = () => {
@@ -113,6 +125,21 @@ const Dashboard = () => {
     const saved = JSON.parse(localStorage.getItem("the100s-bookmarks") || "[]");
     setBookmarkedModuleIds(saved);
   }, []);
+
+  // Get last visited module
+  const [lastModule, setLastModule] = useState<{ id: string; title: string } | null>(null);
+  useEffect(() => {
+    const saved = localStorage.getItem("the100s-last-module");
+    if (saved) {
+      setLastModule(JSON.parse(saved));
+    }
+  }, []);
+
+  // Get recently completed modules (last 3)
+  const recentlyCompleted = modules
+    .filter((m) => isModuleCompleted(m.id))
+    .slice(-3)
+    .reverse();
 
   // Get motivational quote based on progress
   const getMotivationalQuote = () => {
@@ -214,7 +241,7 @@ const Dashboard = () => {
               transition={{ delay: 0.3, duration: 0.6, ease }}
               className="text-[10px] tracking-[0.6em] uppercase text-primary/60 mb-3"
             >
-              {language === "pt" ? "Bem-vindo" : "Welcome"}{user?.name ? "," : ""}
+              {timeBasedGreeting}
             </motion.p>
 
             <motion.h1
@@ -295,6 +322,31 @@ const Dashboard = () => {
             </div>
           </div>
         </motion.section>
+
+        {/* ── Last Visited Module ── */}
+        {lastModule && (
+          <motion.section variants={itemVariants} className="mb-16">
+            <Link to={`/academy/module/${lastModule.id}`}>
+              <motion.div
+                className="bg-card border border-border/50 p-6 transition-all duration-200 hover:border-primary/30"
+                whileHover={{ y: -1 }}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-primary/60" />
+                    <div>
+                      <p className="text-[9px] tracking-[0.2em] uppercase text-foreground/50 mb-1">
+                        {language === "pt" ? "Último módulo" : "Last module"}
+                      </p>
+                      <p className="text-sm text-foreground font-light">{lastModule.title}</p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-primary/60" />
+                </div>
+              </motion.div>
+            </Link>
+          </motion.section>
+        )}
 
         {/* ── Daily Tip Card ── */}
         <motion.section variants={itemVariants} className="mb-16">
@@ -456,6 +508,66 @@ const Dashboard = () => {
                               )
                             ) : (
                               <span className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/30">—</span>
+                            )}
+                          </div>
+                        </motion.div>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          </motion.section>
+        )}
+
+        {/* ── Recently Completed ── */}
+        {recentlyCompleted.length > 0 && (
+          <motion.section variants={itemVariants} className="mb-16">
+            <div className="mb-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1 h-6 bg-gradient-to-b from-primary/60 to-primary/20 rounded-full" />
+                <h2 className="text-lg font-light text-foreground/90 tracking-wide">{language === "pt" ? "Recentemente concluído" : "Recently completed"}</h2>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                {recentlyCompleted.map((m) => {
+                  const score = progress[m.id]?.quizScore;
+
+                  return (
+                    <motion.div key={m.id} variants={itemVariants}>
+                      <Link to={m.path}>
+                        <motion.div
+                          className="group relative bg-card border border-border/30 p-6 flex flex-col gap-4 transition-all duration-500 h-full hover:border-primary/40"
+                          whileHover={{ y: -2, boxShadow: "0 8px 16px rgba(50, 35, 20, 0.06)" }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-green-950/40 border border-green-600/30 flex-shrink-0">
+                              <Check className="w-4 h-4 text-green-400" />
+                            </div>
+                          </div>
+
+                          <div className="flex justify-center py-2">
+                            <m.icon className="w-6 h-6 text-primary/70" />
+                          </div>
+
+                          <div className="flex-1">
+                            <h3 className="text-sm font-light text-center leading-snug text-foreground">
+                              {m.title}
+                            </h3>
+                          </div>
+
+                          <div className="text-center">
+                            {score !== undefined ? (
+                              <span className={`text-[10px] font-medium tracking-[0.1em] ${
+                                score >= 80 ? "text-green-400" : score >= 60 ? "text-yellow-400" : "text-red-400"
+                              }`}>
+                                {score}%
+                              </span>
+                            ) : (
+                              <span className="text-[10px] tracking-[0.1em] uppercase text-primary/60 font-light">
+                                ✓ {t.academy.dashboard.completed.toLowerCase()}
+                              </span>
                             )}
                           </div>
                         </motion.div>
