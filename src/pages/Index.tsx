@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronDown, Sun, Moon } from "lucide-react";
@@ -14,6 +14,23 @@ const Index = () => {
   const conceptRef = useRef<HTMLDivElement>(null);
   const { t, language, setLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+
+  // Hidden admin entry easter egg
+  const [clickCount, setClickCount] = useState(0);
+  const clickTimer = useRef<NodeJS.Timeout | null>(null);
+
+  const handleSecretClick = () => {
+    setClickCount(prev => {
+      const newCount = prev + 1;
+      if (newCount >= 5) {
+        window.location.href = "/gym-admin/login";
+        return 0;
+      }
+      if (clickTimer.current) clearTimeout(clickTimer.current);
+      clickTimer.current = setTimeout(() => setClickCount(0), 3000);
+      return newCount;
+    });
+  };
 
   const handleScroll = () => {
     conceptRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -324,7 +341,10 @@ const Index = () => {
                 {language === "pt" ? "LinkedIn" : "LinkedIn"}
               </a>
             </div>
-            <p className="text-xs text-muted-foreground/30">
+            <p
+              className="text-xs text-muted-foreground/30 cursor-pointer"
+              onClick={handleSecretClick}
+            >
               © {new Date().getFullYear()} The 100's. {language === "pt" ? "Todos os direitos reservados." : "All rights reserved."}
             </p>
           </div>

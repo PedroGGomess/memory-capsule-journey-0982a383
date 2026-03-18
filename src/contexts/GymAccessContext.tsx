@@ -64,6 +64,30 @@ function generateCode(): string {
   return `${segment(3)}-${segment(4)}-${segment(4)}`;
 }
 
+// Send welcome email via Supabase Edge Function
+async function sendWelcomeEmail(user: GymUser) {
+  try {
+    if (!user.email || !user.academyCode) {
+      return;
+    }
+
+    const response = await supabase.functions.invoke("send-welcome-email", {
+      body: {
+        name: user.name,
+        email: user.email,
+        academyCode: user.academyCode,
+        academyUrl: window.location.origin + "/academy/login",
+      },
+    });
+
+    if (response.error) {
+      console.warn("Welcome email send failed:", response.error);
+    }
+  } catch (err) {
+    console.warn("Error sending welcome email:", err);
+  }
+}
+
 // Sync a gym user to Supabase academy_employees table
 async function syncUserToSupabase(user: GymUser, action: "insert" | "update" | "delete") {
   try {
@@ -76,6 +100,10 @@ async function syncUserToSupabase(user: GymUser, action: "insert" | "update" | "
         is_active: user.active,
       });
       if (error) console.error("Supabase insert error:", error);
+      // Send welcome email after successful user creation
+      else {
+        await sendWelcomeEmail(user);
+      }
     } else if (action === "update" && user.academyCode) {
       const { error } = await supabase
         .from("academy_employees")
