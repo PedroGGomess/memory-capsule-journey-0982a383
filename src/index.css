@@ -6,57 +6,57 @@
 
 @layer base {
   :root {
-    /* Warm cream & ivory palette */
-    --background: 36 30% 94%;         /* Warm cream base */
-    --foreground: 25 20% 15%;         /* Deep warm brown */
+    /* Dark warm walnut wood palette - wine cellar aesthetic */
+    --background: 20 18% 10%;          /* Deep warm walnut */
+    --foreground: 35 25% 88%;          /* Warm ivory text */
 
-    /* Cards - slightly lighter cream */
-    --card: 36 35% 97%;               /* Lighter cream for cards */
-    --card-foreground: 25 20% 15%;
+    /* Cards - slightly lighter warm brown panel */
+    --card: 20 16% 15%;                /* Lighter wood panel */
+    --card-foreground: 35 25% 88%;
 
-    --popover: 36 35% 97%;
-    --popover-foreground: 25 20% 15%;
+    --popover: 20 16% 15%;
+    --popover-foreground: 35 25% 88%;
 
-    /* Primary - Burnished gold */
-    --primary: 32 35% 56%;            /* Aged gold */
-    --primary-foreground: 36 35% 97%;
+    /* Primary - Warm burnished gold (candlelight) */
+    --primary: 35 45% 58%;             /* Warm gold accent */
+    --primary-foreground: 20 18% 8%;   /* Dark on gold */
 
-    /* Secondary - Warm light brown */
-    --secondary: 30 15% 88%;
-    --secondary-foreground: 25 20% 25%;
+    /* Secondary - Warm dark secondary */
+    --secondary: 20 12% 20%;
+    --secondary-foreground: 35 20% 75%;
 
-    /* Muted - warm neutral */
-    --muted: 33 18% 90%;
-    --muted-foreground: 25 12% 45%;
+    /* Muted - muted dark warm tones */
+    --muted: 20 10% 18%;
+    --muted-foreground: 25 12% 55%;    /* Medium warm gray */
 
-    /* Accent - soft gold tint */
-    --accent: 32 25% 90%;
-    --accent-foreground: 32 35% 40%;
+    /* Accent - warm dark accent */
+    --accent: 30 20% 18%;
+    --accent-foreground: 35 40% 65%;   /* Gold-ish text */
 
     --destructive: 0 55% 50%;
-    --destructive-foreground: 36 35% 97%;
+    --destructive-foreground: 35 25% 90%;
 
-    /* Border - warm light brown */
-    --border: 30 20% 85%;
-    --input: 30 20% 88%;
-    --ring: 32 35% 56%;
+    /* Border - subtle warm dark borders */
+    --border: 20 12% 22%;
+    --input: 20 12% 20%;
+    --ring: 35 45% 58%;
 
     --radius: 0.5rem;
 
-    /* Gold variations */
-    --gold-light: 32 40% 75%;
-    --gold-default: 32 35% 56%;
-    --gold-dark: 32 30% 40%;
+    /* Gold variations - warm candlelight tones */
+    --gold-light: 35 50% 68%;
+    --gold-default: 35 45% 58%;
+    --gold-dark: 35 35% 42%;
 
-    /* Sidebar - deep warm brown (darkest element) */
-    --sidebar-background: 25 22% 12%;
-    --sidebar-foreground: 36 30% 85%;  /* Cream text */
-    --sidebar-primary: 32 40% 60%;     /* Gold on dark */
-    --sidebar-primary-foreground: 36 35% 97%;
-    --sidebar-accent: 25 18% 18%;      /* Slightly lighter dark */
-    --sidebar-accent-foreground: 32 40% 70%;
-    --sidebar-border: 25 15% 20%;
-    --sidebar-ring: 32 40% 60%;
+    /* Sidebar - darkest element (like old leather) */
+    --sidebar-background: 20 20% 7%;   /* Darkest - leather tone */
+    --sidebar-foreground: 35 20% 75%;  /* Warm light text */
+    --sidebar-primary: 35 50% 62%;     /* Gold on very dark */
+    --sidebar-primary-foreground: 20 20% 7%;
+    --sidebar-accent: 20 15% 12%;      /* Slightly lighter dark */
+    --sidebar-accent-foreground: 35 40% 70%;
+    --sidebar-border: 20 12% 15%;
+    --sidebar-ring: 35 50% 62%;
   }
 }
 
@@ -77,17 +77,17 @@
 @layer utilities {
   .text-gold-gradient {
     @apply bg-clip-text text-transparent;
-    /* Warm, aged gold gradient */
-    background-image: linear-gradient(135deg, hsl(32 40% 75%), hsl(32 35% 56%), hsl(32 30% 40%));
+    /* Warm, candlelit gold gradient */
+    background-image: linear-gradient(135deg, hsl(35 50% 68%), hsl(35 45% 58%), hsl(35 35% 42%));
   }
 
   .border-gold-gradient {
-    border-image: linear-gradient(135deg, hsl(32 40% 75%), hsl(32 35% 56%)) 1;
+    border-image: linear-gradient(135deg, hsl(35 50% 68%), hsl(35 45% 58%)) 1;
   }
 
   .glow-gold {
-    /* Subtle warm shadow, barely visible */
-    box-shadow: 0 0 8px -4px hsl(32 35% 56% / 0.08);
+    /* Subtle warm gold glow - like candlelight */
+    box-shadow: 0 0 12px -4px hsl(35 45% 58% / 0.15);
   }
 
   .section-padding {
@@ -95,20 +95,20 @@
   }
 }
 
-/* Custom scrollbar - thin, warm-toned, nearly invisible */
+/* Custom scrollbar - thin, warm-toned, dark */
 ::-webkit-scrollbar {
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(36 30% 94%);
+  background: hsl(20 18% 10%);
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(32 35% 56% / 0.15);
+  background: hsl(35 45% 58% / 0.25);
   border-radius: 2px;
 }
 
-/* Selection color - warm gold tint */
+/* Selection color - warm gold tint on dark */
 ::selection {
-  background: hsl(32 35% 56% / 0.15);
-  color: hsl(25 20% 15%);
+  background: hsl(35 45% 58% / 0.25);
+  color: hsl(35 25% 88%);
 }

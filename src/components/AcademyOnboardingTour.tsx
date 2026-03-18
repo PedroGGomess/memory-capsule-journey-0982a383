@@ -47,14 +47,14 @@ export function AcademyOnboardingTour() {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.4 }}
       >
-        {/* Backdrop */}
-        <div className="absolute inset-0 bg-background/95 backdrop-blur-xl" />
+        {/* Backdrop - dark warm with slight blur */}
+        <div className="absolute inset-0 bg-background/98 backdrop-blur-sm" />
 
-        {/* Ambient glow */}
+        {/* Warm candlelit ambient glow */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px]"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/8 blur-[120px]"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.6, 0.4] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
@@ -216,9 +216,9 @@ export function AcademyOnboardingTour() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.5 + i * 0.1, duration: 0.4 }}
-                        className="flex items-start gap-4 px-5 py-3 rounded-sm bg-card/50 border border-border/20"
+                        className="flex items-start gap-4 px-5 py-3 rounded-sm bg-secondary/30 border border-border/30"
                       >
-                        <div className="p-2 bg-primary/10 rounded-sm shrink-0 mt-1">
+                        <div className="p-2 bg-primary/15 rounded-sm shrink-0 mt-1">
                           <Icon className="w-4 h-4 text-primary" />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -301,9 +301,9 @@ export function AcademyOnboardingTour() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.5 + i * 0.15, duration: 0.4 }}
-                      className="flex items-start gap-4 px-5 py-4 rounded-sm bg-card/50 border border-border/20"
+                      className="flex items-start gap-4 px-5 py-4 rounded-sm bg-secondary/30 border border-border/30"
                     >
-                      <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/15 border border-primary/30 shrink-0 font-light text-primary text-sm">
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/20 border border-primary/40 shrink-0 font-light text-primary text-sm">
                         {step.num}
                       </div>
                       <div className="flex-1 min-w-0">

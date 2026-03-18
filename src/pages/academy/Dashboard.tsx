@@ -84,17 +84,17 @@ const Dashboard = () => {
     ? Math.round(modulesWithScores.reduce((sum, m) => sum + (progress[m.id]?.quizScore || 0), 0) / modulesWithScores.length)
     : 0;
 
-  // Helper to get score color
+  // Helper to get score color - adjusted for dark theme
   const getScoreColor = (score: number) => {
-    if (score >= 80) return "text-green-600";
-    if (score >= 60) return "text-yellow-600";
-    return "text-red-600";
+    if (score >= 80) return "text-green-400";
+    if (score >= 60) return "text-yellow-400";
+    return "text-red-400";
   };
 
   const getScoreBgColor = (score: number) => {
-    if (score >= 80) return "bg-green-50";
-    if (score >= 60) return "bg-yellow-50";
-    return "bg-red-50";
+    if (score >= 80) return "bg-green-950/40";
+    if (score >= 60) return "bg-yellow-950/40";
+    return "bg-red-950/40";
   };
 
   return (

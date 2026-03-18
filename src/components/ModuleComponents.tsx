@@ -22,10 +22,10 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
   const completed = isModuleCompleted(moduleId);
 
   return (
-    <div className="min-h-screen">
-      <div className="relative h-[50vh] flex items-end overflow-hidden">
-        <img src={heroImage} alt={title} className="absolute inset-0 w-full h-full object-cover opacity-12" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/85 to-transparent" />
+    <div className="min-h-screen bg-background">
+      <div className="relative h-[50vh] flex items-end overflow-hidden bg-gradient-to-b from-secondary/20 to-background">
+        <img src={heroImage} alt={title} className="absolute inset-0 w-full h-full object-cover opacity-8" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-transparent" />
         <div className="relative z-10 section-padding pb-12 w-full max-w-5xl mx-auto">
           <ScrollReveal>
             {moduleNumber && (
@@ -351,9 +351,9 @@ export function ReflectionBlock({ questions }: { questions: string[] }) {
               <div className="relative group">
                 <textarea
                   placeholder={t.academy.module.reflectionPlaceholder}
-                  className="w-full min-h-[140px] bg-background border border-border/40 text-foreground/80 p-5 text-base font-light resize-none focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/15 transition-all duration-300 placeholder:text-muted-foreground/35 relative z-10"
+                  className="w-full min-h-[140px] bg-secondary border border-border/40 text-foreground/80 p-5 text-base font-light resize-none focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground/35 relative z-10"
                 />
-                <div className="absolute inset-0 bg-primary/2 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute inset-0 bg-primary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
               </div>
             </div>
           ))}

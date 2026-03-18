@@ -177,9 +177,9 @@ const ModuleCertification = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center section-padding py-32 relative overflow-hidden bg-background">
-      {/* Subtle paper texture background */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.015] mix-blend-overlay pointer-events-none" />
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/[0.02] via-background to-background pointer-events-none" />
+      {/* Subtle warm texture background */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/[0.05] via-background to-background pointer-events-none" />
 
       {/* Celebration particles */}
       <AnimatePresence>

@@ -236,7 +236,7 @@ export default function AdminEmployees() {
           </div>
           <Button
             onClick={() => setShowCreateDialog(true)}
-            className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground"
+            className="gap-2 bg-primary/15 hover:bg-primary/25 text-primary border border-primary/40 hover:border-primary/60"
           >
             <Plus className="w-4 h-4" />
             {language === "en" ? "Create Employee" : "Criar Funcionário"}
@@ -292,8 +292,8 @@ export default function AdminEmployees() {
                     </tr>
                   </thead>
                   <tbody>
-                    {employees.map((emp) => (
-                      <tr key={emp.id} className="border-b border-border/50 hover:bg-accent/30 transition-colors">
+                    {employees.map((emp, idx) => (
+                      <tr key={emp.id} className={`border-b border-border/40 transition-colors ${idx % 2 === 0 ? 'bg-secondary/20' : 'bg-secondary/10'} hover:bg-secondary/30`}>
                         <td className="py-3 px-4 text-foreground">{emp.name}</td>
                         <td className="py-3 px-4 text-foreground/70 text-xs">{emp.email || "—"}</td>
                         <td className="py-3 px-4 text-foreground/70 text-xs">
@@ -301,12 +301,12 @@ export default function AdminEmployees() {
                         </td>
                         <td className="py-3 px-4">
                           <div className="flex items-center gap-2">
-                            <code className="bg-accent/50 px-2 py-1 rounded text-xs font-mono text-foreground/70">
+                            <code className="bg-secondary/40 px-2 py-1 rounded text-xs font-mono text-foreground/70">
                               {emp.access_code}
                             </code>
                             <button
                               onClick={() => handleCopyCode(emp.access_code)}
-                              className="p-1 hover:bg-accent rounded transition-colors text-foreground/60 hover:text-foreground"
+                              className="p-1 hover:bg-primary/15 rounded transition-colors text-foreground/60 hover:text-primary"
                               title={language === "en" ? "Copy code" : "Copiar código"}
                             >
                               <Copy className="w-3 h-3" />
@@ -317,8 +317,8 @@ export default function AdminEmployees() {
                           <span
                             className={`text-xs px-2 py-1 rounded ${
                               emp.is_active
-                                ? "bg-green-100/20 text-green-700 dark:text-green-400"
-                                : "bg-red-100/20 text-red-700 dark:text-red-400"
+                                ? "bg-green-950/40 text-green-400"
+                                : "bg-red-950/40 text-red-400"
                             }`}
                           >
                             {emp.is_active ? (language === "en" ? "Active" : "Ativo") : language === "en" ? "Inactive" : "Inativo"}
@@ -329,20 +329,20 @@ export default function AdminEmployees() {
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => setShowRegenerateDialog(emp.id)}
-                              className="p-1 hover:bg-accent rounded transition-colors text-foreground/60 hover:text-foreground"
+                              className="p-1 hover:bg-primary/15 rounded transition-colors text-foreground/60 hover:text-primary"
                               title={language === "en" ? "Regenerate code" : "Regenerar código"}
                             >
                               <RotateCw className="w-3 h-3" />
                             </button>
                             <button
                               onClick={() => handleToggleActive(emp.id, emp.is_active)}
-                              className="text-xs px-2 py-1 rounded hover:bg-accent transition-colors text-foreground/70"
+                              className="text-xs px-2 py-1 rounded hover:bg-primary/15 transition-colors text-foreground/70"
                             >
                               {emp.is_active ? (language === "en" ? "Deactivate" : "Desativar") : language === "en" ? "Activate" : "Ativar"}
                             </button>
                             <button
                               onClick={() => setShowDeleteDialog(emp.id)}
-                              className="p-1 hover:bg-red-100/20 rounded transition-colors text-red-600 hover:text-red-700"
+                              className="p-1 hover:bg-red-950/40 rounded transition-colors text-red-400"
                               title={language === "en" ? "Delete" : "Deletar"}
                             >
                               <Trash2 className="w-3 h-3" />
@@ -424,10 +424,10 @@ export default function AdminEmployees() {
           </div>
 
           <div className="flex gap-3 justify-end">
-            <Button variant="outline" onClick={() => setShowCreateDialog(false)} className="border-border">
+            <Button variant="outline" onClick={() => setShowCreateDialog(false)} className="border-border hover:bg-secondary/30">
               {language === "en" ? "Cancel" : "Cancelar"}
             </Button>
-            <Button onClick={handleCreateEmployee} className="bg-primary hover:bg-primary/90">
+            <Button onClick={handleCreateEmployee} className="bg-primary/15 hover:bg-primary/25 text-primary border border-primary/40">
               {language === "en" ? "Create" : "Criar"}
             </Button>
           </div>
@@ -447,12 +447,12 @@ export default function AdminEmployees() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className="flex gap-3 justify-end">
-            <AlertDialogCancel className="bg-background border-border">
+            <AlertDialogCancel className="bg-background border-border hover:bg-secondary/30">
               {language === "en" ? "Cancel" : "Cancelar"}
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={() => showDeleteDialog && handleDeleteEmployee(showDeleteDialog)}
-              className="bg-red-600 hover:bg-red-700"
+              className="bg-red-950/60 hover:bg-red-950/80 text-red-400"
             >
               {language === "en" ? "Delete" : "Deletar"}
             </AlertDialogAction>
@@ -473,12 +473,12 @@ export default function AdminEmployees() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className="flex gap-3 justify-end">
-            <AlertDialogCancel className="bg-background border-border">
+            <AlertDialogCancel className="bg-background border-border hover:bg-secondary/30">
               {language === "en" ? "Cancel" : "Cancelar"}
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={() => showRegenerateDialog && handleRegenerateCode(showRegenerateDialog)}
-              className="bg-primary hover:bg-primary/90"
+              className="bg-primary/15 hover:bg-primary/25 text-primary border border-primary/40"
             >
               {language === "en" ? "Regenerate" : "Regenerar"}
             </AlertDialogAction>

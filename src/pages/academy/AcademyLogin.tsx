@@ -47,12 +47,12 @@ const AcademyLogin = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-6 relative overflow-hidden">
-      {/* Subtle paper texture background */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.015] mix-blend-overlay pointer-events-none" />
+      {/* Subtle warm texture background */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay pointer-events-none" />
 
-      {/* Minimal background effects */}
+      {/* Warm ambient glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-primary/[0.03] blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-primary/[0.08] blur-[120px]" />
       </div>
 
       <motion.div
@@ -143,7 +143,7 @@ const AcademyLogin = () => {
                     setError("");
                   }}
                   placeholder="· · · · · · · ·"
-                  className="font-mono tracking-[0.5em] text-center bg-background border-border/40 focus:border-primary/40 focus:bg-background focus:ring-1 focus:ring-primary/15 text-foreground/80 placeholder:text-muted-foreground/30 h-14 text-lg transition-all duration-500"
+                  className="font-mono tracking-[0.5em] text-center bg-secondary border-border/50 focus:border-primary/60 focus:bg-secondary focus:ring-1 focus:ring-primary/25 text-foreground/80 placeholder:text-muted-foreground/35 h-14 text-lg transition-all duration-500"
                   autoComplete="off"
                   autoFocus
                 />
@@ -162,7 +162,7 @@ const AcademyLogin = () => {
               <Button
                 type="submit"
                 disabled={!code.trim() || isLoading}
-                className="w-full border border-primary/30 bg-primary/3 text-primary hover:bg-primary/8 hover:border-primary/40 tracking-[0.3em] uppercase text-[10px] font-light transition-all duration-500 h-14 disabled:opacity-30"
+                className="w-full border border-primary/40 bg-primary/8 text-primary hover:bg-primary/12 hover:border-primary/60 tracking-[0.3em] uppercase text-[10px] font-light transition-all duration-500 h-14 disabled:opacity-30"
               >
                 {isLoading ? (
                   <span className="animate-pulse">{t.academy.login.enterButton}</span>
