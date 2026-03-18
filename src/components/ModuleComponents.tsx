@@ -24,8 +24,8 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
   return (
     <div className="min-h-screen">
       <div className="relative h-[50vh] flex items-end overflow-hidden">
-        <img src={heroImage} alt={title} className="absolute inset-0 w-full h-full object-cover opacity-40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
+        <img src={heroImage} alt={title} className="absolute inset-0 w-full h-full object-cover opacity-15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
         <div className="relative z-10 section-padding pb-12 w-full max-w-5xl mx-auto">
           <ScrollReveal>
             {moduleNumber && (
@@ -83,8 +83,8 @@ export function KeyTakeaway({ items }: { items: string[] }) {
   const { t } = useLanguage();
   return (
     <ScrollReveal>
-      <div className="relative border border-primary/20 bg-primary/[0.03] backdrop-blur-md p-8 md:p-10 my-12">
-        <div className="absolute top-0 left-0 w-1 h-full bg-primary/40" />
+      <div className="relative border border-primary/20 bg-primary/5 p-8 md:p-10 my-12">
+        <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
         <div className="flex items-center gap-3 mb-8">
           <Bookmark className="w-5 h-5 text-primary" />
           <p className="text-xs tracking-[0.3em] uppercase text-primary font-medium">{t.academy.module.keyTakeaways}</p>
@@ -124,7 +124,7 @@ export function ExpandableSection({ title, children }: { title: string; children
   const [open, setOpen] = useState(false);
   return (
     <ScrollReveal>
-      <div className={`border border-primary/20 bg-secondary/5 backdrop-blur-sm transition-all duration-500 overflow-hidden ${open ? 'my-6 shadow-lg shadow-primary/5' : 'my-4 hover:border-primary/40 hover:bg-secondary/10'}`}>
+      <div className={`border border-primary/20 bg-card transition-all duration-500 overflow-hidden ${open ? 'my-6 border-primary/30 bg-primary/5' : 'my-4 hover:border-primary/30 hover:bg-primary/5'}`}>
         <button
           onClick={() => setOpen(!open)}
           className="w-full flex items-center justify-between p-6 text-left relative group"
@@ -191,9 +191,9 @@ export function QuizBlock({ moduleId, questions }: { moduleId: string; questions
 
   return (
     <ScrollReveal>
-      <div className="relative border border-border/30 bg-secondary/5 backdrop-blur-xl p-8 md:p-12 overflow-hidden">
+      <div className="relative border border-primary/20 bg-card p-8 md:p-12 overflow-hidden">
         {/* Subtle background glow */}
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/5 rounded-full blur-[80px] pointer-events-none" />
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/3 rounded-full blur-[80px] pointer-events-none" />
         
         <div className="relative z-10 space-y-10">
           <div className="flex items-center gap-3">
@@ -217,9 +217,9 @@ export function QuizBlock({ moduleId, questions }: { moduleId: string; questions
                           key={oi}
                           onClick={() => handleSelect(qi, oi)}
                           className={`group relative text-left px-6 py-4 border text-sm font-light transition-all duration-500 overflow-hidden ${
-                            selected 
-                              ? "border-primary/50 bg-primary/10 text-primary" 
-                              : "border-border/30 bg-background/40 text-foreground/70 hover:border-primary/30 hover:bg-background/80"
+                            selected
+                              ? "border-primary/40 bg-primary/10 text-primary"
+                              : "border-border/30 bg-card text-foreground/70 hover:border-primary/30 hover:bg-primary/5"
                           }`}
                         >
                           {selected && (
@@ -334,7 +334,7 @@ export function ReflectionBlock({ questions }: { questions: string[] }) {
   const { t } = useLanguage();
   return (
     <ScrollReveal>
-      <div className="relative border border-border/30 bg-secondary/5 backdrop-blur-xl p-8 md:p-12 my-12">
+      <div className="relative border border-primary/20 bg-card p-8 md:p-12 my-12">
         <div className="flex items-center gap-3 mb-10">
           <PenTool className="w-5 h-5 text-primary" />
           <p className="text-xs tracking-[0.3em] uppercase text-primary">{t.academy.module.reflection}</p>
@@ -349,9 +349,9 @@ export function ReflectionBlock({ questions }: { questions: string[] }) {
               <div className="relative group">
                 <textarea
                   placeholder={t.academy.module.reflectionPlaceholder}
-                  className="w-full min-h-[140px] bg-background/40 border border-border/30 text-foreground/80 p-5 text-base font-light resize-none focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground/30 relative z-10"
+                  className="w-full min-h-[140px] bg-background border border-border/40 text-foreground/80 p-5 text-base font-light resize-none focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all duration-300 placeholder:text-muted-foreground/40 relative z-10"
                 />
-                <div className="absolute inset-0 bg-primary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute inset-0 bg-primary/3 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
               </div>
             </div>
           ))}

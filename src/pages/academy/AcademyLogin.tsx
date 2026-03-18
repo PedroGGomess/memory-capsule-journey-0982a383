@@ -37,11 +37,9 @@ const AcademyLogin = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-6 relative overflow-hidden">
-      {/* Ambient background effects */}
+      {/* Minimal background effects */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-primary/[0.03] blur-[150px]" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-40 bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-40 bg-gradient-to-t from-transparent via-primary/10 to-transparent" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-primary/[0.05] blur-[120px]" />
       </div>
 
       <motion.div
@@ -58,8 +56,7 @@ const AcademyLogin = () => {
           transition={{ delay: 0.1, duration: 0.8, ease }}
         >
           <div className="relative">
-            <div className="absolute inset-0 bg-primary/10 rounded-full blur-2xl scale-150" />
-            <img src={logoImg} alt="The 100's" className="w-20 h-20 object-contain relative z-10" />
+            <img src={logoImg} alt="The 100's" className="w-20 h-20 object-contain" />
           </div>
         </motion.div>
 
@@ -110,10 +107,7 @@ const AcademyLogin = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.7, ease }}
         >
-          {/* Top accent line */}
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-          
-          <div className="border border-border/15 bg-card/20 backdrop-blur-xl p-10">
+          <div className="border border-border/30 bg-card p-10">
             <p className="text-[9px] tracking-[0.4em] uppercase text-muted-foreground/30 text-center mb-8">
               {t.academy.login.portalLabel}
             </p>
@@ -135,7 +129,7 @@ const AcademyLogin = () => {
                     setError("");
                   }}
                   placeholder="· · · · · · · ·"
-                  className="font-mono tracking-[0.5em] text-center bg-background/30 border-border/15 focus:border-primary/30 focus:bg-background/50 text-foreground/80 placeholder:text-muted-foreground/20 h-14 text-lg transition-all duration-500"
+                  className="font-mono tracking-[0.5em] text-center bg-background border-border/40 focus:border-primary/50 focus:bg-background text-foreground/80 placeholder:text-muted-foreground/30 h-14 text-lg transition-all duration-500"
                   autoComplete="off"
                   autoFocus
                 />
@@ -154,15 +148,12 @@ const AcademyLogin = () => {
               <Button
                 type="submit"
                 disabled={!code.trim()}
-                className="w-full border border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/40 tracking-[0.3em] uppercase text-[10px] font-light transition-all duration-500 h-14 disabled:opacity-30"
+                className="w-full border border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/40 tracking-[0.3em] uppercase text-[10px] font-light transition-all duration-500 h-14 disabled:opacity-30"
               >
                 {t.academy.login.enterButton}
               </Button>
             </form>
           </div>
-          
-          {/* Bottom accent line */}
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
         </motion.div>
 
         {/* Hint text */}

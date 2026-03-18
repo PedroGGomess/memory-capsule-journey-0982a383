@@ -72,6 +72,7 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        xs: "2px",
       },
       keyframes: {
         "accordion-down": {
@@ -95,8 +96,8 @@ export default {
           "100%": { backgroundPosition: "200% center" },
         },
         "slow-pulse": {
-          "0%, 100%": { opacity: "0.4" },
-          "50%": { opacity: "0.8" },
+          "0%, 100%": { opacity: "0.5" },
+          "50%": { opacity: "0.7" },
         },
       },
       animation: {
@@ -104,8 +105,8 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-up": "fade-up 1s ease-out forwards",
         "fade-in": "fade-in 1.5s ease-out forwards",
-        "gold-shimmer": "gold-shimmer 3s ease-in-out infinite",
-        "slow-pulse": "slow-pulse 4s ease-in-out infinite",
+        "gold-shimmer": "gold-shimmer 4s ease-in-out infinite",
+        "slow-pulse": "slow-pulse 5s ease-in-out infinite",
       },
     },
   },

@@ -77,7 +77,7 @@ const Dashboard = () => {
       initial="hidden"
       animate="visible"
     >
-      {/* ── Cinematic Hero with Video ── */}
+      {/* ── Elegant Hero with Video ── */}
       <motion.section
         ref={heroRef}
         variants={itemVariants}
@@ -91,10 +91,10 @@ const Dashboard = () => {
             muted
             loop
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover opacity-20"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/10 to-background" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-background/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/20 via-transparent to-background/20" />
           
           <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
             <motion.div
@@ -104,8 +104,7 @@ const Dashboard = () => {
               className="mb-5"
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-primary/15 rounded-full blur-2xl scale-150" />
-                <img src={logoImg} alt="The 100's" className="w-20 h-20 object-contain relative z-10 drop-shadow-2xl" />
+                <img src={logoImg} alt="The 100's" className="w-20 h-20 object-contain" />
               </div>
             </motion.div>
 
@@ -218,7 +217,7 @@ const Dashboard = () => {
             {t.academy.dashboard.moduleLabel}s
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-[1px] bg-border/10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {modules.map((m) => {
               const done = isModuleCompleted(m.id);
               const isNext = nextModule?.id === m.id;
@@ -226,22 +225,22 @@ const Dashboard = () => {
                 <motion.div key={m.id} variants={itemVariants}>
                   <Link to={m.path}>
                     <motion.div
-                      className={`group relative bg-background p-6 md:p-7 flex flex-col gap-4 transition-all duration-500 h-full ${
-                        isNext ? "bg-primary/[0.02]" : ""
+                      className={`group relative bg-card border border-border/30 p-6 md:p-7 flex flex-col gap-4 transition-all duration-500 h-full ${
+                        isNext ? "border-primary/40 bg-primary/5" : ""
                       }`}
-                      whileHover={{ backgroundColor: "hsl(43 72% 50% / 0.03)" }}
+                      whileHover={{ borderColor: "hsl(38 55% 48% / 0.4)", boxShadow: "0 2px 8px rgba(38, 55, 48, 0.06)" }}
                       transition={{ duration: 0.4 }}
                     >
                       <div className="flex items-center justify-between">
                         <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${
                           done
-                            ? "bg-primary/10 ring-1 ring-primary/25 shadow-[0_0_15px_-5px_hsl(var(--primary)/0.3)]"
-                            : "bg-muted/30 group-hover:bg-muted/50"
+                            ? "bg-primary/10 border border-primary/30"
+                            : "bg-muted border border-border/40 group-hover:bg-primary/8 group-hover:border-primary/20"
                         }`}>
                           {done ? (
                             <Check className="w-4 h-4 text-primary" />
                           ) : (
-                            <m.icon className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground/60 transition-colors" />
+                            <m.icon className="w-4 h-4 text-muted-foreground/50 group-hover:text-primary transition-colors" />
                           )}
                         </div>
                         <span className="text-[9px] tracking-[0.1em] text-muted-foreground/20 font-light">
@@ -251,7 +250,7 @@ const Dashboard = () => {
 
                       <div className="flex-1">
                         <h3 className={`text-sm font-light leading-snug transition-colors duration-300 ${
-                          done ? "text-foreground/80" : "text-foreground/60 group-hover:text-foreground/80"
+                          done ? "text-foreground" : "text-foreground/70 group-hover:text-foreground/85"
                         }`}>
                           {m.title}
                         </h3>
