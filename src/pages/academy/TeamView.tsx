@@ -253,16 +253,42 @@ export default function TeamView() {
 
         {/* ── Team Members ── */}
         {isLoading ? (
-          <div className="text-center py-12">
-            <p className="text-sm text-foreground/60 font-light">
-              {language === "en" ? "Loading…" : "Carregando…"}
-            </p>
-          </div>
+          <motion.section variants={itemVariants} className="space-y-3">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="bg-card border border-border overflow-hidden">
+                <div className="px-6 py-5 flex items-center justify-between">
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className="w-10 h-10 skeleton-circle" />
+                    <div className="flex-1 space-y-2">
+                      <div className="w-24 h-4 skeleton" />
+                      <div className="w-32 h-3 skeleton" />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-6 hidden sm:flex">
+                    <div className="w-16 h-5 skeleton" />
+                    <div className="w-16 h-5 skeleton" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </motion.section>
         ) : employees.length === 0 ? (
           <motion.section variants={itemVariants} className="bg-card border border-border/30 p-12 text-center">
-            <p className="text-sm text-foreground/60 font-light">
-              {language === "pt" ? "Nenhum membro de equipa." : "No team members."}
+            <Users className="w-12 h-12 text-muted-foreground/20 mx-auto mb-4" />
+            <p className="text-sm text-foreground/60 font-light mb-6">
+              {language === "pt"
+                ? "Adiciona o primeiro colaborador para começar"
+                : "Add your first team member to get started"}
             </p>
+            {isStoreManager && (
+              <button
+                onClick={() => setShowCreateDialog(true)}
+                className="inline-block border border-primary/30 px-8 py-4 text-sm tracking-[0.2em] uppercase text-primary hover:bg-primary/5 transition-all duration-200"
+              >
+                <Plus className="w-4 h-4 inline mr-2" />
+                {language === "pt" ? "Adicionar Colaborador" : "Add Employee"}
+              </button>
+            )}
           </motion.section>
         ) : (
           <motion.section variants={itemVariants} className="space-y-3">

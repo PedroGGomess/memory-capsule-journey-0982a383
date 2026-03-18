@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Award, Copy, Check } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -14,11 +14,37 @@ const Profile = () => {
   const { progress, getCompletionPercentage, allowedModules } = useProgress();
   const [showAccessCode, setShowAccessCode] = useState(false);
   const [copiedCode, setCopiedCode] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (!user) {
+  useEffect(() => {
+    // Simulate loading delay to show skeletons
+    const timer = setTimeout(() => setIsLoading(false), 300);
+    return () => clearTimeout(timer);
+  }, [user]);
+
+  if (!user || isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">{language === "pt" ? "A carregar..." : "Loading..."}</p>
+      <div className="min-h-screen bg-background section-padding py-16">
+        <div className="max-w-4xl mx-auto space-y-12">
+          {/* Header skeleton */}
+          <div className="space-y-6 border-b border-border pb-8">
+            <div className="w-48 h-10 skeleton" />
+            <div className="w-32 h-6 skeleton" />
+          </div>
+
+          {/* Progress skeleton */}
+          <div className="space-y-8">
+            <div className="w-40 h-8 skeleton" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="h-48 skeleton" />
+              <div className="space-y-4">
+                <div className="h-20 skeleton" />
+                <div className="h-20 skeleton" />
+              </div>
+              <div className="h-20 skeleton" />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -221,6 +247,16 @@ const Profile = () => {
               {language === "pt" ? "Detalhes dos Módulos" : "Module Details"}
             </h2>
 
+            {completedModules === 0 ? (
+              <div className="border border-border/30 p-12 text-center">
+                <BookOpen className="w-12 h-12 text-muted-foreground/20 mx-auto mb-4" />
+                <p className="text-sm text-foreground/60 font-light">
+                  {language === "pt"
+                    ? "Começa o teu primeiro módulo"
+                    : "Start your first module"}
+                </p>
+              </div>
+            ) : (
             <div className="space-y-3">
               {userModules.map((module) => {
                 const moduleProgress = progress[module.id];
@@ -277,6 +313,7 @@ const Profile = () => {
                 );
               })}
             </div>
+            )}
           </div>
         </ScrollReveal>
 

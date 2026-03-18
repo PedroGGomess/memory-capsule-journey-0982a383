@@ -271,6 +271,31 @@ const Dashboard = () => {
           </motion.section>
         )}
 
+        {/* ── Empty State: No modules started ── */}
+        {pct === 0 && (
+          <motion.section variants={itemVariants} className="mb-16">
+            <div className="bg-card border border-border/30 p-12 text-center">
+              <BookOpen className="w-12 h-12 text-primary/30 mx-auto mb-4" />
+              <h2 className="text-2xl font-light text-foreground mb-3">
+                {language === "pt" ? "Comece a sua jornada" : "Start your journey"}
+              </h2>
+              <p className="text-foreground/60 font-light mb-6 max-w-md mx-auto">
+                {language === "pt"
+                  ? "Bem-vindo à The 100's Academy. Clique abaixo para começar o primeiro módulo."
+                  : "Welcome to The 100's Academy. Click below to start your first module."}
+              </p>
+              {nextModule && (
+                <Link
+                  to={nextModule.path}
+                  className="inline-block border border-primary/30 px-8 py-4 text-sm tracking-[0.2em] uppercase text-primary hover:bg-primary/5 transition-all duration-200"
+                >
+                  {language === "pt" ? "Iniciar →" : "Start →"}
+                </Link>
+              )}
+            </div>
+          </motion.section>
+        )}
+
         {/* ── Module Sections by Category ── */}
         <motion.section variants={itemVariants} className="mb-16">
           {/* Define category labels */}
@@ -300,8 +325,8 @@ const Dashboard = () => {
                     <h2 className="text-lg font-light text-foreground/90 tracking-wide">{categoryLabel}</h2>
                   </div>
 
-                  {/* Module Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {/* Module Grid - 1 col on mobile, 2 on tablet, 3+ on desktop */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
                     {modulesByCategory.map((m) => {
                       const done = isModuleCompleted(m.id);
                       const isNext = nextModule?.id === m.id;
@@ -497,9 +522,12 @@ const Dashboard = () => {
                 </div>
               </div>
             ) : (
-              <div className="text-center py-8">
+              <div className="text-center py-12">
+                <BarChart3 className="w-12 h-12 text-muted-foreground/20 mx-auto mb-4" />
                 <p className="text-sm text-foreground/60 font-light">
-                  {t.academy.dashboard.completionMessage}
+                  {language === "pt"
+                    ? "Completa quizzes para ver as tuas avaliações"
+                    : "Complete quizzes to see your evaluations"}
                 </p>
               </div>
             )}

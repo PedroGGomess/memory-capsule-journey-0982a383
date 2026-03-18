@@ -50,11 +50,11 @@ const AcademyLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-6 relative overflow-hidden">
+    <div className="min-h-screen bg-background flex items-center justify-center px-4 sm:px-6 relative overflow-hidden">
       {/* Theme toggle - top right */}
       <button
         onClick={toggleTheme}
-        className="fixed top-6 right-6 text-foreground/70 hover:text-primary transition-colors duration-200 z-50"
+        className="fixed top-4 sm:top-6 right-4 sm:right-6 text-foreground/70 hover:text-primary transition-colors duration-200 z-50"
         title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
       >
         {theme === "dark" ? (
@@ -65,7 +65,7 @@ const AcademyLogin = () => {
       </button>
 
       {/* Background image (desktop only) */}
-      <div className="hidden md:block absolute inset-y-0 left-0 w-1/2 overflow-hidden">
+      <div className="hidden lg:block absolute inset-y-0 left-0 w-1/2 overflow-hidden">
         <img
           src={bottleCloseupImg}
           alt="The 100's"
@@ -75,7 +75,7 @@ const AcademyLogin = () => {
       </div>
 
       <motion.div
-        className="w-full max-w-md relative z-10 md:ml-auto md:mr-16"
+        className="w-full max-w-md relative z-10 lg:ml-auto lg:mr-16"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}

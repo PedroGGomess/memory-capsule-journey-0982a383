@@ -107,6 +107,33 @@
   .section-padding {
     @apply px-6 md:px-12 lg:px-24;
   }
+
+  /* Skeleton Loading Animation */
+  @keyframes pulse-skeleton {
+    0%, 100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .skeleton {
+    @apply bg-muted animate-pulse rounded-sm;
+    animation: pulse-skeleton 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .skeleton-text {
+    @apply h-4 skeleton mb-2;
+  }
+
+  .skeleton-box {
+    @apply h-32 skeleton;
+  }
+
+  .skeleton-circle {
+    @apply rounded-full skeleton;
+  }
 }
 
 /* Custom scrollbar - thin, gold-toned, adapts to theme */
