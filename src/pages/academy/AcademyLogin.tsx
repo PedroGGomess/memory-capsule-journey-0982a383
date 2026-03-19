@@ -6,7 +6,7 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, Loader2 } from "lucide-react";
 import logoImg from "@/assets/Logo.png";
 import bottleCloseupImg from "@/assets/bottle-closeup.jpg";
 
@@ -20,6 +20,7 @@ const AcademyLogin = () => {
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated && !authLoading) {
@@ -33,17 +34,22 @@ const AcademyLogin = () => {
     if (!trimmed) return;
 
     setIsLoading(true);
+    setShowError(false);
     try {
       const success = await login(trimmed);
       if (success) {
         navigate("/academy", { replace: true });
       } else {
-        setError(t.academy.login.invalidCode);
+        setError(language === "pt" ? "Código inválido. Verifica com o teu gestor." : "Invalid code. Check with your manager.");
         setCode("");
+        setShowError(true);
+        setTimeout(() => setShowError(false), 3000);
       }
     } catch (err) {
-      setError(t.academy.login.invalidCode);
+      setError(language === "pt" ? "Código inválido. Verifica com o teu gestor." : "Invalid code. Check with your manager.");
       setCode("");
+      setShowError(true);
+      setTimeout(() => setShowError(false), 3000);
     } finally {
       setIsLoading(false);
     }
@@ -119,7 +125,13 @@ const AcademyLogin = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.7, ease }}
         >
-          <div className="border border-border bg-card p-10">
+          <motion.div
+            className={`border bg-card p-10 transition-all duration-200 ${
+              showError ? "border-destructive/60 bg-destructive/5" : "border-border"
+            }`}
+            animate={showError ? { borderColor: "rgba(239, 68, 68, 0.6)" } : { borderColor: "var(--border)" }}
+            transition={{ duration: 0.3 }}
+          >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-3">
                 <label
@@ -134,38 +146,54 @@ const AcademyLogin = () => {
                   value={code}
                   onChange={(e) => {
                     setCode(e.target.value);
-                    setError("");
+                    if (error) setError("");
                   }}
                   placeholder="CODE"
-                  className="font-light tracking-wider text-center bg-background border border-border focus:border-primary text-foreground placeholder:text-foreground/40 h-12 text-base transition-colors duration-200"
+                  className={`font-light tracking-wider text-center bg-background border focus:border-primary text-foreground placeholder:text-foreground/40 h-12 text-base transition-colors duration-200 ${
+                    showError ? "border-destructive/50 focus:border-destructive" : "border-border"
+                  }`}
                   autoComplete="off"
                   autoFocus
                 />
               </div>
 
               {error && (
-                <motion.p
-                  className="text-xs text-destructive text-center font-light"
+                <motion.div
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  className="space-y-2"
                 >
-                  {error}
-                </motion.p>
+                  <p className="text-xs text-destructive text-center font-light">{error}</p>
+                </motion.div>
               )}
 
               <Button
                 type="submit"
                 disabled={!code.trim() || isLoading}
-                className="w-full border border-primary text-primary hover:bg-primary hover:text-background tracking-[0.2em] uppercase text-xs font-light transition-all duration-200 h-12 disabled:opacity-50"
+                className="w-full border border-primary text-primary hover:bg-primary hover:text-background tracking-[0.2em] uppercase text-xs font-light transition-all duration-200 h-12 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isLoading ? (
-                  <span className="animate-pulse">{t.academy.login.enterButton}</span>
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>{t.academy.login.enterButton}</span>
+                  </>
                 ) : (
                   t.academy.login.enterButton
                 )}
               </Button>
             </form>
-          </div>
+          </motion.div>
+
+          {/* Help text */}
+          <motion.p
+            className="text-[11px] tracking-[0.15em] uppercase text-foreground/40 text-center mt-6 font-light"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+          >
+            {language === "pt" ? "Esqueceste o código? Contacta o teu gestor." : "Forgot your code? Contact your manager."}
+          </motion.p>
         </motion.div>
 
         {/* Return link */}

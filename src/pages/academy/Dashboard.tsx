@@ -9,7 +9,7 @@ import logoImg from "@/assets/Logo.png";
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
   Users, Sparkles, FolderOpen, Award, ArrowRight, Check, Bot, BarChart3,
-  ChevronRight, Gem, BookMarked, Target, Image, Heart, Shield, Plane, Languages, Monitor, Printer, Lock, Briefcase, ClipboardList, Lightbulb, Flame, Star
+  ChevronRight, Gem, BookMarked, Target, Image, Heart, Shield, Plane, Languages, Monitor, Printer, Lock, Briefcase, ClipboardList, Lightbulb, Flame, Star, Crosshair
 } from "lucide-react";
 
 const DAILY_TIPS = [
@@ -85,10 +85,39 @@ const ALL_MODULES = [
   { id: "certification", num: 22, icon: Award, navKey: "certification" as const, category: "certification" },
 ];
 
+const DAILY_CHALLENGES = [
+  { pt: "Pratica a frase de boas-vindas com 3 colegas diferentes.", en: "Practice the welcome phrase with 3 different colleagues." },
+  { pt: "Apresenta o conceito Second Life a um amigo em 30 segundos.", en: "Present the Second Life concept to a friend in 30 seconds." },
+  { pt: "Identifica 3 produtos na loja que seriam perfeitos para um cruzeirista.", en: "Identify 3 products in the store that would be perfect for a cruise passenger." },
+  { pt: "Treina a resposta à objeção 'é caro' em frente ao espelho.", en: "Practice the 'it's expensive' objection response in front of a mirror." },
+  { pt: "Escreve 3 frases de upsell diferentes para o mesmo produto.", en: "Write 3 different upsell phrases for the same product." },
+  { pt: "Descreve um Tawny 30 anos em 3 palavras que não sejam técnicas.", en: "Describe a 30-year Tawny in 3 non-technical words." },
+  { pt: "Pede a um colega para fingir ser um turista — faz o atendimento completo.", en: "Ask a colleague to pretend to be a tourist — do the full service." },
+  { pt: "Memoriza os preços das 3 gamas mais vendidas.", en: "Memorize the prices of the top 3 selling ranges." },
+  { pt: "Pratica dizer 'bem-vindo' em 5 idiomas diferentes.", en: "Practice saying 'welcome' in 5 different languages." },
+  { pt: "Faz uma degustação sozinho e escreve 3 notas de prova.", en: "Do a solo tasting and write 3 tasting notes." },
+  { pt: "Encontra 3 formas de sugerir a personalização UV sem ser forçado.", en: "Find 3 ways to suggest UV personalization without being pushy." },
+  { pt: "Cronometra quanto tempo demoras a fazer o embrulho perfeito.", en: "Time how long it takes you to do the perfect wrapping." },
+  { pt: "Explica o conceito 'Cápsula de Memória' em inglês a um colega.", en: "Explain the 'Memory Capsule' concept in English to a colleague." },
+  { pt: "Verifica se todas as garrafas estão a 45° na montra.", en: "Check if all bottles are at 45° in the display." },
+  { pt: "Pede pelo menos 1 review no Google Maps a um cliente satisfeito.", en: "Ask at least 1 Google Maps review from a satisfied customer." },
+  { pt: "Lê um artigo sobre o Vale do Douro e aprende 1 novo facto.", en: "Read an article about the Douro Valley and learn 1 new fact." },
+  { pt: "Observa um colega experiente e identifica 3 técnicas que usa.", en: "Watch an experienced colleague and identify 3 techniques they use." },
+  { pt: "Cria uma comparação entre Port Ruby e Tawny para um cliente.", en: "Create a comparison between Ruby Port and Tawny for a customer." },
+  { pt: "Organiza a montra focando a história visual dos produtos.", en: "Organize the display focusing on the visual story of products." },
+  { pt: "Treina como receber uma reclamação com calma e solução.", en: "Practice how to handle a complaint calmly and with a solution." }
+];
+
 const getDailyTip = () => {
   const today = new Date();
   const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
   return DAILY_TIPS[dayOfYear % DAILY_TIPS.length];
+};
+
+const getDailyChallenge = () => {
+  const today = new Date();
+  const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
+  return DAILY_CHALLENGES[dayOfYear % DAILY_CHALLENGES.length];
 };
 
 const getTimeBasedGreeting = (language: string) => {
@@ -108,6 +137,7 @@ const Dashboard = () => {
   const { user } = useAcademyAuth();
   const pct = getCompletionPercentage();
   const dailyTip = getDailyTip();
+  const dailyChallenge = getDailyChallenge();
   const timeBasedGreeting = getTimeBasedGreeting(language);
 
   // Streak milestone message
@@ -134,12 +164,6 @@ const Dashboard = () => {
       setLastModule(JSON.parse(saved));
     }
   }, []);
-
-  // Get recently completed modules (last 3)
-  const recentlyCompleted = modules
-    .filter((m) => isModuleCompleted(m.id))
-    .slice(-3)
-    .reverse();
 
   // Get motivational quote based on progress
   const getMotivationalQuote = () => {
@@ -185,6 +209,7 @@ const Dashboard = () => {
   ];
 
   const bookmarkedModules = modules.filter(m => bookmarkedModuleIds.includes(m.id));
+  const recentlyCompleted = modules.filter((m) => isModuleCompleted(m.id)).slice(-3).reverse();
   const nextModule = modules.find((m) => !isModuleCompleted(m.id));
   const roleLabel = getRoleLabel(userRole, language as "pt" | "en");
 
@@ -348,8 +373,9 @@ const Dashboard = () => {
           </motion.section>
         )}
 
-        {/* ── Daily Tip Card ── */}
-        <motion.section variants={itemVariants} className="mb-16">
+        {/* ── Daily Tip and Challenge Cards ── */}
+        <motion.section variants={itemVariants} className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Daily Tip */}
           <div className="border-l-4 border-l-primary/60 bg-card border border-border border-l-4 border-l-primary/60 p-8">
             <div className="flex items-start gap-4">
               <Lightbulb className="w-5 h-5 text-primary/70 shrink-0 mt-0.5" />
@@ -359,6 +385,21 @@ const Dashboard = () => {
                 </p>
                 <p className="text-base text-foreground/80 font-light italic leading-relaxed">
                   {language === "pt" ? dailyTip.pt : dailyTip.en}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Daily Challenge */}
+          <div className="border-l-4 border-l-primary/60 bg-card border border-border border-l-4 border-l-primary/60 p-8">
+            <div className="flex items-start gap-4">
+              <Crosshair className="w-5 h-5 text-primary/70 shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p className="text-[10px] tracking-[0.3em] uppercase text-primary/60 mb-3 font-light">
+                  {language === "pt" ? "Desafio do Dia" : "Daily Challenge"}
+                </p>
+                <p className="text-base text-foreground/80 font-light italic leading-relaxed">
+                  {language === "pt" ? dailyChallenge.pt : dailyChallenge.en}
                 </p>
               </div>
             </div>

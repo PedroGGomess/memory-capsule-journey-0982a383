@@ -49,6 +49,8 @@ const TeamView = lazy(() => import("./pages/academy/TeamView"));
 const AcademyLogin = lazy(() => import("./pages/academy/AcademyLogin"));
 const AdminEmployees = lazy(() => import("./pages/academy/AdminEmployees"));
 
+const SalesSimulator = lazy(() => import("./pages/academy/SalesSimulator"));
+
 const AdminLogin = lazy(() => import("./pages/gym/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/gym/AdminDashboard"));
 const AccessLogs = lazy(() => import("./pages/gym/AccessLogs"));
@@ -122,6 +124,7 @@ const App = () => (
                     <Route path="module/leadership" element={<ModuleLeadership />} />
                     <Route path="module/team-ops" element={<ModuleTeamOps />} />
                     <Route path="presential-training" element={<PresentialTraining />} />
+                    <Route path="sales-simulator" element={<SalesSimulator />} />
                     <Route path="team" element={<TeamView />} />
                     <Route path="admin/employees" element={<AdminEmployees />} />
                   </Route>

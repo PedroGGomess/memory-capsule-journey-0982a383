@@ -1,6 +1,6 @@
 import { ReactNode, useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, CheckCircle2, XCircle, Trophy, Sparkles, Bookmark, PenTool, Star } from "lucide-react";
+import { Check, ChevronDown, CheckCircle2, XCircle, Trophy, Sparkles, Bookmark, PenTool, Star, MessageSquare } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useProgress } from "@/contexts/ProgressContext";
 import ScrollReveal from "./ScrollReveal";
@@ -24,19 +24,46 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
   const { t, language } = useLanguage();
   const [showSuccess, setShowSuccess] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
+  const [notes, setNotes] = useState("");
+  const [showNotes, setShowNotes] = useState(false);
+  const [difficulty, setDifficulty] = useState<"easy" | "adequate" | "hard" | null>(null);
   const completed = isModuleCompleted(moduleId);
 
   const bookmarksKey = "the100s-bookmarks";
+  const notesKey = `the100s-notes-${moduleId}`;
+  const difficultyKey = `the100s-difficulty-${moduleId}`;
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem(bookmarksKey) || "[]");
     setBookmarked(saved.includes(moduleId));
   }, [moduleId]);
 
+  // Load notes and difficulty from localStorage
+  useEffect(() => {
+    const savedNotes = localStorage.getItem(notesKey);
+    if (savedNotes) setNotes(savedNotes);
+
+    const savedDifficulty = localStorage.getItem(difficultyKey);
+    if (savedDifficulty) setDifficulty(savedDifficulty as "easy" | "adequate" | "hard");
+  }, [moduleId, notesKey, difficultyKey]);
+
   // Save last visited module on mount
   useEffect(() => {
     localStorage.setItem("the100s-last-module", JSON.stringify({ id: moduleId, title }));
   }, [moduleId, title]);
+
+  // Auto-save notes (debounced)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (notes) localStorage.setItem(notesKey, notes);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [notes, notesKey]);
+
+  // Save difficulty immediately
+  useEffect(() => {
+    if (difficulty) localStorage.setItem(difficultyKey, difficulty);
+  }, [difficulty, difficultyKey]);
 
   const toggleBookmark = () => {
     const saved = JSON.parse(localStorage.getItem(bookmarksKey) || "[]");
@@ -94,6 +121,72 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
 
       <div className="section-padding py-16 max-w-4xl mx-auto space-y-16">
         {children}
+
+        {/* Personal Notes Section */}
+        <ScrollReveal>
+          <div className="border border-border p-6">
+            <button
+              onClick={() => setShowNotes(!showNotes)}
+              className="flex w-full items-center justify-between text-left hover:opacity-80 transition-opacity"
+            >
+              <div className="flex items-center gap-3">
+                <MessageSquare className="w-4 h-4 text-primary" />
+                <p className="text-sm tracking-[0.2em] uppercase text-primary font-light">
+                  {language === "pt" ? "Notas Pessoais" : "Personal Notes"}
+                </p>
+                {notes && <span className="text-[10px] text-foreground/50">({notes.length})</span>}
+              </div>
+              <ChevronDown className={`w-4 h-4 text-primary transition-transform duration-300 ${showNotes ? "rotate-180" : ""}`} />
+            </button>
+
+            <AnimatePresence>
+              {showNotes && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  className="overflow-hidden"
+                >
+                  <textarea
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    placeholder={language === "pt" ? "Escreve aqui as tuas notas..." : "Write your notes here..."}
+                    className="w-full mt-4 min-h-[120px] bg-background border border-border text-foreground/80 p-4 text-sm font-light resize-none focus:outline-none focus:border-primary transition-colors duration-200 placeholder:text-foreground/40"
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </ScrollReveal>
+
+        {/* Difficulty Rating Section */}
+        <ScrollReveal>
+          <div className="border border-border p-6">
+            <p className="text-sm tracking-[0.2em] uppercase text-primary font-light mb-4">
+              {language === "pt" ? "Dificuldade do Módulo" : "Module Difficulty"}
+            </p>
+            <div className="flex gap-3">
+              {[
+                { value: "easy" as const, labelPt: "Fácil", labelEn: "Easy" },
+                { value: "adequate" as const, labelPt: "Adequado", labelEn: "Adequate" },
+                { value: "hard" as const, labelPt: "Difícil", labelEn: "Difficult" }
+              ].map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => setDifficulty(difficulty === option.value ? null : option.value)}
+                  className={`px-6 py-2 border text-xs tracking-[0.15em] uppercase font-light transition-all duration-200 ${
+                    difficulty === option.value
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-border text-foreground/70 hover:border-primary/50"
+                  }`}
+                >
+                  {language === "pt" ? option.labelPt : option.labelEn}
+                </button>
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
 
         {!hideCompletion && (
           <ScrollReveal>

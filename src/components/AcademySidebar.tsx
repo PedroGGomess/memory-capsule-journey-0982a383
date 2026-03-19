@@ -14,7 +14,7 @@ import {
 import {
   BookOpen, Compass, Wine, Gift, Store, MessageCircle,
   Users, FolderOpen, Award, Sparkles, LayoutDashboard, Check, Bot, BarChart3, LogOut, Home, BookMarked, Target, Image,
-  Heart, Shield, Plane, Languages, Monitor, Printer, Briefcase, ClipboardList, User, Calendar, Zap
+  Heart, Shield, Plane, Languages, Monitor, Printer, Briefcase, ClipboardList, User, Calendar, Zap, Gamepad2
 } from "lucide-react";
 
 const ALL_CORE_MODULES = [
@@ -99,6 +99,7 @@ export function AcademySidebar() {
     { title: language === "en" ? "Profile" : "Perfil", url: "/academy/profile", icon: User, id: "profile" },
     { title: language === "en" ? "In-Person Training" : "Formação Presencial", url: "/academy/presential-training", icon: Calendar, id: "presential-training" },
     { title: language === "en" ? "Quick Guide" : "Guia Rápido", url: "/academy/cheat-sheet", icon: Zap, id: "cheat-sheet" },
+    { title: language === "en" ? "Sales Simulator" : "Simulador de Vendas", url: "/academy/sales-simulator", icon: Gamepad2, id: "sales-simulator" },
     { title: t.academy.nav.askTeam, url: "/academy/module/ask-team", icon: Sparkles, id: "ask-team" },
     { title: t.academy.nav.resources, url: "/academy/module/resources", icon: FolderOpen, id: "resources" },
     { title: t.academy.nav.aiAssistant, url: "/academy/module/ai-assistant", icon: Bot, id: "ai-assistant" },
