@@ -44,6 +44,7 @@ const ModuleStory = () => {
       </ContentBlock>
 
       <VideoBlock
+        src="/videos/story.mp4"
         title="A História do The 100's"
         description="A jornada desde a ideia até à criação de uma marca premium."
         duration="8:30"
