@@ -13,7 +13,7 @@ const AcademyLayout = () => {
 
   return (
     <ProgressProvider>
-      <SidebarProvider defaultOpen={false}>
+      <SidebarProvider defaultOpen={true}>
         <div className="min-h-screen flex w-full bg-background">
           <AcademySidebar />
           <div className="flex-1 flex flex-col min-h-screen">
