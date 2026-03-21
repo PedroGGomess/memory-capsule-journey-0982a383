@@ -73,12 +73,6 @@ const ModuleCustomerExperience = () => {
         "Pensa em guia de museu, não em assistente de loja"
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "Describe how you would guide a visitor from the moment they enter to the moment they leave."
-      ] : [
-        "Descreve como guiarias um visitante desde o momento em que entra até ao momento em que sai."
-      ]} />
-
       <ModuleQuizGate
         moduleId="customer-experience"
         questions={[
@@ -89,6 +83,12 @@ const ModuleCustomerExperience = () => {
           { question: "O que faz um cliente voltar ao The 100's?", options: ["Apenas promoções", "Memória positiva, programa concierge e follow-up", "Localização conveniente", "Preços mais baixos que a concorrência"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "Describe how you would guide a visitor from the moment they enter to the moment they leave."
+      ] : [
+        "Descreve como guiarias um visitante desde o momento em que entra até ao momento em que sai."
+      ]} />
     </ModuleLayout>
   );
 };

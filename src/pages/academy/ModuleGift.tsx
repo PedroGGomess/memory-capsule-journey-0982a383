@@ -126,16 +126,6 @@ const ModuleGift = () => {
         "O momento de abertura deve parecer cerimonial e especial"
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "Think of a gift you received that felt truly special. What made the experience memorable?",
-        "How can you convey the gift concept — and the pricing range — when speaking to visitors?",
-        "A visitor asks about the difference between the Cube Cork and the Oak Cube. How would you explain it?"
-      ] : [
-        "Pensa num presente que recebeste e que pareceu verdadeiramente especial. O que tornou a experiência memorável?",
-        "Como podes transmitir o conceito de presente — e a gama de preços — ao falar com os visitantes?",
-        "Um visitante pergunta sobre a diferença entre o Cubo Cortiça e o Cubo Carvalho. Como explicarias?"
-      ]} />
-
       <ModuleQuizGate
         moduleId="gift"
         questions={[
@@ -146,6 +136,16 @@ const ModuleGift = () => {
           { question: "O que torna um gift The 100's diferente de uma garrafa de vinho normal?", options: ["O preço mais alto", "O design, container, personalização e storytelling", "A marca conhecida", "O tamanho maior"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "Think of a gift you received that felt truly special. What made the experience memorable?",
+        "How can you convey the gift concept — and the pricing range — when speaking to visitors?",
+        "A visitor asks about the difference between the Cube Cork and the Oak Cube. How would you explain it?"
+      ] : [
+        "Pensa num presente que recebeste e que pareceu verdadeiramente especial. O que tornou a experiência memorável?",
+        "Como podes transmitir o conceito de presente — e a gama de preços — ao falar com os visitantes?",
+        "Um visitante pergunta sobre a diferença entre o Cubo Cortiça e o Cubo Carvalho. Como explicarias?"
+      ]} />
     </ModuleLayout>
   );
 };

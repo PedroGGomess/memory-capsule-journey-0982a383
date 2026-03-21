@@ -160,14 +160,6 @@ const ModulePhilosophy = () => {
         "A nossa filosofia: O tempo merece ser lembrado — e lembrado de forma bela"
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "Which of the three fundamental ideas (Time, Emotion, Memory) resonates most with you, and why?",
-        "How would you communicate the philosophy of The 100's to a visitor in a single sentence?"
-      ] : [
-        "Qual das três ideias fundamentais (Tempo, Emoção, Memória) ressoa mais contigo, e porquê?",
-        "Como comunicarias a filosofia do The 100's a um visitante numa única frase?"
-      ]} />
-
       <ModuleQuizGate
         moduleId="philosophy"
         questions={[
@@ -178,6 +170,14 @@ const ModulePhilosophy = () => {
           { question: "Qual é a missão fundamental do The 100's?", options: ["Maximizar vendas diárias", "Engarrafar legado, emoção e história em 100ml", "Competir com as caves do Porto", "Vender souvenirs tradicionais"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "Which of the three fundamental ideas (Time, Emotion, Memory) resonates most with you, and why?",
+        "How would you communicate the philosophy of The 100's to a visitor in a single sentence?"
+      ] : [
+        "Qual das três ideias fundamentais (Tempo, Emoção, Memória) ressoa mais contigo, e porquê?",
+        "Como comunicarias a filosofia do The 100's a um visitante numa única frase?"
+      ]} />
     </ModuleLayout>
   );
 };

@@ -263,16 +263,6 @@ const ModuleVocabulary = () => {
         "Não vises perfeição — confiança e calidez importam mais do que sotaque",
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "Which Portuguese phrases feel most natural to you? Which ones would you like to practice more?",
-        "How would you adapt the customer service phrases if someone has very limited English?",
-        "Practice saying three key phrases out loud in Portuguese. How confident do you feel?",
-      ] : [
-        "Quais frases em Português te parecem mais naturais? Quais gostarias de praticar mais?",
-        "Como adaptarias as frases de serviço ao cliente se alguém tem inglês muito limitado?",
-        "Pratica dizendo três frases-chave em voz alta em Português. Como te sentes de confiante?",
-      ]} />
-
       <ModuleQuizGate
         moduleId="vocabulary"
         questions={[
@@ -283,6 +273,16 @@ const ModuleVocabulary = () => {
           { question: "Como dizer 'personalização' em inglês no contexto da loja?", options: ["Personalization", "Customization / Personalization", "Making personal", "Custom making"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "Which Portuguese phrases feel most natural to you? Which ones would you like to practice more?",
+        "How would you adapt the customer service phrases if someone has very limited English?",
+        "Practice saying three key phrases out loud in Portuguese. How confident do you feel?",
+      ] : [
+        "Quais frases em Português te parecem mais naturais? Quais gostarias de praticar mais?",
+        "Como adaptarias as frases de serviço ao cliente se alguém tem inglês muito limitado?",
+        "Pratica dizendo três frases-chave em voz alta em Português. Como te sentes de confiante?",
+      ]} />
     </ModuleLayout>
   );
 };

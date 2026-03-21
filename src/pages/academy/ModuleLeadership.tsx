@@ -303,17 +303,6 @@ const ModuleLeadership = () => {
         ]}
       />
 
-      <ReflectionBlock
-        questions={[
-          isEN
-            ? "Describe a conflict you've witnessed or experienced. How would you approach it using the conflict resolution framework?"
-            : "Descreve um conflito que já presenciaste ou experienciaste. Como o abordarías usando o quadro de resolução de conflitos?",
-          isEN
-            ? "Which KPI do you think is most important for store success, and why?"
-            : "Qual achas que é o KPI mais importante para o sucesso da loja e porquê?",
-        ]}
-      />
-
       <ModuleQuizGate
         moduleId="leadership"
         questions={[
@@ -322,6 +311,17 @@ const ModuleLeadership = () => {
           { question: "O que é um PDI (Plano de Desenvolvimento Individual)?", options: ["Plano de decoração interior", "Plano personalizado de crescimento profissional para cada colaborador", "Plano de descontos", "Plano de inventário"], correctIndex: 1 },
           { question: "Como construir segurança psicológica na equipa?", options: ["Evitar feedback", "Comunicação aberta, celebrar sucessos e aceitar erros como aprendizagem", "Manter distância hierárquica", "Punir erros rapidamente"], correctIndex: 1 },
           { question: "Qual a melhor forma de dar feedback?", options: ["Apenas quando algo corre mal", "Construtivo, específico, frequente e equilibrado (positivo + melhoria)", "Em público para todos ouvirem", "Apenas no final do mês"], correctIndex: 1 },
+        ]}
+      />
+
+      <ReflectionBlock
+        questions={[
+          isEN
+            ? "Describe a conflict you've witnessed or experienced. How would you approach it using the conflict resolution framework?"
+            : "Descreve um conflito que já presenciaste ou experienciaste. Como o abordarías usando o quadro de resolução de conflitos?",
+          isEN
+            ? "Which KPI do you think is most important for store success, and why?"
+            : "Qual achas que é o KPI mais importante para o sucesso da loja e porquê?",
         ]}
       />
     </ModuleLayout>

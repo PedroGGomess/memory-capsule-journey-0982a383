@@ -222,16 +222,6 @@ const ModuleClientProfiles = () => {
         "Reconheça a persona nos primeiros 30 segundos, depois adapte toda a sua abordagem",
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "Think of a recent customer. Which persona did they most resemble? What clues helped you identify them?",
-        "How would you approach an American tourist differently from a European tourist?",
-        "Describe how you would serve a couple without wine knowledge who have 30 minutes.",
-      ] : [
-        "Pensa num cliente recente. Qual persona mais se assemelhava? Que pistas te ajudaram a identificá-la?",
-        "Como aborderias um turista americano diferentemente de um turista europeu?",
-        "Descreve como servias um casal sem conhecimento de vinho que tem 30 minutos.",
-      ]} />
-
       <ModuleQuizGate
         moduleId="client-profiles"
         questions={[
@@ -242,6 +232,16 @@ const ModuleClientProfiles = () => {
           { question: "Como abordar um casal premium?", options: ["Ignorar e deixar explorar", "Criar momento especial, personalização com data do casal", "Ser direto sobre preços", "Sugerir apenas entry gifts"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "Think of a recent customer. Which persona did they most resemble? What clues helped you identify them?",
+        "How would you approach an American tourist differently from a European tourist?",
+        "Describe how you would serve a couple without wine knowledge who have 30 minutes.",
+      ] : [
+        "Pensa num cliente recente. Qual persona mais se assemelhava? Que pistas te ajudaram a identificá-la?",
+        "Como aborderias um turista americano diferentemente de um turista europeu?",
+        "Descreve como servias um casal sem conhecimento de vinho que tem 30 minutos.",
+      ]} />
     </ModuleLayout>
   );
 };

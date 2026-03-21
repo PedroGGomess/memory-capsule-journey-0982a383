@@ -343,16 +343,6 @@ const ModuleVisualMerchandising = () => {
         "Checklist diário: 10 itens críticos da limpeza de vidros ao percurso completo da jornada",
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "You arrive at the store and notice the window display has fingerprints, one spotlight is off, and a product is misaligned. In what order do you fix these, and why?",
-        "A visitor says 'This feels like a museum, not a shop.' Is that a compliment or a problem? How do you respond?",
-        "Describe how you would rearrange the premium display if a new 100-year bottle arrives in the collection.",
-      ] : [
-        "Chegas à loja e notas que a montra tem impressões digitais, um holofote está apagado e um produto está desalinhado. Em que ordem corriges e porquê?",
-        "Um visitante diz 'Isto parece um museu, não uma loja.' É um elogio ou um problema? Como respondes?",
-        "Descreve como reorganizarias a exposição premium se chegasse uma nova garrafa de 100 anos à coleção.",
-      ]} />
-
       <ModuleQuizGate
         moduleId="visual-merchandising"
         questions={[
@@ -363,6 +353,16 @@ const ModuleVisualMerchandising = () => {
           { question: "O que fazer quando um produto está desalinhado na montra?", options: ["Esperar pelo final do dia", "Corrigir imediatamente mantendo o padrão visual", "Ignorar", "Chamar o gerente"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "You arrive at the store and notice the window display has fingerprints, one spotlight is off, and a product is misaligned. In what order do you fix these, and why?",
+        "A visitor says 'This feels like a museum, not a shop.' Is that a compliment or a problem? How do you respond?",
+        "Describe how you would rearrange the premium display if a new 100-year bottle arrives in the collection.",
+      ] : [
+        "Chegas à loja e notas que a montra tem impressões digitais, um holofote está apagado e um produto está desalinhado. Em que ordem corriges e porquê?",
+        "Um visitante diz 'Isto parece um museu, não uma loja.' É um elogio ou um problema? Como respondes?",
+        "Descreve como reorganizarias a exposição premium se chegasse uma nova garrafa de 100 anos à coleção.",
+      ]} />
     </ModuleLayout>
   );
 };

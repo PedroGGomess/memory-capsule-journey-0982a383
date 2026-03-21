@@ -210,11 +210,6 @@ const ModuleBusinessModel = () => {
       "Executive team: Rui Marques (CEO), Carla Machado (COO), Paulo Gonçalves (CMO/CPO), João Camarate (Innovation), Bruno Azevedo (CFO)"
     ]} />
 
-    <ReflectionBlock questions={[
-      "How would you explain the digital capture strategy to a fellow team member?",
-      "Why is post-visit monetization important for a tourism brand like The 100's?"
-    ]} />
-
     <ModuleQuizGate
       moduleId="business-model"
       questions={[
@@ -225,6 +220,11 @@ const ModuleBusinessModel = () => {
         { question: "Qual a gama que mais contribui para a margem do negócio?", options: ["Entry Gift", "Legacy e Icon (gamas premium)", "Apenas o THE HUNDRED", "Todas contribuem igual"], correctIndex: 1 },
       ]}
     />
+
+    <ReflectionBlock questions={[
+      "How would you explain the digital capture strategy to a fellow team member?",
+      "Why is post-visit monetization important for a tourism brand like The 100's?"
+    ]} />
   </ModuleLayout>
   );
 };

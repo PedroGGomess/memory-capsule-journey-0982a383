@@ -204,16 +204,6 @@ const ModuleDigitalSystems = () => {
         "Tecnologia permite melhor serviço, nunca substitui — sempre usa sistemas para aprimorar conexão humana",
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "Describe how you would use a floor tablet to enhance a customer's experience during their visit.",
-        "A customer asks the AI Concierge a question about personalization options. Should the bot answer or redirect? Why?",
-        "How would logging customer data in CRM Zoho help you serve them better on a future visit?",
-      ] : [
-        "Descreve como usarias um tablet de chão para aprimorar a experiência de um cliente durante a sua visita.",
-        "Um cliente pergunta ao AI Concierge sobre opções de personalização. O bot deve responder ou redirecionar? Por quê?",
-        "Como ajudaria registar dados de cliente no CRM Zoho a servi-lo melhor numa visita futura?",
-      ]} />
-
       <ModuleQuizGate
         moduleId="digital-systems"
         questions={[
@@ -224,6 +214,16 @@ const ModuleDigitalSystems = () => {
           { question: "Para que serve o CRM na operação The 100's?", options: ["Controlar o stock", "Gerir relação com clientes, follow-up e fidelização", "Fazer contabilidade", "Gerir horários da equipa"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "Describe how you would use a floor tablet to enhance a customer's experience during their visit.",
+        "A customer asks the AI Concierge a question about personalization options. Should the bot answer or redirect? Why?",
+        "How would logging customer data in CRM Zoho help you serve them better on a future visit?",
+      ] : [
+        "Descreve como usarias um tablet de chão para aprimorar a experiência de um cliente durante a sua visita.",
+        "Um cliente pergunta ao AI Concierge sobre opções de personalização. O bot deve responder ou redirecionar? Por quê?",
+        "Como ajudaria registar dados de cliente no CRM Zoho a servi-lo melhor numa visita futura?",
+      ]} />
     </ModuleLayout>
   );
 };

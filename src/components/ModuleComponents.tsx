@@ -498,29 +498,19 @@ export function QuizBlock({ moduleId, questions }: { moduleId: string; questions
 
 /* ── Reflection ── */
 export function ReflectionBlock({ questions }: { questions: string[] }) {
-  const { t } = useLanguage();
+  const { language } = useLanguage();
   return (
     <ScrollReveal>
-      <div className="relative border border-border bg-card p-8 md:p-12 my-12 overflow-hidden">
-        <div className="relative z-10">
-          <div className="flex items-center gap-3 mb-10">
-            <PenTool className="w-4 h-4 text-primary" />
-            <p className="text-xs tracking-[0.2em] uppercase text-primary font-light">{t.academy.module.reflection}</p>
-          </div>
-          <div className="space-y-10">
+      <div className="border-l-2 border-primary/30 pl-6 my-8">
+        <p className="text-[10px] tracking-[0.2em] uppercase text-primary/50 font-light mb-3">
+          {language === "pt" ? "Reflete" : "Reflect"}
+        </p>
+        <div className="space-y-2">
           {questions.map((q, i) => (
-            <div key={i} className="space-y-3">
-              <p className="text-foreground/90 font-light text-base leading-relaxed">
-                <span className="text-primary/50 mr-3 text-sm">{i + 1}.</span>
-                {q}
-              </p>
-              <textarea
-                placeholder={t.academy.module.reflectionPlaceholder}
-                className="w-full min-h-[120px] bg-background border border-border text-foreground/80 p-4 text-sm font-light resize-none focus:outline-none focus:border-primary transition-colors duration-200 placeholder:text-foreground/40"
-              />
-            </div>
+            <p key={i} className="text-sm text-foreground/60 font-light leading-relaxed">
+              {q}
+            </p>
           ))}
-          </div>
         </div>
       </div>
     </ScrollReveal>

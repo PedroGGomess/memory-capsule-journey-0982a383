@@ -330,16 +330,6 @@ const ModuleTastingGuide = () => {
         "A despedida é tão importante como as boas-vindas — faz sentir que levam tempo com eles",
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "Write your own version of the Welcome phrase. How would you make a visitor feel they've entered a different world?",
-        "A couple visits the store. She loves wine, he doesn't drink. How do you engage both of them?",
-        "Describe a moment during a tasting where you would use silence instead of words. Why?",
-      ] : [
-        "Escreve a tua versão da frase de Boas-Vindas. Como farias um visitante sentir que entrou noutro mundo?",
-        "Um casal visita a loja. Ela adora vinho, ele não bebe. Como os envolves a ambos?",
-        "Descreve um momento durante uma prova em que usarias silêncio em vez de palavras. Porquê?",
-      ]} />
-
       <ModuleQuizGate
         moduleId="tasting-guide"
         questions={[
@@ -350,6 +340,16 @@ const ModuleTastingGuide = () => {
           { question: "Porque é importante a equipa saber descrever notas de prova?", options: ["Para impressionar os colegas", "Para comunicar com confiança e ajudar o cliente a escolher", "Para passar no exame de sommelier", "Não é importante"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "Write your own version of the Welcome phrase. How would you make a visitor feel they've entered a different world?",
+        "A couple visits the store. She loves wine, he doesn't drink. How do you engage both of them?",
+        "Describe a moment during a tasting where you would use silence instead of words. Why?",
+      ] : [
+        "Escreve a tua versão da frase de Boas-Vindas. Como farias um visitante sentir que entrou noutro mundo?",
+        "Um casal visita a loja. Ela adora vinho, ele não bebe. Como os envolves a ambos?",
+        "Descreve um momento durante uma prova em que usarias silêncio em vez de palavras. Porquê?",
+      ]} />
     </ModuleLayout>
   );
 };

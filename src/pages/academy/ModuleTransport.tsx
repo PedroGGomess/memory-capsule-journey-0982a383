@@ -169,16 +169,6 @@ const ModuleTransport = () => {
         "Sempre explica a solução na língua do cliente — torna-o simples e sem stress",
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "A tourist asks: 'Can I bring this on the plane?' Write your response.",
-        "How would you explain Send a Memory to someone worried about luggage weight?",
-        "Describe three scenarios where transport options become a selling point.",
-      ] : [
-        "Um turista pergunta: 'Posso trazer isto no avião?' Escreve a tua resposta.",
-        "Como explicarias Send a Memory a alguém preocupado com peso de bagagem?",
-        "Descreve três cenários em que as opções de transporte se tornam um ponto de venda.",
-      ]} />
-
       <ModuleQuizGate
         moduleId="transport-rules"
         questions={[
@@ -189,6 +179,16 @@ const ModuleTransport = () => {
           { question: "Como tranquilizar um cliente preocupado com o transporte?", options: ["Ignorar a preocupação", "Explicar as regras, oferecer opções de envio e embalar com cuidado", "Dizer que é problema dele", "Sugerir que não compre"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "A tourist asks: 'Can I bring this on the plane?' Write your response.",
+        "How would you explain Send a Memory to someone worried about luggage weight?",
+        "Describe three scenarios where transport options become a selling point.",
+      ] : [
+        "Um turista pergunta: 'Posso trazer isto no avião?' Escreve a tua resposta.",
+        "Como explicarias Send a Memory a alguém preocupado com peso de bagagem?",
+        "Descreve três cenários em que as opções de transporte se tornam um ponto de venda.",
+      ]} />
     </ModuleLayout>
   );
 };

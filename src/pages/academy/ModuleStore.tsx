@@ -201,16 +201,6 @@ const ModuleStore = () => {
         "Inscrição de despedida no chão: visível apenas do ângulo perfeito sob um holofote escondido"
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "Describe how you would guide a visitor through all six zones. What would you say at each stage?",
-        "Why is the Memory Zone important for the long-term business strategy of The 100's?",
-        "How does the unconventional tasting format reinforce the brand philosophy?"
-      ] : [
-        "Descreve como guiarias um visitante por todas as seis zonas. O que dirias em cada etapa?",
-        "Por que é a Zona de Memória importante para a estratégia de negócio a longo prazo do The 100's?",
-        "Como é que o formato de prova não convencional reforça a filosofia da marca?"
-      ]} />
-
       <ModuleQuizGate
         moduleId="store"
         questions={[
@@ -221,6 +211,16 @@ const ModuleStore = () => {
           { question: "Qual é o papel da montra na experiência de loja?", options: ["Apenas decoração", "Captar atenção e despertar curiosidade", "Mostrar preços", "Bloquear a visão do interior"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "Describe how you would guide a visitor through all six zones. What would you say at each stage?",
+        "Why is the Memory Zone important for the long-term business strategy of The 100's?",
+        "How does the unconventional tasting format reinforce the brand philosophy?"
+      ] : [
+        "Descreve como guiarias um visitante por todas as seis zonas. O que dirias em cada etapa?",
+        "Por que é a Zona de Memória importante para a estratégia de negócio a longo prazo do The 100's?",
+        "Como é que o formato de prova não convencional reforça a filosofia da marca?"
+      ]} />
     </ModuleLayout>
   );
 };

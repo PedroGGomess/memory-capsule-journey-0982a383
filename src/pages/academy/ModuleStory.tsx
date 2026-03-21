@@ -135,16 +135,6 @@ const ModuleStory = () => {
         "O Conceito de Segunda Vida: a embalagem continua como decoração após o vinho ser consumido"
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "How would you describe The 100's concept to a friend in one sentence?",
-        "What does 'taking home a memory' mean to you?",
-        "How would you explain the Second Life Concept to a visitor who has just purchased a bottle?"
-      ] : [
-        "Como descreverias o conceito do The 100's a um amigo numa frase?",
-        "O que significa para ti 'levar uma memória para casa'?",
-        "Como explicarias o Conceito de Segunda Vida a um visitante que acabou de comprar uma garrafa?"
-      ]} />
-
       <ModuleQuizGate
         moduleId="story"
         questions={[
@@ -155,6 +145,16 @@ const ModuleStory = () => {
           { question: "Qual é a capacidade das garrafas The 100's?", options: ["50ml", "100ml", "250ml", "750ml"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "How would you describe The 100's concept to a friend in one sentence?",
+        "What does 'taking home a memory' mean to you?",
+        "How would you explain the Second Life Concept to a visitor who has just purchased a bottle?"
+      ] : [
+        "Como descreverias o conceito do The 100's a um amigo numa frase?",
+        "O que significa para ti 'levar uma memória para casa'?",
+        "Como explicarias o Conceito de Segunda Vida a um visitante que acabou de comprar uma garrafa?"
+      ]} />
     </ModuleLayout>
   );
 };

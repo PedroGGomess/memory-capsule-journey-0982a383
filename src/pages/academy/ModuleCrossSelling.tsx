@@ -250,16 +250,6 @@ const ModuleCrossSelling = () => {
         "A personalização é o upsell mais forte — transforma um produto numa memória insubstituível",
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "A couple enters the store. She wants Port wine, he wants something non-alcoholic. Write the script you would use to serve both and maximise the sale.",
-        "Describe how you would guide a visitor from an Entry Gift (€15) to a Premium Wood product (€80) without them feeling pressured.",
-        "A tour group of 8 people enters. You have 15 minutes. What's your strategy?",
-      ] : [
-        "Um casal entra na loja. Ela quer Vinho do Porto, ele quer algo não-alcoólico. Escreve o guião que usarias para servir ambos e maximizar a venda.",
-        "Descreve como guiarias um visitante de um Entry Gift (€15) para um produto Premium de Madeira (€80) sem que se sintam pressionados.",
-        "Um grupo de turismo de 8 pessoas entra. Tens 15 minutos. Qual é a tua estratégia?",
-      ]} />
-
       <ModuleQuizGate
         moduleId="cross-selling"
         questions={[
@@ -270,6 +260,16 @@ const ModuleCrossSelling = () => {
           { question: "Qual técnica de fecho deve a equipa usar?", options: ["'Quer comprar ou não?'", "'Prefere este mais elegante ou este mais exclusivo?'", "'Este é o mais barato'", "'Última oportunidade!'"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "A couple enters the store. She wants Port wine, he wants something non-alcoholic. Write the script you would use to serve both and maximise the sale.",
+        "Describe how you would guide a visitor from an Entry Gift (€15) to a Premium Wood product (€80) without them feeling pressured.",
+        "A tour group of 8 people enters. You have 15 minutes. What's your strategy?",
+      ] : [
+        "Um casal entra na loja. Ela quer Vinho do Porto, ele quer algo não-alcoólico. Escreve o guião que usarias para servir ambos e maximizar a venda.",
+        "Descreve como guiarias um visitante de um Entry Gift (€15) para um produto Premium de Madeira (€80) sem que se sintam pressionados.",
+        "Um grupo de turismo de 8 pessoas entra. Tens 15 minutos. Qual é a tua estratégia?",
+      ]} />
     </ModuleLayout>
   );
 };

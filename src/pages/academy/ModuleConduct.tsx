@@ -140,16 +140,6 @@ const ModuleConduct = () => {
         "Trata cada cliente com igual respeito e profissionalismo",
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "How would you describe 'premium service presence' to someone who has never heard of it?",
-        "Think of a premium experience you've had (restaurant, hotel, store). How did the staff present themselves?",
-        "What are three ways you could improve your personal conduct and image at The 100's?",
-      ] : [
-        "Como descrerias 'presença de serviço premium' a alguém que nunca ouviu falar nisso?",
-        "Pensa numa experiência premium que tiveste (restaurante, hotel, loja). Como se apresentava o pessoal?",
-        "Quais são três maneiras pelas quais poderias melhorar a tua conduta pessoal e imagem no The 100's?",
-      ]} />
-
       <ModuleQuizGate
         moduleId="conduct"
         questions={[
@@ -160,6 +150,16 @@ const ModuleConduct = () => {
           { question: "A postura na loja deve transmitir:", options: ["Descontração total", "Disponibilidade, elegância e atenção ao cliente", "Autoridade e distância", "Indiferença profissional"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "How would you describe 'premium service presence' to someone who has never heard of it?",
+        "Think of a premium experience you've had (restaurant, hotel, store). How did the staff present themselves?",
+        "What are three ways you could improve your personal conduct and image at The 100's?",
+      ] : [
+        "Como descrerias 'presença de serviço premium' a alguém que nunca ouviu falar nisso?",
+        "Pensa numa experiência premium que tiveste (restaurante, hotel, loja). Como se apresentava o pessoal?",
+        "Quais são três maneiras pelas quais poderias melhorar a tua conduta pessoal e imagem no The 100's?",
+      ]} />
     </ModuleLayout>
   );
 };

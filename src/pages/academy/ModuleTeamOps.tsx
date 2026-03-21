@@ -356,17 +356,6 @@ const ModuleTeamOps = () => {
         ]}
       />
 
-      <ReflectionBlock
-        questions={[
-          isEN
-            ? "Think about a shift you've worked recently. How could you improve the schedule or operations for next week?"
-            : "Pensa num turno que trabalhaste recentemente. Como poderias melhorar a agenda ou operações para a próxima semana?",
-          isEN
-            ? "Describe a time when you received helpful feedback. What made it effective?"
-            : "Descreve um momento em que recebeste feedback útil. O que o tornou eficaz?",
-        ]}
-      />
-
       <ModuleQuizGate
         moduleId="team-ops"
         questions={[
@@ -375,6 +364,17 @@ const ModuleTeamOps = () => {
           { question: "O que inclui a abertura de loja?", options: ["Apenas abrir a porta", "Vitrinas, stock mínimo, POS funcional, WhatsApp ativo, armazém organizado", "Ligar as luzes", "Esperar pelos clientes"], correctIndex: 1 },
           { question: "Como comunicar internamente durante o horário de funcionamento?", options: ["Gritar pela loja", "Rádio ou WhatsApp interno de forma discreta", "Email formal", "Não comunicar"], correctIndex: 1 },
           { question: "O que deve conter o relatório diário?", options: ["Apenas as vendas totais", "KPIs, contagem de caixa, atualização CRM, ocorrências", "Nome dos clientes", "Apenas reclamações"], correctIndex: 1 },
+        ]}
+      />
+
+      <ReflectionBlock
+        questions={[
+          isEN
+            ? "Think about a shift you've worked recently. How could you improve the schedule or operations for next week?"
+            : "Pensa num turno que trabalhaste recentemente. Como poderias melhorar a agenda ou operações para a próxima semana?",
+          isEN
+            ? "Describe a time when you received helpful feedback. What made it effective?"
+            : "Descreve um momento em que recebeste feedback útil. O que o tornou eficaz?",
         ]}
       />
     </ModuleLayout>

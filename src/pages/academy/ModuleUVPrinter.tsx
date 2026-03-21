@@ -193,16 +193,6 @@ const ModuleUVPrinter = () => {
         "Transforma a personalização num momento WOW mostrando a pré-visualização, explicando tecnologia, imprimindo à sua frente e embrulhando com cerimónia",
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "Describe how you would explain UV personalization to someone who has never seen it before.",
-        "A customer wants to personalize a cube with their wedding date and names. Walk through the process step-by-step.",
-        "How would you turn the wait time for personalization printing into part of the WOW experience?",
-      ] : [
-        "Descreve como explicarias a personalização UV a alguém que nunca viu antes.",
-        "Um cliente quer personalizar um cubo com a data do casamento e nomes. Percorre o processo passo a passo.",
-        "Como transformarias o tempo de espera da impressão de personalização em parte da experiência WOW?",
-      ]} />
-
       <ModuleQuizGate
         moduleId="uv-printer"
         questions={[
@@ -213,6 +203,16 @@ const ModuleUVPrinter = () => {
           { question: "Porque é a personalização UV um diferenciador competitivo?", options: ["Porque é barata", "Transforma o produto numa peça única e irrepetível", "Porque é rápida", "Porque todas as lojas fazem"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "Describe how you would explain UV personalization to someone who has never seen it before.",
+        "A customer wants to personalize a cube with their wedding date and names. Walk through the process step-by-step.",
+        "How would you turn the wait time for personalization printing into part of the WOW experience?",
+      ] : [
+        "Descreve como explicarias a personalização UV a alguém que nunca viu antes.",
+        "Um cliente quer personalizar um cubo com a data do casamento e nomes. Percorre o processo passo a passo.",
+        "Como transformarias o tempo de espera da impressão de personalização em parte da experiência WOW?",
+      ]} />
     </ModuleLayout>
   );
 };

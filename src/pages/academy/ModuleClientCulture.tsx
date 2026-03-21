@@ -190,16 +190,6 @@ const ModuleClientCulture = () => {
         "Clientes satisfeitos tornam-se embaixadores da marca — trazem mais clientes através de boca-a-boca e partilha social",
       ]} />
 
-      <ReflectionBlock questions={isEN ? [
-        "Think of a time when a business gave you a WOW moment. What was it? How did it make you feel? How did you share it?",
-        "Describe three WOW moments you could create for different client personas at The 100's.",
-        "How would you turn a hesitant cruise passenger into a brand advocate?",
-      ] : [
-        "Pensa num momento em que um negócio te deu um momento WOW. O que foi? Como te fez sentir? Como o partilhaste?",
-        "Descreve três momentos WOW que poderias criar para diferentes personas no The 100's.",
-        "Como transformarias um cruzeirista hesitante num embaixador da marca?",
-      ]} />
-
       <ModuleQuizGate
         moduleId="client-culture"
         questions={[
@@ -210,6 +200,16 @@ const ModuleClientCulture = () => {
           { question: "O que é o ciclo de fidelização?", options: ["Compra → Desconto → Compra", "Memória → Retorno → Incentivo", "Email → Telefone → Visita", "Promoção → Venda → Lucro"], correctIndex: 1 },
         ]}
       />
+
+      <ReflectionBlock questions={isEN ? [
+        "Think of a time when a business gave you a WOW moment. What was it? How did it make you feel? How did you share it?",
+        "Describe three WOW moments you could create for different client personas at The 100's.",
+        "How would you turn a hesitant cruise passenger into a brand advocate?",
+      ] : [
+        "Pensa num momento em que um negócio te deu um momento WOW. O que foi? Como te fez sentir? Como o partilhaste?",
+        "Descreve três momentos WOW que poderias criar para diferentes personas no The 100's.",
+        "Como transformarias um cruzeirista hesitante num embaixador da marca?",
+      ]} />
     </ModuleLayout>
   );
 };
