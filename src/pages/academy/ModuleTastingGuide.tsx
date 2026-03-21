@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import tastingImg from "@/assets/academy/tasting-ritual.jpg";
 import portWineImg from "@/assets/academy/port-wine-pour.jpg";
@@ -349,6 +349,17 @@ const ModuleTastingGuide = () => {
         "Um casal visita a loja. Ela adora vinho, ele não bebe. Como os envolves a ambos?",
         "Descreve um momento durante uma prova em que usarias silêncio em vez de palavras. Porquê?",
       ]} />
+
+      <ModuleQuizGate
+        moduleId="tasting-guide"
+        questions={[
+          { question: "Quais são as 4 categorias principais de Vinho do Porto?", options: ["Branco, Tinto, Rosé, Espumante", "Ruby, Tawny, White, Rosé", "Seco, Doce, Meio-Seco, Licoroso", "Reserva, LBV, Vintage, Colheita"], correctIndex: 1 },
+          { question: "O que distingue um Tawny de um Ruby?", options: ["Apenas a cor", "O Tawny envelhece em barris (oxidativo), o Ruby em garrafa (redutor)", "O preço", "A região de origem"], correctIndex: 1 },
+          { question: "Qual a temperatura ideal para servir um Tawny 10 anos?", options: ["Temperatura ambiente (20°C)", "Levemente fresco (12-14°C)", "Muito gelado (4°C)", "Quente (30°C)"], correctIndex: 1 },
+          { question: "O que é um Vinho do Porto LBV?", options: ["Late Bottled Vintage — um Ruby envelhecido 4-6 anos antes de engarrafar", "Light Bottled Variety", "Low Budget Vintage", "Large Bottle Vintage"], correctIndex: 0 },
+          { question: "Porque é importante a equipa saber descrever notas de prova?", options: ["Para impressionar os colegas", "Para comunicar com confiança e ajudar o cliente a escolher", "Para passar no exame de sommelier", "Não é importante"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

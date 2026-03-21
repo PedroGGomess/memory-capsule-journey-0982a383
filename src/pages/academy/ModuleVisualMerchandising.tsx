@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import vmImg from "@/assets/academy/visual-merchandising.jpg";
 import storeImg from "@/assets/store-interior.jpg";
@@ -362,6 +362,17 @@ const ModuleVisualMerchandising = () => {
         "Um visitante diz 'Isto parece um museu, não uma loja.' É um elogio ou um problema? Como respondes?",
         "Descreve como reorganizarias a exposição premium se chegasse uma nova garrafa de 100 anos à coleção.",
       ]} />
+
+      <ModuleQuizGate
+        moduleId="visual-merchandising"
+        questions={[
+          { question: "Qual o ângulo recomendado para alinhar produtos na montra?", options: ["90°", "45°", "30°", "0°"], correctIndex: 1 },
+          { question: "Com que frequência devem as montras ser verificadas?", options: ["Mensalmente", "Diariamente — impressões digitais, iluminação, alinhamento", "Semanalmente", "Apenas quando sujas"], correctIndex: 1 },
+          { question: "O que é visual merchandising?", options: ["Fazer publicidade online", "Disposição estratégica de produtos para maximizar impacto visual e vendas", "Tirar fotos aos produtos", "Decoração de Natal"], correctIndex: 1 },
+          { question: "Qual a importância da iluminação na loja?", options: ["Apenas para ver", "Cria ambiente premium, destaca produtos e guia o olhar do cliente", "Poupa eletricidade", "Não tem importância especial"], correctIndex: 1 },
+          { question: "O que fazer quando um produto está desalinhado na montra?", options: ["Esperar pelo final do dia", "Corrigir imediatamente mantendo o padrão visual", "Ignorar", "Chamar o gerente"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

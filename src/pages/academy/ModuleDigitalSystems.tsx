@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Monitor, Smartphone, MessageSquare, Database, ShoppingCart } from "lucide-react";
@@ -225,6 +225,17 @@ const ModuleDigitalSystems = () => {
         "Um cliente pergunta ao AI Concierge sobre opções de personalização. O bot deve responder ou redirecionar? Por quê?",
         "Como ajudaria registar dados de cliente no CRM Zoho a servi-lo melhor numa visita futura?",
       ]} />
+
+      <ModuleQuizGate
+        moduleId="digital-systems"
+        questions={[
+          { question: "Qual é o sistema de POS (ponto de venda) usado na loja?", options: ["Uma caixa registadora manual", "Sistema digital com tablet para simulação e faturação", "Apenas multibanco", "Um caderno de apontamentos"], correctIndex: 1 },
+          { question: "O que é o sistema Concierge do The 100's?", options: ["Um porteiro", "QR Code → captura contacto → follow-up automático", "Um chatbot no site", "Um serviço de entrega"], correctIndex: 1 },
+          { question: "Como se processa o Tax Free para turistas?", options: ["Não existe", "Através do sistema de POS para clientes fora da UE", "Apenas para compras acima de €1000", "O cliente pede no aeroporto"], correctIndex: 1 },
+          { question: "Que meios de pagamento deve a loja aceitar?", options: ["Apenas dinheiro", "Multibanco, Contactless, Apple/Google Pay, cartões internacionais", "Apenas Visa e Mastercard", "Apenas MB Way"], correctIndex: 1 },
+          { question: "Para que serve o CRM na operação The 100's?", options: ["Controlar o stock", "Gerir relação com clientes, follow-up e fidelização", "Fazer contabilidade", "Gerir horários da equipa"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

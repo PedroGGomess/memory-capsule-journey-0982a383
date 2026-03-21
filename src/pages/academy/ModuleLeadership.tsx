@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import leadershipImg from "@/assets/academy/leadership.svg";
@@ -393,6 +393,17 @@ const ModuleLeadership = () => {
           isEN
             ? "Which KPI do you think is most important for store success, and why?"
             : "Qual achas que é o KPI mais importante para o sucesso da loja e porquê?",
+        ]}
+      />
+
+      <ModuleQuizGate
+        moduleId="leadership"
+        questions={[
+          { question: "O que é liderança situacional?", options: ["Liderar apenas em emergências", "Adaptar o estilo de liderança ao nível de maturidade do colaborador", "Liderar por antiguidade", "Seguir sempre o mesmo método"], correctIndex: 1 },
+          { question: "Qual a frequência recomendada para huddles (briefings rápidos)?", options: ["Mensalmente", "Diariamente, 5-10 minutos", "Semanalmente", "Apenas quando há problemas"], correctIndex: 1 },
+          { question: "O que é um PDI (Plano de Desenvolvimento Individual)?", options: ["Plano de decoração interior", "Plano personalizado de crescimento profissional para cada colaborador", "Plano de descontos", "Plano de inventário"], correctIndex: 1 },
+          { question: "Como construir segurança psicológica na equipa?", options: ["Evitar feedback", "Comunicação aberta, celebrar sucessos e aceitar erros como aprendizagem", "Manter distância hierárquica", "Punir erros rapidamente"], correctIndex: 1 },
+          { question: "Qual a melhor forma de dar feedback?", options: ["Apenas quando algo corre mal", "Construtivo, específico, frequente e equilibrado (positivo + melhoria)", "Em público para todos ouvirem", "Apenas no final do mês"], correctIndex: 1 },
         ]}
       />
     </ModuleLayout>

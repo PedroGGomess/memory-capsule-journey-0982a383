@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Heart, TrendingUp, Gift, Users, MessageCircle, Target } from "lucide-react";
@@ -209,6 +209,17 @@ const ModuleClientCulture = () => {
         "Descreve três momentos WOW que poderias criar para diferentes personas no The 100's.",
         "Como transformarias um cruzeirista hesitante num embaixador da marca?",
       ]} />
+
+      <ModuleQuizGate
+        moduleId="client-culture"
+        questions={[
+          { question: "Porque é que cada cliente conta no The 100's?", options: ["Porque o stock é limitado", "O volume depende da experiência e pode gerar Advocacy Marketing", "Porque a loja é pequena", "Apenas por razões financeiras"], correctIndex: 1 },
+          { question: "O que é NPS (Net Promoter Score)?", options: ["Um tipo de pagamento", "Métrica que mede a probabilidade de recomendação", "Um software de gestão", "Uma técnica de venda"], correctIndex: 1 },
+          { question: "Quais são os 6 pilares da Cultura de Cliente?", options: ["Preço, Produto, Promoção, Local, Pessoas, Processo", "Importância, Expectativa, Encantamento, Fidelização, Advocacy, Jornada Emocional", "Venda, Upsell, Cross-sell, Follow-up, Review, Repetição", "Entrada, Serviço, Embrulho, Pagamento, Saída, Follow-up"], correctIndex: 1 },
+          { question: "Como pedir uma review de forma elegante?", options: ["Exigir antes de dar o troco", "Naturalmente no final da experiência, quando o cliente está encantado", "Enviar email automático", "Nunca pedir — esperar que aconteça"], correctIndex: 1 },
+          { question: "O que é o ciclo de fidelização?", options: ["Compra → Desconto → Compra", "Memória → Retorno → Incentivo", "Email → Telefone → Visita", "Promoção → Venda → Lucro"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ReflectionBlock, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ReflectionBlock, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import storeImg from "@/assets/store-interior.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -220,6 +220,17 @@ const ModuleStore = () => {
         "Por que é a Zona de Memória importante para a estratégia de negócio a longo prazo do The 100's?",
         "Como é que o formato de prova não convencional reforça a filosofia da marca?"
       ]} />
+
+      <ModuleQuizGate
+        moduleId="store"
+        questions={[
+          { question: "Qual é a jornada do cliente na loja The 100's?", options: ["Entrada → Pagamento → Saída", "Montra → Entrada → Provas → Memória → Personalização → Compra", "Entrada → Escolha → Embrulho", "Montra → Degustação → Saída"], correctIndex: 1 },
+          { question: "Quantos pisos tem a loja do Porto?", options: ["1 piso", "2 pisos", "3 pisos", "4 pisos"], correctIndex: 2 },
+          { question: "O que deve acontecer na zona de personalização?", options: ["O cliente espera na fila", "Gravação UV/Laser ao vivo com nome, data ou mensagem", "Apenas pagamento", "Embrulho standard"], correctIndex: 1 },
+          { question: "Onde fica a loja The 100's no Porto?", options: ["Ribeira", "Rua Sá da Bandeira, 150", "Avenida dos Aliados", "Rua das Flores"], correctIndex: 1 },
+          { question: "Qual é o papel da montra na experiência de loja?", options: ["Apenas decoração", "Captar atenção e despertar curiosidade", "Mostrar preços", "Bloquear a visão do interior"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

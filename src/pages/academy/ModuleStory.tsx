@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import douroValleyImg from "@/assets/douro-valley.jpg";
 import heroDropImg from "@/assets/hero-drop.jpg";
@@ -154,6 +154,17 @@ const ModuleStory = () => {
         "O que significa para ti 'levar uma memória para casa'?",
         "Como explicarias o Conceito de Segunda Vida a um visitante que acabou de comprar uma garrafa?"
       ]} />
+
+      <ModuleQuizGate
+        moduleId="story"
+        questions={[
+          { question: "Qual é a essência do conceito The 100's?", options: ["Vender vinho a granel", "Criar cápsulas de memória com Vinho do Porto", "Exportar garrafas de 750ml", "Gerir uma cadeia de caves"], correctIndex: 1 },
+          { question: "Quantos anos de história do Vinho do Porto fundamentam a marca?", options: ["100 anos", "200 anos", "400 anos", "600 anos"], correctIndex: 2 },
+          { question: "Quais são os cinco pilares da marca The 100's?", options: ["Preço, Qualidade, Serviço, Local, Design", "Descoberta, Tempo, Singularidade, Hedonismo, Memória", "Vinho, Porto, Douro, Tradição, Futuro", "Produto, Cliente, Loja, Marketing, Vendas"], correctIndex: 1 },
+          { question: "O que distingue o The 100's de uma loja de vinhos convencional?", options: ["Os preços mais baixos", "A localização central", "O conceito de gift premium e cápsula de tempo", "A variedade de marcas disponíveis"], correctIndex: 2 },
+          { question: "Qual é a capacidade das garrafas The 100's?", options: ["50ml", "100ml", "250ml", "750ml"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

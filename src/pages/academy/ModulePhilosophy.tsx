@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import hourglassImg from "@/assets/hourglass.jpg";
 import bottleImg from "@/assets/bottle-closeup.jpg";
@@ -67,6 +67,7 @@ const ModulePhilosophy = () => {
       </ContentBlock>
 
       <VideoBlock
+        src="/videos/philosophy.mp4"
         title="Filosofia da Marca"
         description="Tempo, Emoção e Memória — os três pilares que nos definem."
         duration="6:45"
@@ -174,6 +175,17 @@ const ModulePhilosophy = () => {
         "Qual das três ideias fundamentais (Tempo, Emoção, Memória) ressoa mais contigo, e porquê?",
         "Como comunicarias a filosofia do The 100's a um visitante numa única frase?"
       ]} />
+
+      <ModuleQuizGate
+        moduleId="philosophy"
+        questions={[
+          { question: "Quais são os três pilares emocionais da filosofia da marca?", options: ["Luxo, Exclusividade, Preço", "Tempo, Emoção, Memória", "Vinho, Porto, Douro", "Design, Produto, Serviço"], correctIndex: 1 },
+          { question: "O que significa 'Second Life' no contexto The 100's?", options: ["Revender o produto", "O container ganha nova utilidade após o vinho", "Uma segunda loja", "Um programa de fidelização"], correctIndex: 1 },
+          { question: "Como deve a equipa transmitir a filosofia da marca ao cliente?", options: ["Falando sobre preços competitivos", "Através de storytelling e experiência sensorial", "Mostrando catálogos impressos", "Comparando com a concorrência"], correctIndex: 1 },
+          { question: "O conceito de 'Tempo' na filosofia The 100's refere-se a:", options: ["Rapidez no atendimento", "Horário de funcionamento alargado", "Paciência tornada tangível e envelhecimento do vinho", "Tempo de entrega dos envios"], correctIndex: 2 },
+          { question: "Qual é a missão fundamental do The 100's?", options: ["Maximizar vendas diárias", "Engarrafar legado, emoção e história em 100ml", "Competir com as caves do Porto", "Vender souvenirs tradicionais"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Printer, Zap } from "lucide-react";
@@ -212,6 +212,17 @@ const ModuleUVPrinter = () => {
         "Um cliente quer personalizar um cubo com a data do casamento e nomes. Percorre o processo passo a passo.",
         "Como transformarias o tempo de espera da impressão de personalização em parte da experiência WOW?",
       ]} />
+
+      <ModuleQuizGate
+        moduleId="uv-printer"
+        questions={[
+          { question: "O que permite a impressora UV fazer?", options: ["Imprimir faturas", "Gravar diretamente em superfícies como cortiça, cerâmica e madeira", "Fazer fotocópias", "Imprimir etiquetas de preço"], correctIndex: 1 },
+          { question: "Que tipo de ficheiros são usados para personalização UV?", options: ["Ficheiros Word", "Ficheiros de imagem de alta resolução (PNG/SVG)", "Ficheiros Excel", "Apenas texto simples"], correctIndex: 1 },
+          { question: "A personalização UV deve ser feita:", options: ["Apenas no armazém", "Ao vivo, em frente ao cliente, como parte da experiência", "Apenas antes da loja abrir", "Pelo cliente em casa"], correctIndex: 1 },
+          { question: "O que pode ser personalizado com UV?", options: ["Apenas o nome", "Nomes, datas, mensagens, logotipos e designs especiais", "Apenas a data", "Nada — é automático"], correctIndex: 1 },
+          { question: "Porque é a personalização UV um diferenciador competitivo?", options: ["Porque é barata", "Transforma o produto numa peça única e irrepetível", "Porque é rápida", "Porque todas as lojas fazem"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

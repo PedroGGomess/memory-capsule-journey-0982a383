@@ -647,3 +647,339 @@ export function VideoBlock({ src, youtubeId, vimeoId, title, description, durati
     </ScrollReveal>
   );
 }
+
+/* ── Module Quiz Gate ── */
+export interface QuizQuestion {
+  question: string;
+  options: string[];
+  correctIndex: number;
+}
+
+export interface ModuleQuizGateProps {
+  moduleId: string;
+  questions: QuizQuestion[];
+  passingScore?: number; // default 0.5 (50%)
+  onPass?: () => void;
+}
+
+export function ModuleQuizGate({ moduleId, questions, passingScore = 0.5, onPass }: ModuleQuizGateProps) {
+  const { completeModule } = useProgress();
+  const { language } = useLanguage();
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState<(number | null)[]>(new Array(questions.length).fill(null));
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [quizComplete, setQuizComplete] = useState(false);
+
+  const handleSelectOption = (optionIndex: number) => {
+    if (showFeedback) return;
+    const newAnswers = [...answers];
+    newAnswers[currentQuestion] = optionIndex;
+    setAnswers(newAnswers);
+  };
+
+  const handleNext = () => {
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      setShowFeedback(false);
+    } else {
+      setQuizComplete(true);
+    }
+  };
+
+  const handleSubmitAnswer = () => {
+    setShowFeedback(true);
+  };
+
+  const handleRetakeQuiz = () => {
+    setCurrentQuestion(0);
+    setAnswers(new Array(questions.length).fill(null));
+    setShowFeedback(false);
+    setQuizComplete(false);
+  };
+
+  const calculateScore = () => {
+    return questions.reduce((acc, q, i) => acc + (answers[i] === q.correctIndex ? 1 : 0), 0);
+  };
+
+  const score = calculateScore();
+  const percentage = score / questions.length;
+  const passed = percentage >= passingScore;
+
+  const handlePassQuiz = () => {
+    completeModule(moduleId);
+    if (onPass) onPass();
+  };
+
+  if (quizComplete) {
+    return (
+      <ScrollReveal>
+        <div className="border border-border bg-card p-12 md:p-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-10"
+          >
+            {/* Score Display */}
+            <div className="text-center space-y-6">
+              <div className="inline-flex items-center justify-center w-20 h-20 border border-primary mb-4">
+                {passed ? (
+                  <Trophy className="w-10 h-10 text-primary" />
+                ) : (
+                  <div className="w-10 h-10 text-3xl text-primary flex items-center justify-center">!</div>
+                )}
+              </div>
+
+              <div>
+                <p className="text-5xl font-light text-primary mb-2">
+                  {score}/{questions.length}
+                </p>
+                <p className="text-xl text-foreground/70 font-light">
+                  {Math.round(percentage * 100)}%
+                </p>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="w-full bg-border h-1">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${percentage * 100}%` }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className={`h-full ${passed ? "bg-primary" : "bg-destructive"}`}
+                />
+              </div>
+
+              <p className="text-sm text-foreground/60 font-light">
+                {language === "pt" ? "Pontuação mínima necessária" : "Minimum required score"}: {Math.round(passingScore * 100)}%
+              </p>
+            </div>
+
+            {/* Result Message */}
+            <div className="border-t border-border pt-10">
+              {passed ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="space-y-8"
+                >
+                  <div className="text-center space-y-3">
+                    <p className="text-2xl font-light text-primary">
+                      {language === "pt" ? "Parabéns! Módulo concluído." : "Congratulations! Module completed."}
+                    </p>
+                    <p className="text-sm text-foreground/60 font-light">
+                      {language === "pt"
+                        ? "Superaste com sucesso este módulo. Podes continuar para o próximo."
+                        : "You've successfully completed this module. You can now proceed to the next one."}
+                    </p>
+                  </div>
+
+                  {/* Confetti-like animation */}
+                  <div className="flex justify-center gap-2 flex-wrap">
+                    {[...Array(12)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 1, y: 0 }}
+                        animate={{ opacity: 0, y: -50 }}
+                        transition={{
+                          duration: 2,
+                          delay: i * 0.1,
+                          repeat: Infinity,
+                          repeatDelay: 1,
+                        }}
+                        className="w-2 h-2 bg-primary rounded-full"
+                      />
+                    ))}
+                  </div>
+
+                  <div className="flex justify-center">
+                    <button
+                      onClick={handlePassQuiz}
+                      className="border border-primary px-10 py-3 text-xs tracking-[0.2em] uppercase text-primary hover:bg-primary hover:text-background transition-all duration-200"
+                    >
+                      {language === "pt" ? "Continuar" : "Continue"}
+                    </button>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="space-y-6 text-center"
+                >
+                  <div className="space-y-2">
+                    <p className="text-lg font-light text-destructive">
+                      {language === "pt"
+                        ? "Não atingiste o mínimo de 50%."
+                        : "You didn't reach the minimum of 50%."}
+                    </p>
+                    <p className="text-sm text-foreground/60 font-light">
+                      {language === "pt"
+                        ? "Precisa acertar em pelo menos 3 de 5 perguntas. Tenta novamente."
+                        : "You need to answer at least 3 out of 5 questions correctly. Try again."}
+                    </p>
+                  </div>
+
+                  <div className="flex justify-center">
+                    <button
+                      onClick={handleRetakeQuiz}
+                      className="border border-primary px-10 py-3 text-xs tracking-[0.2em] uppercase text-primary hover:bg-primary hover:text-background transition-all duration-200"
+                    >
+                      {language === "pt" ? "Repetir Quiz" : "Retake Quiz"}
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          </motion.div>
+        </div>
+      </ScrollReveal>
+    );
+  }
+
+  const currentQ = questions[currentQuestion];
+  const selectedOption = answers[currentQuestion];
+  const isCorrect = selectedOption === currentQ.correctIndex;
+
+  return (
+    <ScrollReveal>
+      <div className="border border-border bg-card p-12 md:p-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="space-y-10"
+        >
+          {/* Progress */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-foreground/60 font-light">
+                {language === "pt" ? "Pergunta" : "Question"} {currentQuestion + 1} {language === "pt" ? "de" : "of"} {questions.length}
+              </p>
+              <p className="text-xs text-primary/60 font-light tracking-wide">
+                {Math.round(((currentQuestion + 1) / questions.length) * 100)}%
+              </p>
+            </div>
+            <div className="w-full bg-border h-1">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="h-full bg-primary"
+              />
+            </div>
+          </div>
+
+          {/* Question */}
+          <div className="space-y-8">
+            <p className="text-xl md:text-2xl font-light text-foreground/90 leading-relaxed">
+              {currentQ.question}
+            </p>
+
+            {/* Options */}
+            <div className="space-y-3">
+              {currentQ.options.map((option, optionIndex) => {
+                const isSelected = selectedOption === optionIndex;
+                const showResult = showFeedback && selectedOption !== null;
+                const thisIsCorrect = optionIndex === currentQ.correctIndex;
+
+                return (
+                  <motion.button
+                    key={optionIndex}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: optionIndex * 0.1 }}
+                    onClick={() => handleSelectOption(optionIndex)}
+                    disabled={showFeedback}
+                    className={`w-full text-left p-6 border transition-all duration-200 ${
+                      isSelected
+                        ? showResult
+                          ? thisIsCorrect
+                            ? "border-primary bg-primary/10 text-primary"
+                            : "border-destructive bg-destructive/10 text-destructive"
+                          : "border-primary bg-primary/10 text-primary"
+                        : showResult && thisIsCorrect
+                        ? "border-primary bg-primary/5 text-primary opacity-100"
+                        : showFeedback
+                        ? "border-border text-foreground/40"
+                        : "border-border text-foreground/70 hover:border-primary/50 cursor-pointer"
+                    }`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className={`w-5 h-5 border flex items-center justify-center flex-shrink-0 transition-colors ${
+                        isSelected
+                          ? showResult
+                            ? thisIsCorrect
+                              ? "border-primary"
+                              : "border-destructive"
+                            : "border-primary"
+                          : showResult && thisIsCorrect
+                          ? "border-primary"
+                          : "border-border/50"
+                      }`}>
+                        {isSelected && showResult && (
+                          thisIsCorrect ? (
+                            <Check className="w-3 h-3" />
+                          ) : (
+                            <XCircle className="w-3 h-3" />
+                          )
+                        )}
+                        {!showResult && isSelected && (
+                          <div className="w-2 h-2 bg-primary rounded-full" />
+                        )}
+                      </div>
+                      <span className="font-light">{option}</span>
+                    </div>
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            {/* Feedback Message */}
+            {showFeedback && selectedOption !== null && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`p-4 border ${isCorrect ? "border-primary/30 bg-primary/5" : "border-destructive/30 bg-destructive/5"}`}
+              >
+                <p className={`text-sm font-light ${isCorrect ? "text-primary/90" : "text-destructive/90"}`}>
+                  {isCorrect
+                    ? language === "pt"
+                      ? "Resposta correta!"
+                      : "Correct answer!"
+                    : language === "pt"
+                    ? "Resposta incorreta. Tenta novamente."
+                    : "Incorrect answer. Try again."}
+                </p>
+              </motion.div>
+            )}
+
+            {/* Button */}
+            <div className="flex justify-center pt-4">
+              {!showFeedback ? (
+                <button
+                  onClick={handleSubmitAnswer}
+                  disabled={selectedOption === null}
+                  className="border border-primary px-10 py-3 text-xs tracking-[0.2em] uppercase text-primary hover:bg-primary hover:text-background transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {language === "pt" ? "Responder" : "Answer"}
+                </button>
+              ) : (
+                <button
+                  onClick={handleNext}
+                  className="border border-primary px-10 py-3 text-xs tracking-[0.2em] uppercase text-primary hover:bg-primary hover:text-background transition-all duration-200"
+                >
+                  {currentQuestion < questions.length - 1
+                    ? language === "pt"
+                      ? "Próxima"
+                      : "Next"
+                    : language === "pt"
+                    ? "Ver Resultados"
+                    : "See Results"}
+                </button>
+              )}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </ScrollReveal>
+  );
+}

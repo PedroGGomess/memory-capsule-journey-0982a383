@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import crossSellingImg from "@/assets/academy/cross-selling.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -269,6 +269,17 @@ const ModuleCrossSelling = () => {
         "Descreve como guiarias um visitante de um Entry Gift (€15) para um produto Premium de Madeira (€80) sem que se sintam pressionados.",
         "Um grupo de turismo de 8 pessoas entra. Tens 15 minutos. Qual é a tua estratégia?",
       ]} />
+
+      <ModuleQuizGate
+        moduleId="cross-selling"
+        questions={[
+          { question: "Quais são os dois eixos de upsell no The 100's?", options: ["Online e offline", "Dentro da categoria (upgrade container) e para a direita (upgrade gama)", "Preço e quantidade", "Nacional e internacional"], correctIndex: 1 },
+          { question: "Qual é o ticket médio saudável para o The 100's?", options: ["Menos de €30", "Entre €40-€50", "Acima de €70", "Acima de €200"], correctIndex: 2 },
+          { question: "Como responder a 'É caro'?", options: ["Oferecer desconto", "Valor vs. preço — comparar com garrafa 750ml equivalente", "Concordar e mostrar algo mais barato", "Ignorar a objeção"], correctIndex: 1 },
+          { question: "O que é cross-selling no contexto da loja?", options: ["Vender o mesmo produto duas vezes", "Sugerir produtos complementares (ex: 2 gifts diferentes)", "Vender em loja e online", "Trocar um produto por outro"], correctIndex: 1 },
+          { question: "Qual técnica de fecho deve a equipa usar?", options: ["'Quer comprar ou não?'", "'Prefere este mais elegante ou este mais exclusivo?'", "'Este é o mais barato'", "'Última oportunidade!'"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

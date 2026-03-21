@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import bottleCloseupImg from "@/assets/bottle-closeup.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -200,6 +200,17 @@ const ModuleBrandVoice = () => {
         "Qual dos três slogans melhor captura a marca para ti, e porquê?",
         "Que palavras evitarias? Que palavras abraçarias?"
       ]} />
+
+      <ModuleQuizGate
+        moduleId="brand-voice"
+        questions={[
+          { question: "Qual é o tom de comunicação da marca The 100's?", options: ["Informal e divertido", "Elegante, premium e narrativo", "Técnico e científico", "Agressivo e promocional"], correctIndex: 1 },
+          { question: "Qual frase NÃO se alinha com a voz da marca?", options: ["Uma cápsula de tempo para os sentidos", "MEGA PROMOÇÃO! 50% OFF!", "Onde o tempo se torna tangível", "Memórias engarrafadas desde sempre"], correctIndex: 1 },
+          { question: "Como deve a equipa falar com os clientes?", options: ["Usando gíria e linguagem casual", "Com sofisticação, storytelling e elegância", "O mínimo possível", "Apenas em inglês"], correctIndex: 1 },
+          { question: "O que é o 'storytelling' no contexto da marca?", options: ["Inventar histórias sobre os produtos", "Narrar autenticamente a herança, processo e significado", "Ler um guião pré-definido", "Contar piadas ao cliente"], correctIndex: 1 },
+          { question: "Que slogans definem a filosofia da marca?", options: ["'Barato e bom'", "'A Memory Capsule' e 'Time Bottled'", "'O melhor vinho do Porto'", "'Compre 2, leve 3'"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

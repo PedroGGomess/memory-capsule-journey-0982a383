@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import conductImg from "@/assets/academy/conduct.svg";
@@ -159,6 +159,17 @@ const ModuleConduct = () => {
         "Pensa numa experiência premium que tiveste (restaurante, hotel, loja). Como se apresentava o pessoal?",
         "Quais são três maneiras pelas quais poderias melhorar a tua conduta pessoal e imagem no The 100's?",
       ]} />
+
+      <ModuleQuizGate
+        moduleId="conduct"
+        questions={[
+          { question: "O que inclui o dress code do The 100's?", options: ["Roupa casual e ténis", "Apresentação profissional alinhada com o ADN premium da marca", "Uniforme de supermercado", "Qualquer roupa limpa"], correctIndex: 1 },
+          { question: "Porque é importante a comunicação não-verbal?", options: ["Não é importante", "Transmite profissionalismo e confiança antes de qualquer palavra", "Apenas para gestores", "Só em eventos especiais"], correctIndex: 1 },
+          { question: "Como lidar com um momento de menos movimento na loja?", options: ["Usar o telemóvel", "Manter postura profissional, organizar e preparar-se", "Sair para um café", "Sentar-se no chão"], correctIndex: 1 },
+          { question: "O que deve cada colaborador usar sempre visível?", options: ["Relógio de luxo", "Crachá de identificação", "Óculos de sol", "Auricular bluetooth"], correctIndex: 1 },
+          { question: "A postura na loja deve transmitir:", options: ["Descontração total", "Disponibilidade, elegância e atenção ao cliente", "Autoridade e distância", "Indiferença profissional"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import portWineImg from "@/assets/academy/port-wine-pour.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -187,6 +187,17 @@ const ModuleGlossary = () => {
         { question: "O que significa o termo 'Segunda Vida' no The 100's?", options: ["Um segundo copo de vinho grátis", "Reciclar garrafas vazias", "O recipiente tornar-se objeto decorativo após consumo", "Comprar uma segunda garrafa com desconto"], correct: 2 },
         { question: "Que material está diretamente ligado aos barris de envelhecimento do Vinho do Porto?", options: ["Cortiça", "Cerâmica", "Latão", "Madeira de carvalho"], correct: 3 },
       ]} />
+
+      <ModuleQuizGate
+        moduleId="glossary"
+        questions={[
+          { question: "O que significa 'Colheita' no contexto do Vinho do Porto?", options: ["Uma mistura de vários anos", "Um Tawny de um único ano de colheita", "O ato de colher uvas", "Um tipo de casta"], correctIndex: 1 },
+          { question: "O que é a 'fortificação' do vinho?", options: ["Adicionar cor ao vinho", "Adicionar aguardente vínica para parar a fermentação", "Envelhecer em garrafa", "Adicionar açúcar"], correctIndex: 1 },
+          { question: "O que são 'castas' no contexto vinícola?", options: ["Caves de envelhecimento", "Variedades de uva usadas na produção", "Tipos de barris", "Regiões demarcadas"], correctIndex: 1 },
+          { question: "O que é o DOC Douro?", options: ["Um documento legal", "Denominação de Origem Controlada — certificação de qualidade regional", "Uma marca de vinho", "Um tipo de garrafa"], correctIndex: 1 },
+          { question: "O que significa 'envelhecimento oxidativo'?", options: ["O vinho estragou-se", "Maturação em contacto com o ar (em barris de madeira)", "Adição de oxigénio artificial", "Fermentação ao ar livre"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

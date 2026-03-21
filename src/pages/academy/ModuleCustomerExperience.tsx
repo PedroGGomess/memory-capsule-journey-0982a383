@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ReflectionBlock, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ReflectionBlock, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import hedonismImg from "@/assets/hedonism.jpg";
 
@@ -86,6 +86,17 @@ const ModuleCustomerExperience = () => {
       ] : [
         "Descreve como guiarias um visitante desde o momento em que entra até ao momento em que sai."
       ]} />
+
+      <ModuleQuizGate
+        moduleId="customer-experience"
+        questions={[
+          { question: "O que transforma uma compra numa experiência memorável?", options: ["Preço baixo", "Detalhes: tom de voz, cerimónia do embrulho, personalização", "Rapidez no atendimento", "Grandes descontos"], correctIndex: 1 },
+          { question: "Quantas pessoas um cliente satisfeito recomenda, em média?", options: ["1-2", "3-5", "10-15", "20+"], correctIndex: 1 },
+          { question: "O que é Advocacy Marketing?", options: ["Publicidade paga em TV", "Clientes satisfeitos que se tornam embaixadores naturais", "Marketing de influenciadores", "Email marketing"], correctIndex: 1 },
+          { question: "Em que consiste o 'momento WOW'?", options: ["Dar um desconto surpresa", "Criar uma micro-experiência de encantamento inesperada", "Oferecer amostras grátis", "Tocar música alta na loja"], correctIndex: 1 },
+          { question: "O que faz um cliente voltar ao The 100's?", options: ["Apenas promoções", "Memória positiva, programa concierge e follow-up", "Localização conveniente", "Preços mais baixos que a concorrência"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

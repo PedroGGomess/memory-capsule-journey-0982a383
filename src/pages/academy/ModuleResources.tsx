@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { FileText, Image, Video, BookOpen, Download, ExternalLink } from "lucide-react";
@@ -310,6 +310,17 @@ Mensagem à entrada da loja:
           {t.academy.resources.internalUseNote}
         </p>
       </ContentBlock>
+
+      <ModuleQuizGate
+        moduleId="resources"
+        questions={[
+          { question: "Onde encontrar os materiais de referência rápida?", options: ["No email pessoal", "Na plataforma Academy e em loja (materiais impressos)", "No Google", "Não existem materiais"], correctIndex: 1 },
+          { question: "O que é o Cheat Sheet do The 100's?", options: ["Uma cábula para exames", "Guia de referência rápida com informações essenciais de produto e venda", "Um documento financeiro", "Uma lista de preços"], correctIndex: 1 },
+          { question: "Para que servem os downloads disponíveis na plataforma?", options: ["Entretenimento", "Consulta rápida de plantas, FAQs e documentos operacionais", "Decoração", "Uso pessoal"], correctIndex: 1 },
+          { question: "Como aceder à plataforma de formação fora da loja?", options: ["Não é possível", "Via browser em qualquer dispositivo com credenciais", "Apenas no computador da loja", "Precisa de VPN"], correctIndex: 1 },
+          { question: "Que tipo de recursos estão disponíveis na plataforma?", options: ["Apenas vídeos", "Vídeos, documentos, quizzes, glossários e simuladores", "Apenas PDFs", "Apenas textos"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

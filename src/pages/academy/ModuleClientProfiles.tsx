@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Users } from "lucide-react";
@@ -245,6 +245,17 @@ const ModuleClientProfiles = () => {
         "Como aborderias um turista americano diferentemente de um turista europeu?",
         "Descreve como servias um casal sem conhecimento de vinho que tem 30 minutos.",
       ]} />
+
+      <ModuleQuizGate
+        moduleId="client-profiles"
+        questions={[
+          { question: "Quantos perfis de cliente estão mapeados no The 100's?", options: ["4", "6", "8", "10"], correctIndex: 2 },
+          { question: "Como identificar rapidamente um cruzeirista?", options: ["Veste roupa elegante", "Tem pouco tempo, anda em grupo, pergunta logo o preço", "Fala apenas inglês", "Entra sozinho e com calma"], correctIndex: 1 },
+          { question: "Qual a melhor abordagem para um conhecedor de vinhos?", options: ["Evitar falar de vinhos", "Linguagem técnica, notas de prova, comparar com 750ml", "Focar apenas no packaging", "Oferecer o produto mais barato"], correctIndex: 1 },
+          { question: "O que motiva o turista americano?", options: ["Preço baixo", "Gift impactante e wow factor", "Tradição portuguesa", "Rapidez no atendimento"], correctIndex: 1 },
+          { question: "Como abordar um casal premium?", options: ["Ignorar e deixar explorar", "Criar momento especial, personalização com data do casal", "Ser direto sobre preços", "Sugerir apenas entry gifts"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

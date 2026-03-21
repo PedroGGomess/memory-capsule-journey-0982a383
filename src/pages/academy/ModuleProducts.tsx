@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import collectionImg from "@/assets/collection.jpg";
 import bottleImg from "@/assets/bottle-closeup.jpg";
@@ -318,6 +318,17 @@ const ModuleProducts = () => {
           "Os clientes recebem uma segunda garrafa gratuitamente"
         ], correct: 2 },
       ]} />
+
+      <ModuleQuizGate
+        moduleId="products"
+        questions={[
+          { question: "Quantos tipos de containers diferentes existem no The 100's?", options: ["3", "5", "7", "10"], correctIndex: 2 },
+          { question: "Qual é o material do container Entry Gift?", options: ["Madeira de nogueira", "Cortiça natural", "Vidro com rolha de cortiça (sem container)", "Cerâmica branca"], correctIndex: 2 },
+          { question: "Quais são as madeiras usadas nos containers quadrados premium?", options: ["Pinho e cedro", "Carvalho e nogueira", "Teca e mogno", "Bambu e oliveira"], correctIndex: 1 },
+          { question: "O que diferencia a gama Legacy da gama Signature?", options: ["Apenas o preço", "O tipo de container e o envelhecimento do vinho", "A cor da garrafa", "O tamanho da embalagem"], correctIndex: 1 },
+          { question: "Qual container combina cerâmica branca com cortiça?", options: ["Quadrado Cork", "Cilindro 2 Tampas", "Cilindro Cork", "Cilindro 1 Tampa"], correctIndex: 2 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

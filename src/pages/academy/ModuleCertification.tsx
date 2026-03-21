@@ -8,7 +8,7 @@ import badgeImg from "@/assets/badge.png";
 import { Link } from "react-router-dom";
 import { Download, Sparkles } from "lucide-react";
 import jsPDF from "jspdf";
-import { ModuleLayout, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 
 const USERS_KEY = "gym-users";
 const SESSION_KEY = "the100s-academy-session";
@@ -449,6 +449,17 @@ const ModuleCertification = () => {
           </ScrollReveal>
         )}
       </div>
+
+      <ModuleQuizGate
+        moduleId="certification"
+        questions={[
+          { question: "Qual é o objetivo da certificação final?", options: ["Decoração do currículo", "Validar que o colaborador domina todos os conhecimentos essenciais", "Obrigação legal", "Apenas formalidade"], correctIndex: 1 },
+          { question: "Que áreas são avaliadas na certificação?", options: ["Apenas produto", "Produto, venda, atendimento, operação e cultura de marca", "Apenas inglês", "Apenas KPIs"], correctIndex: 1 },
+          { question: "Qual a nota mínima para passar na certificação?", options: ["30%", "50%", "80%", "100%"], correctIndex: 2 },
+          { question: "O que acontece se não passar na certificação?", options: ["É despedido", "Pode repetir após revisão do conteúdo", "Nada acontece", "Perde o salário"], correctIndex: 1 },
+          { question: "A certificação inclui componente prática?", options: ["Não, apenas teoria", "Sim, simulação de atendimento e role-play", "Apenas exame escrito", "Apenas observação"], correctIndex: 1 },
+        ]}
+      />
     </div>
   );
 };

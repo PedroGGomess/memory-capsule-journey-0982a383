@@ -7,7 +7,7 @@ import { Bot, Send, User } from "lucide-react";
 import { useProgress } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ReactMarkdown from "react-markdown";
-import { VideoBlock } from "@/components/ModuleComponents";
+import { VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -310,6 +310,17 @@ const ModuleAIAssistant = () => {
           </form>
         </div>
       </Card>
+
+      <ModuleQuizGate
+        moduleId="ai-assistant"
+        questions={[
+          { question: "Para que serve o assistente AI da academia?", options: ["Substituir a formação presencial", "Apoiar a aprendizagem com respostas rápidas e contextuais", "Vender produtos online", "Gerir o stock"], correctIndex: 1 },
+          { question: "O assistente AI pode ajudar com:", options: ["Apenas perguntas sobre vinhos", "Dúvidas sobre produtos, procedimentos, clientes e operação", "Apenas tradução", "Nada de útil"], correctIndex: 1 },
+          { question: "Quando é mais útil consultar o assistente AI?", options: ["Nunca", "Para revisão rápida, preparação de cenários e esclarecimento de dúvidas", "Apenas durante a formação", "Apenas em casa"], correctIndex: 1 },
+          { question: "O assistente AI substitui a formação presencial?", options: ["Sim, completamente", "Não — complementa e reforça, mas não substitui a prática e o contacto humano", "Sim, em 90%", "Depende do colaborador"], correctIndex: 1 },
+          { question: "Como obter melhores respostas do assistente AI?", options: ["Fazer perguntas vagas", "Ser específico, dar contexto e fazer perguntas claras", "Escrever em inglês sempre", "Não importa como se pergunta"], correctIndex: 1 },
+        ]}
+      />
       </div>
     </div>
   );

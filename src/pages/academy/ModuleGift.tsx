@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import giftImg from "@/assets/gift-packaging.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -135,6 +135,17 @@ const ModuleGift = () => {
         "Como podes transmitir o conceito de presente — e a gama de preços — ao falar com os visitantes?",
         "Um visitante pergunta sobre a diferença entre o Cubo Cortiça e o Cubo Carvalho. Como explicarias?"
       ]} />
+
+      <ModuleQuizGate
+        moduleId="gift"
+        questions={[
+          { question: "Qual é o conceito central do 'Gift Premium' no The 100's?", options: ["Um produto barato para turistas", "Uma experiência de presente que transcende o produto", "Uma embalagem standard com logotipo", "Um voucher de desconto"], correctIndex: 1 },
+          { question: "A personalização UV/Laser permite:", options: ["Mudar o sabor do vinho", "Gravar nomes, datas e mensagens nos containers", "Alterar a cor do container", "Reduzir o preço do produto"], correctIndex: 1 },
+          { question: "Qual a importância do packaging no conceito gift?", options: ["É secundário ao produto", "É parte fundamental da experiência premium", "Serve apenas para proteger o produto", "Não tem relevância para o cliente"], correctIndex: 1 },
+          { question: "Como transformar o packaging em argumento de venda?", options: ["Oferecer desconto na embalagem", "Mostrar o conceito 'second life' e personalização", "Esconder o packaging até ao pagamento", "Focar apenas no vinho"], correctIndex: 1 },
+          { question: "O que torna um gift The 100's diferente de uma garrafa de vinho normal?", options: ["O preço mais alto", "O design, container, personalização e storytelling", "A marca conhecida", "O tamanho maior"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

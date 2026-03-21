@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ModuleLayout, ContentBlock, ExpandableSection, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, ExpandableSection, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import ScrollReveal from "@/components/ScrollReveal";
 import heroDropImg from "@/assets/hero-drop.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -147,6 +147,17 @@ const ModuleAskTeam = () => {
           )}
         </div>
       </ScrollReveal>
+
+      <ModuleQuizGate
+        moduleId="ask-team"
+        questions={[
+          { question: "A quem deve um colaborador recorrer primeiro com dúvidas operacionais?", options: ["Ao CEO", "Ao Team Leader ou colega mais experiente", "Ao cliente", "À internet"], correctIndex: 1 },
+          { question: "Como funciona o canal de comunicação interna?", options: ["Apenas presencial", "WhatsApp interno, rádio e reuniões regulares", "Email formal apenas", "Não existe canal"], correctIndex: 1 },
+          { question: "Com que frequência são feitas reuniões de equipa?", options: ["Nunca", "Huddles diários + reuniões semanais de equipa", "Apenas mensalmente", "Apenas quando há problemas"], correctIndex: 1 },
+          { question: "O que fazer quando não sabes a resposta a uma pergunta do cliente?", options: ["Inventar uma resposta", "Ser honesto, pedir ajuda a um colega ou verificar a informação", "Ignorar o cliente", "Mudar de assunto"], correctIndex: 1 },
+          { question: "Porque é importante partilhar feedback entre a equipa?", options: ["Não é importante", "Melhora continuamente o serviço e fortalece a equipa", "Apenas para reclamar", "Só os gestores devem dar feedback"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

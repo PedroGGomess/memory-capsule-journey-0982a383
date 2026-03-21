@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import teamOpsImg from "@/assets/academy/team-ops.svg";
@@ -427,6 +427,17 @@ const ModuleTeamOps = () => {
           isEN
             ? "Describe a time when you received helpful feedback. What made it effective?"
             : "Descreve um momento em que recebeste feedback útil. O que o tornou eficaz?",
+        ]}
+      />
+
+      <ModuleQuizGate
+        moduleId="team-ops"
+        questions={[
+          { question: "Como gerir um pico de clientes na loja?", options: ["Pedir aos clientes para voltar depois", "Coordenar equipa via rádio/WhatsApp, priorizar e distribuir tarefas", "Fechar a porta", "Ignorar e atender um de cada vez"], correctIndex: 1 },
+          { question: "Qual o papel do Team Leader na operação diária?", options: ["Apenas vender", "Ponte entre gestão e equipa, garantir operações suaves", "Ficar no escritório", "Controlar o stock"], correctIndex: 1 },
+          { question: "O que inclui a abertura de loja?", options: ["Apenas abrir a porta", "Vitrinas, stock mínimo, POS funcional, WhatsApp ativo, armazém organizado", "Ligar as luzes", "Esperar pelos clientes"], correctIndex: 1 },
+          { question: "Como comunicar internamente durante o horário de funcionamento?", options: ["Gritar pela loja", "Rádio ou WhatsApp interno de forma discreta", "Email formal", "Não comunicar"], correctIndex: 1 },
+          { question: "O que deve conter o relatório diário?", options: ["Apenas as vendas totais", "KPIs, contagem de caixa, atualização CRM, ocorrências", "Nome dos clientes", "Apenas reclamações"], correctIndex: 1 },
         ]}
       />
     </ModuleLayout>

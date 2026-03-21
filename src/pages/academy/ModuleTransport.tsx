@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Plane, AlertCircle } from "lucide-react";
@@ -188,6 +188,17 @@ const ModuleTransport = () => {
         "Como explicarias Send a Memory a alguém preocupado com peso de bagagem?",
         "Descreve três cenários em que as opções de transporte se tornam um ponto de venda.",
       ]} />
+
+      <ModuleQuizGate
+        moduleId="transport-rules"
+        questions={[
+          { question: "Quantos ml de líquido pode um passageiro levar na cabine do avião?", options: ["50ml", "100ml por recipiente (max 1L total em saco transparente)", "250ml", "Sem limite"], correctIndex: 1 },
+          { question: "As garrafas The 100's de 100ml podem ir na bagagem de cabine?", options: ["Nunca", "Sim, dentro do saco de líquidos transparente", "Apenas em voos domésticos", "Só com autorização especial"], correctIndex: 1 },
+          { question: "O que deve a equipa saber sobre envio internacional?", options: ["Não é possível enviar", "Opções de envio, tracking e comunicação ao cliente", "Apenas envio dentro de Portugal", "O cliente trata de tudo"], correctIndex: 1 },
+          { question: "Qual organização define as regras de transporte aéreo de líquidos?", options: ["UEFA", "TSA/IATA", "UNESCO", "NATO"], correctIndex: 1 },
+          { question: "Como tranquilizar um cliente preocupado com o transporte?", options: ["Ignorar a preocupação", "Explicar as regras, oferecer opções de envio e embalar com cuidado", "Dizer que é problema dele", "Sugerir que não compre"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };

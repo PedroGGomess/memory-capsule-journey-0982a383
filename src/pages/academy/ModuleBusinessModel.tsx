@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import heroDrop from "@/assets/hero-drop.jpg";
@@ -237,6 +237,17 @@ const ModuleBusinessModel = () => {
       "How would you explain the digital capture strategy to a fellow team member?",
       "Why is post-visit monetization important for a tourism brand like The 100's?"
     ]} />
+
+    <ModuleQuizGate
+      moduleId="business-model"
+      questions={[
+        { question: "O que é o break-even point da loja?", options: ["O lucro máximo", "O ponto onde receitas igualam custos — a loja começa a dar lucro", "O dia de maior venda", "O orçamento anual"], correctIndex: 1 },
+        { question: "Porque é importante a equipa conhecer o modelo de negócio?", options: ["Não é importante", "Para entender como cada venda contribui para a sustentabilidade", "Apenas para gestores", "Para pedir aumento"], correctIndex: 1 },
+        { question: "O que acontece quando o ticket médio é inferior a €60?", options: ["É normal", "Pode indicar risco para a sustentabilidade financeira", "É excelente", "Não tem impacto"], correctIndex: 1 },
+        { question: "Como se calcula a taxa de conversão?", options: ["Vendas totais / dias abertos", "Número de compras / número de visitantes × 100", "Lucro / investimento", "Produtos vendidos / stock total"], correctIndex: 1 },
+        { question: "Qual a gama que mais contribui para a margem do negócio?", options: ["Entry Gift", "Legacy e Icon (gamas premium)", "Apenas o THE HUNDRED", "Todas contribuem igual"], correctIndex: 1 },
+      ]}
+    />
   </ModuleLayout>
   );
 };

@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Languages } from "lucide-react";
@@ -282,6 +282,17 @@ const ModuleVocabulary = () => {
         "Como adaptarias as frases de serviço ao cliente se alguém tem inglês muito limitado?",
         "Pratica dizendo três frases-chave em voz alta em Português. Como te sentes de confiante?",
       ]} />
+
+      <ModuleQuizGate
+        moduleId="vocabulary"
+        questions={[
+          { question: "Como se diz 'Vinho do Porto' em inglês?", options: ["Porto Wine", "Port Wine", "Portuguese Wine", "Harbor Wine"], correctIndex: 1 },
+          { question: "Qual a tradução correta de 'Envelhecimento em barril'?", options: ["Barrel getting old", "Barrel aging", "Old barrel", "Aging in bottle"], correctIndex: 1 },
+          { question: "Como apresentar o conceito 'cápsula de tempo' em inglês?", options: ["Time bottle", "Time capsule", "Memory bottle", "History capsule"], correctIndex: 1 },
+          { question: "Qual a expressão correta para 'prova de vinhos'?", options: ["Wine testing", "Wine tasting", "Wine trying", "Wine sampling"], correctIndex: 1 },
+          { question: "Como dizer 'personalização' em inglês no contexto da loja?", options: ["Personalization", "Customization / Personalization", "Making personal", "Custom making"], correctIndex: 1 },
+        ]}
+      />
     </ModuleLayout>
   );
 };
