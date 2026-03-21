@@ -377,11 +377,6 @@ export function QuizBlock({ moduleId, questions }: { moduleId: string; questions
     <ScrollReveal>
       <div className="relative border border-border bg-card p-8 md:p-12 overflow-hidden">
         <div className="relative z-10 space-y-10">
-          <div className="flex items-center gap-3">
-            <Sparkles className="w-4 h-4 text-primary" />
-            <p className="text-xs tracking-[0.2em] uppercase text-primary font-light">{t.academy.module.quiz}</p>
-          </div>
-
           {!submitted ? (
             <div className="space-y-12">
               {questions.map((q, qi) => (
