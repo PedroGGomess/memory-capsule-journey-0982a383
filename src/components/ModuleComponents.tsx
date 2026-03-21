@@ -219,12 +219,9 @@ export function ModuleLayout({ moduleId, moduleNumber, title, subtitle, heroImag
                   )}
                 </>
               ) : (
-                <button
-                  onClick={handleComplete}
-                  className="border border-primary px-10 py-3 text-xs tracking-[0.2em] uppercase text-primary hover:bg-primary hover:text-background transition-all duration-200"
-                >
-                  {t.academy.module.markComplete}
-                </button>
+                <p className="text-xs tracking-[0.2em] uppercase text-foreground/40 font-light">
+                  {language === "pt" ? "Completa o quiz no final do módulo para concluir" : "Complete the quiz at the end to finish this module"}
+                </p>
               )}
 
               {showSuccess && completed && (
