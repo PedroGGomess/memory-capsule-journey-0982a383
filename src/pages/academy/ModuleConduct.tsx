@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import conductImg from "@/assets/academy/conduct.svg";
@@ -53,6 +53,13 @@ const ModuleConduct = () => {
           ? "The 100's is a premium brand experience. Your clothing should reflect this at all times. Think 'gallery curator', not 'shop assistant'. Think 'luxury hotel concierge', not 'retail.'."
           : "The 100's é uma experiência de marca premium. A tua roupa deve refletir isto em todos os momentos. Pensa 'curador de galeria', não 'assistente de loja'. Pensa 'concierge de hotel de luxo', não 'varejo'."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Conduta e Imagem"
+        description="Postura, dress code e comunicação profissional."
+        duration="7:00"
+        poster={conductImg}
+      />
 
       <div className="space-y-5">
         {dresscodes.map((section, i) => (

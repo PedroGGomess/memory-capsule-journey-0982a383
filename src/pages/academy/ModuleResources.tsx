@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { FileText, Image, Video, BookOpen, Download, ExternalLink } from "lucide-react";
@@ -202,6 +202,13 @@ Mensagem à entrada da loja:
           : "Access all brand materials, training documents, and visual assets here. This library will be updated regularly."
         }</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Recursos e Ferramentas"
+        description="Materiais de apoio e referência rápida."
+        duration="4:30"
+        poster={douroImg}
+      />
 
       {/* Documentos / Documents Section */}
       <div className="space-y-6">

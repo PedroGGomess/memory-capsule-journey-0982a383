@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Printer, Zap } from "lucide-react";
@@ -62,6 +62,13 @@ const ModuleUVPrinter = () => {
           ? "At The 100's, this means we can personalize bottles, cubes, and wooden containers with names, dates, messages, or custom designs — all while the customer watches."
           : "No The 100's, isto significa que podemos personalizar garrafas, cubos e recipientes de madeira com nomes, datas, mensagens, ou designs personalizados — tudo enquanto o cliente observa."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Impressora UV"
+        description="Operação, ficheiros e personalização ao vivo."
+        duration="9:00"
+        poster={uvPrinterImg}
+      />
 
       <div className="border border-primary/20 bg-primary/5 p-6 rounded-lg">
         <div className="flex items-start gap-3">

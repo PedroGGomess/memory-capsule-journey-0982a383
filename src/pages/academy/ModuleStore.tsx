@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ReflectionBlock, QuizBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ReflectionBlock, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import storeImg from "@/assets/store-interior.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -141,6 +141,13 @@ const ModuleStore = () => {
       </ContentBlock>
 
       <ImageBlock src={storeImg} alt={isEN ? "Store interior" : "Interior da loja"} caption={isEN ? "The store experience — museum meets time capsule" : "A experiência da loja — museu encontra cápsula do tempo"} />
+
+      <VideoBlock
+        title="A Experiência em Loja"
+        description="O percurso do cliente desde a montra até à compra."
+        duration="10:00"
+        poster={storeImg}
+      />
 
       <ContentBlock title={isEN ? "The Six-Zone Customer Journey" : "A Jornada do Cliente em Seis Zonas"}>
         <p>{isEN

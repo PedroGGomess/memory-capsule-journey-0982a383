@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Languages } from "lucide-react";
@@ -106,6 +106,13 @@ const ModuleVocabulary = () => {
           ? "This module is not about fluency. It's about key phrases, proper pronunciation, and the confidence to guide customers in both languages."
           : "Este módulo não é sobre fluência. É sobre frases-chave, pronúncia adequada e confiança para guiar clientes em ambas as línguas."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Vocabulário PT/EN"
+        description="Glossário bilíngue de atendimento premium."
+        duration="8:00"
+        poster={vocabularyImg}
+      />
 
       <ContentBlock title={isEN ? "Essential Greetings & Farewells" : "Saudações & Despedidas Essenciais"}>
         <p>{isEN

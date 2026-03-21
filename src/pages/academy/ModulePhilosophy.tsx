@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import hourglassImg from "@/assets/hourglass.jpg";
 import bottleImg from "@/assets/bottle-closeup.jpg";
@@ -65,6 +65,13 @@ const ModulePhilosophy = () => {
           ? "Time deserves to be remembered — and remembered beautifully."
           : "O tempo merece ser lembrado — e lembrado de forma bela."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Filosofia da Marca"
+        description="Tempo, Emoção e Memória — os três pilares que nos definem."
+        duration="6:45"
+        poster={hourglassImg}
+      />
 
       <div className="space-y-6">
         {pillars.map((pillar, i) => (

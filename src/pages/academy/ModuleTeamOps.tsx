@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import teamOpsImg from "@/assets/academy/team-ops.svg";
@@ -23,6 +23,13 @@ const ModuleTeamOps = () => {
             : "Como Team Leader, és a ponte entre gestão e pessoal de primeira linha. Garantis operações diárias suaves, desenvolves as competências da tua equipa e crias um ambiente onde todos estão motivados para entregar excelência."}
         </p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Operações de Equipa"
+        description="Coordenação, turnos e gestão de picos."
+        duration="9:30"
+        poster={teamOpsImg}
+      />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {(isEN ? [

@@ -534,3 +534,116 @@ export function ReflectionBlock({ questions }: { questions: string[] }) {
     </ScrollReveal>
   );
 }
+
+/* ── Video Block ── */
+interface VideoBlockProps {
+  src?: string;
+  youtubeId?: string;
+  vimeoId?: string;
+  title?: string;
+  description?: string;
+  duration?: string;
+  poster?: string;
+}
+
+export function VideoBlock({ src, youtubeId, vimeoId, title, description, duration, poster }: VideoBlockProps) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const { language } = useLanguage();
+
+  const embedUrl = youtubeId
+    ? `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1`
+    : vimeoId
+    ? `https://player.vimeo.com/video/${vimeoId}?autoplay=1`
+    : null;
+
+  return (
+    <ScrollReveal>
+      <div className="my-8">
+        {title && (
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-[1px] bg-primary/40" />
+            <p className="text-xs tracking-[0.2em] uppercase text-primary/70 font-light">
+              {language === "pt" ? "Vídeo do Módulo" : "Module Video"}
+            </p>
+          </div>
+        )}
+
+        <div className="relative overflow-hidden border border-border bg-card group">
+          {!isPlaying ? (
+            <div
+              className="relative aspect-video cursor-pointer"
+              onClick={() => setIsPlaying(true)}
+            >
+              {/* Poster/Thumbnail */}
+              {poster ? (
+                <img src={poster} alt={title || "Video"} className="w-full h-full object-cover opacity-40" />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-background via-card to-background" />
+              )}
+
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+
+              {/* Play Button */}
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="relative">
+                  <div className="w-20 h-20 border border-primary/40 flex items-center justify-center group-hover:border-primary/70 transition-all duration-500">
+                    <div className="w-0 h-0 border-l-[14px] border-l-primary border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent ml-1 group-hover:border-l-primary/90 transition-colors duration-300" />
+                  </div>
+                  <div className="absolute -inset-3 border border-primary/10 group-hover:border-primary/20 transition-all duration-700" />
+                </div>
+              </motion.div>
+
+              {/* Bottom Info Bar */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 flex items-end justify-between">
+                <div className="space-y-1">
+                  {title && (
+                    <h4 className="text-lg font-light text-foreground/90 tracking-tight">{title}</h4>
+                  )}
+                  {description && (
+                    <p className="text-xs text-foreground/50 font-light max-w-md">{description}</p>
+                  )}
+                </div>
+                {duration && (
+                  <span className="text-[10px] tracking-[0.2em] uppercase text-primary/60 border border-primary/20 px-3 py-1 font-light">
+                    {duration}
+                  </span>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="relative aspect-video">
+              {embedUrl ? (
+                <iframe
+                  src={embedUrl}
+                  className="w-full h-full"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
+                  title={title || "Video"}
+                />
+              ) : src ? (
+                <video
+                  src={src}
+                  className="w-full h-full object-cover"
+                  controls
+                  autoPlay
+                  playsInline
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-card">
+                  <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground/50">
+                    {language === "pt" ? "Vídeo em breve" : "Video coming soon"}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </ScrollReveal>
+  );
+}

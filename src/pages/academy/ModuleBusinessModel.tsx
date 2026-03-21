@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import heroDrop from "@/assets/hero-drop.jpg";
@@ -20,6 +20,13 @@ const ModuleBusinessModel = () => {
         ? "The 100's operates at the intersection of four key areas. Together, they form a system that transforms a tourist moment into a lasting emotional and commercial relationship."
         : "O The 100's opera na interseção de quatro áreas-chave. Juntas, formam um sistema que transforma um momento turístico numa relação emocional e comercial duradoura."}</p>
     </ContentBlock>
+
+    <VideoBlock
+      title="Modelo de Negócio"
+      description="Break-even, margens e sustentabilidade financeira."
+      duration="10:15"
+      poster={heroDrop}
+    />
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {(isEN ? [

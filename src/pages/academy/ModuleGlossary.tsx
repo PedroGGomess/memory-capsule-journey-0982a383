@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, QuizBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import portWineImg from "@/assets/academy/port-wine-pour.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -100,6 +100,13 @@ const ModuleGlossary = () => {
           ? "Visitors trust expertise. When you use the correct terminology naturally — without being academic — you elevate the experience. This glossary covers every term you'll encounter at The 100's."
           : "Os visitantes confiam na expertise. Quando usas a terminologia correta de forma natural — sem ser académico — elevas a experiência. Este glossário cobre todos os termos que encontrarás no The 100's."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Glossário do Vinho do Porto"
+        description="Termos essenciais que precisas de dominar."
+        duration="6:00"
+        poster={portWineImg}
+      />
 
       <div className="space-y-4">
         <div className="relative">

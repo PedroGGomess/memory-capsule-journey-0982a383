@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, QuizBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import tastingImg from "@/assets/academy/tasting-ritual.jpg";
 import portWineImg from "@/assets/academy/port-wine-pour.jpg";
@@ -193,6 +193,13 @@ const ModuleTastingGuide = () => {
           ? "Each step corresponds to a zone in the store. Your role changes at each stage — from host, to guide, to sommelier, to confidant."
           : "Cada passo corresponde a uma zona na loja. O teu papel muda em cada etapa — de anfitrião, a guia, a sommelier, a confidente."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Guia de Prova"
+        description="Técnicas de degustação e vocabulário de vinhos."
+        duration="15:00"
+        poster={tastingImg}
+      />
 
       <div className="space-y-8">
         {ritualSteps.map((step) => {

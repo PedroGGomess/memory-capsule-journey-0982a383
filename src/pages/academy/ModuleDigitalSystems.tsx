@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Monitor, Smartphone, MessageSquare, Database, ShoppingCart } from "lucide-react";
@@ -100,6 +100,13 @@ const ModuleDigitalSystems = () => {
           ? "Whether you're using a POS terminal, a floor tablet, or WhatsApp with our AI Concierge, the goal is always the same: give every customer an exceptional experience while capturing data that helps us serve them better next time."
           : "Quer estejas a usar um terminal POS, um tablet no chão, ou WhatsApp com o nosso AI Concierge, o objetivo é sempre o mesmo: dar a cada cliente uma experiência excecional enquanto capturas dados que nos ajudam a servir melhor da próxima vez."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Sistemas Digitais"
+        description="POS, tablets, CRM e ferramentas da loja."
+        duration="11:30"
+        poster={digitalSystemsImg}
+      />
 
       <ContentBlock title={isEN ? "The Five Core Digital Systems" : "Os Cinco Sistemas Digitais Principais"}>
         <p>{isEN

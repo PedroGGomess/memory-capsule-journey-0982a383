@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ReflectionBlock, QuizBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ReflectionBlock, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import hedonismImg from "@/assets/hedonism.jpg";
 
@@ -32,6 +32,13 @@ const ModuleCustomerExperience = () => {
           ? "Every interaction should feel personal, thoughtful and unhurried."
           : "Cada interação deve parecer pessoal, cuidadosa e sem pressa."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Experiência de Cliente"
+        description="Cada touchpoint é uma oportunidade de encantamento."
+        duration="11:00"
+        poster={hedonismImg}
+      />
 
       <ContentBlock title={isEN ? "The Three Principles" : "Os Três Princípios"}>
         <p>{isEN

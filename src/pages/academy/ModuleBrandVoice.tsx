@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import bottleCloseupImg from "@/assets/bottle-closeup.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -60,6 +60,13 @@ const ModuleBrandVoice = () => {
           ? "The communication of The 100's follows four core principles. Every message, every conversation, every interaction should reflect these values."
           : "A comunicação do The 100's segue quatro princípios fundamentais. Cada mensagem, cada conversa, cada interação deve refletir estes valores."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Voz da Marca"
+        description="Como comunicamos — tom, linguagem e atitude."
+        duration="7:30"
+        poster={bottleCloseupImg}
+      />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {principles.map(item => (

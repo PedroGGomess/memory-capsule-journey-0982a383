@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import leadershipImg from "@/assets/academy/leadership.svg";
@@ -23,6 +23,13 @@ const ModuleLeadership = () => {
             : "A liderança no The 100's é criar um ambiente onde a tua equipa se sente capacitada, valorizada e conectada à missão da marca. Como Gerente de Loja, não és apenas um líder — és um guardião da cultura, um exemplo de excelência e um catalisador de crescimento."}
         </p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Liderança e Gestão"
+        description="Liderança situacional e gestão de equipa."
+        duration="12:00"
+        poster={leadershipImg}
+      />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {(isEN ? [

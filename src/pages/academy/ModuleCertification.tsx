@@ -8,6 +8,7 @@ import badgeImg from "@/assets/badge.png";
 import { Link } from "react-router-dom";
 import { Download, Sparkles } from "lucide-react";
 import jsPDF from "jspdf";
+import { ModuleLayout, VideoBlock } from "@/components/ModuleComponents";
 
 const USERS_KEY = "gym-users";
 const SESSION_KEY = "the100s-academy-session";
@@ -223,6 +224,15 @@ const ModuleCertification = () => {
             <p className="text-[10px] tracking-[0.3em] uppercase text-primary font-medium">{t.academy.certification.moduleLabel}</p>
           </motion.div>
           <h1 className="text-5xl md:text-7xl font-extralight text-gold-gradient mb-12 tracking-wide">{t.academy.certification.title}</h1>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.2}>
+          <VideoBlock
+            title="Certificação Final"
+            description="O que precisas saber para a avaliação final."
+            duration="5:00"
+            poster={badgeImg}
+          />
         </ScrollReveal>
 
         {certified ? (

@@ -7,6 +7,7 @@ import { Bot, Send, User } from "lucide-react";
 import { useProgress } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ReactMarkdown from "react-markdown";
+import { VideoBlock } from "@/components/ModuleComponents";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -170,7 +171,7 @@ const ModuleAIAssistant = () => {
   };
 
   return (
-    <div className="section-padding py-16 max-w-4xl mx-auto flex flex-col h-[calc(100vh-8rem)] space-y-6">
+    <div className="section-padding py-16 max-w-4xl mx-auto flex flex-col space-y-6">
       <div>
         <h1 className="text-3xl md:text-4xl font-light text-gold-gradient">
           {t.academy.aiAssistant.title}
@@ -180,7 +181,15 @@ const ModuleAIAssistant = () => {
         </p>
       </div>
 
-      <Card className="flex-1 flex flex-col overflow-hidden border-border/30 bg-card/20">
+      <VideoBlock
+        title="Assistente AI"
+        description="Como utilizar o assistente inteligente da academia."
+        duration="6:30"
+        poster="https://images.unsplash.com/photo-1677442d019cecf8d69b4e784fa539741dd998b6a"
+      />
+
+      <div className="h-[calc(100vh-24rem)] flex flex-col space-y-6">
+        <Card className="flex-1 flex flex-col overflow-hidden border-border/30 bg-card/20">
         <ScrollArea className="flex-1 p-5">
           <div className="space-y-5 pr-2">
             {/* Initial suggestions - shown only when no user messages */}
@@ -301,6 +310,7 @@ const ModuleAIAssistant = () => {
           </form>
         </div>
       </Card>
+      </div>
     </div>
   );
 };

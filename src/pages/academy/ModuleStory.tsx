@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import douroValleyImg from "@/assets/douro-valley.jpg";
 import heroDropImg from "@/assets/hero-drop.jpg";
@@ -42,6 +42,13 @@ const ModuleStory = () => {
           ? "Inspired by over 400 years of Port wine history, the brand transforms a simple visit into something extraordinary."
           : "Inspirado por mais de 400 anos de história do Vinho do Porto, a marca transforma uma simples visita em algo extraordinário."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="A História do The 100's"
+        description="A jornada desde a ideia até à criação de uma marca premium."
+        duration="8:30"
+        poster={douroValleyImg}
+      />
 
       <ImageBlock src={heroDropImg} alt={isEN ? "Wine drop" : "Gota de vinho"} caption={isEN ? "Every drop carries centuries of history" : "Cada gota carrega séculos de história"} />
 

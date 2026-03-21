@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, QuizBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import vmImg from "@/assets/academy/visual-merchandising.jpg";
 import storeImg from "@/assets/store-interior.jpg";
@@ -157,6 +157,17 @@ const ModuleVisualMerchandising = () => {
       heroImage={vmImg}
     >
       <ContentBlock title={isEN ? "Every Detail Is Intentional" : "Cada Detalhe É Intencional"}>
+        <p>{isEN ? "Visual merchandising is the art of presenting products so beautifully that they sell themselves. At The 100's, this is the theatre of luxury." : "O visual merchandising é a arte de apresentar produtos tão belamente que se vendem a si mesmos. No The 100's, isto é o teatro do luxo."}</p>
+      </ContentBlock>
+
+      <VideoBlock
+        title="Visual Merchandising"
+        description="Montras, disposição e experiência visual."
+        duration="8:45"
+        poster={vmImg}
+      />
+
+      <ContentBlock title={isEN ? "The Six Visual Rules" : "As Seis Regras Visuais"}>
         <p>{isEN
           ? "The 100's store is not decorated — it's choreographed. Every spotlight, every angle, every scent and every centimetre of space serves the brand's singular purpose: to transform time into something tangible."
           : "A loja do The 100's não é decorada — é coreografada. Cada holofote, cada ângulo, cada aroma e cada centímetro de espaço serve o propósito singular da marca: transformar o tempo em algo tangível."}</p>

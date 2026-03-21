@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import collectionImg from "@/assets/collection.jpg";
 import bottleImg from "@/assets/bottle-closeup.jpg";
@@ -171,6 +171,13 @@ const ModuleProducts = () => {
       </ContentBlock>
 
       <ImageBlock src={collectionImg} alt={isEN ? "The 100's Collection" : "Coleção The 100's"} caption={isEN ? "The curated collection" : "A coleção curada"} />
+
+      <VideoBlock
+        title="Os Nossos Produtos"
+        description="Conhece cada gama, cada material e cada detalhe."
+        duration="12:20"
+        poster={collectionImg}
+      />
 
       <ContentBlock title={isEN ? "Wine Types" : "Tipos de Vinho"}>
         <p>{isEN

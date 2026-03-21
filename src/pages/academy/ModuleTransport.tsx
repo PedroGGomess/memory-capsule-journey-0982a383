@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Plane, AlertCircle } from "lucide-react";
@@ -48,6 +48,13 @@ const ModuleTransport = () => {
           ? "Good news: Our 100ml bottles fit perfectly into this regulation."
           : "Boas notícias: As nossas garrafas de 100ml encaixam-se perfeitamente nesta regulação."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Regras de Transporte"
+        description="Regulamentação TSA/IATA e envio internacional."
+        duration="5:45"
+        poster={transportImg}
+      />
 
       <div className="border border-primary/20 bg-primary/5 p-6 rounded-lg">
         <div className="flex items-start gap-3">

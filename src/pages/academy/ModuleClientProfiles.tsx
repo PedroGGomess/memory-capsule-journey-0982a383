@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Users } from "lucide-react";
@@ -140,6 +140,13 @@ const ModuleClientProfiles = () => {
           ? "This is not about stereotyping — it's about being perceptive, responsive, and authentic to each person's needs."
           : "Isto não é sobre estereótipos — é sobre ser perceptivo, responsivo e autêntico às necessidades de cada pessoa."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Perfis de Cliente"
+        description="Os 8 perfis que vais encontrar na loja e como abordá-los."
+        duration="13:45"
+        poster={clientProfilesImg}
+      />
 
       <ContentBlock title={isEN ? "The Eight Client Personas" : "As Oito Personas de Cliente"}>
         <p>{isEN

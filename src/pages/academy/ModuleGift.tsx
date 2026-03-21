@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import giftImg from "@/assets/gift-packaging.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -41,6 +41,13 @@ const ModuleGift = () => {
           ? "Every bottle is a gift — to yourself, to someone you love, to the future. The packaging and presentation must reflect this philosophy."
           : "Cada garrafa é um presente — para ti, para alguém que amas, para o futuro. A embalagem e a apresentação devem refletir esta filosofia."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="A Arte do Gift Premium"
+        description="Como transformar um produto num presente inesquecível."
+        duration="9:15"
+        poster={giftImg}
+      />
 
       <ImageBlock src={giftImg} alt={isEN ? "Premium packaging" : "Embalagem premium"} caption={isEN ? "Premium materials elevate the experience" : "Os materiais premium elevam a experiência"} />
 

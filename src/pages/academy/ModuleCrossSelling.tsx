@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, QuizBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, QuizBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import crossSellingImg from "@/assets/academy/cross-selling.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -132,6 +132,13 @@ const ModuleCrossSelling = () => {
           ? "The key principle: listen first, then connect. What's their story? Who are they buying for? What moment do they want to remember?"
           : "O princípio-chave: ouve primeiro, depois conecta. Qual é a história deles? Para quem estão a comprar? Que momento querem lembrar?"}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Cross-Selling & Upsell"
+        description="Estratégias de upgrade e venda cruzada."
+        duration="10:30"
+        poster={crossSellingImg}
+      />
 
       <ContentBlock title={isEN ? "Four Core Strategies" : "Quatro Estratégias Centrais"}>
         <p>{isEN

@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Heart, TrendingUp, Gift, Users, MessageCircle, Target } from "lucide-react";
@@ -88,6 +88,13 @@ const ModuleClientCulture = () => {
           ? "Client culture is the philosophy that guides how we treat everyone who walks through the door — not as a sale, but as a human being worthy of an extraordinary experience."
           : "A cultura de cliente é a filosofia que guia como tratamos todos que entram pela porta — não como uma venda, mas como uma pessoa humana digna de uma experiência extraordinária."}</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Cultura de Cliente"
+        description="A importância do cliente como centro de tudo."
+        duration="8:20"
+        poster={clientCultureImg}
+      />
 
       <ContentBlock title={isEN ? "The Six Pillars of Client Culture" : "Os Seis Pilares da Cultura de Cliente"}>
         <p>{isEN

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ModuleLayout, ContentBlock, ExpandableSection } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, ExpandableSection, VideoBlock } from "@/components/ModuleComponents";
 import ScrollReveal from "@/components/ScrollReveal";
 import heroDropImg from "@/assets/hero-drop.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -51,6 +51,13 @@ const ModuleAskTeam = () => {
           : "Have a question about the brand, a product, or a customer situation? This is your space to ask. No question is too small."
         }</p>
       </ContentBlock>
+
+      <VideoBlock
+        title="Perguntas à Equipa"
+        description="Dúvidas frequentes e respostas da liderança."
+        duration="7:15"
+        poster={heroDropImg}
+      />
 
       <ExpandableSection title={language === "pt" ? "Como funciona a personalização UV?" : "How does UV personalization work?"}>
         <p>{language === "pt"
