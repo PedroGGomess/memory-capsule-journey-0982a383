@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Languages } from "lucide-react";
@@ -261,16 +261,6 @@ const ModuleVocabulary = () => {
         "Turistas europeus: linguagem narrativa, emocional; Americanos: linguagem exclusiva, premium",
         "Conhecedores de vinho: linguagem técnica; principiantes: linguagem simples, reasseguradora",
         "Não vises perfeição — confiança e calidez importam mais do que sotaque",
-      ]} />
-
-      <QuizBlock moduleId="vocabulary" questions={isEN ? [
-        { question: "How do you say 'Welcome to The 100's' in Portuguese?", options: ["Bem-vindo ao The 100's", "Olá, bem-vindo ao The 100's", "Benvindo à The 100's", "Oi, welcome"], correct: 1 },
-        { question: "Which language style should you use with a wine connoisseur?", options: ["Simple and reassuring", "Exclusive and premium", "Technical and detailed", "Fast and efficient"], correct: 2 },
-        { question: "What's the Portuguese word for 'Personalisation'?", options: ["Embalagem", "Personalização", "Prova", "Presente"], correct: 1 },
-      ] : [
-        { question: "Como dizes 'Welcome to The 100's' em Português?", options: ["Bem-vindo ao The 100's", "Olá, bem-vindo ao The 100's", "Benvindo à The 100's", "Oi, welcome"], correct: 1 },
-        { question: "Que estilo de linguagem devias usar com um conhecedor de vinho?", options: ["Simples e reassegurador", "Exclusivo e premium", "Técnico e detalhado", "Rápido e eficiente"], correct: 2 },
-        { question: "Qual é a palavra em Português para 'Personalisation'?", options: ["Embalagem", "Personalização", "Prova", "Presente"], correct: 1 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [

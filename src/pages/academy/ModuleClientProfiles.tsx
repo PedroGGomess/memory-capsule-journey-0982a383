@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Users } from "lucide-react";
@@ -220,20 +220,6 @@ const ModuleClientProfiles = () => {
         "Cruzeiristas precisam de rapidez e clareza; locais constroem relacionamentos a longo prazo",
         "Conhecedores de vinho apreciam linguagem técnica; quem não bebe precisa de simplicidade e segurança",
         "Reconheça a persona nos primeiros 30 segundos, depois adapte toda a sua abordagem",
-      ]} />
-
-      <QuizBlock moduleId="client-profiles" questions={isEN ? [
-        { question: "Which persona values personalization and storytelling the most?", options: ["American Tourist", "European Tourist", "Cruise Passenger", "Wine Connoisseur"], correct: 1 },
-        { question: "How much time does a cruise passenger typically have?", options: ["30 minutes", "1 hour", "2-3 hours", "As long as needed"], correct: 0 },
-        { question: "What should you emphasize with a wine connoisseur?", options: ["Cute design", "Technical complexity and rarity", "Quick purchase", "Group experience"], correct: 1 },
-        { question: "For a couple without wine knowledge, what's your best approach?", options: ["Talk about terroir", "Use simplicity, tasting, and confidence-building", "Recommend the most expensive", "Give them a brochure"], correct: 1 },
-        { question: "What's the first thing to recognize in each client?", options: ["Their budget", "Their persona type and needs", "Their language", "Whether they drink wine"], correct: 1 },
-      ] : [
-        { question: "Qual persona valoriza mais a personalização e storytelling?", options: ["Turista Americano", "Turista Europeu", "Cruzeirista", "Conhecedor de Vinho"], correct: 1 },
-        { question: "Quanto tempo tem tipicamente um cruzeirista?", options: ["30 minutos", "1 hora", "2-3 horas", "O tempo que precisar"], correct: 0 },
-        { question: "O que devias enfatizar com um conhecedor de vinho?", options: ["Design fofo", "Complexidade técnica e raridade", "Compra rápida", "Experiência de grupo"], correct: 1 },
-        { question: "Para um casal sem conhecimento de vinho, qual é a melhor abordagem?", options: ["Fala sobre terroir", "Usa simplicidade, prova e construção de confiança", "Recomenda o mais caro", "Dá-lhes um brochura"], correct: 1 },
-        { question: "O que é a primeira coisa a reconhecer em cada cliente?", options: ["O seu orçamento", "O seu tipo de persona e necessidades", "A sua língua", "Se bebem vinho"], correct: 1 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [

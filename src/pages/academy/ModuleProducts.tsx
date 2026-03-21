@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import collectionImg from "@/assets/collection.jpg";
 import bottleImg from "@/assets/bottle-closeup.jpg";
@@ -295,28 +295,6 @@ const ModuleProducts = () => {
         "Sete produtos individuais: Entry Gift, Cilindro de Cortiça com Cerâmica, Cilindro de Cortiça, Cubo de Cortiça com Cerâmica, Cubo de Cortiça, Madeira com Latão, Madeira de Carvalho com Latão",
         "Quatro edições gráficas: Porto City, Portugality, Literatura, Azulejo",
         "O Conceito de Segunda Vida: os recipientes tornam-se objetos decorativos após uso"
-      ]} />
-
-      <QuizBlock moduleId="products" questions={isEN ? [
-        { question: "What volume is each bottle in The 100's collection?", options: ["50ml", "100ml", "200ml", "750ml"], correct: 1 },
-        { question: "What are the two main wine categories?", options: ["Red and Rosé", "Tawny and White", "Sweet and Dry", "Young and Old"], correct: 1 },
-        { question: "What is the product name for the 10-year wine?", options: ["The Hundred", "The Icon", "Signature", "Legacy"], correct: 2 },
-        { question: "What is the Second Life Concept?", options: [
-          "Bottles are refilled after use",
-          "Old bottles are donated to museums",
-          "The container becomes a decorative object after the wine is consumed",
-          "Customers receive a second bottle for free"
-        ], correct: 2 },
-      ] : [
-        { question: "Qual é o volume de cada garrafa na coleção The 100's?", options: ["50ml", "100ml", "200ml", "750ml"], correct: 1 },
-        { question: "Quais são as duas categorias principais de vinho?", options: ["Tinto e Rosé", "Tawny e Branco", "Doce e Seco", "Jovem e Velho"], correct: 1 },
-        { question: "Qual é o nome do produto para o vinho de 10 anos?", options: ["The Hundred", "The Icon", "Signature", "Legacy"], correct: 2 },
-        { question: "O que é o Conceito de Segunda Vida?", options: [
-          "As garrafas são recarregadas após uso",
-          "As garrafas antigas são doadas a museus",
-          "O recipiente torna-se um objeto decorativo após o vinho ser consumido",
-          "Os clientes recebem uma segunda garrafa gratuitamente"
-        ], correct: 2 },
       ]} />
 
       <ModuleQuizGate

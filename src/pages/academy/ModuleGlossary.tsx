@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import portWineImg from "@/assets/academy/port-wine-pour.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -176,16 +176,6 @@ const ModuleGlossary = () => {
         "Conhece a diferença entre Tawny (envelhecido em madeira, âmbar) e Ruby (envelhecido em tanque, vermelho)",
         "Memory Capsule, Segunda Vida e Carimbo de Tempo são os três conceitos que deves saber articular",
         "Cortiça, Cerâmica, Latão, Nogueira e Carvalho — conhece a hierarquia de materiais da gama",
-      ]} />
-
-      <QuizBlock moduleId="glossary" questions={isEN ? [
-        { question: "What is 'fortification' in Port wine production?", options: ["Adding sugar to increase sweetness", "Adding grape spirit to stop fermentation", "Ageing in oak barrels for decades", "Blending wines from different years"], correct: 1 },
-        { question: "What does the term 'Second Life' refer to at The 100's?", options: ["A second glass of wine for free", "Recycling empty bottles", "The container becoming a decorative object after consumption", "Buying a second bottle at a discount"], correct: 2 },
-        { question: "What material is directly connected to Port wine ageing barrels?", options: ["Cork", "Ceramic", "Brass", "Oak wood"], correct: 3 },
-      ] : [
-        { question: "O que é a 'fortificação' na produção de Vinho do Porto?", options: ["Adicionar açúcar para aumentar a doçura", "Adicionar aguardente para parar a fermentação", "Envelhecer em barris de carvalho durante décadas", "Misturar vinhos de diferentes anos"], correct: 1 },
-        { question: "O que significa o termo 'Segunda Vida' no The 100's?", options: ["Um segundo copo de vinho grátis", "Reciclar garrafas vazias", "O recipiente tornar-se objeto decorativo após consumo", "Comprar uma segunda garrafa com desconto"], correct: 2 },
-        { question: "Que material está diretamente ligado aos barris de envelhecimento do Vinho do Porto?", options: ["Cortiça", "Cerâmica", "Latão", "Madeira de carvalho"], correct: 3 },
       ]} />
 
       <ModuleQuizGate

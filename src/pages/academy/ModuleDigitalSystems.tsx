@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Monitor, Smartphone, MessageSquare, Database, ShoppingCart } from "lucide-react";
@@ -202,18 +202,6 @@ const ModuleDigitalSystems = () => {
         "CRM Zoho: registar cada interação para construir perfis e permitir personalização",
         "Shopify/Omnium: trata de e-commerce e envio internacional (Send a Memory)",
         "Tecnologia permite melhor serviço, nunca substitui — sempre usa sistemas para aprimorar conexão humana",
-      ]} />
-
-      <QuizBlock moduleId="digital-systems" questions={isEN ? [
-        { question: "What are the two main uses of floor tablets?", options: ["Gaming and entertainment", "Stock check and mobile payments", "Social media browsing", "Customer complaints"], correct: 1 },
-        { question: "When should you redirect an AI Concierge chat to a human staff member?", options: ["Never", "Always", "When there's a complex issue or personal request", "Only on weekends"], correct: 2 },
-        { question: "What is the primary purpose of logging data in CRM Zoho?", options: ["Track employee hours", "Build customer profiles for personalization", "Calculate sales taxes", "Store company secrets"], correct: 1 },
-        { question: "Which system handles international shipping for Send a Memory?", options: ["POS WinMax4", "CRM Zoho", "Omnium", "AI Concierge"], correct: 2 },
-      ] : [
-        { question: "Quais são os dois usos principais dos tablets de chão?", options: ["Jogos e entretenimento", "Verificação de stock e pagamentos móveis", "Navegação nas redes sociais", "Reclamações de clientes"], correct: 1 },
-        { question: "Quando devias redirecionar um chat AI Concierge para um membro da equipa?", options: ["Nunca", "Sempre", "Quando há um problema complexo ou pedido pessoal", "Apenas nos fins de semana"], correct: 2 },
-        { question: "Qual é o objetivo principal de registar dados no CRM Zoho?", options: ["Rastrear horas dos funcionários", "Construir perfis de clientes para personalização", "Calcular impostos sobre vendas", "Armazenar segredos da empresa"], correct: 1 },
-        { question: "Qual sistema trata do envio internacional para Send a Memory?", options: ["POS WinMax4", "CRM Zoho", "Omnium", "AI Concierge"], correct: 2 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [

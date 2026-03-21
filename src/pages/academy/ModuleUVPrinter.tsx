@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Printer, Zap } from "lucide-react";
@@ -191,16 +191,6 @@ const ModuleUVPrinter = () => {
         "Formatos de ficheiro: PNG, PDF, JPG a 300 DPI mínimo",
         "Tinta curada a UV é permanente, resistente à água e resistente a arranhões",
         "Transforma a personalização num momento WOW mostrando a pré-visualização, explicando tecnologia, imprimindo à sua frente e embrulhando com cerimónia",
-      ]} />
-
-      <QuizBlock moduleId="uv-printer" questions={isEN ? [
-        { question: "What does UV stand for in UV printing?", options: ["Ultra Value", "Ultraviolet", "Ultra Vertical", "Universal Vinyl"], correct: 1 },
-        { question: "How long does UV ink take to dry?", options: ["24 hours", "30 minutes", "Instantly (no drying time)", "1 hour"], correct: 2 },
-        { question: "What file formats are accepted for UV printing?", options: ["Word documents", "PNG, PDF, JPG", "Only JPG", "PNG only"], correct: 1 },
-      ] : [
-        { question: "O que significa UV na impressão UV?", options: ["Ultra Valor", "Ultravioleta", "Ultra Vertical", "Vinil Universal"], correct: 1 },
-        { question: "Quanto tempo leva a tinta UV a secar?", options: ["24 horas", "30 minutos", "Instantaneamente (sem tempo de secagem)", "1 hora"], correct: 2 },
-        { question: "Que formatos de ficheiro são aceitos para impressão UV?", options: ["Documentos Word", "PNG, PDF, JPG", "Apenas JPG", "PNG apenas"], correct: 1 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [

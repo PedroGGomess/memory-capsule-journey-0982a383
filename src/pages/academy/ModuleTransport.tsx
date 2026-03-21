@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Plane, AlertCircle } from "lucide-react";
@@ -167,16 +167,6 @@ const ModuleTransport = () => {
         "Send a Memory é envio internacional premium — remove todas as preocupações logísticas",
         "Use as opções de transporte para upsell: se a bagagem está cheia, oferece Send a Memory",
         "Sempre explica a solução na língua do cliente — torna-o simples e sem stress",
-      ]} />
-
-      <QuizBlock moduleId="transport-rules" questions={isEN ? [
-        { question: "What is the TSA liquid rule for carry-on?", options: ["No liquids allowed", "100ml containers, 1 liter max", "200ml containers, 2 liters max", "Any amount in checked baggage"], correct: 1 },
-        { question: "Can a tourist carry a 100ml bottle through TSA security?", options: ["Yes, in carry-on", "Only if unopened", "Only in checked baggage", "Never"], correct: 2 },
-        { question: "What is the main advantage of 'Send a Memory'?", options: ["It's cheaper", "Unlimited quantity, no luggage limits, premium experience", "It's faster", "It's only for locals"], correct: 1 },
-      ] : [
-        { question: "Qual é a regra de líquidos TSA para mão?", options: ["Sem líquidos permitidos", "100ml por recipiente, 1 litro máx", "200ml por recipiente, 2 litros máx", "Qualquer quantidade em bagagem despachada"], correct: 1 },
-        { question: "Pode um turista transportar uma garrafa de 100ml através da segurança TSA?", options: ["Sim, na mão", "Apenas se fechada", "Apenas na bagagem despachada", "Nunca"], correct: 2 },
-        { question: "Qual é a principal vantagem do 'Send a Memory'?", options: ["É mais barato", "Quantidade ilimitada, sem limites de bagagem, experiência premium", "É mais rápido", "É apenas para locais"], correct: 1 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [

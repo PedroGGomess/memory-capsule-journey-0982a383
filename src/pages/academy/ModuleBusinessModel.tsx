@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import heroDrop from "@/assets/hero-drop.jpg";
@@ -208,29 +208,6 @@ const ModuleBusinessModel = () => {
       "Three business model pillars: Flagship stores, Satellite/Franchise (e.g. The 100s Sevilla, The 100s London), E-commerce",
       "'Send a Memory' allows the brand to reach customers globally",
       "Executive team: Rui Marques (CEO), Carla Machado (COO), Paulo Gonçalves (CMO/CPO), João Camarate (Innovation), Bruno Azevedo (CFO)"
-    ]} />
-
-    <QuizBlock moduleId="business-model" questions={[
-      {
-        question: "What are the three components of The 100's business model?",
-        options: [
-          "Wine, Design, Tourism",
-          "Flagship Stores, Satellite/Franchise, E-commerce",
-          "QR codes, WhatsApp, Digital funnels",
-          "Storytelling, Emotion, Memory"
-        ],
-        correct: 1,
-      },
-      {
-        question: "What does the 'Send a Memory' concept allow customers to do?",
-        options: [
-          "Return products for a refund",
-          "Send a digital postcard",
-          "Gift The 100's experience internationally",
-          "Subscribe to a wine club"
-        ],
-        correct: 2,
-      },
     ]} />
 
     <ReflectionBlock questions={[

@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Heart, TrendingUp, Gift, Users, MessageCircle, Target } from "lucide-react";
@@ -188,16 +188,6 @@ const ModuleClientCulture = () => {
         "A jornada de cinco fases: Captar → Explorar → Experimentar → Engagement → Compra",
         "Momentos WOW (cerimónia de embrulho, personalização, despedida) transformam visitantes em embaixadores",
         "Clientes satisfeitos tornam-se embaixadores da marca — trazem mais clientes através de boca-a-boca e partilha social",
-      ]} />
-
-      <QuizBlock moduleId="client-culture" questions={isEN ? [
-        { question: "What are the six pillars of client culture?", options: ["Speed, Price, Design, Quality", "Capture, Explore, Experience, Engagement, Purchase", "Client Importance, Expectation, Delight, Loyalty, Advocacy, Emotional Journey", "Online, Offline, Social, Reviews, Email"], correct: 2 },
-        { question: "Which stage is about making the experience sensory and emotional?", options: ["Capture", "Explore", "Experience", "Engagement"], correct: 2 },
-        { question: "What turns a satisfied client into an advocate?", options: ["A discount", "A WOW moment they didn't expect", "A survey", "A newsletter"], correct: 1 },
-      ] : [
-        { question: "Quais são os seis pilares da cultura de cliente?", options: ["Velocidade, Preço, Design, Qualidade", "Captar, Explorar, Experimentar, Engagement, Compra", "Importância, Expectativa, Encantamento, Fidelização, Advocacy, Jornada Emocional", "Online, Offline, Social, Reviews, Email"], correct: 2 },
-        { question: "Qual fase é sobre tornar a experiência sensória e emocional?", options: ["Captar", "Explorar", "Experimentar", "Engagement"], correct: 2 },
-        { question: "O que transforma um cliente satisfeito num embaixador?", options: ["Um desconto", "Um momento WOW que não esperavam", "Um inquérito", "Uma newsletter"], correct: 1 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [

@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import leadershipImg from "@/assets/academy/leadership.svg";
@@ -300,88 +300,6 @@ const ModuleLeadership = () => {
           isEN ? "Effective meetings (huddles, 1:1s, reviews) keep teams aligned and motivated" : "Reuniões eficazes (huddles, 1:1s, avaliações) mantêm as equipas alinhadas e motivadas",
           isEN ? "KPIs drive decisions — understand them and use data to improve" : "KPIs impulsionam decisões — compreende-as e usa dados para melhorar",
           isEN ? "Internal communication ensures alignment and builds psychological safety" : "Comunicação interna garante alinhamento e constrói segurança psicológica",
-        ]}
-      />
-
-      <QuizBlock
-        moduleId="leadership"
-        questions={[
-          {
-            question: isEN
-              ? "What is the primary goal of situational leadership?"
-              : "Qual é o objetivo principal da liderança situacional?",
-            options: isEN
-              ? [
-                  "To control team members strictly",
-                  "To adapt your style based on each person's maturity and the task",
-                  "To be the same leader for everyone",
-                  "To avoid providing feedback",
-                ]
-              : [
-                  "Controlar rigorosamente os membros da equipa",
-                  "Adaptar o teu estilo com base na maturidade de cada pessoa e na tarefa",
-                  "Ser o mesmo líder para todos",
-                  "Evitar fornecer feedback",
-                ],
-            correct: 1,
-          },
-          {
-            question: isEN
-              ? "When resolving a conflict, what should you do first?"
-              : "Ao resolver um conflito, o que deves fazer em primeiro lugar?",
-            options: isEN
-              ? [
-                  "Make a decision immediately",
-                  "Listen to all perspectives without judgment",
-                  "Punish the person at fault",
-                  "Ignore it and hope it goes away",
-                ]
-              : [
-                  "Tomar uma decisão imediatamente",
-                  "Ouvir todas as perspetivas sem julgamento",
-                  "Punir a pessoa culpada",
-                  "Ignorar e esperar que desapareça",
-                ],
-            correct: 1,
-          },
-          {
-            question: isEN
-              ? "What is the purpose of mystery client evaluations?"
-              : "Qual é o objetivo das avaliações de cliente mistério?",
-            options: isEN
-              ? [
-                  "To catch team members doing something wrong",
-                  "To provide unbiased feedback on service quality and brand consistency",
-                  "To reduce staff",
-                  "To test loyalty",
-                ]
-              : [
-                  "Apanhar membros da equipa a fazer algo errado",
-                  "Fornecer feedback imparcial sobre qualidade de serviço e consistência de marca",
-                  "Reduzir pessoal",
-                  "Testar lealdade",
-                ],
-            correct: 1,
-          },
-          {
-            question: isEN
-              ? "If your team's conversion rate is 10% (target is 15-20%), what should you focus on?"
-              : "Se a taxa de conversão da tua equipa é 10% (objetivo é 15-20%), em que deves focar?",
-            options: isEN
-              ? [
-                  "Accept the lower number and do nothing",
-                  "Immediately fire team members",
-                  "Analyze what's happening and coach the team on engagement, displays and pitch",
-                  "Reduce product prices",
-                ]
-              : [
-                  "Aceitar o número mais baixo e não fazer nada",
-                  "Despedir imediatamente membros da equipa",
-                  "Analisar o que está acontecendo e treinar a equipa em engagement, displays e pitch",
-                  "Reduzir preços de produtos",
-                ],
-            correct: 2,
-          },
         ]}
       />
 

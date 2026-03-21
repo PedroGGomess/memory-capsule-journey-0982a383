@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import tastingImg from "@/assets/academy/tasting-ritual.jpg";
 import portWineImg from "@/assets/academy/port-wine-pour.jpg";
@@ -328,16 +328,6 @@ const ModuleTastingGuide = () => {
         "Começa sempre pelos vinhos mais jovens e progride para os mais velhos — constrói a jornada",
         "Nunca forces uma venda. A experiência, a história e os materiais vendem o produto",
         "A despedida é tão importante como as boas-vindas — faz sentir que levam tempo com eles",
-      ]} />
-
-      <QuizBlock moduleId="tasting-guide" questions={isEN ? [
-        { question: "What should you say instead of 'Can I help you?'", options: ["'What are you looking for?'", "'Welcome to The 100's'", "'Would you like to buy something?'", "'Are you looking for wine?'"], correct: 1 },
-        { question: "In which order should you present wines during a tasting?", options: ["White first, then Tawny", "Oldest to youngest", "Youngest to oldest", "Random order for surprise"], correct: 2 },
-        { question: "A visitor says 'It's too expensive.' What's the best response?", options: ["Offer a discount", "Explain production costs", "Redirect to the emotional value of time sealed in the bottle", "Suggest the cheapest product"], correct: 2 },
-      ] : [
-        { question: "O que deves dizer em vez de 'Posso ajudar?'", options: ["'O que procura?'", "'Bem-vindo ao The 100's'", "'Quer comprar algo?'", "'Está à procura de vinho?'"], correct: 1 },
-        { question: "Em que ordem deves apresentar os vinhos numa prova?", options: ["Branco primeiro, depois Tawny", "Do mais velho para o mais novo", "Do mais novo para o mais velho", "Ordem aleatória para surpresa"], correct: 2 },
-        { question: "Um visitante diz 'É muito caro.' Qual a melhor resposta?", options: ["Oferecer desconto", "Explicar custos de produção", "Redirecionar para o valor emocional do tempo selado na garrafa", "Sugerir o produto mais barato"], correct: 2 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [

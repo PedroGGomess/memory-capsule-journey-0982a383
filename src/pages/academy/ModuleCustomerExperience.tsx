@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ReflectionBlock, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import hedonismImg from "@/assets/hedonism.jpg";
 
@@ -71,14 +71,6 @@ const ModuleCustomerExperience = () => {
         "Três princípios: Storytelling, Emoção, Experiência",
         "Cada interação deve parecer pessoal e sem pressa",
         "Pensa em guia de museu, não em assistente de loja"
-      ]} />
-
-      <QuizBlock moduleId="customer-experience" questions={isEN ? [
-        { question: "What is your primary role as a team member?", options: ["Salesperson", "Cashier", "Storyteller", "Manager"], correct: 2 },
-        { question: "Which of these is NOT one of the three principles?", options: ["Storytelling", "Efficiency", "Emotion", "Experience"], correct: 1 },
-      ] : [
-        { question: "Qual é o teu papel principal como membro da equipa?", options: ["Vendedor", "Caixa", "Contador de histórias", "Gestor"], correct: 2 },
-        { question: "Qual destes NÃO é um dos três princípios?", options: ["Storytelling", "Eficiência", "Emoção", "Experiência"], correct: 1 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [

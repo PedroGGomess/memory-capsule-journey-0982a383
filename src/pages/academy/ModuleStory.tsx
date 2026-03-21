@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import douroValleyImg from "@/assets/douro-valley.jpg";
 import heroDropImg from "@/assets/hero-drop.jpg";
@@ -133,16 +133,6 @@ const ModuleStory = () => {
         "A marca inspira-se em mais de 400 anos de herança do Vinho do Porto",
         "Cinco pilares sensoriais: Descoberta, Tempo, Singularidade, Hedonismo, Memória",
         "O Conceito de Segunda Vida: a embalagem continua como decoração após o vinho ser consumido"
-      ]} />
-
-      <QuizBlock moduleId="story" questions={isEN ? [
-        { question: "What is the core concept of The 100's?", options: ["A wine shop", "A Memory Capsule", "A restaurant", "A museum"], correct: 1 },
-        { question: "How many years of Port wine heritage inspires the brand?", options: ["100 years", "200 years", "400 years", "50 years"], correct: 2 },
-        { question: "What is the name of the flagship store designation?", options: ["THE WINE HOUSE", "THE HOUSE OF 100S", "THE MEMORY VAULT", "THE PORT HOUSE"], correct: 1 },
-      ] : [
-        { question: "Qual é o conceito central do The 100's?", options: ["Uma loja de vinho", "Uma Cápsula de Memória", "Um restaurante", "Um museu"], correct: 1 },
-        { question: "Quantos anos de herança do Vinho do Porto inspiram a marca?", options: ["100 anos", "200 anos", "400 anos", "50 anos"], correct: 2 },
-        { question: "Qual é a designação da loja principal?", options: ["THE WINE HOUSE", "THE HOUSE OF 100S", "THE MEMORY VAULT", "THE PORT HOUSE"], correct: 1 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [

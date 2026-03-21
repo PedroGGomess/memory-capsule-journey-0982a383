@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import teamOpsImg from "@/assets/academy/team-ops.svg";
@@ -353,69 +353,6 @@ const ModuleTeamOps = () => {
           isEN
             ? "KPIs are tools for improvement, not punishment — use them to guide decisions"
             : "KPIs são ferramentas para melhoria, não punição — usa-as para guiar decisões",
-        ]}
-      />
-
-      <QuizBlock
-        moduleId="team-ops"
-        questions={[
-          {
-            question: isEN
-              ? "When planning shifts, what is the primary benefit of pairing experienced staff with newer team members?"
-              : "Ao planear turnos, qual é o benefício principal de emparelhar pessoal experiente com membros novos?",
-            options: isEN
-              ? [
-                  "It reduces payroll costs",
-                  "Knowledge transfers naturally and reduces dependency on one person",
-                  "It makes scheduling easier",
-                  "It discourages staff from asking questions",
-                ]
-              : [
-                  "Reduz custos de folha de pagamento",
-                  "Transferência de conhecimento acontece naturalmente e reduz dependência de uma pessoa",
-                  "Torna agendamento mais fácil",
-                  "Desencoraja pessoal de fazer perguntas",
-                ],
-            correct: 1,
-          },
-          {
-            question: isEN
-              ? "What is the key principle of giving constructive feedback?"
-              : "Qual é o princípio-chave de fornecer feedback construtivo?",
-            options: isEN
-              ? [
-                  "Tell them everything they did wrong at once",
-                  "Wait for formal reviews to give feedback",
-                  "Praise publicly, correct privately, be specific and solution-focused",
-                  "Only give feedback when you're disappointed",
-                ]
-              : [
-                  "Diz-lhes tudo que fizeram errado de uma vez",
-                  "Espera por avaliações formais para fornecer feedback",
-                  "Elogia em público, corrige em privado, sé específico e focado na solução",
-                  "Só fornece feedback quando estás desapontado",
-                ],
-            correct: 2,
-          },
-          {
-            question: isEN
-              ? "Which KPI directly measures how many customers make a purchase?"
-              : "Qual KPI mede diretamente quantos clientes fazem uma compra?",
-            options: isEN
-              ? [
-                  "Average Transaction Value",
-                  "Conversion Rate",
-                  "Daily Sales Target",
-                  "Customer Satisfaction",
-                ]
-              : [
-                  "Valor de Transação Médio",
-                  "Taxa de Conversão",
-                  "Objetivo de Vendas Diárias",
-                  "Satisfação do Cliente",
-                ],
-            correct: 1,
-          },
         ]}
       />
 

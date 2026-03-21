@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import hourglassImg from "@/assets/hourglass.jpg";
 import bottleImg from "@/assets/bottle-closeup.jpg";
@@ -158,14 +158,6 @@ const ModulePhilosophy = () => {
         "Memória — o propósito de cada produto é preservar um momento",
         "Cinco etapas experienciais: Descoberta, Tempo, Singularidade, Hedonismo, Memória",
         "A nossa filosofia: O tempo merece ser lembrado — e lembrado de forma bela"
-      ]} />
-
-      <QuizBlock moduleId="philosophy" questions={isEN ? [
-        { question: "What are the three fundamental ideas of The 100's philosophy?", options: ["Design, Craft, Heritage", "Time, Emotion, Memory", "Discovery, Hedonism, Singularity", "Wine, Place, Culture"], correct: 1 },
-        { question: "Which pillar celebrates the sensory experience of taste and color?", options: ["Singularity", "Hedonism", "Discovery", "Time"], correct: 1 },
-      ] : [
-        { question: "Quais são as três ideias fundamentais da filosofia do The 100's?", options: ["Design, Craft, Heritage", "Tempo, Emoção, Memória", "Descoberta, Hedonismo, Singularidade", "Vinho, Lugar, Cultura"], correct: 1 },
-        { question: "Qual pilar celebra a experiência sensorial do sabor e da cor?", options: ["Singularidade", "Hedonismo", "Descoberta", "Tempo"], correct: 1 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [

@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import vmImg from "@/assets/academy/visual-merchandising.jpg";
 import storeImg from "@/assets/store-interior.jpg";
@@ -341,16 +341,6 @@ const ModuleVisualMerchandising = () => {
         "Floresta de Cilindros é a exposição assinatura no Piso 1",
         "Seis regras visuais: Regra dos 2 Segundos, Princípio do Toque, Ângulo 45°, Hierarquia de Luz, Espaço Vazio, Camada de Aroma",
         "Checklist diário: 10 itens críticos da limpeza de vidros ao percurso completo da jornada",
-      ]} />
-
-      <QuizBlock moduleId="visual-merchandising" questions={isEN ? [
-        { question: "At what angle should products be displayed on shelves?", options: ["90° (vertical)", "0° (flat)", "45°", "30°"], correct: 2 },
-        { question: "What is the 'Floresta de Cilindros'?", options: ["A wine cellar in the basement", "An immersive display of cylindrical products on Floor 1", "A forest-themed exterior decoration", "The name of the store's ventilation system"], correct: 1 },
-        { question: "How many products can be stored in the basement storage area?", options: ["500", "850", "1,350", "2,000"], correct: 2 },
-      ] : [
-        { question: "A que ângulo devem os produtos ser expostos nas prateleiras?", options: ["90° (vertical)", "0° (plano)", "45°", "30°"], correct: 2 },
-        { question: "O que é a 'Floresta de Cilindros'?", options: ["Uma cave de vinho no subsolo", "Uma exposição imersiva de produtos cilíndricos no Piso 1", "Uma decoração exterior com tema de floresta", "O nome do sistema de ventilação da loja"], correct: 1 },
-        { question: "Quantos produtos podem ser armazenados no subsolo?", options: ["500", "850", "1.350", "2.000"], correct: 2 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [

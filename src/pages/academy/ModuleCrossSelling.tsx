@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import crossSellingImg from "@/assets/academy/cross-selling.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -248,16 +248,6 @@ const ModuleCrossSelling = () => {
         "Constrói a jornada de prova do jovem ao velho — deixa o tempo fazer a venda",
         "Conhece os quatro níveis de ticket: Entrada (€15-25), Standard (€25-50), Premium (€50-100), Luxo (€100+)",
         "A personalização é o upsell mais forte — transforma um produto numa memória insubstituível",
-      ]} />
-
-      <QuizBlock moduleId="cross-selling" questions={isEN ? [
-        { question: "A visitor says they don't drink alcohol. What's your best cross-sell move?", options: ["Suggest they buy for someone else", "Offer the olive oil in collectible packaging", "Show them the cheapest wine", "Tell them to come back another time"], correct: 1 },
-        { question: "What's the correct order for an Age Upgrade during tasting?", options: ["50yr → 30yr → 10yr", "Random for surprise", "10yr → 30yr → 50yr", "Start with the most expensive"], correct: 2 },
-        { question: "What is the most powerful upsell tool at The 100's?", options: ["Offering discounts", "Personalised Time Stamp engraving", "Showing social media reviews", "Comparing to competitor prices"], correct: 1 },
-      ] : [
-        { question: "Um visitante diz que não bebe álcool. Qual o melhor movimento de cross-sell?", options: ["Sugerir que compre para outra pessoa", "Oferecer o azeite em embalagem colecionável", "Mostrar o vinho mais barato", "Dizer para voltar noutra altura"], correct: 1 },
-        { question: "Qual a ordem correta para um Upgrade de Idade durante a prova?", options: ["50 anos → 30 anos → 10 anos", "Aleatório para surpresa", "10 anos → 30 anos → 50 anos", "Começar pelo mais caro"], correct: 2 },
-        { question: "Qual é a ferramenta de upsell mais poderosa no The 100's?", options: ["Oferecer descontos", "Gravação personalizada do Carimbo de Tempo", "Mostrar reviews das redes sociais", "Comparar com preços da concorrência"], correct: 1 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [

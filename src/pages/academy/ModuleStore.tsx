@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ReflectionBlock, QuizBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ImageBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import storeImg from "@/assets/store-interior.jpg";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -199,16 +199,6 @@ const ModuleStore = () => {
         "A prova usa gomas, gelatina ou pirulitos — inesperado, memorável, sensorial",
         "A Personalização grava um Carimbo de Tempo único diretamente na garrafa",
         "Inscrição de despedida no chão: visível apenas do ângulo perfeito sob um holofote escondido"
-      ]} />
-
-      <QuizBlock moduleId="store" questions={isEN ? [
-        { question: "What is visible in the shop window to attract visitors from the street?", options: ["A digital screen showing wine statistics", "A giant ampoule slowly releasing wine drop by drop", "A wall of product bottles", "A live tasting demonstration"], correct: 1 },
-        { question: "What happens exactly one year after a visitor leaves a message in the Memory Zone?", options: ["Their message appears on social media", "They receive a free bottle by post", "They receive an SMS or WhatsApp reminding them of the visit and offering a discount", "Their message is printed and framed"], correct: 2 },
-        { question: "What is the correct order of the six-zone customer journey?", options: ["Entrance, Window, Tasting, Purchase, Memory Zone, Personalisation", "Window, Entrance, Tasting, Memory Zone, Personalisation, Purchase", "Tasting, Entrance, Memory Zone, Window, Personalisation, Purchase", "Window, Tasting, Memory Zone, Entrance, Purchase, Personalisation"], correct: 1 },
-      ] : [
-        { question: "O que é visível na montra para atrair visitantes da rua?", options: ["Um ecrã digital com estatísticas de vinho", "Uma ampola gigante a libertar vinho gota a gota", "Uma parede de garrafas de produto", "Uma demonstração de prova ao vivo"], correct: 1 },
-        { question: "O que acontece exatamente um ano depois de um visitante deixar uma mensagem na Zona de Memória?", options: ["A mensagem aparece nas redes sociais", "Recebem uma garrafa grátis por correio", "Recebem um SMS ou WhatsApp a lembrá-los da visita e a oferecer um desconto", "A mensagem é impressa e emoldurada"], correct: 2 },
-        { question: "Qual é a ordem correta da jornada do cliente em seis zonas?", options: ["Entrada, Montra, Prova, Compra, Zona de Memória, Personalização", "Montra, Entrada, Prova, Zona de Memória, Personalização, Compra", "Prova, Entrada, Zona de Memória, Montra, Personalização, Compra", "Montra, Prova, Zona de Memória, Entrada, Compra, Personalização"], correct: 1 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [

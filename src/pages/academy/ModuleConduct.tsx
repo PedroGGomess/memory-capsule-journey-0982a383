@@ -1,4 +1,4 @@
-import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, QuizBlock, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
+import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 import conductImg from "@/assets/academy/conduct.svg";
@@ -138,16 +138,6 @@ const ModuleConduct = () => {
         "Confidencialidade é sagrada — nunca partilhes detalhes de clientes, dentro ou fora do trabalho",
         "Serviço premium é sobre intenção e presença — não apressar-te, totalmente envolvido",
         "Trata cada cliente com igual respeito e profissionalismo",
-      ]} />
-
-      <QuizBlock moduleId="conduct" questions={isEN ? [
-        { question: "What should your dress code reflect?", options: ["Current fashion trends", "Casual comfort", "Premium & elegant gallery aesthetic", "Whatever you feel like wearing"], correct: 2 },
-        { question: "Which body language signals defensiveness and should be avoided?", options: ["Hands visible", "Standing tall", "Crossing arms", "Maintaining eye contact"], correct: 2 },
-        { question: "What is the most important principle for confidentiality?", options: ["Only share with close friends", "Share positive stories on social media", "Never discuss client details outside of work", "Share only first names"], correct: 2 },
-      ] : [
-        { question: "O que deve o teu código de vestuário refletir?", options: ["Tendências de moda atuais", "Conforto casual", "Estética galeria premium & elegante", "O que quiseres usar"], correct: 2 },
-        { question: "Qual linguagem corporal sinaliza defensividade e deve ser evitada?", options: ["Mãos visíveis", "Ficar em pé ereto", "Cruzar braços", "Manter contacto visual"], correct: 2 },
-        { question: "Qual é o princípio mais importante para confidencialidade?", options: ["Partilha apenas com amigos próximos", "Partilha histórias positivas nas redes sociais", "Nunca discuta detalhes de clientes fora do trabalho", "Partilha apenas nomes próprios"], correct: 2 },
       ]} />
 
       <ReflectionBlock questions={isEN ? [
