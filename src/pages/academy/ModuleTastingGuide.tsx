@@ -37,7 +37,7 @@ const ModuleTastingGuide = () => {
       tips: [
         "Always start with the youngest (Tawny 10y) and progress to older (30y, 50y).",
         "Describe what they'll taste: 'Caramel, dried fruit, a hint of spice — the signature of decades in the barrel.'",
-        "Ask them to close their eyes: 'Now imagine 30 years condensed into this moment.'",
+        "Ask them to close their eyes: 'Now imagine 50 years condensed into this moment.'",
         "If they try the White: 'This one is lighter — honey, citrus, almonds. Summer in a capsule.'",
       ],
     },
@@ -99,7 +99,7 @@ const ModuleTastingGuide = () => {
       tips: [
         "Começa sempre pelo mais jovem (Tawny 10 anos) e progride para os mais velhos (30, 50 anos).",
         "Descreve o que vão provar: 'Caramelo, fruta seca, um toque de especiaria — a assinatura de décadas em barril.'",
-        "Pede-lhes para fechar os olhos: 'Agora imagina 30 anos condensados neste momento.'",
+        "Pede-lhes para fechar os olhos: 'Agora imagina 50 anos condensados neste momento.'",
         "Se provarem o Branco: 'Este é mais leve — mel, citrinos, amêndoas. O verão numa cápsula.'",
       ],
     },
@@ -303,7 +303,7 @@ const ModuleTastingGuide = () => {
         <p><strong>{isEN ? "\"It's too expensive\"" : "\"É muito caro\""}</strong></p>
         <p>{isEN
           ? "→ Never defend the price. Redirect: 'You're not buying a bottle of wine — you're buying a piece of time. This Tawny has been aging for 30 years, waiting for this exact moment.'"
-          : "→ Nunca defendas o preço. Redireciona: 'Não estás a comprar uma garrafa de vinho — estás a comprar um pedaço de tempo. Este Tawny envelheceu 30 anos, à espera deste momento exato.'"}</p>
+          : "→ Nunca defendas o preço. Redireciona: 'Não estás a comprar uma garrafa de vinho — estás a comprar um pedaço de tempo. Este Tawny envelheceu 50 anos, à espera deste momento exato.'"}</p>
         <p><strong>{isEN ? "\"I don't drink wine\"" : "\"Eu não bebo vinho\""}</strong></p>
         <p>{isEN
           ? "→ 'That's perfectly fine! The beauty of The 100's is the object itself. Many of our clients buy these as decorative pieces — candle holders, diffusers. And we have olive oil too.'"

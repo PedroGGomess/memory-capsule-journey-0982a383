@@ -34,14 +34,14 @@ const ModuleClientProfiles = () => {
       name: "Local Resident",
       desc: "Special gift, premium collections, loyalty building",
       price: "€80-375",
-      products: "Legacy, Icon",
+      products: "Signature, Icon",
       behavior: "Solo, wine knowledge, returns regularly",
     },
     {
       name: "Wine Connoisseur",
       desc: "Quality, rarity, technical language",
       price: "€110-1000",
-      products: "Legacy, Icon, HUNDRED",
+      products: "Icon, HUNDRED",
       behavior: "Technical questions, appreciates complexity",
     },
     {
@@ -91,14 +91,14 @@ const ModuleClientProfiles = () => {
       name: "Residente/Local",
       desc: "Presente especial, gamas superiores, fidelização",
       price: "€80-375",
-      products: "Legacy, Icon",
+      products: "Signature, Icon",
       behavior: "Sozinho, conhecimento de vinho, retorna regularmente",
     },
     {
       name: "Conhecedor de Vinhos",
       desc: "Qualidade, raridade, linguagem técnica",
       price: "€110-1000",
-      products: "Legacy, Icon, HUNDRED",
+      products: "Icon, HUNDRED",
       behavior: "Perguntas técnicas, aprecia complexidade",
     },
     {

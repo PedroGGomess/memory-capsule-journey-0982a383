@@ -35,7 +35,7 @@ const ModuleGlossary = () => {
     { term: "Palate", category: "Tasting", definition: "The taste sensations experienced in the mouth — sweetness, acidity, body, warmth. A great Tawny will be balanced between sweet richness and elegant dryness." },
     { term: "Dried Fruit Notes", category: "Tasting", definition: "Flavours of figs, dates, raisins, and apricots — characteristic of well-aged Tawny Port. These develop naturally through decades of oxidative ageing." },
     { term: "Oxidative Ageing", category: "Tasting", definition: "Controlled exposure to small amounts of oxygen in the barrel. This transforms the wine's colour, aroma and texture — it's what makes Tawny different from Ruby." },
-    { term: "Tawny Port", category: "Port Wine Types", definition: "Aged in wooden barrels, developing amber colour and complex flavours. The longer the ageing, the more refined: 10yr (Signature), 30yr (Legacy), 50yr (The Icon), 100yr (The Hundred)." },
+    { term: "Tawny Port", category: "Port Wine Types", definition: "Aged in wooden barrels, developing amber colour and complex flavours. The longer the ageing, the more refined: 10yr (Signature), 50yr (The Icon), 100yr (The Hundred)." },
     { term: "White Port", category: "Port Wine Types", definition: "Made from white grapes, offering lighter flavours — honey, citrus, almonds. Aged White Port develops extraordinary complexity and golden colour." },
     { term: "Ruby Port", category: "Port Wine Types", definition: "Aged in large tanks to preserve its deep red colour and fresh, fruity character. Young, vibrant, and the most accessible style of Port wine." },
     { term: "Sage Port / Vintage Tawny", category: "Port Wine Types", definition: "A Tawny from a single harvest year, aged in barrel. Combines the elegance of Tawny ageing with the specificity of a single vintage." },
@@ -64,7 +64,7 @@ const ModuleGlossary = () => {
     { term: "Paladar", category: "Prova", definition: "As sensações gustativas na boca — doçura, acidez, corpo, calor. Um grande Tawny será equilibrado entre riqueza doce e secura elegante." },
     { term: "Notas de Fruta Seca", category: "Prova", definition: "Sabores de figos, tâmaras, passas e damascos — característicos do Tawny bem envelhecido. Desenvolvem-se naturalmente através de décadas de envelhecimento oxidativo." },
     { term: "Envelhecimento Oxidativo", category: "Prova", definition: "Exposição controlada a pequenas quantidades de oxigénio no barril. Transforma a cor, aroma e textura — é o que torna o Tawny diferente do Ruby." },
-    { term: "Porto Tawny", category: "Tipos de Vinho do Porto", definition: "Envelhecido em barris de madeira, desenvolvendo cor âmbar e sabores complexos. Quanto mais envelhecimento, mais refinado: 10 anos (Signature), 30 anos (Legacy), 50 anos (The Icon), 100 anos (The Hundred)." },
+    { term: "Porto Tawny", category: "Tipos de Vinho do Porto", definition: "Envelhecido em barris de madeira, desenvolvendo cor âmbar e sabores complexos. Quanto mais envelhecimento, mais refinado: 10 anos (Signature), 50 anos (The Icon), 100 anos (The Hundred)." },
     { term: "Porto Branco", category: "Tipos de Vinho do Porto", definition: "Feito de uvas brancas, com sabores mais leves — mel, citrinos, amêndoas. O Branco envelhecido desenvolve complexidade extraordinária e cor dourada." },
     { term: "Porto Ruby", category: "Tipos de Vinho do Porto", definition: "Envelhecido em grandes tanques para preservar a cor vermelha profunda e carácter fresco e frutado. Jovem, vibrante e o estilo mais acessível de Vinho do Porto." },
     { term: "Porto Colheita", category: "Tipos de Vinho do Porto", definition: "Um Tawny de um único ano, envelhecido em barril. Combina a elegância do envelhecimento Tawny com a especificidade de uma colheita." },
@@ -167,13 +167,13 @@ const ModuleGlossary = () => {
       <KeyTakeaway items={isEN ? [
         "28 essential terms across 5 categories: Wine Making, Tasting, Port Types, The 100's Brand, and Materials",
         "Terroir, Fortification and Barrel Ageing are the three pillars of Port wine production",
-        "Know the difference between Tawny (wood-aged, amber) and Ruby (tank-aged, red)",
+        "Know the difference between Tawny (wood-aged, amber), Ruby (tank-aged, red) and White Port (honey, citrus, almonds)",
         "Memory Capsule, Second Life and Time Stamp are the three brand concepts you must articulate",
         "Cork, Ceramic, Brass, Walnut and Oak — know the material hierarchy of the product range",
       ] : [
         "28 termos essenciais em 5 categorias: Vinificação, Prova, Tipos de Porto, Marca The 100's e Materiais",
         "Terroir, Fortificação e Envelhecimento em Barril são os três pilares da produção de Vinho do Porto",
-        "Conhece a diferença entre Tawny (envelhecido em madeira, âmbar) e Ruby (envelhecido em tanque, vermelho)",
+        "Conhece a diferença entre Tawny (madeira, âmbar), Ruby (tanque, vermelho) e Porto Branco (mel, citrinos, amêndoas)",
         "Memory Capsule, Segunda Vida e Carimbo de Tempo são os três conceitos que deves saber articular",
         "Cortiça, Cerâmica, Latão, Nogueira e Carvalho — conhece a hierarquia de materiais da gama",
       ]} />

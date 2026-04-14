@@ -12,16 +12,16 @@ const ModuleGift = () => {
     { name: "Cylinder — Two Caps", desc: "Ceramic body with cork top caps. A timeless cylindrical design.", price: "Wine 10yr from €29.99 · Olive Oil from €34.99", range: "Signature (10yr) · Olive Oil" },
     { name: "Cylinder — Full Cork", desc: "Fully cork-clad cylinder. Natural, tactile, warm.", price: "Wine 10yr from €49.99 · Olive Oil from €54.99", range: "Signature (10yr) · Olive Oil" },
     { name: "Cube / Square — Two Caps", desc: "Ceramic body with cork top and base. Geometric precision meets natural warmth.", price: "Wine 10yr from €69.99 · Olive Oil from €74.99", range: "Signature (10yr) · Olive Oil" },
-    { name: "Cube — Full Cork", desc: "Fully cork-clad cube with neodymium magnets. From Signature to The Icon.", price: "Wine 10yr from €99.99 — up to €275 (50yr The Icon)", range: "Signature · Legacy · The Icon" },
-    { name: "Cube — Oak Wood (Dark/Natural) + Cork/Brass", desc: "Premium oak wood cube with cork or brass accents. Ideal for Legacy and Very Very Old editions.", price: "Legacy (30yr) from €230 — up to €1,000 (Very Very Old)", range: "Legacy · The Icon · The Hundred" },
+    { name: "Cube — Full Cork", desc: "Fully cork-clad cube with neodymium magnets. From Signature to The Icon.", price: "Wine 10yr from €99.99 — up to €275 (50yr The Icon)", range: "Signature · The Icon" },
+    { name: "Cube — Oak Wood (Dark/Natural) + Cork/Brass", desc: "Premium oak wood cube with cork or brass accents. Ideal for The Icon and THE HUNDRED editions.", price: "From €275 (The Icon 50yr) — up to €1,000 (THE HUNDRED)", range: "The Icon · The Hundred" },
     { name: "Cube — Walnut Wood + Brass", desc: "The most prestigious format. Walnut and brass — the pinnacle of The 100's collection.", price: "Up to €1,000 (top editions)", range: "The Icon · The Hundred" },
   ] : [
     { name: "Entry Gift", desc: "Caixa de kraft/cartão com fecho. Simples, elegante, acessível.", price: "A partir de €19,99", range: "Young / Ruby Essentials" },
     { name: "Cilindro — Duas Tampas", desc: "Corpo de cerâmica com tampas de cortiça. Um design cilíndrico intemporal.", price: "Vinho 10a a partir de €29,99 · Azeite a partir de €34,99", range: "Signature (10a) · Azeite" },
     { name: "Cilindro — Cortiça Total", desc: "Cilindro totalmente revestido de cortiça. Natural, táctil, quente.", price: "Vinho 10a a partir de €49,99 · Azeite a partir de €54,99", range: "Signature (10a) · Azeite" },
     { name: "Cubo / Quadrado — Duas Tampas", desc: "Corpo de cerâmica com tampo e base de cortiça. Precisão geométrica encontra calor natural.", price: "Vinho 10a a partir de €69,99 · Azeite a partir de €74,99", range: "Signature (10a) · Azeite" },
-    { name: "Cubo — Cortiça Total", desc: "Cubo totalmente revestido de cortiça com ímanes de neodímio. De Signature a The Icon.", price: "Vinho 10a a partir de €99,99 — até €275 (50a The Icon)", range: "Signature · Legacy · The Icon" },
-    { name: "Cubo — Carvalho (Escuro/Natural) + Cortiça/Latão", desc: "Cubo de madeira de carvalho premium com acabamentos em cortiça ou latão.", price: "Legacy (30a) a partir de €230 — até €1.000 (Very Very Old)", range: "Legacy · The Icon · The Hundred" },
+    { name: "Cubo — Cortiça Total", desc: "Cubo totalmente revestido de cortiça com ímanes de neodímio. De Signature a The Icon.", price: "Vinho 10a a partir de €99,99 — até €275 (50a The Icon)", range: "Signature · The Icon" },
+    { name: "Cubo — Carvalho (Escuro/Natural) + Cortiça/Latão", desc: "Cubo de madeira de carvalho premium com acabamentos em cortiça ou latão.", price: "A partir de €275 (The Icon 50a) — até €1.000 (THE HUNDRED)", range: "The Icon · The Hundred" },
     { name: "Cubo — Nogueira + Latão", desc: "O formato mais prestigiado. Nogueira e latão — o pináculo da coleção The 100's.", price: "Até €1.000 (edições de topo)", range: "The Icon · The Hundred" },
   ];
 

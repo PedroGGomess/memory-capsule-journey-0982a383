@@ -19,7 +19,7 @@ const DAILY_TIPS = [
   { pt: "O turista americano quer impacto. O europeu quer autenticidade. Adapta a tua abordagem.", en: "The American tourist wants impact. The European wants authenticity. Adapt your approach." },
   { pt: "A personalização UV transforma uma compra numa memória — torna isto um momento especial.", en: "UV personalization transforms a purchase into a memory — make it a special moment." },
   { pt: "O silêncio é uma ferramenta de venda. Deixa o produto falar.", en: "Silence is a sales tool. Let the product speak." },
-  { pt: "Quando um cliente hesita no preço, fala do tempo: 'Este Tawny envelheceu 30 anos para este momento.'", en: "When a client hesitates on price, talk about time: 'This Tawny aged 30 years for this moment.'" },
+  { pt: "Quando um cliente hesita no preço, fala do tempo: 'Este Tawny envelheceu 50 anos para este momento.'", en: "When a client hesitates on price, talk about time: 'This Tawny aged 50 years for this moment.'" },
   { pt: "Pergunta sempre: 'Para quem é este presente?' — abre a porta ao upsell.", en: "Always ask: 'Who is this gift for?' — it opens the door to upselling." },
   { pt: "O conceito Second Life é o teu melhor argumento: 'Esta embalagem torna-se um objeto de decoração.'", en: "The Second Life concept is your best argument: 'This packaging becomes a décor piece.'" },
   { pt: "Memoriza 3 palavras em cada idioma: 'obrigado', 'bem-vindo', 'memória'. Faz toda a diferença.", en: "Memorize 3 words in each language: 'thank you', 'welcome', 'memory'. It makes all the difference." },

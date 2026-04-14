@@ -1,228 +1,380 @@
 import { ModuleLayout, ContentBlock, KeyTakeaway, ExpandableSection, ReflectionBlock, VideoBlock, ModuleQuizGate } from "@/components/ModuleComponents";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
-import { Monitor, Smartphone, MessageSquare, Database, ShoppingCart } from "lucide-react";
+import { Monitor, Smartphone, Tablet, MessageSquare, Database, ShoppingCart, Wifi, AlertTriangle } from "lucide-react";
 import digitalSystemsImg from "@/assets/academy/digital-systems.svg";
 
 const ModuleDigitalSystems = () => {
   const { language } = useLanguage();
   const isEN = language === "en";
 
-  const systems = isEN ? [
+  const hardwareItems = isEN ? [
     {
       icon: Monitor,
-      title: "POS WinMax4",
-      desc: "Point of Sale system",
-      details: "3 fixed terminals + 4 floor tablets (V3 Mix). Handles all payments, inventory, and transactions.",
+      title: "Sunmi D3 Pro",
+      badge: "Fixed POS · Piso 0",
+      desc: "Two fixed checkout terminals at the ground floor counter. This is the main transaction point — all payments, receipts, and fiscal documentation go through here. Windows-based, running WinMax4 (Omnium Retail).",
+      tips: [
+        "Always confirm the product code before confirming the sale",
+        "Use this terminal for all receipts and Tax Free processing",
+        "Fiscal invoice (fatura) is issued from here for corporate clients",
+      ],
     },
     {
       icon: Smartphone,
-      title: "Floor Tablets",
-      desc: "Mobile support & sales",
-      details: "Real-time stock check, payment processing, tasting notes, customer guidance. Use to bring WiFi-enabled sales anywhere in store.",
+      title: "Sunmi L3",
+      badge: "Handheld · All floors",
+      desc: "One per sales staff member (~5 units). These are your mobile command centres. Consult stock, process payments on the floor, show product information, and accompany the client throughout their journey — without ever leaving their side.",
+      tips: [
+        "Ideal for consultative sales in The Vault and The Numbered",
+        "Use to show product details and collections while walking the store",
+        "Processes card payments via integrated reader — no need to go to the counter",
+        "Connected to WinMax4 in real time — stock is always live",
+      ],
     },
     {
-      icon: MessageSquare,
-      title: "AI Concierge",
-      desc: "WhatsApp + GPT integration",
-      details: "WhatsApp bot, 3 specialized GPTs (Educational, Commercial, Operational). Know when to redirect customer to human.",
-    },
-    {
-      icon: Database,
-      title: "CRM Zoho",
-      desc: "Customer relationship management",
-      details: "Register client info, view history, schedule follow-ups, build loyalty profiles. Every sale is a data point.",
-    },
-    {
-      icon: ShoppingCart,
-      title: "Shopify/Omnium",
-      desc: "E-commerce & inventory",
-      details: "Real-time stock sync, Send a Memory workflow, international shipping. Unified inventory across channels.",
+      icon: Tablet,
+      title: "Sunmi CPad Pay",
+      badge: "Premium Tablet · Piso 1",
+      desc: "Two premium tablets positioned in The Vault and The Numbered zones on Piso 1. Designed for ceremonial, personalised sales interactions. The large screen allows you to showcase The Icon and THE HUNDRED collections with the gravity they deserve.",
+      tips: [
+        "Treat the CPad as a stage, not a checkout — present first, process second",
+        "Ideal for showing the full collection context before a €275–€1,000 sale",
+        "Use the screen to display wine details, age, and story before tasting",
+        "Payment processing runs through WinMax4 via the CPad Pay integration",
+      ],
     },
   ] : [
     {
       icon: Monitor,
-      title: "POS WinMax4",
-      desc: "Sistema de Ponto de Venda",
-      details: "3 terminais fixos + 4 tablets no chão (V3 Mix). Trata de todos os pagamentos, inventário e transações.",
+      title: "Sunmi D3 Pro",
+      badge: "POS Fixo · Piso 0",
+      desc: "Dois terminais de checkout fixos no balcão do piso térreo. Este é o ponto de transação principal — todos os pagamentos, recibos e documentação fiscal passam por aqui. Windows-based, a correr WinMax4 (Omnium Retail).",
+      tips: [
+        "Confirma sempre o código do produto antes de confirmar a venda",
+        "Usa este terminal para todos os recibos e processamento Tax Free",
+        "A fatura fiscal é emitida aqui para clientes empresariais",
+      ],
     },
     {
       icon: Smartphone,
-      title: "Tablets de Chão",
-      desc: "Suporte e vendas móveis",
-      details: "Verificação de stock em tempo real, processamento de pagamentos, notas de prova, orientação do cliente. Use para trazer vendas ativadas em WiFi em qualquer lugar da loja.",
+      title: "Sunmi L3",
+      badge: "Handheld · Todos os pisos",
+      desc: "Um por membro da equipa de vendas (~5 unidades). Os teus centros de comando móveis. Consulta stock, processa pagamentos no chão de loja, mostra informação de produtos e acompanha o cliente ao longo da sua jornada — sem sair do seu lado.",
+      tips: [
+        "Ideal para vendas consultivas em The Vault e The Numbered",
+        "Usa para mostrar detalhes e coleções enquanto percorres a loja",
+        "Processa pagamentos por cartão via leitor integrado — sem precisar ir ao balcão",
+        "Ligado ao WinMax4 em tempo real — o stock está sempre atualizado",
+      ],
     },
     {
-      icon: MessageSquare,
-      title: "AI Concierge",
-      desc: "Integração WhatsApp + GPT",
-      details: "Bot WhatsApp, 3 GPTs especializados (Educacional, Comercial, Operacional). Sabe quando redirecionar cliente para humano.",
-    },
-    {
-      icon: Database,
-      title: "CRM Zoho",
-      desc: "Gestão de relacionamento com cliente",
-      details: "Registar informações do cliente, ver histórico, agendar follow-ups, construir perfis de fidelização. Toda a venda é um ponto de dados.",
-    },
-    {
-      icon: ShoppingCart,
-      title: "Shopify/Omnium",
-      desc: "E-commerce & inventário",
-      details: "Sincronização de stock em tempo real, fluxo Send a Memory, envio internacional. Inventário unificado entre canais.",
+      icon: Tablet,
+      title: "Sunmi CPad Pay",
+      badge: "Tablet Premium · Piso 1",
+      desc: "Dois tablets premium posicionados em The Vault e The Numbered no Piso 1. Concebidos para interações de venda cerimoniais e personalizadas. O ecrã grande permite mostrar as coleções The Icon e THE HUNDRED com a gravidade que merecem.",
+      tips: [
+        "Trata o CPad como um palco, não como uma caixa — apresenta primeiro, processa depois",
+        "Ideal para mostrar o contexto completo da coleção antes de uma venda de €275–€1.000",
+        "Usa o ecrã para mostrar detalhes do vinho, idade e história antes da prova",
+        "O processamento de pagamentos corre através do WinMax4 via integração CPad Pay",
+      ],
     },
   ];
 
-  const botUsage = isEN ? [
-    { situation: "Customer: 'What ages do you have?'", action: "AI Concierge answers", detail: "Bot provides tasting notes, age ranges, pricing instantly" },
-    { situation: "Customer: 'Is this available internationally?'", action: "AI Concierge handles", detail: "Bot explains Send a Memory, shipping times, costs" },
-    { situation: "Customer: 'I need help with a technical issue'", action: "Redirect to staff", detail: "AI Concierge knows its limits and transfers to you" },
-    { situation: "Customer: 'Can you hold this for me?'", action: "Redirect to store staff", detail: "This requires human judgment and CRM access" },
+  const softwareItems = isEN ? [
+    {
+      icon: Monitor,
+      title: "WinMax4 (Omnium Retail)",
+      badge: "POS Software",
+      desc: "The source of truth for all stock and sales. Every transaction across all devices (D3 Pro, L3, CPad Pay) feeds into WinMax4. This is your inventory bible — if it's not in WinMax4, it doesn't exist.",
+      tips: [
+        "Stock is real-time across all devices — never guess availability",
+        "End-of-day reconciliation happens through WinMax4",
+        "Tax Free processing is built in — use it for all non-EU customers",
+      ],
+    },
+    {
+      icon: MessageSquare,
+      title: "AI Concierge",
+      badge: "WhatsApp + GPT",
+      desc: "WhatsApp-integrated bot with three specialised GPTs: Educational (product knowledge), Commercial (availability, pricing, Send a Memory), and Operational (hours, location, services). Handles pre-visit queries so you can focus on in-store experience.",
+      tips: [
+        "Know when to redirect: complex complaints, personalised requests, anything requiring human judgment",
+        "Never compete with the bot — let it handle FAQs, you handle humans",
+      ],
+    },
+    {
+      icon: Database,
+      title: "CRM Zoho",
+      badge: "Customer Profiles",
+      desc: "Log every significant customer interaction. A returning customer who once bought The Icon 50yr and receives a personalised follow-up two months later — that is the power of the CRM used correctly.",
+      tips: [
+        "Log: name, nationality, purchase, preferences, group type",
+        "Mark VIP clients — they deserve recognition on return",
+        "Zoho feeds the Send a Memory workflow for future touchpoints",
+      ],
+    },
+    {
+      icon: ShoppingCart,
+      title: "Omnium / Send a Memory",
+      badge: "E-commerce & Shipping",
+      desc: "International shipping and e-commerce backbone. Handles Send a Memory orders end-to-end: packaging, customs documentation, tracking. Unified inventory synced with WinMax4.",
+      tips: [
+        "Always offer Send a Memory when a client mentions luggage weight concerns",
+        "Customs documentation is handled automatically — no extra work for staff",
+        "Premium unboxing experience is included — make that clear to the client",
+      ],
+    },
   ] : [
-    { situation: "Cliente: 'Que idades têm?'", action: "AI Concierge responde", detail: "Bot fornece notas de prova, gamas de idade, preços instantaneamente" },
-    { situation: "Cliente: 'Isto está disponível internacionalmente?'", action: "AI Concierge trata", detail: "Bot explica Send a Memory, tempos de envio, custos" },
-    { situation: "Cliente: 'Preciso de ajuda com um problema técnico'", action: "Redirecionar para staff", detail: "AI Concierge conhece os seus limites e transfere para ti" },
-    { situation: "Cliente: 'Podes guardar isto para mim?'", action: "Redirecionar para staff", detail: "Isto requer julgamento humano e acesso CRM" },
+    {
+      icon: Monitor,
+      title: "WinMax4 (Omnium Retail)",
+      badge: "Software POS",
+      desc: "A fonte da verdade para todo o stock e vendas. Cada transação em todos os dispositivos (D3 Pro, L3, CPad Pay) alimenta o WinMax4. Esta é a tua bíblia de inventário — se não está no WinMax4, não existe.",
+      tips: [
+        "O stock é em tempo real em todos os dispositivos — nunca adivinhes a disponibilidade",
+        "A reconciliação de fim de dia acontece através do WinMax4",
+        "O processamento Tax Free está integrado — usa para todos os clientes não-UE",
+      ],
+    },
+    {
+      icon: MessageSquare,
+      title: "AI Concierge",
+      badge: "WhatsApp + GPT",
+      desc: "Bot integrado no WhatsApp com três GPTs especializados: Educacional (conhecimento de produto), Comercial (disponibilidade, preços, Send a Memory) e Operacional (horários, localização, serviços). Trata das consultas pré-visita para que te possas focar na experiência em loja.",
+      tips: [
+        "Sabe quando redirecionar: reclamações complexas, pedidos personalizados, qualquer coisa que exija julgamento humano",
+        "Nunca compitas com o bot — deixa-o tratar das FAQs, tu tratas dos humanos",
+      ],
+    },
+    {
+      icon: Database,
+      title: "CRM Zoho",
+      badge: "Perfis de Cliente",
+      desc: "Regista cada interação significativa com clientes. Um cliente recorrente que comprou The Icon 50a e recebe um follow-up personalizado dois meses depois — esse é o poder do CRM usado corretamente.",
+      tips: [
+        "Regista: nome, nacionalidade, compra, preferências, tipo de grupo",
+        "Marca clientes VIP — merecem reconhecimento no regresso",
+        "Zoho alimenta o fluxo Send a Memory para touchpoints futuros",
+      ],
+    },
+    {
+      icon: ShoppingCart,
+      title: "Omnium / Send a Memory",
+      badge: "E-commerce & Envio",
+      desc: "Backbone de e-commerce e envio internacional. Trata das encomendas Send a Memory de ponta a ponta: embalagem, documentação alfandegária, rastreamento. Inventário unificado sincronizado com o WinMax4.",
+      tips: [
+        "Oferece sempre Send a Memory quando um cliente menciona preocupações com peso de bagagem",
+        "A documentação alfandegária é tratada automaticamente — sem trabalho extra para a equipa",
+        "A experiência de desembalamento premium está incluída — deixa isso claro ao cliente",
+      ],
+    },
+  ];
+
+  const networkNote = isEN
+    ? "The store runs on a dedicated NOS Corporate fibre connection — not shared, not consumer-grade. If you experience connectivity issues on any device, report immediately to the team leader. Never process offline transactions without explicit authorisation."
+    : "A loja funciona numa ligação de fibra NOS Corporate dedicada — não partilhada, não de grau doméstico. Se tiveres problemas de conectividade em qualquer dispositivo, reporta imediatamente ao team leader. Nunca processe transações offline sem autorização explícita.";
+
+  const taxFreeSteps = isEN ? [
+    "Confirm client is non-EU resident (ask for passport)",
+    "Process the sale normally on WinMax4",
+    "Select 'Tax Free' option in the POS — it generates the required documentation",
+    "Client receives the stamped form at exit — they present it at the airport",
+    "Our 100ml format qualifies — no restriction on quantity in checked baggage",
+  ] : [
+    "Confirma que o cliente é residente fora da UE (pede passaporte)",
+    "Processa a venda normalmente no WinMax4",
+    "Seleciona a opção 'Tax Free' no POS — gera a documentação necessária",
+    "O cliente recebe o formulário carimbado na saída — apresenta-o no aeroporto",
+    "O nosso formato 100ml qualifica — sem restrição de quantidade na bagagem despachada",
   ];
 
   return (
     <ModuleLayout
       moduleId="digital-systems"
-      moduleNumber={16}
+      moduleNumber={18}
       title={isEN ? "Digital Systems & Tools" : "Digital & Sistemas"}
-      subtitle={isEN ? "Technology enables better service. Learn the tools, master the workflow." : "Tecnologia permite melhor serviço. Aprende as ferramentas, domina o fluxo."}
+      subtitle={isEN ? "Three Sunmi devices. One POS. Four software tools. Master them all." : "Três dispositivos Sunmi. Um POS. Quatro ferramentas de software. Domina todos."}
       heroImage={digitalSystemsImg}
     >
-      <ContentBlock title={isEN ? "Technology in the Premium Experience" : "Tecnologia na Experiência Premium"}>
+      <ContentBlock title={isEN ? "Technology Enables the Experience" : "A Tecnologia Activa a Experiência"}>
         <p>{isEN
-          ? "At The 100's, technology is not about automating away the human touch — it's about enhancing it. Our digital systems are designed to make your job easier, not replace you."
-          : "No The 100's, a tecnologia não é sobre automatizar o toque humano — é sobre aprimorá-lo. Os nossos sistemas digitais são projetados para tornar o teu trabalho mais fácil, não para te substituir."}</p>
+          ? "At The 100's, technology is not a back-office concern — it is on the sales floor, in your hands, and in every client interaction. The right device, used at the right moment, elevates the experience from transactional to ceremonial."
+          : "No The 100's, a tecnologia não é uma preocupação de back-office — está no chão de loja, nas tuas mãos e em cada interação com o cliente. O dispositivo certo, usado no momento certo, eleva a experiência de transacional a cerimonial."}</p>
         <p>{isEN
-          ? "Whether you're using a POS terminal, a floor tablet, or WhatsApp with our AI Concierge, the goal is always the same: give every customer an exceptional experience while capturing data that helps us serve them better next time."
-          : "Quer estejas a usar um terminal POS, um tablet no chão, ou WhatsApp com o nosso AI Concierge, o objetivo é sempre o mesmo: dar a cada cliente uma experiência excecional enquanto capturas dados que nos ajudam a servir melhor da próxima vez."}</p>
+          ? "Master three hardware devices and four software systems. That's all you need to run an exceptional operation."
+          : "Domina três dispositivos de hardware e quatro sistemas de software. É tudo o que precisas para operar de forma excecional."}</p>
       </ContentBlock>
 
       <VideoBlock
         title="Sistemas Digitais"
-        description="POS, tablets, CRM e ferramentas da loja."
+        description="Hardware Sunmi, WinMax4, CRM e ferramentas da loja."
         duration="11:30"
         poster={digitalSystemsImg}
       />
 
-      <ContentBlock title={isEN ? "The Five Core Digital Systems" : "Os Cinco Sistemas Digitais Principais"}>
+      {/* ── Hardware ── */}
+      <ContentBlock title={isEN ? "Hardware: The Three Devices" : "Hardware: Os Três Dispositivos"}>
         <p>{isEN
-          ? "Master these five systems and you'll have all the tools you need to deliver an exceptional, seamless experience."
-          : "Domina estes cinco sistemas e terás todas as ferramentas que precisas para entregar uma experiência excecional e perfeita."}</p>
+          ? "Each device has a specific role. Use the right one for the right context — this is what separates a premium experience from a generic one."
+          : "Cada dispositivo tem um papel específico. Usa o correto para o contexto correto — é o que separa uma experiência premium de uma genérica."}</p>
       </ContentBlock>
 
       <div className="space-y-4">
-        {systems.map((sys, i) => {
-          const Icon = sys.icon;
+        {hardwareItems.map((item, i) => {
+          const Icon = item.icon;
           return (
-            <ScrollReveal key={i} delay={i * 0.05}>
+            <ScrollReveal key={item.title} delay={i * 0.05}>
               <div className="border border-border/30 p-6 hover:border-primary/20 transition-all duration-500">
-                <div className="flex items-start gap-4 mb-3">
+                <div className="flex items-start gap-4 mb-4">
                   <div className="p-2.5 bg-primary/5 rounded-sm shrink-0">
                     <Icon className="w-5 h-5 text-primary/60" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-base font-light text-primary">{sys.title}</p>
-                    <p className="text-xs text-primary/50 tracking-widest uppercase mt-0.5">{sys.desc}</p>
+                    <div className="flex items-center gap-3 mb-0.5">
+                      <p className="text-base font-light text-primary">{item.title}</p>
+                      <span className="text-[9px] tracking-wider uppercase text-muted-foreground/50 border border-border/30 px-2 py-0.5">{item.badge}</span>
+                    </div>
+                    <p className="text-sm text-foreground/60 font-light leading-relaxed mt-1">{item.desc}</p>
                   </div>
                 </div>
-                <p className="text-sm text-foreground/60 font-light ml-14">{sys.details}</p>
+                <div className="ml-14 space-y-1.5 border-l border-border/20 pl-4">
+                  {item.tips.map((tip, j) => (
+                    <p key={j} className="text-xs text-muted-foreground/60 font-light">→ {tip}</p>
+                  ))}
+                </div>
               </div>
             </ScrollReveal>
           );
         })}
       </div>
 
-      <ExpandableSection title={isEN ? "POS & Floor Tablets: Day-to-Day Usage" : "POS & Tablets: Uso Diário"}>
-        <div className="space-y-4 text-sm text-foreground/70 font-light">
-          <p><span className="text-primary/70 font-medium">{isEN ? "POS WinMax4:" : "POS WinMax4:"}</span> {isEN ? "This is your main checkout system. Ring up sales, process payments (card, cash, mobile), print receipts. Tablets sync with the POS in real-time, so floor sales feed directly into inventory." : "Este é o teu sistema de checkout principal. Registar vendas, processar pagamentos (cartão, dinheiro, móvel), imprimir recibos. Os tablets sincronizam com o POS em tempo real, para que as vendas no chão alimentem o inventário diretamente."}</p>
-          <p><span className="text-primary/70 font-medium">{isEN ? "Floor Tablets:" : "Tablets de Chão:"}</span> {isEN ? "Use these to check stock while with a customer, show product details, process mobile payments, and enter personalization info. They're WiFi-connected and always in sync." : "Use-os para verificar o stock enquanto está com um cliente, mostrar detalhes do produto, processar pagamentos móveis e introduzir informações de personalização. Estão conectados a WiFi e sempre sincronizados."}</p>
-        </div>
-      </ExpandableSection>
-
-      <ContentBlock title={isEN ? "AI Concierge: Your Digital Assistant" : "AI Concierge: O Teu Assistente Digital"}>
+      {/* ── Software ── */}
+      <ContentBlock title={isEN ? "Software: The Four Systems" : "Software: Os Quatro Sistemas"}>
         <p>{isEN
-          ? "The AI Concierge is our WhatsApp-integrated chatbot powered by three specialized GPTs. It handles customer questions before they even visit, and answers common questions while you focus on high-touch customer service."
-          : "O AI Concierge é o nosso chatbot integrado no WhatsApp alimentado por três GPTs especializados. Ele trata das questões dos clientes antes de visitarem, e responde às perguntas comuns enquanto tu te concentras no serviço personalizado."}</p>
+          ? "WinMax4 is the source of truth. Everything else integrates with it. Know each system's role — and when to use which."
+          : "WinMax4 é a fonte da verdade. Tudo o resto integra com ele. Conhece o papel de cada sistema — e quando usar qual."}</p>
       </ContentBlock>
 
-      <div className="space-y-3">
-        {botUsage.map((item, i) => (
-          <ScrollReveal key={i} delay={i * 0.05}>
-            <div className="border border-border/30 p-4 hover:border-primary/20 transition-all duration-500">
-              <p className="text-xs text-primary/60 uppercase tracking-wider mb-2">{isEN ? "Scenario" : "Cenário"}</p>
-              <p className="text-sm text-foreground/70 font-light mb-2">{item.situation}</p>
-              <p className="text-xs text-primary/70 font-medium mb-1">{item.action}</p>
-              <p className="text-xs text-foreground/60 font-light">{item.detail}</p>
-            </div>
-          </ScrollReveal>
-        ))}
+      <div className="space-y-4">
+        {softwareItems.map((item, i) => {
+          const Icon = item.icon;
+          return (
+            <ScrollReveal key={item.title} delay={i * 0.05}>
+              <div className="border border-border/30 p-6 hover:border-primary/20 transition-all duration-500">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="p-2.5 bg-primary/5 rounded-sm shrink-0">
+                    <Icon className="w-5 h-5 text-primary/60" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-0.5">
+                      <p className="text-base font-light text-primary">{item.title}</p>
+                      <span className="text-[9px] tracking-wider uppercase text-muted-foreground/50 border border-border/30 px-2 py-0.5">{item.badge}</span>
+                    </div>
+                    <p className="text-sm text-foreground/60 font-light leading-relaxed mt-1">{item.desc}</p>
+                  </div>
+                </div>
+                <div className="ml-14 space-y-1.5 border-l border-border/20 pl-4">
+                  {item.tips.map((tip, j) => (
+                    <p key={j} className="text-xs text-muted-foreground/60 font-light">→ {tip}</p>
+                  ))}
+                </div>
+              </div>
+            </ScrollReveal>
+          );
+        })}
       </div>
 
-      <ExpandableSection title={isEN ? "CRM Zoho: Building Customer Profiles" : "CRM Zoho: Construindo Perfis de Cliente"}>
-        <div className="space-y-3 text-sm text-foreground/70 font-light">
-          <p>{isEN
-            ? "Every customer interaction is an opportunity to learn. Use CRM Zoho to:"
-            : "Cada interação com cliente é uma oportunidade de aprender. Use o CRM Zoho para:"}</p>
-          <ul className="space-y-1 ml-4">
-            <li>• {isEN ? "Log new customer info (name, email, preferences, purchase history)" : "Registar informações de novo cliente (nome, email, preferências, histórico de compras)"}</li>
-            <li>• {isEN ? "Record what they bought and when — this informs future recommendations" : "Registar o que compraram e quando — isto informa recomendações futuras"}</li>
-            <li>• {isEN ? "Note if they're international, local, returning, or a group" : "Notar se são internacionais, locais, de retorno, ou grupo"}</li>
-            <li>• {isEN ? "Schedule follow-ups for repeat customers (loyalty birthdays, anniversary messages)" : "Agendar follow-ups para clientes repetidos (aniversários de fidelização, mensagens de aniversário)"}</li>
-            <li>• {isEN ? "Build segments for marketing (e.g., 'American tourists' to target for ads)" : "Construir segmentos para marketing (por exemplo, 'turistas americanos' para direcionar para anúncios)"}</li>
-          </ul>
+      {/* ── Network ── */}
+      <div className="border border-amber-500/20 bg-amber-950/10 p-5 flex items-start gap-3">
+        <AlertTriangle className="w-4 h-4 text-amber-500/60 shrink-0 mt-0.5" />
+        <div>
+          <p className="text-xs text-amber-500/70 font-medium tracking-wider uppercase mb-1">{isEN ? "Network" : "Rede"}</p>
+          <p className="text-sm text-foreground/60 font-light leading-relaxed">{networkNote}</p>
+        </div>
+      </div>
+
+      {/* ── Tax Free ── */}
+      <ExpandableSection title={isEN ? "Tax Free: Step-by-Step" : "Tax Free: Passo a Passo"}>
+        <p className="text-sm text-foreground/60 font-light mb-4">
+          {isEN
+            ? "Tax Free is a strong sales argument for non-EU tourists — and a process that must be done correctly."
+            : "O Tax Free é um forte argumento de venda para turistas fora da UE — e um processo que tem de ser feito corretamente."}
+        </p>
+        <div className="space-y-2">
+          {taxFreeSteps.map((step, i) => (
+            <div key={i} className="flex items-start gap-3 border border-border/20 p-3">
+              <span className="text-xs text-primary/50 font-light w-4 shrink-0">{i + 1}</span>
+              <p className="text-sm text-foreground/60 font-light">{step}</p>
+            </div>
+          ))}
         </div>
       </ExpandableSection>
 
-      <ContentBlock title={isEN ? "Shopify/Omnium: Send a Memory Workflow" : "Shopify/Omnium: Fluxo Send a Memory"}>
-        <p>{isEN
-          ? "Shopify handles our e-commerce, Omnium handles international shipping logistics. When a customer chooses Send a Memory:"
-          : "Shopify trata do nosso e-commerce, Omnium trata da logística de envio internacional. Quando um cliente escolhe Send a Memory:"}</p>
-        <p className="text-sm text-foreground/70 mt-2">{isEN
-          ? "1) You process their order in the system 2) They select destination and shipping method 3) Omnium generates customs documentation 4) Package is tracked and shipped 5) Customer receives premium unboxing experience"
-          : "1) Tu processa o pedido no sistema 2) Escolhem destino e método de envio 3) Omnium gera documentação de alfândega 4) Pacote é rastreado e enviado 5) Cliente recebe experiência de desembalamento premium"}</p>
-      </ContentBlock>
-
       <KeyTakeaway items={isEN ? [
-        "Five core systems: POS WinMax4, Floor Tablets, AI Concierge, CRM Zoho, Shopify/Omnium",
-        "POS: checkout and payment processing. Tablets: stock check, mobile payments, personalization info",
-        "AI Concierge: WhatsApp bot handles common questions and redirects when needed",
-        "Know when the AI bot should redirect: complex issues, personal requests, anything requiring human judgment",
-        "CRM Zoho: log every customer interaction to build profiles and enable personalization",
-        "Shopify/Omnium: handles e-commerce and international shipping (Send a Memory)",
-        "Technology enables better service, never replaces it — always use systems to enhance human connection",
+        "Three hardware devices: Sunmi D3 Pro (fixed POS, Piso 0), Sunmi L3 (handheld, all floors), Sunmi CPad Pay (premium tablet, Piso 1)",
+        "WinMax4 (Omnium Retail) is the POS software and source of truth for all stock — runs on all devices",
+        "L3 handhelds enable consultative mobile sales — follow the client, process payments anywhere",
+        "CPad Pay is ceremonial — use it in The Vault and The Numbered to elevate the experience",
+        "AI Concierge (WhatsApp) handles pre-visit FAQs — redirect to humans for complex or personal needs",
+        "CRM Zoho: log every significant interaction to enable personalised follow-up",
+        "Tax Free: always offer to non-EU clients — processed directly through WinMax4",
+        "Network: NOS Corporate dedicated fibre — report any connectivity issue immediately",
       ] : [
-        "Cinco sistemas principais: POS WinMax4, Tablets, AI Concierge, CRM Zoho, Shopify/Omnium",
-        "POS: checkout e processamento de pagamentos. Tablets: verificação de stock, pagamentos móveis, info de personalização",
-        "AI Concierge: bot WhatsApp trata das perguntas comuns e redireciona quando necessário",
-        "Sabe quando o bot IA deve redirecionar: problemas complexos, pedidos pessoais, qualquer coisa que requeira julgamento humano",
-        "CRM Zoho: registar cada interação para construir perfis e permitir personalização",
-        "Shopify/Omnium: trata de e-commerce e envio internacional (Send a Memory)",
-        "Tecnologia permite melhor serviço, nunca substitui — sempre usa sistemas para aprimorar conexão humana",
+        "Três dispositivos: Sunmi D3 Pro (POS fixo, Piso 0), Sunmi L3 (handheld, todos os pisos), Sunmi CPad Pay (tablet premium, Piso 1)",
+        "WinMax4 (Omnium Retail) é o software POS e fonte da verdade para todo o stock — corre em todos os dispositivos",
+        "Os L3 handhelds permitem vendas consultivas móveis — segue o cliente, processa pagamentos em qualquer lugar",
+        "CPad Pay é cerimonial — usa-o em The Vault e The Numbered para elevar a experiência",
+        "AI Concierge (WhatsApp) trata das FAQs pré-visita — redireciona para humanos em necessidades complexas ou pessoais",
+        "CRM Zoho: regista cada interação significativa para follow-up personalizado",
+        "Tax Free: oferece sempre a clientes não-UE — processado diretamente no WinMax4",
+        "Rede: fibra NOS Corporate dedicada — reporta qualquer problema de conectividade imediatamente",
       ]} />
 
       <ModuleQuizGate
         moduleId="digital-systems"
         questions={[
-          { question: "Qual é o sistema de POS (ponto de venda) usado na loja?", options: ["Uma caixa registadora manual", "Sistema digital com tablet para simulação e faturação", "Apenas multibanco", "Um caderno de apontamentos"], correctIndex: 1 },
-          { question: "O que é o sistema Concierge do The 100's?", options: ["Um porteiro", "QR Code → captura contacto → follow-up automático", "Um chatbot no site", "Um serviço de entrega"], correctIndex: 1 },
-          { question: "Como se processa o Tax Free para turistas?", options: ["Não existe", "Através do sistema de POS para clientes fora da UE", "Apenas para compras acima de €1000", "O cliente pede no aeroporto"], correctIndex: 1 },
-          { question: "Que meios de pagamento deve a loja aceitar?", options: ["Apenas dinheiro", "Multibanco, Contactless, Apple/Google Pay, cartões internacionais", "Apenas Visa e Mastercard", "Apenas MB Way"], correctIndex: 1 },
-          { question: "Para que serve o CRM na operação The 100's?", options: ["Controlar o stock", "Gerir relação com clientes, follow-up e fidelização", "Fazer contabilidade", "Gerir horários da equipa"], correctIndex: 1 },
+          {
+            question: isEN ? "What POS software does The 100's use?" : "Que software POS usa a The 100's?",
+            options: ["Square", "WinMax4 (Omnium Retail)", "Shopify POS", "Lightspeed"],
+            correctIndex: 1,
+          },
+          {
+            question: isEN ? "Which Sunmi device is used for ceremonial sales in The Vault?" : "Qual dispositivo Sunmi é usado para vendas cerimoniais em The Vault?",
+            options: ["Sunmi D3 Pro", "Sunmi L3", "Sunmi CPad Pay", "Sunmi T2"],
+            correctIndex: 2,
+          },
+          {
+            question: isEN ? "What is the Sunmi L3 used for?" : "Para que serve o Sunmi L3?",
+            options: isEN
+              ? ["Fixed checkout only", "Consultative mobile sales, stock check, and payment processing on the floor", "Only for stock management", "Ceremonial presentations in The Vault"]
+              : ["Apenas checkout fixo", "Vendas consultivas móveis, verificação de stock e pagamentos no chão de loja", "Apenas para gestão de stock", "Apresentações cerimoniais em The Vault"],
+            correctIndex: 1,
+          },
+          {
+            question: isEN ? "How many fixed POS terminals are on Piso 0?" : "Quantos terminais POS fixos existem no Piso 0?",
+            options: ["1", "2", "3", "4"],
+            correctIndex: 1,
+          },
+          {
+            question: isEN ? "Tax Free should be offered to which customers?" : "O Tax Free deve ser oferecido a que clientes?",
+            options: isEN
+              ? ["All customers", "EU residents only", "Non-EU residents (with passport confirmation)", "Only American tourists"]
+              : ["Todos os clientes", "Apenas residentes UE", "Residentes fora da UE (com confirmação do passaporte)", "Apenas turistas americanos"],
+            correctIndex: 2,
+          },
         ]}
       />
 
       <ReflectionBlock questions={isEN ? [
-        "Describe how you would use a floor tablet to enhance a customer's experience during their visit.",
-        "A customer asks the AI Concierge a question about personalization options. Should the bot answer or redirect? Why?",
-        "How would logging customer data in CRM Zoho help you serve them better on a future visit?",
+        "A client in The Vault wants to buy THE HUNDRED (€1,000). Which device would you use and why?",
+        "A tourist asks if they can take 8 bottles on the plane. Walk through your response using your knowledge of transport rules and the Sunmi L3.",
+        "At the end of the day, WinMax4 shows a discrepancy between sales and stock. What is your first action?",
       ] : [
-        "Descreve como usarias um tablet de chão para aprimorar a experiência de um cliente durante a sua visita.",
-        "Um cliente pergunta ao AI Concierge sobre opções de personalização. O bot deve responder ou redirecionar? Por quê?",
-        "Como ajudaria registar dados de cliente no CRM Zoho a servi-lo melhor numa visita futura?",
+        "Um cliente em The Vault quer comprar THE HUNDRED (€1.000). Que dispositivo usarias e porquê?",
+        "Um turista pergunta se pode levar 8 garrafas no avião. Passa pela tua resposta usando o teu conhecimento de regras de transporte e o Sunmi L3.",
+        "No fim do dia, o WinMax4 mostra uma discrepância entre vendas e stock. Qual é a tua primeira ação?",
       ]} />
     </ModuleLayout>
   );

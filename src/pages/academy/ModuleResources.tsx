@@ -90,7 +90,7 @@ Uma vez consumido o vinho, a embalagem pode ser reutilizada como peça de decora
 Vinho do Porto Tawny, Branco e também Azeite premium.
 
 5. Quais são as categorias de idade disponíveis?
-Young / Ruby Essentials, 10 Anos (Signature), 30 Anos (Legacy), 50 Anos (The Icon), 100 Anos (The Hundred).
+Young / Ruby Essentials, 10 Anos (Signature), 50 Anos (The Icon), 100 Anos (The Hundred).
 
 6. O cliente pode provar antes de comprar?
 Sim. As provas são uma verdadeira jornada sensorial.`;

@@ -68,8 +68,8 @@ const ModuleAskTeam = () => {
 
       <ExpandableSection title={language === "pt" ? "Quais são os tipos de Vinho do Porto que vendemos?" : "What types of Port wine do we sell?"}>
         <p>{language === "pt"
-          ? "Vendemos principalmente Tawny Port (envelhecido em barril), disponível em categorias: Young/Ruby Essentials, 10 Anos (Signature), 30 Anos (Legacy), 50 Anos (The Icon), e 100 Anos (The Hundred). Também temos Vinho do Porto Branco e Azeite Premium. Cada categoria representa um valor diferente e uma história única."
-          : "We primarily sell Tawny Port (barrel-aged), available in categories: Young/Ruby Essentials, 10 Years (Signature), 30 Years (Legacy), 50 Years (The Icon), and 100 Years (The Hundred). We also offer White Port and Premium Olive Oil. Each category represents a different value and unique story."
+          ? "Vendemos principalmente Tawny Port (envelhecido em barril), disponível em categorias: Young/Ruby Essentials, 10 Anos (Signature), 50 Anos (The Icon) e 100 Anos (The Hundred). Também temos Vinho do Porto Branco e Azeite Premium. Cada categoria representa um valor diferente e uma história única."
+          : "We primarily sell Tawny Port (barrel-aged), available in categories: Young/Ruby Essentials, 10 Years (Signature), 50 Years (The Icon), and 100 Years (The Hundred). We also offer White Port and Premium Olive Oil. Each category represents a different value and unique story."
         }</p>
       </ExpandableSection>
 
