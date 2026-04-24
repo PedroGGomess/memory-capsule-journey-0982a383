@@ -36,6 +36,8 @@ const ModuleResources = lazy(() => import("./pages/academy/ModuleResources"));
 const ModuleCertification = lazy(() => import("./pages/academy/ModuleCertification"));
 const ModuleAIAssistant = lazy(() => import("./pages/academy/ModuleAIAssistant"));
 const ModuleClientProfiles = lazy(() => import("./pages/academy/ModuleClientProfiles"));
+const ModuleTouristPsychology = lazy(() => import("./pages/academy/ModuleTouristPsychology"));
+const ModuleClientTypes = lazy(() => import("./pages/academy/ModuleClientTypes"));
 const ModuleClientCulture = lazy(() => import("./pages/academy/ModuleClientCulture"));
 const ModuleConduct = lazy(() => import("./pages/academy/ModuleConduct"));
 const ModuleTransport = lazy(() => import("./pages/academy/ModuleTransport"));
@@ -50,6 +52,23 @@ const AcademyLogin = lazy(() => import("./pages/academy/AcademyLogin"));
 const AdminEmployees = lazy(() => import("./pages/academy/AdminEmployees"));
 
 const SalesSimulator = lazy(() => import("./pages/academy/SalesSimulator"));
+
+// Area 1: Marca & Produto
+const ModuleBrandStory = lazy(() => import("./pages/academy/ModuleBrandStory"));
+const ModuleProductKnowledge = lazy(() => import("./pages/academy/ModuleProductKnowledge"));
+const ModuleStoreExperience = lazy(() => import("./pages/academy/ModuleStoreExperience"));
+const ModuleGlossaryVocab = lazy(() => import("./pages/academy/ModuleGlossaryVocab"));
+
+// Area 2: Técnica Comercial
+const ModuleSalesFunnel = lazy(() => import("./pages/academy/ModuleSalesFunnel"));
+const ModuleObjectionHandling = lazy(() => import("./pages/academy/ModuleObjectionHandling"));
+const ModuleClosingConsultative = lazy(() => import("./pages/academy/ModuleClosingConsultative"));
+
+// Area 4: Operações & Liderança
+const ModuleTransportLogistics = lazy(() => import("./pages/academy/ModuleTransportLogistics"));
+const ModuleDigitalOperations = lazy(() => import("./pages/academy/ModuleDigitalOperations"));
+const ModuleBusinessLeadership = lazy(() => import("./pages/academy/ModuleBusinessLeadership"));
+const ModuleFinalCertification = lazy(() => import("./pages/academy/ModuleFinalCertification"));
 
 const AdminLogin = lazy(() => import("./pages/gym/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/gym/AdminDashboard"));
@@ -115,6 +134,8 @@ const App = () => (
                     <Route path="module/certification" element={<ModuleCertification />} />
                     <Route path="module/ai-assistant" element={<ModuleAIAssistant />} />
                     <Route path="module/client-profiles" element={<ModuleClientProfiles />} />
+                    <Route path="module/tourist-psychology" element={<ModuleTouristPsychology />} />
+                    <Route path="module/client-types" element={<ModuleClientTypes />} />
                     <Route path="module/client-culture" element={<ModuleClientCulture />} />
                     <Route path="module/conduct" element={<ModuleConduct />} />
                     <Route path="module/transport-rules" element={<ModuleTransport />} />
@@ -123,6 +144,17 @@ const App = () => (
                     <Route path="module/vocabulary" element={<ModuleVocabulary />} />
                     <Route path="module/leadership" element={<ModuleLeadership />} />
                     <Route path="module/team-ops" element={<ModuleTeamOps />} />
+                    <Route path="module/brand-story" element={<ModuleBrandStory />} />
+                    <Route path="module/product-knowledge" element={<ModuleProductKnowledge />} />
+                    <Route path="module/store-experience" element={<ModuleStoreExperience />} />
+                    <Route path="module/glossary-vocab" element={<ModuleGlossaryVocab />} />
+                    <Route path="module/sales-funnel" element={<ModuleSalesFunnel />} />
+                    <Route path="module/objection-handling" element={<ModuleObjectionHandling />} />
+                    <Route path="module/closing-consultative" element={<ModuleClosingConsultative />} />
+                    <Route path="module/transport-logistics" element={<ModuleTransportLogistics />} />
+                    <Route path="module/digital-operations" element={<ModuleDigitalOperations />} />
+                    <Route path="module/business-leadership" element={<ModuleBusinessLeadership />} />
+                    <Route path="module/final-certification" element={<ModuleFinalCertification />} />
                     <Route path="presential-training" element={<PresentialTraining />} />
                     <Route path="sales-simulator" element={<SalesSimulator />} />
                     <Route path="team" element={<TeamView />} />
