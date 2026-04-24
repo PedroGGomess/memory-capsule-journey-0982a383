@@ -61,30 +61,24 @@ const itemVariants = {
 };
 
 const ALL_MODULES = [
-  { id: "story", num: 1, icon: BookOpen, navKey: "story" as const, category: "product" },
-  { id: "philosophy", num: 2, icon: Compass, navKey: "philosophy" as const, category: "product" },
-  { id: "products", num: 3, icon: Wine, navKey: "products" as const, category: "product" },
-  { id: "gift", num: 4, icon: Gift, navKey: "gift" as const, category: "product" },
-  { id: "store", num: 5, icon: Store, navKey: "store" as const, category: "sales" },
-  { id: "brand-voice", num: 6, icon: MessageCircle, navKey: "brandVoice" as const, category: "knowledge" },
-  { id: "customer-experience", num: 7, icon: Users, navKey: "customerExperience" as const, category: "sales" },
-  { id: "business-model", num: 8, icon: BarChart3, navKey: "businessModel" as const, category: "operations" },
-  { id: "tasting-guide", num: 9, icon: Wine, navKey: "tastingGuide" as const, category: "sales" },
-  { id: "glossary", num: 10, icon: BookMarked, navKey: "glossary" as const, category: "knowledge" },
-  { id: "cross-selling", num: 11, icon: Target, navKey: "crossSelling" as const, category: "sales" },
-  { id: "visual-merchandising", num: 12, icon: Image, navKey: "visualMerchandising" as const, category: "operations" },
-  { id: "client-profiles", num: 13, icon: Users, navKey: "clientProfiles" as const, category: "sales" },
-  { id: "tourist-psychology", num: 14, icon: Brain, navKey: "touristPsychology" as const, category: "sales" },
-  { id: "client-types", num: 15, icon: Layers, navKey: "clientTypes" as const, category: "sales" },
-  { id: "client-culture", num: 16, icon: Heart, navKey: "clientCulture" as const, category: "sales" },
-  { id: "conduct", num: 17, icon: Shield, navKey: "conduct" as const, category: "knowledge" },
-  { id: "transport-rules", num: 18, icon: Plane, navKey: "transportRules" as const, category: "knowledge" },
-  { id: "vocabulary", num: 19, icon: Languages, navKey: "vocabulary" as const, category: "knowledge" },
-  { id: "digital-systems", num: 20, icon: Monitor, navKey: "digitalSystems" as const, category: "operations" },
-  { id: "uv-printer", num: 21, icon: Printer, navKey: "uvPrinter" as const, category: "operations" },
-  { id: "leadership", num: 22, icon: Briefcase, navKey: "leadership" as const, category: "leadership" },
-  { id: "team-ops", num: 23, icon: ClipboardList, navKey: "teamOps" as const, category: "leadership" },
-  { id: "certification", num: 24, icon: Award, navKey: "certification" as const, category: "certification" },
+  // Área 1: Marca & Produto
+  { id: "brand-story", num: 1, icon: BookOpen, navKey: "brandStory" as const, category: "brand" },
+  { id: "product-knowledge", num: 2, icon: Wine, navKey: "productKnowledge" as const, category: "brand" },
+  { id: "store-experience", num: 3, icon: Store, navKey: "storeExperience" as const, category: "brand" },
+  { id: "glossary-vocab", num: 4, icon: Languages, navKey: "glossaryVocab" as const, category: "brand" },
+  // Área 2: Técnica Comercial
+  { id: "sales-funnel", num: 5, icon: Target, navKey: "salesFunnel" as const, category: "commercial" },
+  { id: "objection-handling", num: 6, icon: Shield, navKey: "objectionHandling" as const, category: "commercial" },
+  { id: "closing-consultative", num: 7, icon: MessageCircle, navKey: "closingConsultative" as const, category: "commercial" },
+  // Área 3: Conhecer o Cliente
+  { id: "tourist-psychology", num: 8, icon: Compass, navKey: "touristPsychology" as const, category: "client" },
+  { id: "client-types", num: 9, icon: Users, navKey: "clientTypes" as const, category: "client" },
+  { id: "client-culture", num: 10, icon: Heart, navKey: "clientCulture" as const, category: "client" },
+  // Área 4: Operações & Liderança
+  { id: "transport-logistics", num: 11, icon: Plane, navKey: "transportLogistics" as const, category: "operations" },
+  { id: "digital-operations", num: 12, icon: Monitor, navKey: "digitalOperations" as const, category: "operations" },
+  { id: "business-leadership", num: 13, icon: Briefcase, navKey: "businessLeadership" as const, category: "operations" },
+  { id: "final-certification", num: 14, icon: Award, navKey: "finalCertification" as const, category: "certification" },
 ];
 
 const DAILY_CHALLENGES = [
@@ -201,7 +195,7 @@ const Dashboard = () => {
     .map((m) => ({
       ...m,
       title: t.academy.nav[m.navKey] || m.id,
-      path: m.id === "certification" ? "/academy/module/certification" : `/academy/module/${m.id}`,
+      path: m.id === "final-certification" ? "/academy/module/final-certification" : `/academy/module/${m.id}`,
     }));
 
   const tools = [
